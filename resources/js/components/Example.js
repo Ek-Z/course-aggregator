@@ -1,24 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { CourseList } from './CourseList/CourseList';
+import { store } from '../../store';
+import { persistor } from '../../store';
+import '../../css/app.css'
 
-function Example() {
+function Example () {
     return (
-        <div className="container">
-            <div className="row justify-content-center">
-                <div className="col-md-8">
-                    <div className="card">
-                        <div className="card-header">Example Component</div>
-
-                        <div className="card-body">I'm an example component!</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <Provider store={store}>
+            <PersistGate persistor={persistor}>
+                <CourseList/>
+            </PersistGate>
+        </Provider>
     );
 }
 
 export default Example;
 
 if (document.getElementById('example')) {
-    ReactDOM.render(<Example />, document.getElementById('example'));
+    ReactDOM.render(<Example/>, document.getElementById('example'));
 }
