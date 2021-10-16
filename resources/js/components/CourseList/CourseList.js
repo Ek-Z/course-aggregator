@@ -14,6 +14,7 @@ export const CourseList = () => {
 
     return (
         <section>
+            <h2>Каталог курсов</h2>
             {courseList.map(course => <Course item={course} key={course.id}/>)}
         </section>
     );

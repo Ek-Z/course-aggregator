@@ -2,7 +2,7 @@ import { COURSE_LIST_FAILED, COURSE_LIST_LOADED, COURSE_LIST_ONLOAD } from './ac
 
 const initialState = {
     courseList: [],
-    status: 'COURSE_LIST.IDLE',
+    status: 'IDLE',
     error: {
         state: false,
         message: '',
@@ -14,18 +14,13 @@ export const courseListReducer = (state = initialState, { type, payload }) => {
         case COURSE_LIST_ONLOAD:
             return {
                 ...state,
-                status: 'COURSE_LIST.REQUEST',
-                error: {
-                    ...state.error,
-                    state: false,
-                    message: ''
-                }
+                status: 'REQUEST',
             };
         case COURSE_LIST_LOADED:
             return {
                 ...state,
                 courseList: [...payload],
-                status: 'COURSE_LIST.SUCCESS',
+                status: 'SUCCESS',
                 error: {
                     ...state.error,
                     state: false,
@@ -34,7 +29,7 @@ export const courseListReducer = (state = initialState, { type, payload }) => {
         case COURSE_LIST_FAILED:
             return {
                 ...state,
-                status: 'COURSE_LIST.FAILED',
+                status: 'FAILED',
                 error: {
                     ...state.error,
                     state: true,

@@ -2155,18 +2155,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var CourseList = function CourseList() {
   var courseList = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectCourseList);
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     dispatch((0,_store_courseList_action__WEBPACK_IMPORTED_MODULE_4__.getCourseList)());
   }, []);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("section", {
-    children: courseList.map(function (course) {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("section", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
+      children: "\u041A\u0430\u0442\u0430\u043B\u043E\u0433 \u043A\u0443\u0440\u0441\u043E\u0432"
+    }), courseList.map(function (course) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Course_Course__WEBPACK_IMPORTED_MODULE_3__.Course, {
         item: course
       }, course.id);
-    })
+    })]
   });
 };
 
@@ -2283,7 +2286,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-var LOCAL_COURSE_API = 'http://course-aggregator/resources/data/data.json';
+var LOCAL_COURSE_API = 'https://raw.githubusercontent.com/Ek-Z/course-aggregator/dev-course-list/resources/data/data.json';
 var COURSE_LIST_ONLOAD = 'COURSE_LIST::COURSE_LIST_ONLOAD';
 var COURSE_LIST_LOADED = 'COURSE_LIST::COURSE_LIST_LOADED';
 var COURSE_LIST_FAILED = 'COURSE_LIST::COURSE_LIST_FAILED';
@@ -2319,14 +2322,19 @@ var getCourseList = function getCourseList() {
 
             case 4:
               response = _context.sent;
-              console.log(response);
 
-              if (!response.ok) {
-                console.log('Error throwed');
+              if (response.ok) {
+                _context.next = 7;
+                break;
               }
 
+              throw new Error("Request failed with status: ".concat(response.status));
+
+            case 7:
               _context.next = 9;
-              return response.json();
+              return response.json().then(function (res) {
+                return res.table.data;
+              });
 
             case 9:
               result = _context.sent;
@@ -2388,7 +2396,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var initialState = {
   courseList: [],
-  status: 'COURSE_LIST.IDLE',
+  status: 'IDLE',
   error: {
     state: false,
     message: ''
@@ -2404,17 +2412,13 @@ var courseListReducer = function courseListReducer() {
   switch (type) {
     case _action__WEBPACK_IMPORTED_MODULE_0__.COURSE_LIST_ONLOAD:
       return _objectSpread(_objectSpread({}, state), {}, {
-        status: 'COURSE_LIST.REQUEST',
-        error: _objectSpread(_objectSpread({}, state.error), {}, {
-          state: false,
-          message: ''
-        })
+        status: 'REQUEST'
       });
 
     case _action__WEBPACK_IMPORTED_MODULE_0__.COURSE_LIST_LOADED:
       return _objectSpread(_objectSpread({}, state), {}, {
         courseList: _toConsumableArray(payload),
-        status: 'COURSE_LIST.SUCCESS',
+        status: 'SUCCESS',
         error: _objectSpread(_objectSpread({}, state.error), {}, {
           state: false
         })
@@ -2422,7 +2426,7 @@ var courseListReducer = function courseListReducer() {
 
     case _action__WEBPACK_IMPORTED_MODULE_0__.COURSE_LIST_FAILED:
       return _objectSpread(_objectSpread({}, state), {}, {
-        status: 'COURSE_LIST.FAILED',
+        status: 'FAILED',
         error: _objectSpread(_objectSpread({}, state.error), {}, {
           state: true,
           message: payload
