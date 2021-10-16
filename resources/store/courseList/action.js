@@ -1,4 +1,4 @@
-const LOCAL_COURSE_API = 'https://raw.githubusercontent.com/Ek-Z/course-aggregator/dev-course-list/resources/data/data.json';
+const LOCAL_COURSE_API = 'https://raw.githubusercontent.com/Ek-Z/course-aggregator/main/resources/data/data.json';
 
 export const COURSE_LIST_ONLOAD = 'COURSE_LIST::COURSE_LIST_ONLOAD';
 export const COURSE_LIST_LOADED = 'COURSE_LIST::COURSE_LIST_LOADED';
