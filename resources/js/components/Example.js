@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Course } from './Course/Course';
+import { CourseList } from './CourseList/CourseList';
 
 function Example () {
     return (
-        <Course/>
+        <CourseList/>
     );
 }
 
