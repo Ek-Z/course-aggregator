@@ -5,6 +5,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { CourseList } from './CourseList/CourseList';
 import { store } from '../../store';
 import { persistor } from '../../store';
+import '../../css/app.css'
 
 function Example () {
     return (

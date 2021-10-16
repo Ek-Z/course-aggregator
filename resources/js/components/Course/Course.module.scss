@@ -1,31 +1,26 @@
-* {
-    margin: 0;
-    padding: 0;
-}
-
 .course {
-    max-width: 600px;
     width: 100%;
     display: flex;
     align-items: center;
     border: 1px solid black;
     padding: 10px;
+
+    &__wrap {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__title {
+        font-size: 30px;
+    }
+
+    &__summary {
+        font-size: 18px;
+    }
+
+    &__author {
+        margin-left: auto;
+        font-weight: 600;
+    }
 }
 
-.title {
-    font-size: 30px;
-}
-
-.wrap {
-    display: flex;
-    flex-direction: column;
-}
-
-.summary {
-    font-size: 18px;
-}
-
-.author {
-    margin-left: auto;
-    font-weight: 600;
-}
