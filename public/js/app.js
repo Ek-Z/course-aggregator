@@ -2158,14 +2158,22 @@ __webpack_require__.r(__webpack_exports__);
 
 var CourseList = function CourseList() {
   var courseList = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectCourseList);
+  var courseListLength = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectCourseListLength);
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  var filteredCourseList = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
+    if (courseListLength > 5) {
+      return courseList.filter(function (course, index) {
+        return index < 5;
+      });
+    }
+  }, [courseList]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     dispatch((0,_store_courseList_action__WEBPACK_IMPORTED_MODULE_4__.getCourseList)());
   }, []);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("section", {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
       children: "\u041A\u0430\u0442\u0430\u043B\u043E\u0433 \u043A\u0443\u0440\u0441\u043E\u0432"
-    }), courseList.map(function (course) {
+    }), filteredCourseList.map(function (course) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Course_Course__WEBPACK_IMPORTED_MODULE_3__.Course, {
         item: course
       }, course.id);
@@ -2449,10 +2457,14 @@ var courseListReducer = function courseListReducer() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "selectCourseList": () => (/* binding */ selectCourseList)
+/* harmony export */   "selectCourseList": () => (/* binding */ selectCourseList),
+/* harmony export */   "selectCourseListLength": () => (/* binding */ selectCourseListLength)
 /* harmony export */ });
 var selectCourseList = function selectCourseList(state) {
   return state.courseList.courseList;
+};
+var selectCourseListLength = function selectCourseListLength(state) {
+  return state.courseList.courseList.length;
 };
 
 /***/ }),
