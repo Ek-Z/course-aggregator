@@ -2159,16 +2159,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var CourseList = function CourseList() {
-  var courseList = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectCourseList);
-  var courseListLength = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectCourseListLength);
+  var courseList = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectSortedCourseList);
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
-  var filteredCourseList = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
-    if (courseListLength > 5) {
-      return courseList.filter(function (course, index) {
-        return index < 5;
-      });
-    }
-  }, [courseList]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     dispatch((0,_store_courseList_action__WEBPACK_IMPORTED_MODULE_4__.getCourseList)());
   }, []);
@@ -2181,7 +2173,7 @@ var CourseList = function CourseList() {
         children: "\u041A\u0430\u0442\u0430\u043B\u043E\u0433 \u043A\u0443\u0440\u0441\u043E\u0432"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
         className: _CourseList_module_scss__WEBPACK_IMPORTED_MODULE_5__["default"].section__list,
-        children: filteredCourseList.map(function (course) {
+        children: courseList.map(function (course) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Course_Course__WEBPACK_IMPORTED_MODULE_3__.Course, {
             item: course
           }, course.id);
@@ -2306,7 +2298,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-var LOCAL_COURSE_API = 'https://raw.githubusercontent.com/Ek-Z/course-aggregator/dev-course-list/resources/data/data.json';
+var LOCAL_COURSE_API = 'https://raw.githubusercontent.com/Ek-Z/course-aggregator/main/resources/data/data.json';
 var COURSE_LIST_ONLOAD = 'COURSE_LIST::COURSE_LIST_ONLOAD';
 var COURSE_LIST_LOADED = 'COURSE_LIST::COURSE_LIST_LOADED';
 var COURSE_LIST_FAILED = 'COURSE_LIST::COURSE_LIST_FAILED';
@@ -2470,13 +2462,19 @@ var courseListReducer = function courseListReducer() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "selectCourseList": () => (/* binding */ selectCourseList),
-/* harmony export */   "selectCourseListLength": () => (/* binding */ selectCourseListLength)
+/* harmony export */   "selectCourseListLength": () => (/* binding */ selectCourseListLength),
+/* harmony export */   "selectSortedCourseList": () => (/* binding */ selectSortedCourseList)
 /* harmony export */ });
 var selectCourseList = function selectCourseList(state) {
   return state.courseList.courseList;
 };
 var selectCourseListLength = function selectCourseListLength(state) {
   return state.courseList.courseList.length;
+};
+var selectSortedCourseList = function selectSortedCourseList(state) {
+  return state.courseList.courseList.filter(function (course, index) {
+    return index < 5;
+  });
 };
 
 /***/ }),
@@ -6976,7 +6974,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "* {\n    box-sizing: border-box;\n}\n\nbody, h1, h2, h3, p, span, a {\n    font-family: Roboto, sans-serif;\n    margin: 0;\n    padding: 0;\n}\n\nimg {\n    display: block;\n}\n\n.container {\n    max-width: 1140px;\n    margin: 0 auto;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "* {\r\n    box-sizing: border-box;\r\n}\r\n\r\nbody, h1, h2, h3, p, span, a {\r\n    font-family: Roboto, sans-serif;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\nimg {\r\n    display: block;\r\n}\r\n\r\n.container {\r\n    max-width: 1140px;\r\n    margin: 0 auto;\r\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
