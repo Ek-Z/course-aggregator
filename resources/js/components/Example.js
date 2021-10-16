@@ -1,10 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import { CourseList } from './CourseList/CourseList';
+import { store } from '../../store';
+import { persistor } from '../../store';
 
 function Example () {
     return (
-        <CourseList/>
+        <Provider store={store}>
+            <PersistGate persistor={persistor}>
+                <CourseList/>
+            </PersistGate>
+        </Provider>
     );
 }
 
