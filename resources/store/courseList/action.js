@@ -10,7 +10,7 @@ export const courseListOnload = () => ({
 
 export const courseListLoaded = (courseList) => ({
     type: COURSE_LIST_LOADED,
-    payload: [...courseList],
+    payload: courseList,
 });
 
 export const courseListFailed = (err) => ({
@@ -23,14 +23,13 @@ export const getCourseList = () => async (dispatch) => {
 
     try {
         const response = await fetch(LOCAL_COURSE_API);
+        console.log(response);
 
         if (!response.ok) {
-            throw new Error(`Request failed with status: ${response.status}`);
+            console.log('Error throwed');
         }
 
-        const result = response
-            .json()
-            .then(data => data.table.data);
+        const result = await response.json();
 
         dispatch(courseListLoaded(result));
     } catch (e) {

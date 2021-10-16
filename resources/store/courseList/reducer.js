@@ -4,7 +4,7 @@ const initialState = {
     courseList: [],
     status: 'COURSE_LIST.IDLE',
     error: {
-        state: null,
+        state: false,
         message: '',
     }
 };
@@ -15,6 +15,11 @@ export const courseListReducer = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 status: 'COURSE_LIST.REQUEST',
+                error: {
+                    ...state.error,
+                    state: false,
+                    message: ''
+                }
             };
         case COURSE_LIST_LOADED:
             return {

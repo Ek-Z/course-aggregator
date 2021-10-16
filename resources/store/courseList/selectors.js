@@ -1,1 +1,1 @@
-const getCourseList = state => state.courseList.courseList;
+export const selectCourseList = state => state.courseList.courseList;
