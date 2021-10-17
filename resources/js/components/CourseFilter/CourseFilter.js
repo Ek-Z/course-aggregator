@@ -10,8 +10,9 @@ export const CourseFilter = ({ onSubmit }) => {
 
     const handleSubmit = (evt) => {
         evt.preventDefault;
-        onSubmit(value);
+        // onSubmit(value);
         setValue('');
+        console.log(value);
     };
 
     return (
