@@ -1,8 +1,8 @@
 import { COURSE_LIST_FAILED, COURSE_LIST_FILTERED, COURSE_LIST_LOADED, COURSE_LIST_ONLOAD } from './action';
-import { value } from 'lodash/seq';
 
 const initialState = {
     courseList: [],
+    filteredList: [],
     status: 'IDLE',
     error: {
         state: false,
@@ -22,11 +22,13 @@ export const courseListReducer = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 courseList: [...payload],
+                filteredList: [],
                 status: 'SUCCESS',
                 error: {
                     ...state.error,
                     state: false,
-                }
+                },
+                isFiltered: false,
             };
         case COURSE_LIST_FAILED:
             return {
@@ -39,13 +41,10 @@ export const courseListReducer = (state = initialState, { type, payload }) => {
                 }
             };
         case COURSE_LIST_FILTERED:
-            const pattern = new RegExp(payload.value, 'gi');
-            const filteredCourseList = payload.courseList.filter(course => pattern.test(course.title));
-
             return {
                 ...state,
                 status: 'FILTERED',
-                courseList: [...filteredCourseList],
+                filteredList: [...payload],
                 isFiltered: true,
             };
         default:

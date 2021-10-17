@@ -19,12 +19,9 @@ export const courseListFailed = err => ({
     payload: err,
 });
 
-export const courseListFiltered = (value, courseList) => ({
+export const courseListFiltered = (courseList) => ({
     type: COURSE_LIST_FILTERED,
-    payload: {
-        value: value,
-        courseList: courseList,
-    },
+    payload: courseList,
 });
 
 export const getCourseList = () => async dispatch => {
@@ -48,5 +45,11 @@ export const getCourseList = () => async dispatch => {
 };
 
 export const courseListFilter = (value, courseList) => dispatch => {
-    dispatch(courseListFiltered(value, courseList));
+    if (value) {
+        const pattern = new RegExp(value, 'gi');
+        const filteredList = courseList.filter(course => pattern.test(course.title));
+        dispatch(courseListFiltered(filteredList));
+    } else {
+        dispatch(courseListLoaded(courseList));
+    }
 };
