@@ -6,7 +6,7 @@ import { getCourseList } from '../../../store/courseList/action';
 import style from './CourseList.module.scss'
 
 export const CourseList = () => {
-    let courseList = useSelector(selectSortedCourseList);
+    const courseList = useSelector(selectSortedCourseList);
     const dispatch = useDispatch();
 
     useEffect(() => {
