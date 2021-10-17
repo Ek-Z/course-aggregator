@@ -2132,6 +2132,70 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
+/***/ "./resources/js/components/CourseFilter/CourseFilter.js":
+/*!**************************************************************!*\
+  !*** ./resources/js/components/CourseFilter/CourseFilter.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CourseFilter": () => (/* binding */ CourseFilter)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _CourseFilter_module_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CourseFilter.module.scss */ "./resources/js/components/CourseFilter/CourseFilter.module.scss");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+var CourseFilter = function CourseFilter(_ref) {
+  var onSubmit = _ref.onSubmit;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+      _useState2 = _slicedToArray(_useState, 2),
+      value = _useState2[0],
+      setValue = _useState2[1];
+
+  var handleChange = function handleChange(evt) {
+    setValue(evt.target.value);
+  };
+
+  var handleSubmit = function handleSubmit(evt) {
+    evt.preventDefault;
+    onSubmit(value);
+    setValue('');
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("form", {
+    action: "#",
+    onSubmit: handleSubmit,
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+      type: "text",
+      value: value,
+      onChange: handleChange
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+      type: "submit",
+      children: "\u041F\u043E\u0438\u0441\u043A"
+    })]
+  });
+};
+
+/***/ }),
+
 /***/ "./resources/js/components/CourseList/CourseList.js":
 /*!**********************************************************!*\
   !*** ./resources/js/components/CourseList/CourseList.js ***!
@@ -2148,8 +2212,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../store/courseList/selectors */ "./resources/store/courseList/selectors.js");
 /* harmony import */ var _Course_Course__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Course/Course */ "./resources/js/components/Course/Course.js");
 /* harmony import */ var _store_courseList_action__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../store/courseList/action */ "./resources/store/courseList/action.js");
-/* harmony import */ var _CourseList_module_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./CourseList.module.scss */ "./resources/js/components/CourseList/CourseList.module.scss");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _CourseFilter_CourseFilter__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../CourseFilter/CourseFilter */ "./resources/js/components/CourseFilter/CourseFilter.js");
+/* harmony import */ var _CourseList_module_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./CourseList.module.scss */ "./resources/js/components/CourseList/CourseList.module.scss");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 
@@ -2159,22 +2225,34 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var CourseList = function CourseList() {
-  var courseList = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectSortedCourseList);
+  var courseList = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectCourseList);
+  var filteredList = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectFilteredList);
+  var isFiltered = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectIsFiltered);
+  console.log(isFiltered);
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  var handleFilter = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (value) {
+    dispatch((0,_store_courseList_action__WEBPACK_IMPORTED_MODULE_4__.courseListFilter)(value, courseList));
+  });
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     dispatch((0,_store_courseList_action__WEBPACK_IMPORTED_MODULE_4__.getCourseList)());
   }, []);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("section", {
-    className: _CourseList_module_scss__WEBPACK_IMPORTED_MODULE_5__["default"].section,
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-      className: "".concat(_CourseList_module_scss__WEBPACK_IMPORTED_MODULE_5__["default"].section__wrap, " container"),
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
-        className: _CourseList_module_scss__WEBPACK_IMPORTED_MODULE_5__["default"].section__title,
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("section", {
+    className: _CourseList_module_scss__WEBPACK_IMPORTED_MODULE_6__["default"].section,
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      className: "".concat(_CourseList_module_scss__WEBPACK_IMPORTED_MODULE_6__["default"].section__wrap, " container"),
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h2", {
+        className: _CourseList_module_scss__WEBPACK_IMPORTED_MODULE_6__["default"].section__title,
         children: "\u041A\u0430\u0442\u0430\u043B\u043E\u0433 \u043A\u0443\u0440\u0441\u043E\u0432"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-        className: _CourseList_module_scss__WEBPACK_IMPORTED_MODULE_5__["default"].section__list,
-        children: courseList.map(function (course) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Course_Course__WEBPACK_IMPORTED_MODULE_3__.Course, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_CourseFilter_CourseFilter__WEBPACK_IMPORTED_MODULE_5__.CourseFilter, {
+        onSubmit: handleFilter
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+        className: _CourseList_module_scss__WEBPACK_IMPORTED_MODULE_6__["default"].section__list,
+        children: isFiltered ? filteredList.map(function (course) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Course_Course__WEBPACK_IMPORTED_MODULE_3__.Course, {
+            item: course
+          }, course.id);
+        }) : courseList.map(function (course) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Course_Course__WEBPACK_IMPORTED_MODULE_3__.Course, {
             item: course
           }, course.id);
         })
@@ -2285,10 +2363,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "COURSE_LIST_ONLOAD": () => (/* binding */ COURSE_LIST_ONLOAD),
 /* harmony export */   "COURSE_LIST_LOADED": () => (/* binding */ COURSE_LIST_LOADED),
 /* harmony export */   "COURSE_LIST_FAILED": () => (/* binding */ COURSE_LIST_FAILED),
+/* harmony export */   "COURSE_LIST_FILTERED": () => (/* binding */ COURSE_LIST_FILTERED),
 /* harmony export */   "courseListOnload": () => (/* binding */ courseListOnload),
 /* harmony export */   "courseListLoaded": () => (/* binding */ courseListLoaded),
 /* harmony export */   "courseListFailed": () => (/* binding */ courseListFailed),
-/* harmony export */   "getCourseList": () => (/* binding */ getCourseList)
+/* harmony export */   "courseListFiltered": () => (/* binding */ courseListFiltered),
+/* harmony export */   "getCourseList": () => (/* binding */ getCourseList),
+/* harmony export */   "courseListFilter": () => (/* binding */ courseListFilter)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
@@ -2302,6 +2383,7 @@ var LOCAL_COURSE_API = 'https://raw.githubusercontent.com/Ek-Z/course-aggregator
 var COURSE_LIST_ONLOAD = 'COURSE_LIST::COURSE_LIST_ONLOAD';
 var COURSE_LIST_LOADED = 'COURSE_LIST::COURSE_LIST_LOADED';
 var COURSE_LIST_FAILED = 'COURSE_LIST::COURSE_LIST_FAILED';
+var COURSE_LIST_FILTERED = 'COURSE_LIST::COURSE_LIST_FILTERED';
 var courseListOnload = function courseListOnload() {
   return {
     type: COURSE_LIST_ONLOAD
@@ -2317,6 +2399,12 @@ var courseListFailed = function courseListFailed(err) {
   return {
     type: COURSE_LIST_FAILED,
     payload: err
+  };
+};
+var courseListFiltered = function courseListFiltered(courseList) {
+  return {
+    type: COURSE_LIST_FILTERED,
+    payload: courseList
   };
 };
 var getCourseList = function getCourseList() {
@@ -2372,6 +2460,19 @@ var getCourseList = function getCourseList() {
     };
   }();
 };
+var courseListFilter = function courseListFilter(value, courseList) {
+  return function (dispatch) {
+    if (value) {
+      var pattern = new RegExp(value, 'gi');
+      var filteredList = courseList.filter(function (course) {
+        return pattern.test(course.title);
+      });
+      dispatch(courseListFiltered(filteredList));
+    } else {
+      dispatch(courseListLoaded(courseList));
+    }
+  };
+};
 
 /***/ }),
 
@@ -2408,11 +2509,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var initialState = {
   courseList: [],
+  filteredList: [],
   status: 'IDLE',
   error: {
     state: false,
     message: ''
-  }
+  },
+  isFiltered: false
 };
 var courseListReducer = function courseListReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -2430,10 +2533,12 @@ var courseListReducer = function courseListReducer() {
     case _action__WEBPACK_IMPORTED_MODULE_0__.COURSE_LIST_LOADED:
       return _objectSpread(_objectSpread({}, state), {}, {
         courseList: _toConsumableArray(payload),
+        filteredList: [],
         status: 'SUCCESS',
         error: _objectSpread(_objectSpread({}, state.error), {}, {
           state: false
-        })
+        }),
+        isFiltered: false
       });
 
     case _action__WEBPACK_IMPORTED_MODULE_0__.COURSE_LIST_FAILED:
@@ -2443,6 +2548,13 @@ var courseListReducer = function courseListReducer() {
           state: true,
           message: payload
         })
+      });
+
+    case _action__WEBPACK_IMPORTED_MODULE_0__.COURSE_LIST_FILTERED:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        status: 'FILTERED',
+        filteredList: _toConsumableArray(payload),
+        isFiltered: true
       });
 
     default:
@@ -2463,7 +2575,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "selectCourseList": () => (/* binding */ selectCourseList),
 /* harmony export */   "selectCourseListLength": () => (/* binding */ selectCourseListLength),
-/* harmony export */   "selectSortedCourseList": () => (/* binding */ selectSortedCourseList)
+/* harmony export */   "selectSortedCourseList": () => (/* binding */ selectSortedCourseList),
+/* harmony export */   "selectFilteredList": () => (/* binding */ selectFilteredList),
+/* harmony export */   "selectIsFiltered": () => (/* binding */ selectIsFiltered)
 /* harmony export */ });
 var selectCourseList = function selectCourseList(state) {
   return state.courseList.courseList;
@@ -2475,6 +2589,12 @@ var selectSortedCourseList = function selectSortedCourseList(state) {
   return state.courseList.courseList.filter(function (course, index) {
     return index < 5;
   });
+};
+var selectFilteredList = function selectFilteredList(state) {
+  return state.courseList.filteredList;
+};
+var selectIsFiltered = function selectIsFiltered(state) {
+  return state.courseList.isFiltered;
 };
 
 /***/ }),
@@ -6976,6 +7096,31 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, "* {\r\n    box-sizing: border-box;\r\n}\r\n\r\nbody, h1, h2, h3, p, span, a {\r\n    font-family: Roboto, sans-serif;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\nimg {\r\n    display: block;\r\n}\r\n\r\n.container {\r\n    max-width: 1140px;\r\n    margin: 0 auto;\r\n}\r\n", ""]);
 // Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[3]!./resources/js/components/CourseFilter/CourseFilter.module.scss":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[3]!./resources/js/components/CourseFilter/CourseFilter.module.scss ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
@@ -74576,6 +74721,36 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_2_app_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ "./resources/js/components/CourseFilter/CourseFilter.module.scss":
+/*!***********************************************************************!*\
+  !*** ./resources/js/components/CourseFilter/CourseFilter.module.scss ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_CourseFilter_module_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!../../../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!../../../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[3]!./CourseFilter.module.scss */ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[3]!./resources/js/components/CourseFilter/CourseFilter.module.scss");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_CourseFilter_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_CourseFilter_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
