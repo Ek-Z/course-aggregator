@@ -9,6 +9,7 @@ const initialState = {
         message: '',
     },
     isFiltered: false,
+    filters: {},
 };
 
 export const courseListReducer = (state = initialState, { type, payload }) => {
@@ -29,6 +30,10 @@ export const courseListReducer = (state = initialState, { type, payload }) => {
                     state: false,
                 },
                 isFiltered: false,
+                filters: {
+                    'Языки программирования': ['PHP', 'JavaScript'],
+                    'Языки курсов': ['Русский', 'Английский'],
+                },
             };
         case COURSE_LIST_FAILED:
             return {
@@ -38,7 +43,7 @@ export const courseListReducer = (state = initialState, { type, payload }) => {
                     ...state.error,
                     state: true,
                     message: payload,
-                }
+                },
             };
         case COURSE_LIST_FILTERED:
             return {
