@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\CoursesController;
+use App\Http\Controllers\Api\ProgramLangController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductsController;
@@ -24,4 +25,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResources([
     'courses' => CoursesController::class,
+]);
+
+Route::apiResources([
+    'programLang' => ProgramLangController::class,
 ]);

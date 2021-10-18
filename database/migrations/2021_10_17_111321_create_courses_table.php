@@ -15,6 +15,9 @@ class CreateCoursesTable extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('programLang_id')
+                ->constrained('program_langs')
+                ->cascadeOnDelete();
             $table->string('title', 191);
             $table->string('author', 191)->nullable();
             $table->string('image', 255)->nullable();
