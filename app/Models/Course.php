@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Course extends Model
 {
@@ -11,6 +12,7 @@ class Course extends Model
     protected $table = 'courses';
 
     protected $fillable = [
+        'programLang_id',
         'title',
         'author',
         'status',
@@ -22,4 +24,9 @@ class Course extends Model
         'updated_at',
         'deleted_at'
     ];
+
+    public function programLang(): BelongsTo
+    {
+        return $this->belongsTo(ProgramLang::class);
+    }
 }
