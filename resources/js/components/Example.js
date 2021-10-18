@@ -6,11 +6,14 @@ import { CourseList } from './CourseList/CourseList';
 import { store } from '../../store';
 import { persistor } from '../../store';
 import '../../css/app.css';
+import {Header} from "./Header/Header";
+import { StyledEngineProvider } from '@mui/material/styles';
 
 function Example () {
     return (
         <Provider store={store}>
             <PersistGate persistor={persistor}>
+                <Header/>
                 <CourseList/>
             </PersistGate>
         </Provider>
@@ -20,5 +23,8 @@ function Example () {
 export default Example;
 
 if (document.getElementById('example')) {
-    ReactDOM.render(<Example/>, document.getElementById('example'));
+    ReactDOM.render(
+        <StyledEngineProvider injectFirst>
+            <Example />
+        </StyledEngineProvider>, document.getElementById('example'));
 }
