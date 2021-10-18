@@ -1,5 +1,9 @@
 {
     "private": true,
+    "prettier": {
+        "singleQuote": true,
+        "printWidth": 120
+    },
     "scripts": {
         "dev": "npm run development",
         "development": "mix",

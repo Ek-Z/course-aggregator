@@ -9,14 +9,14 @@ export const CourseFilter = ({ onSubmit }) => {
     };
 
     const handleSubmit = (evt) => {
-        evt.preventDefault;
+        evt.preventDefault();
         onSubmit(value);
         setValue('');
     };
 
     return (
         <form action="#" onSubmit={handleSubmit}>
-            <input type="text" value={value} onChange={handleChange}/>
+            <input type="text" value={value} onChange={handleChange} />
             <button type="submit">Поиск</button>
         </form>
     );
