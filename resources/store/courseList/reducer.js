@@ -31,7 +31,8 @@ export const courseListReducer = (state = initialState, { type, payload }) => {
                 },
                 isFiltered: false,
                 filters: {
-                    progLangs: ['PHP', 'JavaScript'],
+                    'Языки программирования': ['PHP', 'JavaScript'],
+                    'Языки курсов': ['Русский', 'Английский'],
                 },
             };
         case COURSE_LIST_FAILED:
