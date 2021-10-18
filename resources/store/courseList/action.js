@@ -9,12 +9,12 @@ export const courseListOnload = () => ({
     type: COURSE_LIST_ONLOAD,
 });
 
-export const courseListLoaded = courseList => ({
+export const courseListLoaded = (courseList) => ({
     type: COURSE_LIST_LOADED,
     payload: courseList,
 });
 
-export const courseListFailed = err => ({
+export const courseListFailed = (err) => ({
     type: COURSE_LIST_FAILED,
     payload: err,
 });
@@ -24,7 +24,7 @@ export const courseListFiltered = (courseList) => ({
     payload: courseList,
 });
 
-export const getCourseList = () => async dispatch => {
+export const getCourseList = () => async (dispatch) => {
     dispatch(courseListOnload());
 
     try {
@@ -34,9 +34,7 @@ export const getCourseList = () => async dispatch => {
             throw new Error(`Request failed with status: ${response.status}`);
         }
 
-        const result = await response
-            .json()
-            .then(res => res.table.data);
+        const result = await response.json().then((res) => res.table.data);
 
         dispatch(courseListLoaded(result));
     } catch (e) {
@@ -44,10 +42,12 @@ export const getCourseList = () => async dispatch => {
     }
 };
 
-export const courseListFilter = (value, courseList) => dispatch => {
+export const courseListFilter = (value, courseList) => (dispatch) => {
+    value = value.trim();
+
     if (value) {
         const pattern = new RegExp(value, 'gi');
-        const filteredList = courseList.filter(course => pattern.test(course.title));
+        const filteredList = courseList.filter((course) => pattern.test(course.title));
         dispatch(courseListFiltered(filteredList));
     } else {
         dispatch(courseListLoaded(courseList));
