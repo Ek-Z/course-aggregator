@@ -1,14 +1,27 @@
-import style from './Course.module.scss'
+//import style from './Course.module.scss'
+import { Typography,CardMedia,CardContent,Card} from '@mui/material';
 
 export const Course = ({item}) => {
     return (
-        <article className={style.course}>
-            <img src="" alt="Course-image"/>
-            <div className={style.course__wrap}>
-                <h3 className={style.course__title}>{item.title}</h3>
-                <p className={style.course__summary}>{item.description}</p>
-                <div className={style.course__author}>{item.author || 'Имя пользователя'}</div>
-            </div>
-        </article>
+        <Card sx={{ maxWidth: 500 }}>
+            <CardMedia
+            component="img"
+            height={140}
+            image="" alt="Course-image"
+            alt="green iguana"
+            />
+            <CardContent>
+                <Typography variant="h5">
+                    {item.title}    
+                </Typography>
+                <Typography variant="body2">
+                    {item.description}
+                </Typography>
+                <Typography variant="h6">
+                    {item.author || 'Имя пользователя'}
+                </Typography>
+            </CardContent>
+        </Card>
     );
 };
+             
