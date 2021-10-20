@@ -3,7 +3,7 @@ import style from './CourseFilter.module.scss';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectFilters } from '../../store/courseList/selectors';
-import Filter from './Filter/Filter';
+import { Filter } from './Filter/Filter';
 
 const parseArrToObj = (filters) => {
     const filtersObj = {};
