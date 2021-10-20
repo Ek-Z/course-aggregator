@@ -1,5 +1,6 @@
 //import style from './Course.module.scss'
 import { Typography, CardMedia, CardContent, Card, Grid } from '@mui/material';
+import PropTypes from 'prop-types';
 
 export const Course = ({ item }) => {
     return (
@@ -21,4 +22,8 @@ export const Course = ({ item }) => {
             </Card>
         </Grid>
     );
+};
+
+Course.propTypes = {
+    item: PropTypes.object,
 };

@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -7,7 +9,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-const Filter = ({ filterName, filterOptions, onChange }) => {
+export const Filter = ({ filterName, filterOptions, onChange }) => {
     const filter = () => {
         const filter = [];
         for (const [key, value] of Object.entries(filterOptions)) {
@@ -34,4 +36,8 @@ const Filter = ({ filterName, filterOptions, onChange }) => {
     );
 };
 
-export default Filter;
+Filter.propTypes = {
+    filterName: PropTypes.string,
+    filterOptions: PropTypes.array,
+    onChange: PropTypes.func,
+};

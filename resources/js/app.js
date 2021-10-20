@@ -13,8 +13,10 @@ function App() {
     return (
         <Provider store={store}>
             <PersistGate persistor={persistor}>
-                <Header />
-                <Catalog />
+                <StyledEngineProvider injectFirst>
+                    <Header />
+                    <Catalog />
+                </StyledEngineProvider>
             </PersistGate>
         </Provider>
     );
@@ -23,10 +25,5 @@ function App() {
 export default App;
 
 if (document.getElementById('app')) {
-    ReactDOM.render(
-        <StyledEngineProvider injectFirst>
-            <App />
-        </StyledEngineProvider>,
-        document.getElementById('app')
-    );
+    ReactDOM.render(<App />, document.getElementById('app'));
 }
