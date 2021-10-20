@@ -3,11 +3,11 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="{{ asset('js/root.js') }}" defer></script>
         <title>Amogus</title>
         <link rel="stylesheet" href="{{ asset('css/app.css') }}"/>
     </head>
     <body>
-        <div id="example"></div>
+        <div id="app"></div>
     </body>
 </html>
