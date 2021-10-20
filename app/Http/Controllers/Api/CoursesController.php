@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use App\Http\Requests\CourseStoreRequest;
+use App\Http\Requests\FilterRequest;
 
 class CoursesController extends Controller
 {
@@ -14,9 +15,16 @@ class CoursesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(FilterRequest $request)
     {
-        return Course::all();
+        $data = $request->validated();
+        $query = Course::query();
+        if (isset($data['programLang_id'])) {
+            $query->where('programLang_id', $data['programLang_id']);
+            $courses = $query->get();
+            return $courses;
+        }
+        // return Course::all();
     }
 
     /**
@@ -27,13 +35,9 @@ class CoursesController extends Controller
      */
 
 
-
-
-
-    // !!!!!!!!!!!!!!!!!!!!!!
-    //  !!!!Добавить валидацию!!!!
-    // !!!!!!!!!!
-
+    /**
+     * Добавить валидацию
+     */
 
 
     public function store(Request $request)
