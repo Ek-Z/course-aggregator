@@ -38,6 +38,6 @@ export const Filter = ({ filterName, filterOptions, onChange }) => {
 
 Filter.propTypes = {
     filterName: PropTypes.string,
-    filterOptions: PropTypes.array,
+    filterOptions: PropTypes.object,
     onChange: PropTypes.func,
 };
