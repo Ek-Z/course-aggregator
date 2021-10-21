@@ -1,3 +1,5 @@
+import { ALL_COURSES_URL, getCourses } from '../../../urls/urls';
+
 const LOCAL_COURSE_API = 'https://raw.githubusercontent.com/Ek-Z/course-aggregator/main/resources/data/data.json';
 
 export const COURSE_LIST_ONLOAD = 'COURSE_LIST::COURSE_LIST_ONLOAD';
@@ -28,13 +30,22 @@ export const getCourseList = () => async (dispatch) => {
     dispatch(courseListOnload());
 
     try {
-        const response = await fetch(LOCAL_COURSE_API);
+        /*const response = await fetch(LOCAL_COURSE_API);
 
         if (!response.ok) {
             throw new Error(`Request failed with status: ${response.status}`);
         }
 
         const result = await response.json().then((res) => res.table.data);
+
+        dispatch(courseListLoaded(result));*/
+        const response = await fetch(ALL_COURSES_URL);
+
+        if (!response.ok) {
+            throw new Error(`Request failed with status: ${response.status}`);
+        }
+
+        const result = await response.json();
 
         dispatch(courseListLoaded(result));
     } catch (e) {
