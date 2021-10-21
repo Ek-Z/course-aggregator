@@ -1,12 +1,12 @@
 import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Grid } from '@mui/material';
+import { Box } from '@mui/system';
 import { selectCourseList, selectFilteredList, selectIsFiltered } from '../../store/courseList/selectors';
 import { Course } from '../../components/Course/Course';
 import { courseListFilter, getCourseList } from '../../store/courseList/action';
 import { CourseFilter } from '../../components/CourseFilter/CourseFilter';
 import style from './Catalog.module.scss';
-import { Grid } from '@mui/material';
-import { Box } from '@mui/system';
 
 export const Catalog = () => {
     const courseList = useSelector(selectCourseList);
