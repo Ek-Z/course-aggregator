@@ -15150,17 +15150,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Course": () => (/* binding */ Course)
 /* harmony export */ });
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Grid/Grid.js");
 /* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Card/Card.js");
 /* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/CardMedia/CardMedia.js");
 /* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/CardContent/CardContent.js");
 /* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Typography/Typography.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//import style from './Course.module.scss'
 
 
 
@@ -15177,12 +15174,12 @@ var Course = function Course(_ref) {
         display: 'flex',
         flexDirection: 'column'
       },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], _defineProperty({
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
         component: "img",
         height: 140,
-        image: "",
-        alt: "Course-image"
-      }, "alt", "green iguana")), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        image: item.image,
+        alt: "\u0441ourse-image"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
         sx: {
           flex: 1,
           display: 'flex',
@@ -15207,7 +15204,7 @@ var Course = function Course(_ref) {
             alignSelf: 'flex-end'
           },
           variant: "h6",
-          children: item.author || 'Имя пользователя'
+          children: item.author
         })]
       })]
     })
@@ -15262,7 +15259,7 @@ var Catalog = function Catalog() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   var handleFilter = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (value) {
     dispatch((0,_store_courseList_action__WEBPACK_IMPORTED_MODULE_4__.courseListFilter)(value, courseList));
-  });
+  }, [dispatch]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     dispatch((0,_store_courseList_action__WEBPACK_IMPORTED_MODULE_4__.getCourseList)());
   }, []);
@@ -15702,11 +15699,9 @@ var persistor = (0,redux_persist__WEBPACK_IMPORTED_MODULE_0__.persistStore)(stor
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ALL_COURSES_URL": () => (/* binding */ ALL_COURSES_URL),
-/* harmony export */   "EXACT_COURSE_URL": () => (/* binding */ EXACT_COURSE_URL)
+/* harmony export */   "ALL_COURSES_URL": () => (/* binding */ ALL_COURSES_URL)
 /* harmony export */ });
 var ALL_COURSES_URL = 'http://127.0.0.1:8000/api/courses';
-var EXACT_COURSE_URL = "http://127.0.0.1:8000/api/courses/";
 
 /***/ }),
 

@@ -12,12 +12,11 @@ export const Catalog = () => {
     const courseList = useSelector(selectCourseList);
     const filteredList = useSelector(selectFilteredList);
     const isFiltered = useSelector(selectIsFiltered);
-
     const dispatch = useDispatch();
 
     const handleFilter = useCallback((value) => {
         dispatch(courseListFilter(value, courseList));
-    });
+    }, [dispatch]);
 
     useEffect(() => {
         dispatch(getCourseList());

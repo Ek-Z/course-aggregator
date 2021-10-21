@@ -30,15 +30,6 @@ export const getCourseList = () => async (dispatch) => {
     dispatch(courseListOnload());
 
     try {
-        /*const response = await fetch(LOCAL_COURSE_API);
-
-        if (!response.ok) {
-            throw new Error(`Request failed with status: ${response.status}`);
-        }
-
-        const result = await response.json().then((res) => res.table.data);
-
-        dispatch(courseListLoaded(result));*/
         const response = await fetch(ALL_COURSES_URL);
 
         if (!response.ok) {
