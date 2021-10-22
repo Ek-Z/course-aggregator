@@ -1,14 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { Switch, Route } from "react-router-dom";
 import { PersistGate } from 'redux-persist/integration/react';
 import { Catalog } from './layouts/Catalog/Catalog';
 import { store } from './store';
 import { persistor } from './store';
 import '../css/app.css';
 import { Header } from './layouts/Header/Header';
-
+import BrowserRouter from "react-router-dom/BrowserRouter";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {AdminPanel} from "./layouts/AdminPanel/AdminPanel";
 
 const theme = createTheme({
     palette: {
@@ -32,10 +34,23 @@ function App() {
         <Provider store={store}>
             <PersistGate persistor={persistor}>
                 <ThemeProvider theme={theme}>
-                    {/* <StyledEngineProvider injectFirst> */}
-                    <Header />
-                    <Catalog />
-                    {/* </StyledEngineProvider> */}
+                    <BrowserRouter>
+                        <Header />
+                        <Switch>
+                            <Route exact={true} path="/">
+                                <Catalog />
+                            </Route>
+                            <Route exact={true} path="/admin">
+                                <AdminPanel/>
+                            </Route>
+                            <Route exact={true} path="/signIn">
+                                <h3>Авторизация</h3>
+                            </Route>
+                            <Route exact={true} path="/signUp">
+                                <h3>Регистрация</h3>
+                            </Route>
+                        </Switch>
+                    </BrowserRouter>
                 </ThemeProvider>
             </PersistGate>
         </Provider>
