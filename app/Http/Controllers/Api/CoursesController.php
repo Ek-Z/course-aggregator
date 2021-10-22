@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
-use App\Http\Requests\CourseRequest;
+use App\Http\Requests\StoreCourseRequest;
+use App\Http\Requests\UpdateCourseRequest;
 use App\Http\Requests\FilterRequest;
+use Illuminate\Http\Request;
 
 class CoursesController extends Controller
 {
@@ -21,7 +23,7 @@ class CoursesController extends Controller
         return Course::all();
     }
 
-    public function store(CourseRequest $request)
+    public function store(StoreCourseRequest $request)
     {
         $created_course = Course::create($request->validated());
         return $created_course;
@@ -32,15 +34,15 @@ class CoursesController extends Controller
         return Course::findOrFail($id);
     }
 
-    public function update(CourseRequest $request, $id)
+    public function update(UpdateCourseRequest $request, $id)
     {
         $course = Course::findOrFail($id);
-        $course->fill($request->except(['course_id']));
+        $course->fill($request->validated());
         $course->save();
-        return response()->json($course);
+        return response()->json($course, 200);
     }
 
-    public function destroy(CourseRequest $request, $id)
+    public function destroy($id)
     {
         $course = Course::findOrFail($id);
         if ($course->delete()) return response(null, 204);

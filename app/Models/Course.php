@@ -27,8 +27,8 @@ class Course extends Model
         'deleted_at'
     ];
 
-    public function programLang(): BelongsTo
+    public function programmingLanguage(): BelongsTo
     {
-        return $this->belongsTo(ProgramLang::class);
+        return $this->belongsTo(ProgrammingLanguage::class)->withDefault();
     }
 }

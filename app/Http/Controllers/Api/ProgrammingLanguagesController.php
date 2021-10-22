@@ -5,61 +5,40 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\ProgrammingLanguage;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreProgrammingLanguageRequest;
+use App\Http\Requests\UpdateProgrammingLanguageRequest;
 
 class ProgrammingLanguagesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         return ProgrammingLanguage::all();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(StoreProgrammingLanguageRequest $request)
     {
-        //
+        $created_programmingLanguage = ProgrammingLanguage::create($request->validated());
+        return $created_programmingLanguage;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\ProgramLang  $programLang
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ProgrammingLanguage $programmingLanguage)
+    public function show($id)
     {
-        //
+        return ProgrammingLanguage::findOrFail($id);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ProgramLang  $programLang
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, ProgrammingLanguage $programmingLanguage)
+
+    public function update(UpdateProgrammingLanguageRequest $request, $id)
     {
-        //
+        $programmingLanguage = ProgrammingLanguage::findOrFail($id);
+        $programmingLanguage->fill($request->validated());
+        $programmingLanguage->save();
+        return response()->json($programmingLanguage, 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\ProgramLang  $programLang
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ProgrammingLanguage $programmingLanguage)
+    public function destroy($id)
     {
-        //
+        $programmingLanguage = ProgrammingLanguage::findOrFail($id);
+        if ($programmingLanguage->delete()) return response(null, 204);
     }
 }
