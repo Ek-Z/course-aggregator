@@ -15,8 +15,8 @@ class CreateCoursesTable extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('programLang_id')
-                ->constrained('program_langs')
+            $table->foreignId('programmingLanguage_id')
+                ->constrained('programming_languages')
                 ->cascadeOnDelete();
             $table->string('title', 191);
             $table->string('author', 191)->nullable();
@@ -27,6 +27,8 @@ class CreateCoursesTable extends Migration
                 ->default(1);
             $table->softDeletes();
             $table->text('description')->nullable();
+            $table->enum('language', ['English', 'Русский'])
+                ->default('Русский');
             $table->timestamps();
         });
     }

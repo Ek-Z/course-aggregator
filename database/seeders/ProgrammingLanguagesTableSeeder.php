@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Faker\Factory;
 
-class ProgramLangsTableSeeder extends Seeder
+class ProgrammingLanguagesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,7 @@ class ProgramLangsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('program_langs')->insert($this->getData());
+        DB::table('programming_languages')->insert($this->getData());
     }
 
     public function getData()

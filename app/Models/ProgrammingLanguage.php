@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProgramLang extends Model
+class ProgrammingLanguage extends Model
 {
     use HasFactory;
 
-    protected $table = 'program_langs';
+    protected $table = 'programming_languages';
     protected $fillable = ['title'];
 }

@@ -24,7 +24,7 @@ class CoursesTableSeeder extends Seeder
         $data = [];
         for ($i = 0; $i < 10; $i++) {
             $data[] = [
-                'programLang_id' => rand(1, 5),
+                'programmingLanguage_id' => rand(1, 5),
                 'author' => $faker->name(),
                 'title' => $faker->text(15),
                 'description' => $faker->sentence(rand(3, 20)),
