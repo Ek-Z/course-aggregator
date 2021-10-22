@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\ProgramLang;
+use App\Models\ProgrammingLanguage;
 use Illuminate\Http\Request;
 
-class ProgramLangController extends Controller
+class ProgrammingLanguagesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class ProgramLangController extends Controller
      */
     public function index()
     {
-        return ProgramLang::all();
+        return ProgrammingLanguage::all();
     }
 
     /**
@@ -35,7 +35,7 @@ class ProgramLangController extends Controller
      * @param  \App\Models\ProgramLang  $programLang
      * @return \Illuminate\Http\Response
      */
-    public function show(ProgramLang $programLang)
+    public function show(ProgrammingLanguage $programmingLanguage)
     {
         //
     }
@@ -47,7 +47,7 @@ class ProgramLangController extends Controller
      * @param  \App\Models\ProgramLang  $programLang
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProgramLang $programLang)
+    public function update(Request $request, ProgrammingLanguage $programmingLanguage)
     {
         //
     }
@@ -58,7 +58,7 @@ class ProgramLangController extends Controller
      * @param  \App\Models\ProgramLang  $programLang
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProgramLang $programLang)
+    public function destroy(ProgrammingLanguage $programmingLanguage)
     {
         //
     }

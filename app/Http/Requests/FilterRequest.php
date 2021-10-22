@@ -24,7 +24,7 @@ class FilterRequest extends FormRequest
     public function rules()
     {
         return [
-            'programLang_id' => ['integer', 'exists:courses'],
+            'programmingLanguage_id' => ['integer', 'exists:courses'],
         ];
     }
 }
