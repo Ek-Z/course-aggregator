@@ -42,7 +42,7 @@ class CoursesController extends Controller
         return response()->json($course, 200);
     }
 
-    public function destroy(Request $request, $id)
+    public function destroy($id)
     {
         $course = Course::findOrFail($id);
         if ($course->delete()) return response(null, 204);
