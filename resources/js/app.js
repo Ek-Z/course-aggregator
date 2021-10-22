@@ -1,16 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Catalog } from './layouts/Catalog/Catalog';
 import { store } from './store';
 import { persistor } from './store';
-import '../css/app.css';
 import { Header } from './layouts/Header/Header';
-import BrowserRouter from "react-router-dom/BrowserRouter";
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {AdminPanel} from "./layouts/AdminPanel/AdminPanel";
+import { AdminPanel } from './layouts/AdminPanel/AdminPanel';
+import '../css/app.css';
 
 const theme = createTheme({
     palette: {
@@ -29,16 +28,16 @@ const theme = createTheme({
     },
 });
 
-function App() {
+function App () {
     return (
         <Provider store={store}>
             <PersistGate persistor={persistor}>
                 <ThemeProvider theme={theme}>
                     <BrowserRouter>
-                        <Header />
+                        <Header/>
                         <Switch>
                             <Route exact={true} path="/">
-                                <Catalog />
+                                <Catalog/>
                             </Route>
                             <Route exact={true} path="/admin">
                                 <AdminPanel/>
@@ -60,5 +59,5 @@ function App() {
 export default App;
 
 if (document.getElementById('app')) {
-    ReactDOM.render(<App />, document.getElementById('app'));
+    ReactDOM.render(<App/>, document.getElementById('app'));
 }

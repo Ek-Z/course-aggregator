@@ -1,8 +1,7 @@
-import style from './Header.module.scss';
-import Button from '@mui/material/Button';
-import { AppBar, Avatar, Container, IconButton, Toolbar } from '@mui/material';
-import { Box } from '@mui/system';
 import { Link } from "react-router-dom";
+import { AppBar, Button, Avatar, Container, IconButton, Toolbar } from '@mui/material';
+import { Box } from '@mui/system';
+import style from './Header.module.scss';
 
 export const Header = () => {
     return (
