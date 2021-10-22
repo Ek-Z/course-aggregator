@@ -12,10 +12,12 @@ class Course extends Model
     protected $table = 'courses';
 
     protected $fillable = [
-        'programLang_id',
+        'programmingLanguage_id',
         'title',
         'author',
+        'image',
         'status',
+        'language',
         'description'
     ];
 
