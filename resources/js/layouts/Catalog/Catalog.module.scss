@@ -1,0 +1,9 @@
+.section {
+    margin-top: 2rem;
+
+    &__wrap {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+    }
+}

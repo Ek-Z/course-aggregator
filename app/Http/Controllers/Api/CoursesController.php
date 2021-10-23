@@ -4,78 +4,48 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
+use App\Http\Requests\StoreCourseRequest;
+use App\Http\Requests\UpdateCourseRequest;
+use App\Http\Requests\FilterRequest;
+use App\Http\Resources\CourseResource;
 use Illuminate\Http\Request;
-use App\Http\Requests\CourseStoreRequest;
 
 class CoursesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(FilterRequest $request)
     {
-        return Course::all();
+        $data = $request->validated();
+        $query = Course::query();
+        if (isset($data['programmingLanguage_id'])) {
+            $query->where('programmingLanguage_id', $data['programmingLanguage_id']);
+            $courses = $query->get();
+            return $courses;
+        }
+        return CourseResource::collection(Course::all());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-
-
-
-
-
-    // !!!!!!!!!!!!!!!!!!!!!!
-    //  !!!!Добавить валидацию!!!!
-    // !!!!!!!!!!
-
-
-
-    public function store(Request $request)
+    public function store(StoreCourseRequest $request)
     {
-        $created_course = Course::create($request->all());
+        $created_course = Course::create($request->validated());
         return $created_course;
     }
 
-
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        return Course::findOrFail($id);
+        return new CourseResource(Course::findOrFail($id));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Course $course)
+    public function update(UpdateCourseRequest $request, $id)
     {
-        //
+        $course = new CourseResource(Course::findOrFail($id));
+        $course->fill($request->validated());
+        $course->save();
+        return response()->json($course, 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $course = new CourseResource(Course::findOrFail($id));
+        if ($course->delete()) return response(null, 204);
     }
 }

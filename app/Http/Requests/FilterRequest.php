@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
 
-class CourseStoreRequest extends FormRequest
+class FilterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,13 +21,10 @@ class CourseStoreRequest extends FormRequest
      *
      * @return array
      */
-    public function rules(Request $request)
+    public function rules()
     {
         return [
-            // 'title' => ['required', 'max:191'],
-            // 'author' => ['required', 'max:80'],
-            // 'status' => ['sometimes'],
-            // 'description' => ['sometimes']
+            'programmingLanguage_id' => ['integer', 'exists:courses'],
         ];
     }
 }
