@@ -34,7 +34,9 @@ export const getCourseList = () => async (dispatch) => {
             throw new Error(`Request failed with status: ${response.status}`);
         }
 
-        const result = await response.json();
+        const result = await response
+            .json()
+            .then(json => json.data);
 
         dispatch(courseListLoaded(result));
     } catch (e) {
