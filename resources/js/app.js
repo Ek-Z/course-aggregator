@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import { Switch, Route, HashRouter } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Catalog } from './layouts/Catalog/Catalog';
@@ -33,7 +33,7 @@ function App () {
         <Provider store={store}>
             <PersistGate persistor={persistor}>
                 <ThemeProvider theme={theme}>
-                    <BrowserRouter>
+                    <HashRouter>
                         <Header/>
                         <Switch>
                             <Route exact={true} path="/">
@@ -49,7 +49,7 @@ function App () {
                                 <h3>Регистрация</h3>
                             </Route>
                         </Switch>
-                    </BrowserRouter>
+                    </HashRouter>
                 </ThemeProvider>
             </PersistGate>
         </Provider>
