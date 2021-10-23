@@ -1,7 +1,8 @@
 export const AdminPanel = () => {
+
     return (
-        <section>
+        <div>
             <h3>Это admin Page</h3>
-        </section>
+        </div>
     );
 };
