@@ -7,13 +7,14 @@ use App\Models\ProgrammingLanguage;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreProgrammingLanguageRequest;
 use App\Http\Requests\UpdateProgrammingLanguageRequest;
+use App\Http\Resources\ProgrammingLanguageResource;
 
 class ProgrammingLanguagesController extends Controller
 {
 
     public function index()
     {
-        return ProgrammingLanguage::all();
+        return ProgrammingLanguageResource::collection(ProgrammingLanguage::all());
     }
 
     public function store(StoreProgrammingLanguageRequest $request)
@@ -24,13 +25,13 @@ class ProgrammingLanguagesController extends Controller
 
     public function show($id)
     {
-        return ProgrammingLanguage::findOrFail($id);
+        return new ProgrammingLanguageResource(ProgrammingLanguage::findOrFail($id));
     }
 
 
     public function update(UpdateProgrammingLanguageRequest $request, $id)
     {
-        $programmingLanguage = ProgrammingLanguage::findOrFail($id);
+        $programmingLanguage = new ProgrammingLanguageResource(ProgrammingLanguage::findOrFail($id));
         $programmingLanguage->fill($request->validated());
         $programmingLanguage->save();
         return response()->json($programmingLanguage, 200);
@@ -38,7 +39,7 @@ class ProgrammingLanguagesController extends Controller
 
     public function destroy($id)
     {
-        $programmingLanguage = ProgrammingLanguage::findOrFail($id);
+        $programmingLanguage = new ProgrammingLanguageResource(ProgrammingLanguage::findOrFail($id));
         if ($programmingLanguage->delete()) return response(null, 204);
     }
 }

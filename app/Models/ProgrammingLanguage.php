@@ -11,4 +11,9 @@ class ProgrammingLanguage extends Model
 
     protected $table = 'programming_languages';
     protected $fillable = ['title'];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
 }

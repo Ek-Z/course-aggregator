@@ -14,7 +14,7 @@ class Course extends Model
     protected $fillable = [
         'programmingLanguage_id',
         'title',
-        'author',
+        'source',
         'image',
         'status',
         'language',
@@ -24,11 +24,10 @@ class Course extends Model
     protected $hidden = [
         'created_at',
         'updated_at',
-        'deleted_at'
     ];
 
-    public function programmingLanguage(): BelongsTo
+    public function programmingLanguage()
     {
-        return $this->belongsTo(ProgrammingLanguage::class)->withDefault();
+        return $this->belongsTo(ProgrammingLanguage::class, 'programmingLanguage_id', 'id');
     }
 }
