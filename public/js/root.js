@@ -14917,6 +14917,45 @@ if (document.getElementById('app')) {
 
 /***/ }),
 
+/***/ "./resources/js/components/AdminTable/AdminTable.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/AdminTable/AdminTable.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "AdminTable": () => (/* binding */ AdminTable)
+/* harmony export */ });
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _TableRow_TableRow__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../TableRow/TableRow */ "./resources/js/components/TableRow/TableRow.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+var AdminTable = function AdminTable(_ref) {
+  var table = _ref.table;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("table", {
+    style: {
+      borderCollapse: 'collapse'
+    },
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tbody", {
+      children: table.map(function (el) {
+        return el ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_TableRow_TableRow__WEBPACK_IMPORTED_MODULE_1__.TableRow, {
+          item: el
+        }, el.id) : null;
+      })
+    })
+  });
+};
+AdminTable.propTypes = {
+  table: (prop_types__WEBPACK_IMPORTED_MODULE_0___default().array)
+};
+
+/***/ }),
+
 /***/ "./resources/js/components/CourseFilter/CourseFilter.js":
 /*!**************************************************************!*\
   !*** ./resources/js/components/CourseFilter/CourseFilter.js ***!
@@ -15245,6 +15284,70 @@ Course.propTypes = {
 
 /***/ }),
 
+/***/ "./resources/js/components/TableRow/TableRow.js":
+/*!******************************************************!*\
+  !*** ./resources/js/components/TableRow/TableRow.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "TableRow": () => (/* binding */ TableRow)
+/* harmony export */ });
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+var TableRow = function TableRow(_ref) {
+  var item = _ref.item;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tr", {
+      style: {
+        textAlign: 'center'
+      },
+      children: Object.keys(item).map(function (key) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+          style: {
+            border: '1px solid black'
+          },
+          children: key
+        }, key);
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+      style: {
+        textAlign: 'center'
+      },
+      children: [Object.values(item).map(function (value) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+          style: {
+            border: '1px solid black'
+          },
+          children: value
+        }, value);
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+          "data-id": item.id,
+          children: "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+          "data-id": item.id,
+          children: "\u0423\u0434\u0430\u043B\u0438\u0442\u044C"
+        })
+      })]
+    })]
+  });
+};
+TableRow.propTypes = {
+  item: (prop_types__WEBPACK_IMPORTED_MODULE_0___default().object)
+};
+
+/***/ }),
+
 /***/ "./resources/js/layouts/AdminPanel/AdminPanel.js":
 /*!*******************************************************!*\
   !*** ./resources/js/layouts/AdminPanel/AdminPanel.js ***!
@@ -15256,13 +15359,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "AdminPanel": () => (/* binding */ AdminPanel)
 /* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _components_AdminTable_AdminTable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/AdminTable/AdminTable */ "./resources/js/components/AdminTable/AdminTable.js");
+/* harmony import */ var _store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../store/courseList/selectors */ "./resources/js/store/courseList/selectors.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+
 
 var AdminPanel = function AdminPanel() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", {
+  var courses = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectCourseList);
+  (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(function () {
+    console.table(courses);
+  }, []);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    style: {
+      marginTop: 20
+    },
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
       children: "\u042D\u0442\u043E admin Page"
-    })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_AdminTable_AdminTable__WEBPACK_IMPORTED_MODULE_1__.AdminTable, {
+      table: courses
+    })]
   });
 };
 
