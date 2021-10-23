@@ -24,7 +24,7 @@ class UpdateCourseRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string|min:5|max:191',
+            'title' => 'string|min:5|max:191',
             'programmingLanguage_id' => 'integer|exists:programming_languages,id'
         ];
     }

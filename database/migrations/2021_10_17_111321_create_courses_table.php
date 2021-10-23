@@ -19,7 +19,7 @@ class CreateCoursesTable extends Migration
                 ->constrained('programming_languages')
                 ->cascadeOnDelete();
             $table->string('title', 191);
-            $table->string('author', 191)->nullable();
+            $table->string('source', 191)->nullable();
             $table->string('image', 255)->nullable();
             $table->enum('status', ['DRAFT', 'PUBLISHED', 'DELETED'])
                 ->default('DRAFT');

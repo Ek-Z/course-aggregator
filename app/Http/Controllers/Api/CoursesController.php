@@ -7,6 +7,7 @@ use App\Models\Course;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
 use App\Http\Requests\FilterRequest;
+use App\Http\Resources\CourseResource;
 use Illuminate\Http\Request;
 
 class CoursesController extends Controller
@@ -20,7 +21,7 @@ class CoursesController extends Controller
             $courses = $query->get();
             return $courses;
         }
-        return Course::all();
+        return CourseResource::collection(Course::all());
     }
 
     public function store(StoreCourseRequest $request)
@@ -31,12 +32,12 @@ class CoursesController extends Controller
 
     public function show($id)
     {
-        return Course::findOrFail($id);
+        return new CourseResource(Course::findOrFail($id));
     }
 
     public function update(UpdateCourseRequest $request, $id)
     {
-        $course = Course::findOrFail($id);
+        $course = new CourseResource(Course::findOrFail($id));
         $course->fill($request->validated());
         $course->save();
         return response()->json($course, 200);
@@ -44,7 +45,7 @@ class CoursesController extends Controller
 
     public function destroy($id)
     {
-        $course = Course::findOrFail($id);
+        $course = new CourseResource(Course::findOrFail($id));
         if ($course->delete()) return response(null, 204);
     }
 }
