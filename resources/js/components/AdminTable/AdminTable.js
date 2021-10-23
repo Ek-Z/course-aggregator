@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types';
 import { TableRow } from '../TableRow/TableRow';
+import style from './AdminTable.module.scss'
 
 export const AdminTable = ({ titles, table }) => {
     return (
-        <table style={{ borderCollapse: 'collapse' }}>
+        <table className={style.table}>
             <tbody>
             <tr>
                 {titles.map(
-                    title => <td key={title} style={{ border: '1px solid black', textAlign: 'center' }}>{title}</td>
+                    title => <td key={title} className={style.row__cell}>{title}</td>
                 )}
             </tr>
             {table.map(

@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
+import style from './TableRow.module.scss'
 
 export const TableRow = ({ item }) => {
     return (
-        <tr style={{ textAlign: 'center' }}>
+        <tr>
             {Object.values(item).map(value => <td
                 key={value}
-                style={{ border: '1px solid black' }}
+                className={style.row__cell}
             >{value}</td>)}
             <td>
                 <button
