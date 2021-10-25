@@ -16535,31 +16535,41 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "CourseCard": () => (/* binding */ CourseCard)
 /* harmony export */ });
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store_courseCard_action__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../store/courseCard/action */ "./resources/js/store/courseCard/action.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
 
 
 
 var CourseCard = function CourseCard(_ref) {
   var courseId = _ref.courseId;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    dispatch((0,_store_courseCard_action__WEBPACK_IMPORTED_MODULE_2__.getExactCourse)(courseId));
+  }, []);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Route, {
     exact: true,
     path: "/courses/".concat(courseId),
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("article", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("article", {
       style: {
         display: 'flex',
         flexDirection: 'column'
       },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("img", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
           src: "image",
           alt: "green iguana"
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h3", {
         children: "Title"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
         children: "Description"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         children: "Sourse"
       })]
     })
@@ -16850,7 +16860,7 @@ var Course = function Course(_ref) {
     item: true,
     xs: 5,
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
-      to: "/courses/id".concat(item.id),
+      to: "/courses/".concat(item.id),
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
         sx: {
           maxWidth: 500,
@@ -17393,6 +17403,110 @@ __webpack_require__(/*! ./App */ "./resources/js/App.js");
 
 /***/ }),
 
+/***/ "./resources/js/store/courseCard/action.js":
+/*!*************************************************!*\
+  !*** ./resources/js/store/courseCard/action.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "COURSE_CARD_ONLOAD": () => (/* binding */ COURSE_CARD_ONLOAD),
+/* harmony export */   "COURSE_CARD_LOADED": () => (/* binding */ COURSE_CARD_LOADED),
+/* harmony export */   "COURSE_CARD_FAILED": () => (/* binding */ COURSE_CARD_FAILED),
+/* harmony export */   "getExactCourse": () => (/* binding */ getExactCourse)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _urls_urls__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../urls/urls */ "./resources/urls/urls.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+var COURSE_CARD_ONLOAD = 'COURSE_CARD_ONLOAD';
+var COURSE_CARD_LOADED = 'COURSE_CARD_LOADED';
+var COURSE_CARD_FAILED = 'COURSE_CARD_FAILED';
+
+var courseCardOnload = function courseCardOnload() {
+  return {
+    type: COURSE_CARD_ONLOAD
+  };
+};
+
+var courseCardLoaded = function courseCardLoaded(course) {
+  return {
+    type: COURSE_CARD_LOADED,
+    payload: course
+  };
+};
+
+var courseCardFailed = function courseCardFailed(error) {
+  return {
+    type: COURSE_CARD_FAILED,
+    payload: error
+  };
+};
+
+var getExactCourse = function getExactCourse(courseId) {
+  return /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(dispatch) {
+      var response, result;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              dispatch(courseCardOnload());
+              _context.prev = 1;
+              _context.next = 4;
+              return fetch("".concat(_urls_urls__WEBPACK_IMPORTED_MODULE_1__.EXACT_COURSE_URL, "/").concat(courseId));
+
+            case 4:
+              response = _context.sent;
+
+              if (response.ok) {
+                _context.next = 7;
+                break;
+              }
+
+              throw new Error("Error: ".concat(response.status));
+
+            case 7:
+              _context.next = 9;
+              return response.json().then(function (json) {
+                return json.data;
+              });
+
+            case 9:
+              result = _context.sent;
+              dispatch(courseCardLoaded(result));
+              _context.next = 16;
+              break;
+
+            case 13:
+              _context.prev = 13;
+              _context.t0 = _context["catch"](1);
+              dispatch(courseCardFailed(_context.t0));
+
+            case 16:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[1, 13]]);
+    }));
+
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+
+/***/ }),
+
 /***/ "./resources/js/store/courseList/action.js":
 /*!*************************************************!*\
   !*** ./resources/js/store/courseList/action.js ***!
@@ -17735,9 +17849,11 @@ var theme = (0,_mui_material_styles__WEBPACK_IMPORTED_MODULE_0__["default"])({
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ALL_COURSES_URL": () => (/* binding */ ALL_COURSES_URL)
+/* harmony export */   "ALL_COURSES_URL": () => (/* binding */ ALL_COURSES_URL),
+/* harmony export */   "EXACT_COURSE_URL": () => (/* binding */ EXACT_COURSE_URL)
 /* harmony export */ });
 var ALL_COURSES_URL = 'http://127.0.0.1:8000/api/courses';
+var EXACT_COURSE_URL = 'http://127.0.0.1:8000/api/courses';
 
 /***/ }),
 
