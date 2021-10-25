@@ -11,6 +11,7 @@ import { persistor } from './store';
 import { Header } from './layouts/Header/Header';
 import { AdminPanel } from './layouts/AdminPanel/AdminPanel';
 import '../css/app.css';
+import { CourseCard } from './components/CourseCard/CourseCard';
 
 function App () {
     return (
@@ -21,6 +22,8 @@ function App () {
                         <Header/>
                         <Switch>
                             <Route exact={true} path="/">
+                            </Route>
+                            <Route exact={true} path="/courses/:courseId?">
                                 <Catalog/>
                             </Route>
                             <Route exact={true} path="/admin">

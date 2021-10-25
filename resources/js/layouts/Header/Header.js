@@ -17,6 +17,11 @@ export const Header = () => {
                     </Box>
                     <Box mr={3} ml={'auto'}>
                         <Button color="inherit" variant="outlined" sx={{ marginRight: '1.5rem' }}>
+                            <Link className={style.headerLinks} to="/courses">
+                                Курсы
+                            </Link>
+                        </Button>
+                        <Button color="inherit" variant="outlined" sx={{ marginRight: '1.5rem' }}>
                             <Link className={style.headerLinks} to="/admin">
                                 Добавить курс
                             </Link>
