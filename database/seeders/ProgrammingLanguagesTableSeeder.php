@@ -3,12 +3,10 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Faker\Factory;
 use Illuminate\Support\Facades\DB;
+use Faker\Factory;
 
-
-
-class ProductsTableSeeder extends Seeder
+class ProgrammingLanguagesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,19 +15,16 @@ class ProductsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('products')->insert($this->getData());
+        DB::table('programming_languages')->insert($this->getData());
     }
 
     public function getData()
     {
         $faker = Factory::create();
         $data = [];
-
-        // Create 20 product records
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             $data[] = [
-                'title' => $faker->text(20),
-                'description' => $faker->sentence(rand(10, 100)),
+                'title' => $faker->text(5),
             ];
         }
         return $data;
