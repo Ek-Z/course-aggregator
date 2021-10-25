@@ -23,7 +23,6 @@ export const Catalog = () => {
     });
 
     useEffect(() => {
-        console.log(courseId);
         dispatch(getCourseList());
     }, []);
 
@@ -32,7 +31,7 @@ export const Catalog = () => {
             <Route exact={true} path="/courses">
                 <section className={style.section}>
                     <div className={`${style.section__wrap} container`}>
-                        <Box sx={{ flexGrow: 1 }} sx={{ display: 'flex' }}>
+                        <Box sx={{ flexGrow: 1, display: 'flex' }}>
                             <CourseFilter onSubmit={handleFilter}/>
                             <Grid container justifyContent="center" spacing={{ xs: 3 }}>
                                 {isFiltered
@@ -45,7 +44,7 @@ export const Catalog = () => {
                 </section>
             </Route>
             <Route exact={true} path={`/courses/${courseId}`}>
-                <CourseCard courseId={courseId}/>
+                <CourseCard course={{}} courseId={courseId}/>
             </Route>
         </Switch>
     );
