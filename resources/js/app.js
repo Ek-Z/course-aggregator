@@ -28,10 +28,10 @@ function App () {
                                 <AdminPanel/>
                             </Route>
                             <Route exact={true} path="/signIn">
-                                <LoginForm title="Авторизация" submitButton="Войти"/>
+                                <LoginForm/>
                             </Route>
                             <Route exact={true} path="/signUp">
-                                <LoginForm title="Регистрация" submitButton="Зарегистрироваться" onSubmit="addUser"/>
+                                <LoginForm onSubmit="addUser"/>
                             </Route>
                         </Switch>
                     </HashRouter>
