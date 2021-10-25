@@ -8,8 +8,8 @@ import { courseCardReducer } from './courseCard/reducer';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const persistConfig = {
-    key: 'example',
-    blacklist: ['course'],
+    key: 'course-aggregator',
+    blacklist: ['courseInfo'],
     storage,
 };
 

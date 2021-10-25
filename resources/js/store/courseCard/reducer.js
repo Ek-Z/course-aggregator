@@ -16,10 +16,7 @@ export const courseCardReducer = (state = initialState, { type, payload }) => {
         case COURSE_CARD_LOADED:
             return {
                 ...state,
-                courseInfo: {
-                    ...state.courseInfo,
-                    ...payload,
-                },
+                courseInfo: payload,
                 status: 'SUCCESS',
             };
         case COURSE_CARD_FAILED:
