@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Box } from '@mui/system';
 import { Grid } from '@mui/material';
 import { Course } from '../Course/Course';
@@ -15,4 +16,8 @@ export const CourseList = ({ list }) => {
             </div>
         </section>
     );
+};
+
+CourseList.propTypes = {
+    list: PropTypes.array,
 };

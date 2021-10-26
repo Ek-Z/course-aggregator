@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 export const CourseInfo = ({ item }) => {
     return (
         <article style={{ display: 'flex', flexDirection: 'column' }} data-course-id={item.id}>
@@ -8,4 +10,8 @@ export const CourseInfo = ({ item }) => {
             <div>{item.language}</div>
         </article>
     );
+};
+
+CourseInfo.propTypes = {
+    item: PropTypes.object,
 };

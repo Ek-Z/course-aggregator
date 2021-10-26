@@ -16536,11 +16536,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "CourseCard": () => (/* binding */ CourseCard)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../store/courseList/selectors */ "./resources/js/store/courseList/selectors.js");
-/* harmony import */ var _CourseInfo_CourseInfo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../CourseInfo/CourseInfo */ "./resources/js/components/CourseInfo/CourseInfo.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _store_courseList_selectors__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../store/courseList/selectors */ "./resources/js/store/courseList/selectors.js");
+/* harmony import */ var _CourseInfo_CourseInfo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../CourseInfo/CourseInfo */ "./resources/js/components/CourseInfo/CourseInfo.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 
@@ -16550,16 +16553,19 @@ __webpack_require__.r(__webpack_exports__);
 var CourseCard = function CourseCard(_ref) {
   var courseId = _ref.courseId;
   var selectCourse = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
-    return (0,_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectExactCourse)(courseId);
+    return (0,_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_3__.selectExactCourse)(courseId);
   }, [courseId]);
   var course = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(selectCourse);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, {
     exact: true,
     path: "/courses/".concat(courseId),
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_CourseInfo_CourseInfo__WEBPACK_IMPORTED_MODULE_3__.CourseInfo, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_CourseInfo_CourseInfo__WEBPACK_IMPORTED_MODULE_4__.CourseInfo, {
       item: course
     })
   });
+};
+CourseCard.propTypes = {
+  courseId: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string)
 };
 
 /***/ }),
@@ -16826,30 +16832,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "CourseInfo": () => (/* binding */ CourseInfo)
 /* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 var CourseInfo = function CourseInfo(_ref) {
   var item = _ref.item;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("article", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("article", {
     style: {
       display: 'flex',
       flexDirection: 'column'
     },
     "data-course-id": item.id,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("img", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
       src: item.image,
       alt: "green iguana"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h3", {
       children: item.title
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
       children: item.description
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
       children: item.source
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
       children: item.language
     })]
   });
+};
+CourseInfo.propTypes = {
+  item: (prop_types__WEBPACK_IMPORTED_MODULE_0___default().object)
 };
 
 /***/ }),
@@ -16865,11 +16877,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "CourseList": () => (/* binding */ CourseList)
 /* harmony export */ });
-/* harmony import */ var _mui_system__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/system */ "./node_modules/@mui/system/esm/Box/Box.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Grid/Grid.js");
-/* harmony import */ var _Course_Course__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Course/Course */ "./resources/js/components/Course/Course.js");
-/* harmony import */ var _CourseList_module_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CourseList.module.scss */ "./resources/js/components/CourseList/CourseList.module.scss");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _mui_system__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/system */ "./node_modules/@mui/system/esm/Box/Box.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Grid/Grid.js");
+/* harmony import */ var _Course_Course__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Course/Course */ "./resources/js/components/Course/Course.js");
+/* harmony import */ var _CourseList_module_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CourseList.module.scss */ "./resources/js/components/CourseList/CourseList.module.scss");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 
@@ -16877,23 +16892,23 @@ __webpack_require__.r(__webpack_exports__);
 
 var CourseList = function CourseList(_ref) {
   var list = _ref.list;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("section", {
-    className: _CourseList_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].section,
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-      className: _CourseList_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].section__wrap,
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_system__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("section", {
+    className: _CourseList_module_scss__WEBPACK_IMPORTED_MODULE_2__["default"].section,
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      className: _CourseList_module_scss__WEBPACK_IMPORTED_MODULE_2__["default"].section__wrap,
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_system__WEBPACK_IMPORTED_MODULE_4__["default"], {
         sx: {
           flexGrow: 1,
           display: 'flex'
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
           container: true,
           justifyContent: "center",
           spacing: {
             xs: 3
           },
           children: list.map(function (item) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Course_Course__WEBPACK_IMPORTED_MODULE_0__.Course, {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Course_Course__WEBPACK_IMPORTED_MODULE_1__.Course, {
               item: item
             }, item.id);
           })
@@ -16901,6 +16916,9 @@ var CourseList = function CourseList(_ref) {
       })
     })
   });
+};
+CourseList.propTypes = {
+  list: (prop_types__WEBPACK_IMPORTED_MODULE_0___default().array)
 };
 
 /***/ }),
