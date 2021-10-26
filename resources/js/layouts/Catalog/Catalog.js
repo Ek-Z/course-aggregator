@@ -44,7 +44,7 @@ export const Catalog = () => {
                 </section>
             </Route>
             <Route exact={true} path={`/courses/${courseId}`}>
-                <CourseCard course={{}} courseId={courseId}/>
+                <CourseCard courseId={courseId}/>
             </Route>
         </Switch>
     );

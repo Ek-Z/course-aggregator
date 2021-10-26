@@ -16535,29 +16535,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "CourseCard": () => (/* binding */ CourseCard)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
-/* harmony import */ var _urls_urls__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../urls/urls */ "./resources/urls/urls.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../store/courseList/selectors */ "./resources/js/store/courseList/selectors.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
@@ -16566,67 +16548,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var CourseCard = function CourseCard(_ref) {
   var courseId = _ref.courseId;
-
-  //TODO: упростить получение курса, ибо при рендере новой карточки инфа подгружается с запозданием
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({}),
-      _useState2 = _slicedToArray(_useState, 2),
-      course = _useState2[0],
-      setCourse = _useState2[1];
-
-  var getCourseInfo = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(courseId) {
-      var response, result;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.prev = 0;
-              _context.next = 3;
-              return fetch("".concat(_urls_urls__WEBPACK_IMPORTED_MODULE_2__.EXACT_COURSE_URL, "/").concat(courseId));
-
-            case 3:
-              response = _context.sent;
-
-              if (response.ok) {
-                _context.next = 6;
-                break;
-              }
-
-              throw new Error("Error: ".concat(response.status));
-
-            case 6:
-              _context.next = 8;
-              return response.json().then(function (json) {
-                return json.data;
-              });
-
-            case 8:
-              result = _context.sent;
-              setCourse(result);
-              _context.next = 15;
-              break;
-
-            case 12:
-              _context.prev = 12;
-              _context.t0 = _context["catch"](0);
-              console.log(_context.t0);
-
-            case 15:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee, null, [[0, 12]]);
-    }));
-
-    return function getCourseInfo(_x) {
-      return _ref2.apply(this, arguments);
-    };
-  }();
-
-  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    getCourseInfo(courseId);
-  }, []);
+  var selectCourse = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
+    return (0,_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectExactCourse)(courseId);
+  }, [courseId]);
+  var course = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(selectCourse);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Route, {
     exact: true,
     path: "/courses/".concat(courseId),
@@ -17161,7 +17086,6 @@ var Catalog = function Catalog() {
       exact: true,
       path: "/courses/".concat(courseId),
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_CourseCard_CourseCard__WEBPACK_IMPORTED_MODULE_6__.CourseCard, {
-        course: {},
         courseId: courseId
       })
     })]
@@ -17711,7 +17635,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "selectSortedCourseList": () => (/* binding */ selectSortedCourseList),
 /* harmony export */   "selectFilteredList": () => (/* binding */ selectFilteredList),
 /* harmony export */   "selectIsFiltered": () => (/* binding */ selectIsFiltered),
-/* harmony export */   "selectFilters": () => (/* binding */ selectFilters)
+/* harmony export */   "selectFilters": () => (/* binding */ selectFilters),
+/* harmony export */   "selectExactCourse": () => (/* binding */ selectExactCourse)
 /* harmony export */ });
 var selectCourseTitles = function selectCourseTitles(state) {
   return Object.keys(state.courseList.courseList[0]);
@@ -17735,6 +17660,13 @@ var selectIsFiltered = function selectIsFiltered(state) {
 };
 var selectFilters = function selectFilters(state) {
   return state.courseList.filters;
+};
+var selectExactCourse = function selectExactCourse(courseId) {
+  return function (state) {
+    return state.courseList.courseList.find(function (course) {
+      return course.id === +courseId;
+    });
+  };
 };
 
 /***/ }),
