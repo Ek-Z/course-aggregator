@@ -1,14 +1,10 @@
 import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Route, Switch } from 'react-router-dom';
-import { Grid } from '@mui/material';
-import { Box } from '@mui/system';
 import { selectCourseList, selectFilteredList, selectIsFiltered } from '../../store/courseList/selectors';
-import { Course } from '../../components/Course/Course';
 import { courseListFilter, getCourseList } from '../../store/courseList/action';
-import { CourseFilter } from '../../components/CourseFilter/CourseFilter';
 import { CourseCard } from '../../components/CourseCard/CourseCard';
-import style from './Catalog.module.scss';
+import { CourseList } from '../../components/CourseList/CourseList';
 
 export const Catalog = () => {
     const courseList = useSelector(selectCourseList);
@@ -28,20 +24,7 @@ export const Catalog = () => {
     return (
         <Switch>
             <Route exact={true} path="/courses">
-                {/*TODO: Сформировать отдельный компонент CourseList*/}
-                <section className={style.section}>
-                    <div className={`${style.section__wrap} container`}>
-                        <Box sx={{ flexGrow: 1, display: 'flex' }}>
-                            <CourseFilter onSubmit={handleFilter}/>
-                            <Grid container justifyContent="center" spacing={{ xs: 3 }}>
-                                {isFiltered
-                                    ? filteredList.map((course) => <Course key={course.id} item={course}/>)
-                                    : courseList.map((course) => <Course key={course.id} item={course}
-                                                                         courseId={courseId}/>)}
-                            </Grid>
-                        </Box>
-                    </div>
-                </section>
+                <CourseList list={courseList}/>
             </Route>
             <Route exact={true} path={`/courses/${courseId}`}>
                 <CourseCard courseId={courseId}/>
