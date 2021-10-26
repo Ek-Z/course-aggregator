@@ -17131,7 +17131,7 @@ var Catalog = function Catalog() {
   });
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     dispatch((0,_store_courseList_action__WEBPACK_IMPORTED_MODULE_3__.getCourseList)());
-  }, []);
+  }, [dispatch]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Switch, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
       exact: true,
@@ -17595,6 +17595,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "courseListReducer": () => (/* binding */ courseListReducer)
 /* harmony export */ });
 /* harmony import */ var _action__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./action */ "./resources/js/store/courseList/action.js");
+/* harmony import */ var _statuses_statuses__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../statuses/statuses */ "./resources/js/store/statuses/statuses.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -17614,10 +17615,11 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
+
 var initialState = {
   courseList: [],
   filteredList: [],
-  status: 'IDLE',
+  status: _statuses_statuses__WEBPACK_IMPORTED_MODULE_1__.STATUS_IDLE,
   error: {
     state: false,
     message: ''
@@ -17635,14 +17637,14 @@ var courseListReducer = function courseListReducer() {
   switch (type) {
     case _action__WEBPACK_IMPORTED_MODULE_0__.COURSE_LIST_ONLOAD:
       return _objectSpread(_objectSpread({}, state), {}, {
-        status: 'REQUEST'
+        status: _statuses_statuses__WEBPACK_IMPORTED_MODULE_1__.STATUS_REQUEST
       });
 
     case _action__WEBPACK_IMPORTED_MODULE_0__.COURSE_LIST_LOADED:
       return _objectSpread(_objectSpread({}, state), {}, {
-        courseList: _toConsumableArray(payload),
+        courseList: payload,
         filteredList: [],
-        status: 'SUCCESS',
+        status: _statuses_statuses__WEBPACK_IMPORTED_MODULE_1__.STATUS_SUCCESS,
         error: _objectSpread(_objectSpread({}, state.error), {}, {
           state: false
         }),
@@ -17655,7 +17657,7 @@ var courseListReducer = function courseListReducer() {
 
     case _action__WEBPACK_IMPORTED_MODULE_0__.COURSE_LIST_FAILED:
       return _objectSpread(_objectSpread({}, state), {}, {
-        status: 'FAILED',
+        status: _statuses_statuses__WEBPACK_IMPORTED_MODULE_1__.STATUS_FAILED,
         error: _objectSpread(_objectSpread({}, state.error), {}, {
           state: true,
           message: payload
@@ -17761,6 +17763,27 @@ var rootReducer = (0,redux__WEBPACK_IMPORTED_MODULE_4__.combineReducers)({
 var persistedReducer = (0,redux_persist__WEBPACK_IMPORTED_MODULE_0__.persistReducer)(persistConfig, rootReducer);
 var store = (0,redux__WEBPACK_IMPORTED_MODULE_4__.createStore)(persistedReducer, composeEnhancers((0,redux__WEBPACK_IMPORTED_MODULE_4__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_2__["default"])));
 var persistor = (0,redux_persist__WEBPACK_IMPORTED_MODULE_0__.persistStore)(store);
+
+/***/ }),
+
+/***/ "./resources/js/store/statuses/statuses.js":
+/*!*************************************************!*\
+  !*** ./resources/js/store/statuses/statuses.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "STATUS_IDLE": () => (/* binding */ STATUS_IDLE),
+/* harmony export */   "STATUS_REQUEST": () => (/* binding */ STATUS_REQUEST),
+/* harmony export */   "STATUS_SUCCESS": () => (/* binding */ STATUS_SUCCESS),
+/* harmony export */   "STATUS_FAILED": () => (/* binding */ STATUS_FAILED)
+/* harmony export */ });
+var STATUS_IDLE = 'IDLE';
+var STATUS_REQUEST = 'REQUEST';
+var STATUS_SUCCESS = 'SUCCESS';
+var STATUS_FAILED = 'FAILED';
 
 /***/ }),
 

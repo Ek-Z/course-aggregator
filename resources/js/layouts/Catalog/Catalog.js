@@ -18,7 +18,7 @@ export const Catalog = () => {
 
     useEffect(() => {
         dispatch(getCourseList());
-    }, []);
+    }, [dispatch]);
 
     return (
         <Switch>
