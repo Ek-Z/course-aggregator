@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Typography, CardMedia, CardContent, Card, Grid } from '@mui/material';
 
 export const Course = ({ item }) => {
-
     return (
         <Grid item xs={5}>
             <Link to={`/courses/${item.id}`}>
