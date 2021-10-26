@@ -12,6 +12,7 @@ import { Header } from './layouts/Header/Header';
 import { AdminPanel } from './layouts/AdminPanel/AdminPanel';
 import '../css/app.css';
 import {LoginForm} from "./layouts/LoginForm/LoginForm";
+import { CourseCard } from './components/CourseCard/CourseCard';
 
 function App () {
     return (
@@ -22,9 +23,11 @@ function App () {
                         <Header/>
                         <Switch>
                             <Route exact={true} path="/">
+                            </Route>
+                            <Route exact={true} path="/courses/:courseId?">
                                 <Catalog/>
                             </Route>
-                            <Route egit xact={true} path="/admin">
+                            <Route exact={true} path="/admin">
                                 <AdminPanel/>
                             </Route>
                             <Route exact={true} path="/signIn">
