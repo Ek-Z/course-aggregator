@@ -16,16 +16,27 @@ class CoursesController extends Controller
         return CourseResource::collection(Course::all());
     }
 
-    public function filtered_course(FilterRequest $request)
+    public function filtered_courses(FilterRequest $request)
     {
         $data = $request->validated();
         $query = Course::query();
+
+        //фильтруем курсы по языку программирования
         if (isset($data['programmingLanguage_id'])) {
             $query->where('programmingLanguage_id', $data['programmingLanguage_id']);
             $courses = $query->get();
             return $courses;
         }
-        return CourseResource::collection(Course::all());
+
+        // фильтруем курсы по языку курса (Русский, English)
+        if (isset($data['language'])) {
+            $query->where('language', $data['language']);
+            $courses = $query->get();
+            return $courses;
+        }
+
+        $courses = CourseResource::collection(Course::all());
+        return $courses;
     }
 
     public function store(StoreCourseRequest $request)
@@ -36,7 +47,8 @@ class CoursesController extends Controller
 
     public function show($id)
     {
-        return new CourseResource(Course::findOrFail($id));
+        $course = new CourseResource(Course::findOrFail($id));
+        return $course;
     }
 
     public function update(UpdateCourseRequest $request, $id)

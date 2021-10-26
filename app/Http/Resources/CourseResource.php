@@ -23,6 +23,7 @@ class CourseResource extends JsonResource
             'status' => $this->status,
             'isActive' => $this->isActive,
             'language' => $this->language,
+            'programmingLanguage_id' => $this->programmingLanguage_id,
             // 'programmingLanguage' => $this->programmingLanguage,
         ];
     }
