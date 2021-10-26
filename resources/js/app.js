@@ -24,7 +24,7 @@ function App () {
                             <Route exact={true} path="/">
                                 <Catalog/>
                             </Route>
-                            <Route exact={true} path="/admin">
+                            <Route egit xact={true} path="/admin">
                                 <AdminPanel/>
                             </Route>
                             <Route exact={true} path="/signIn">
