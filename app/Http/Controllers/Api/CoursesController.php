@@ -8,11 +8,15 @@ use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
 use App\Http\Requests\FilterRequest;
 use App\Http\Resources\CourseResource;
-use Illuminate\Http\Request;
 
 class CoursesController extends Controller
 {
-    public function index(FilterRequest $request)
+    public function index()
+    {
+        return CourseResource::collection(Course::all());
+    }
+
+    public function filtered_course(FilterRequest $request)
     {
         $data = $request->validated();
         $query = Course::query();

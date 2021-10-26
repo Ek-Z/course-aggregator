@@ -20,10 +20,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResources([
-    'courses' => CoursesController::class,
-]);
+Route::group(['prefix' => 'admin'], function () {
+    Route::apiResources([
+        'courses' => CoursesController::class,
+    ]);
+    Route::apiResources([
+        'programmingLanguages' => ProgrammingLanguagesController::class,
+    ]);
+});
 
-Route::apiResources([
-    'programmingLanguages' => ProgrammingLanguagesController::class,
-]);
+Route::get('/courses', [CoursesController::class, 'filtered_courses'])
+    ->name('index');;
