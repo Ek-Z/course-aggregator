@@ -7,13 +7,13 @@ import { courseListReducer } from './courseList/reducer';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const persistConfig = {
-    key: 'example',
+    key: 'course-aggregator',
     blacklist: [],
     storage,
 };
 
 const rootReducer = combineReducers({
-    courseList: courseListReducer
+    courseList: courseListReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

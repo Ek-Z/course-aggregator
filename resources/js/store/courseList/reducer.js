@@ -1,9 +1,10 @@
 import { COURSE_LIST_FAILED, COURSE_LIST_FILTERED, COURSE_LIST_LOADED, COURSE_LIST_ONLOAD } from './action';
+import { STATUS_FAILED, STATUS_IDLE, STATUS_REQUEST, STATUS_SUCCESS } from '../statuses/statuses';
 
 const initialState = {
     courseList: [],
     filteredList: [],
-    status: 'IDLE',
+    status: STATUS_IDLE,
     error: {
         state: false,
         message: '',
@@ -17,14 +18,14 @@ export const courseListReducer = (state = initialState, { type, payload }) => {
         case COURSE_LIST_ONLOAD:
             return {
                 ...state,
-                status: 'REQUEST',
+                status: STATUS_REQUEST,
             };
         case COURSE_LIST_LOADED:
             return {
                 ...state,
-                courseList: [...payload],
+                courseList: payload,
                 filteredList: [],
-                status: 'SUCCESS',
+                status: STATUS_SUCCESS,
                 error: {
                     ...state.error,
                     state: false,
@@ -38,7 +39,7 @@ export const courseListReducer = (state = initialState, { type, payload }) => {
         case COURSE_LIST_FAILED:
             return {
                 ...state,
-                status: 'FAILED',
+                status: STATUS_FAILED,
                 error: {
                     ...state.error,
                     state: true,
