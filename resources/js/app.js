@@ -11,6 +11,7 @@ import { persistor } from './store';
 import { Header } from './layouts/Header/Header';
 import { AdminPanel } from './layouts/AdminPanel/AdminPanel';
 import '../css/app.css';
+import {LoginForm} from "./layouts/LoginForm/LoginForm";
 
 function App () {
     return (
@@ -27,10 +28,10 @@ function App () {
                                 <AdminPanel/>
                             </Route>
                             <Route exact={true} path="/signIn">
-                                <h3>Авторизация</h3>
+                                <LoginForm/>
                             </Route>
                             <Route exact={true} path="/signUp">
-                                <h3>Регистрация</h3>
+                                <LoginForm onSubmit="addUser"/>
                             </Route>
                         </Switch>
                     </HashRouter>
