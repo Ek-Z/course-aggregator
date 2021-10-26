@@ -5,7 +5,7 @@ import { Typography, CardMedia, CardContent, Card, Grid } from '@mui/material';
 export const Course = ({ item }) => {
     return (
         <Grid item xs={5}>
-            <Link to={`/courses/${item.id}`}>
+            <Link to={`/courses/${item.id}`} style={{ textDecoration: 'none' }}>
                 <Card sx={{ maxWidth: 500, height: '100%', display: 'flex', flexDirection: 'column' }}>
                     <CardMedia component="img" height={140} image={item.image} alt="green iguana"/>
                     <CardContent sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
