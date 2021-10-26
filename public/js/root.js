@@ -16536,10 +16536,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "CourseCard": () => (/* binding */ CourseCard)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../store/courseList/selectors */ "./resources/js/store/courseList/selectors.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _CourseInfo_CourseInfo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../CourseInfo/CourseInfo */ "./resources/js/components/CourseInfo/CourseInfo.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
@@ -16552,27 +16553,11 @@ var CourseCard = function CourseCard(_ref) {
     return (0,_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectExactCourse)(courseId);
   }, [courseId]);
   var course = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(selectCourse);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Route, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
     exact: true,
     path: "/courses/".concat(courseId),
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("article", {
-      style: {
-        display: 'flex',
-        flexDirection: 'column'
-      },
-      "data-course-id": course.id,
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
-        src: course.image,
-        alt: "green iguana"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h3", {
-        children: course.title
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-        children: course.description
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        children: course.source
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        children: course.language
-      })]
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_CourseInfo_CourseInfo__WEBPACK_IMPORTED_MODULE_3__.CourseInfo, {
+      item: course
     })
   });
 };
@@ -16826,6 +16811,45 @@ Filter.propTypes = {
   filterName: (prop_types__WEBPACK_IMPORTED_MODULE_0___default().string),
   filterOptions: (prop_types__WEBPACK_IMPORTED_MODULE_0___default().object),
   onChange: (prop_types__WEBPACK_IMPORTED_MODULE_0___default().func)
+};
+
+/***/ }),
+
+/***/ "./resources/js/components/CourseInfo/CourseInfo.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/CourseInfo/CourseInfo.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CourseInfo": () => (/* binding */ CourseInfo)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+var CourseInfo = function CourseInfo(_ref) {
+  var item = _ref.item;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("article", {
+    style: {
+      display: 'flex',
+      flexDirection: 'column'
+    },
+    "data-course-id": item.id,
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("img", {
+      src: item.image,
+      alt: "green iguana"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", {
+      children: item.title
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", {
+      children: item.description
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+      children: item.source
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+      children: item.language
+    })]
+  });
 };
 
 /***/ }),
