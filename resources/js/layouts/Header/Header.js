@@ -8,9 +8,9 @@ export const Header = () => {
         <AppBar position="static">
             <Container>
                 <Toolbar>
-                    <Box sx={{ height: 40}}>
+                    <Box sx={{ height: 40 }}>
                         <Link className={style.headerLinks} to="/">
-                            <svg className={style.Logo}>
+                            <svg>
                                 <use xlinkHref="/assets/icons.svg#main-logo"/>
                             </svg>
                         </Link>
