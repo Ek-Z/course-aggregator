@@ -39,3 +39,6 @@ Route::get('/courses/{id}', [CoursesController::class, 'show'])
 
 Route::get('/programmingLanguages', [ProgrammingLanguagesController::class, 'index'])
     ->name('programmingLanguages.index');
+
+Route::get('/courses/search/{title}', [CoursesController::class, 'search'])
+    ->name('courses.search');
