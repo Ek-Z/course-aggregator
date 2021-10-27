@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
-use App\Http\Requests\FilterRequest;
 use App\Http\Resources\CourseResource;
 
 class CoursesController extends Controller
@@ -14,29 +13,6 @@ class CoursesController extends Controller
     public function index()
     {
         return CourseResource::collection(Course::all());
-    }
-
-    public function filtered_courses(FilterRequest $request)
-    {
-        $data = $request->validated();
-        $query = Course::query();
-
-        //фильтруем курсы по языку программирования
-        if (isset($data['programmingLanguage_id'])) {
-            $query->where('programmingLanguage_id', $data['programmingLanguage_id']);
-            $courses = $query->get();
-            return $courses;
-        }
-
-        // фильтруем курсы по языку курса (Русский, English)
-        if (isset($data['language'])) {
-            $query->where('language', $data['language']);
-            $courses = $query->get();
-            return $courses;
-        }
-
-        $courses = CourseResource::collection(Course::all());
-        return $courses;
     }
 
     public function store(StoreCourseRequest $request)

@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\Api\CoursesController;
-use App\Http\Controllers\Api\ProgrammingLanguagesController;
+use App\Http\Controllers\Admin\CoursesController as AdminCoursesController;
+use App\Http\Controllers\Admin\ProgrammingLanguagesController as AdminProgrammingLanguagesController;
+use App\Http\Controllers\CoursesController;
+use App\Http\Controllers\ProgrammingLanguagesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,12 +24,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::apiResources([
-        'courses' => CoursesController::class,
+        'courses' => AdminCoursesController::class,
     ]);
     Route::apiResources([
-        'programmingLanguages' => ProgrammingLanguagesController::class,
+        'programmingLanguages' => AdminProgrammingLanguagesController::class,
     ]);
 });
 
-Route::get('/courses', [CoursesController::class, 'filtered_courses'])
+Route::get('/courses', [CoursesController::class, 'index'])
     ->name('courses.index');
+
+Route::get('/courses/{id}', [CoursesController::class, 'show'])
+    ->name('courses.show');
+
+Route::get('/programmingLanguages', [ProgrammingLanguagesController::class, 'index'])
+    ->name('programmingLanguages.index');

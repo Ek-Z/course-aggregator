@@ -17,4 +17,9 @@ class ProgrammingLanguage extends Model
         'updated_at',
         'deleted_at'
     ];
+
+    public function course()
+    {
+        return $this->hasMany(Course::class);
+    }
 }
