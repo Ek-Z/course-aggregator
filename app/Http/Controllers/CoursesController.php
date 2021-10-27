@@ -36,4 +36,9 @@ class CoursesController extends Controller
         $course = new FitredCoursesResource(Course::findOrFail($id));
         return $course;
     }
+
+    public function search($title)
+    {
+        return Course::where('title', 'like', '%' . $title . '%')->get();
+    }
 }
