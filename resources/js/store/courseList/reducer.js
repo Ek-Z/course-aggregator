@@ -1,5 +1,5 @@
 import { COURSE_LIST_FAILED, COURSE_LIST_FILTERED, COURSE_LIST_LOADED, COURSE_LIST_ONLOAD } from './action';
-import { STATUS_FAILED, STATUS_IDLE, STATUS_REQUEST, STATUS_SUCCESS } from '../statuses/statuses';
+import { STATUS_FAILED, STATUS_IDLE, STATUS_REQUEST, STATUS_SUCCESS } from '../../utils/statuses/statuses';
 
 const initialState = {
     courseList: [],

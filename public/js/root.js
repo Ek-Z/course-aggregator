@@ -56,6 +56,29 @@ __webpack_require__.r(__webpack_exports__);
 
 var last = function last(arr) {
   return arr.length ? arr[arr.length - 1] : null;
+}; // based on https://github.com/thysultan/stylis.js/blob/e6843c373ebcbbfade25ebcc23f540ed8508da0a/src/Tokenizer.js#L239-L244
+
+
+var identifierWithPointTracking = function identifierWithPointTracking(begin, points, index) {
+  var previous = 0;
+  var character = 0;
+
+  while (true) {
+    previous = character;
+    character = (0,stylis__WEBPACK_IMPORTED_MODULE_3__.peek)(); // &\f
+
+    if (previous === 38 && character === 12) {
+      points[index] = 1;
+    }
+
+    if ((0,stylis__WEBPACK_IMPORTED_MODULE_3__.token)(character)) {
+      break;
+    }
+
+    (0,stylis__WEBPACK_IMPORTED_MODULE_3__.next)();
+  }
+
+  return (0,stylis__WEBPACK_IMPORTED_MODULE_3__.slice)(begin, stylis__WEBPACK_IMPORTED_MODULE_3__.position);
 };
 
 var toRules = function toRules(parsed, points) {
@@ -75,7 +98,7 @@ var toRules = function toRules(parsed, points) {
           points[index] = 1;
         }
 
-        parsed[index] += (0,stylis__WEBPACK_IMPORTED_MODULE_3__.identifier)(stylis__WEBPACK_IMPORTED_MODULE_3__.position - 1);
+        parsed[index] += identifierWithPointTracking(stylis__WEBPACK_IMPORTED_MODULE_3__.position - 1, points, index);
         break;
 
       case 2:
@@ -755,7 +778,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var pkg = {
 	name: "@emotion/react",
-	version: "11.4.1",
+	version: "11.5.0",
 	main: "dist/emotion-react.cjs.js",
 	module: "dist/emotion-react.esm.js",
 	browser: {
@@ -782,9 +805,9 @@ var pkg = {
 	},
 	dependencies: {
 		"@babel/runtime": "^7.13.10",
-		"@emotion/cache": "^11.4.0",
+		"@emotion/cache": "^11.5.0",
 		"@emotion/serialize": "^1.0.2",
-		"@emotion/sheet": "^1.0.2",
+		"@emotion/sheet": "^1.0.3",
 		"@emotion/utils": "^1.0.0",
 		"@emotion/weak-memoize": "^0.2.5",
 		"hoist-non-react-statics": "^3.3.1"
@@ -803,7 +826,7 @@ var pkg = {
 	},
 	devDependencies: {
 		"@babel/core": "^7.13.10",
-		"@emotion/css": "11.1.3",
+		"@emotion/css": "11.5.0",
 		"@emotion/css-prettifier": "1.0.0",
 		"@emotion/server": "11.4.0",
 		"@emotion/styled": "11.3.0",
@@ -1069,7 +1092,10 @@ if (true) {
   var isJest = typeof jest !== 'undefined';
 
   if (isBrowser && !isJest) {
-    var globalContext = isBrowser ? window : __webpack_require__.g;
+    // globalThis has wide browser support - https://caniuse.com/?search=globalThis, Node.js 12 and later
+    var globalContext = // $FlowIgnore
+    typeof globalThis !== 'undefined' ? globalThis // eslint-disable-line no-undef
+    : isBrowser ? window : __webpack_require__.g;
     var globalKey = "__EMOTION_REACT_" + pkg.version.split('.')[0] + "__";
 
     if (globalContext[globalKey]) {
@@ -1588,7 +1614,7 @@ var StyleSheet = /*#__PURE__*/function () {
   _proto.flush = function flush() {
     // $FlowFixMe
     this.tags.forEach(function (tag) {
-      return tag.parentNode.removeChild(tag);
+      return tag.parentNode && tag.parentNode.removeChild(tag);
     });
     this.tags = [];
     this.ctr = 0;
@@ -1981,6 +2007,251 @@ var weakMemoize = function weakMemoize(func) {
 
 /***/ }),
 
+/***/ "./node_modules/@mui/core/TextareaAutosize/TextareaAutosize.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@mui/core/TextareaAutosize/TextareaAutosize.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _mui_utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/utils */ "./node_modules/@mui/utils/esm/useForkRef.js");
+/* harmony import */ var _mui_utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/utils */ "./node_modules/@mui/utils/esm/ownerWindow.js");
+/* harmony import */ var _mui_utils__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/utils */ "./node_modules/@mui/utils/esm/debounce.js");
+/* harmony import */ var _mui_utils__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/utils */ "./node_modules/@mui/utils/esm/useEnhancedEffect.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+const _excluded = ["onChange", "maxRows", "minRows", "style", "value"];
+
+
+
+
+
+
+function getStyleValue(computedStyle, property) {
+  return parseInt(computedStyle[property], 10) || 0;
+}
+
+const styles = {
+  shadow: {
+    // Visibility needed to hide the extra text area on iPads
+    visibility: 'hidden',
+    // Remove from the content flow
+    position: 'absolute',
+    // Ignore the scrollbar width
+    overflow: 'hidden',
+    height: 0,
+    top: 0,
+    left: 0,
+    // Create a new layer, increase the isolation of the computed values
+    transform: 'translateZ(0)'
+  }
+};
+const TextareaAutosize = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(function TextareaAutosize(props, ref) {
+  const {
+    onChange,
+    maxRows,
+    minRows = 1,
+    style,
+    value
+  } = props,
+        other = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__["default"])(props, _excluded);
+
+  const {
+    current: isControlled
+  } = react__WEBPACK_IMPORTED_MODULE_2__.useRef(value != null);
+  const inputRef = react__WEBPACK_IMPORTED_MODULE_2__.useRef(null);
+  const handleRef = (0,_mui_utils__WEBPACK_IMPORTED_MODULE_5__["default"])(ref, inputRef);
+  const shadowRef = react__WEBPACK_IMPORTED_MODULE_2__.useRef(null);
+  const renders = react__WEBPACK_IMPORTED_MODULE_2__.useRef(0);
+  const [state, setState] = react__WEBPACK_IMPORTED_MODULE_2__.useState({});
+  const syncHeight = react__WEBPACK_IMPORTED_MODULE_2__.useCallback(() => {
+    const input = inputRef.current;
+    const containerWindow = (0,_mui_utils__WEBPACK_IMPORTED_MODULE_6__["default"])(input);
+    const computedStyle = containerWindow.getComputedStyle(input); // If input's width is shrunk and it's not visible, don't sync height.
+
+    if (computedStyle.width === '0px') {
+      return;
+    }
+
+    const inputShallow = shadowRef.current;
+    inputShallow.style.width = computedStyle.width;
+    inputShallow.value = input.value || props.placeholder || 'x';
+
+    if (inputShallow.value.slice(-1) === '\n') {
+      // Certain fonts which overflow the line height will cause the textarea
+      // to report a different scrollHeight depending on whether the last line
+      // is empty. Make it non-empty to avoid this issue.
+      inputShallow.value += ' ';
+    }
+
+    const boxSizing = computedStyle['box-sizing'];
+    const padding = getStyleValue(computedStyle, 'padding-bottom') + getStyleValue(computedStyle, 'padding-top');
+    const border = getStyleValue(computedStyle, 'border-bottom-width') + getStyleValue(computedStyle, 'border-top-width'); // The height of the inner content
+
+    const innerHeight = inputShallow.scrollHeight; // Measure height of a textarea with a single row
+
+    inputShallow.value = 'x';
+    const singleRowHeight = inputShallow.scrollHeight; // The height of the outer content
+
+    let outerHeight = innerHeight;
+
+    if (minRows) {
+      outerHeight = Math.max(Number(minRows) * singleRowHeight, outerHeight);
+    }
+
+    if (maxRows) {
+      outerHeight = Math.min(Number(maxRows) * singleRowHeight, outerHeight);
+    }
+
+    outerHeight = Math.max(outerHeight, singleRowHeight); // Take the box sizing into account for applying this value as a style.
+
+    const outerHeightStyle = outerHeight + (boxSizing === 'border-box' ? padding + border : 0);
+    const overflow = Math.abs(outerHeight - innerHeight) <= 1;
+    setState(prevState => {
+      // Need a large enough difference to update the height.
+      // This prevents infinite rendering loop.
+      if (renders.current < 20 && (outerHeightStyle > 0 && Math.abs((prevState.outerHeightStyle || 0) - outerHeightStyle) > 1 || prevState.overflow !== overflow)) {
+        renders.current += 1;
+        return {
+          overflow,
+          outerHeightStyle
+        };
+      }
+
+      if (true) {
+        if (renders.current === 20) {
+          console.error(['MUI: Too many re-renders. The layout is unstable.', 'TextareaAutosize limits the number of renders to prevent an infinite loop.'].join('\n'));
+        }
+      }
+
+      return prevState;
+    });
+  }, [maxRows, minRows, props.placeholder]);
+  react__WEBPACK_IMPORTED_MODULE_2__.useEffect(() => {
+    const handleResize = (0,_mui_utils__WEBPACK_IMPORTED_MODULE_7__["default"])(() => {
+      renders.current = 0;
+      syncHeight();
+    });
+    const containerWindow = (0,_mui_utils__WEBPACK_IMPORTED_MODULE_6__["default"])(inputRef.current);
+    containerWindow.addEventListener('resize', handleResize);
+    let resizeObserver;
+
+    if (typeof ResizeObserver !== 'undefined') {
+      resizeObserver = new ResizeObserver(handleResize);
+      resizeObserver.observe(inputRef.current);
+    }
+
+    return () => {
+      handleResize.clear();
+      containerWindow.removeEventListener('resize', handleResize);
+
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+      }
+    };
+  }, [syncHeight]);
+  (0,_mui_utils__WEBPACK_IMPORTED_MODULE_8__["default"])(() => {
+    syncHeight();
+  });
+  react__WEBPACK_IMPORTED_MODULE_2__.useEffect(() => {
+    renders.current = 0;
+  }, [value]);
+
+  const handleChange = event => {
+    renders.current = 0;
+
+    if (!isControlled) {
+      syncHeight();
+    }
+
+    if (onChange) {
+      onChange(event);
+    }
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("textarea", (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
+      value: value,
+      onChange: handleChange,
+      ref: handleRef // Apply the rows prop to get a "correct" first SSR paint
+      ,
+      rows: minRows,
+      style: (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
+        height: state.outerHeightStyle,
+        // Need a large enough difference to allow scrolling.
+        // This prevents infinite rendering loop.
+        overflow: state.overflow ? 'hidden' : null
+      }, style)
+    }, other)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("textarea", {
+      "aria-hidden": true,
+      className: props.className,
+      readOnly: true,
+      ref: shadowRef,
+      tabIndex: -1,
+      style: (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, styles.shadow, style, {
+        padding: 0
+      })
+    })]
+  });
+});
+ true ? TextareaAutosize.propTypes
+/* remove-proptypes */
+= {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+
+  /**
+   * @ignore
+   */
+  className: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+
+  /**
+   * Maximum number of rows to display.
+   */
+  maxRows: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().number), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string)]),
+
+  /**
+   * Minimum number of rows to display.
+   * @default 1
+   */
+  minRows: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().number), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string)]),
+
+  /**
+   * @ignore
+   */
+  onChange: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+
+  /**
+   * @ignore
+   */
+  placeholder: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+
+  /**
+   * @ignore
+   */
+  style: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object),
+
+  /**
+   * @ignore
+   */
+  value: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_3___default().arrayOf((prop_types__WEBPACK_IMPORTED_MODULE_3___default().string)), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().number), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string)])
+} : 0;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TextareaAutosize);
+
+/***/ }),
+
 /***/ "./node_modules/@mui/core/composeClasses/composeClasses.js":
 /*!*****************************************************************!*\
   !*** ./node_modules/@mui/core/composeClasses/composeClasses.js ***!
@@ -2014,6 +2285,42 @@ function composeClasses(slots, getUtilityClass, classes) {
 
 /***/ }),
 
+/***/ "./node_modules/@mui/core/generateUtilityClass/ClassNameGenerator.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@mui/core/generateUtilityClass/ClassNameGenerator.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const defaultGenerator = componentName => componentName;
+
+const createClassNameGenerator = () => {
+  let generate = defaultGenerator;
+  return {
+    configure(generator) {
+      generate = generator;
+    },
+
+    generate(componentName) {
+      return generate(componentName);
+    },
+
+    reset() {
+      generate = defaultGenerator;
+    }
+
+  };
+};
+
+const ClassNameGenerator = createClassNameGenerator();
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ClassNameGenerator);
+
+/***/ }),
+
 /***/ "./node_modules/@mui/core/generateUtilityClass/generateUtilityClass.js":
 /*!*****************************************************************************!*\
   !*** ./node_modules/@mui/core/generateUtilityClass/generateUtilityClass.js ***!
@@ -2025,6 +2332,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ generateUtilityClass)
 /* harmony export */ });
+/* harmony import */ var _ClassNameGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ClassNameGenerator */ "./node_modules/@mui/core/generateUtilityClass/ClassNameGenerator.js");
+
 const globalStateClassesMapping = {
   active: 'Mui-active',
   checked: 'Mui-checked',
@@ -2039,7 +2348,7 @@ const globalStateClassesMapping = {
 };
 function generateUtilityClass(componentName, slot) {
   const globalStateClass = globalStateClassesMapping[slot];
-  return globalStateClass || `${componentName}-${slot}`;
+  return globalStateClass || `${_ClassNameGenerator__WEBPACK_IMPORTED_MODULE_0__["default"].generate(componentName)}-${slot}`;
 }
 
 /***/ }),
@@ -2238,7 +2547,7 @@ const AccordionDetails = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forward
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
-  sx: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)
+  sx: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)])
 } : 0;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AccordionDetails);
 
@@ -2497,7 +2806,7 @@ const AccordionSummary = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forward
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
-  sx: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)
+  sx: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)])
 } : 0;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AccordionSummary);
 
@@ -2817,7 +3126,7 @@ const Accordion = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(fun
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
-  sx: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().object),
+  sx: prop_types__WEBPACK_IMPORTED_MODULE_4___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_4___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_4___default().object)]),
 
   /**
    * The component used for the transition.
@@ -3079,7 +3388,7 @@ const AppBar = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(functi
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
-  sx: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)
+  sx: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)])
 } : 0;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AppBar);
 
@@ -3388,7 +3697,7 @@ const Avatar = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(functi
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
-  sx: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object),
+  sx: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)]),
 
   /**
    * The shape of the avatar.
@@ -3966,7 +4275,7 @@ const ButtonBase = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(fu
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
-  sx: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object),
+  sx: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)]),
 
   /**
    * @default 0
@@ -4921,7 +5230,7 @@ const Button = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(functi
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
-  sx: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object),
+  sx: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)]),
 
   /**
    * @ignore
@@ -5073,7 +5382,7 @@ const CardContent = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(f
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
-  sx: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)
+  sx: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)])
 } : 0;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CardContent);
 
@@ -5209,7 +5518,7 @@ const CardMedia = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(fun
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(CardMediaRoot, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
     className: (0,clsx__WEBPACK_IMPORTED_MODULE_4__["default"])(classes.root, className),
     as: component,
-    role: !isMediaComponent && image ? 'image' : undefined,
+    role: !isMediaComponent && image ? 'img' : undefined,
     ref: ref,
     style: composedStyle,
     ownerState: ownerState,
@@ -5275,7 +5584,7 @@ const CardMedia = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(fun
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
-  sx: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)
+  sx: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)])
 } : 0;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CardMedia);
 
@@ -5423,7 +5732,7 @@ const Card = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(function
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
-  sx: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)
+  sx: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)])
 } : 0;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Card);
 
@@ -5699,7 +6008,7 @@ const Checkbox = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(func
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
-  sx: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object),
+  sx: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)]),
 
   /**
    * The value of the component. The DOM API casts this to a string.
@@ -6164,7 +6473,7 @@ const Collapse = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(func
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
-  sx: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().object),
+  sx: prop_types__WEBPACK_IMPORTED_MODULE_4___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_4___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_4___default().object)]),
 
   /**
    * The duration for the transition, in milliseconds.
@@ -6391,7 +6700,7 @@ const Container = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(fun
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
-  sx: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)
+  sx: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)])
 } : 0;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Container);
 
@@ -6660,7 +6969,7 @@ const FormControlLabel = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forward
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
-  sx: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object),
+  sx: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)]),
 
   /**
    * The value of the component.
@@ -6897,7 +7206,7 @@ const FormGroup = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(fun
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
-  sx: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)
+  sx: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)])
 } : 0;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FormGroup);
 
@@ -7261,7 +7570,7 @@ const Grid = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(function
 
   const {
     className,
-    columns: columnsProp = 12,
+    columns: columnsProp,
     columnSpacing: columnSpacingProp,
     component = 'div',
     container = false,
@@ -7281,7 +7590,10 @@ const Grid = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(function
 
   const rowSpacing = rowSpacingProp || spacing;
   const columnSpacing = columnSpacingProp || spacing;
-  const columns = react__WEBPACK_IMPORTED_MODULE_2__.useContext(_GridContext__WEBPACK_IMPORTED_MODULE_12__["default"]) || columnsProp;
+  const columnsContext = react__WEBPACK_IMPORTED_MODULE_2__.useContext(_GridContext__WEBPACK_IMPORTED_MODULE_12__["default"]); // setting prop before context to accomodate nesting
+  // colums set with default breakpoint unit of 12
+
+  const columns = columnsProp || columnsContext || 12;
 
   const ownerState = (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, props, {
     columns,
@@ -7412,7 +7724,7 @@ const Grid = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(function
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
-  sx: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object),
+  sx: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)]),
 
   /**
    * Defines the `flex-wrap` style property.
@@ -7756,7 +8068,7 @@ const IconButton = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(fu
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
-  sx: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)
+  sx: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)])
 } : 0;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (IconButton);
 
@@ -7806,30 +8118,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
-/* harmony import */ var _mui_utils__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @mui/utils */ "./node_modules/@mui/utils/esm/elementTypeAcceptingRef.js");
-/* harmony import */ var _mui_utils__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @mui/utils */ "./node_modules/@mui/utils/esm/refType.js");
+/* harmony import */ var _mui_utils__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @mui/utils */ "./node_modules/@mui/utils/esm/elementTypeAcceptingRef.js");
+/* harmony import */ var _mui_utils__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @mui/utils */ "./node_modules/@mui/utils/esm/refType.js");
 /* harmony import */ var _mui_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/core */ "./node_modules/@mui/core/composeClasses/composeClasses.js");
-/* harmony import */ var _mui_core__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @mui/core */ "./node_modules/@mui/core/utils/isHostComponent.js");
-/* harmony import */ var _FormControl_formControlState__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../FormControl/formControlState */ "./node_modules/@mui/material/FormControl/formControlState.js");
-/* harmony import */ var _FormControl_FormControlContext__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../FormControl/FormControlContext */ "./node_modules/@mui/material/FormControl/FormControlContext.js");
-/* harmony import */ var _FormControl_useFormControl__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../FormControl/useFormControl */ "./node_modules/@mui/material/FormControl/useFormControl.js");
+/* harmony import */ var _mui_core__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @mui/core */ "./node_modules/@mui/core/TextareaAutosize/TextareaAutosize.js");
+/* harmony import */ var _mui_core__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @mui/core */ "./node_modules/@mui/core/utils/isHostComponent.js");
+/* harmony import */ var _FormControl_formControlState__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../FormControl/formControlState */ "./node_modules/@mui/material/FormControl/formControlState.js");
+/* harmony import */ var _FormControl_FormControlContext__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../FormControl/FormControlContext */ "./node_modules/@mui/material/FormControl/FormControlContext.js");
+/* harmony import */ var _FormControl_useFormControl__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../FormControl/useFormControl */ "./node_modules/@mui/material/FormControl/useFormControl.js");
 /* harmony import */ var _styles_styled__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../styles/styled */ "./node_modules/@mui/material/styles/styled.js");
 /* harmony import */ var _styles_useThemeProps__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../styles/useThemeProps */ "./node_modules/@mui/material/styles/useThemeProps.js");
-/* harmony import */ var _styles_useTheme__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../styles/useTheme */ "./node_modules/@mui/material/styles/useTheme.js");
 /* harmony import */ var _utils_capitalize__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/capitalize */ "./node_modules/@mui/material/utils/capitalize.js");
-/* harmony import */ var _utils_useForkRef__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../utils/useForkRef */ "./node_modules/@mui/material/utils/useForkRef.js");
-/* harmony import */ var _utils_useEnhancedEffect__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../utils/useEnhancedEffect */ "./node_modules/@mui/material/utils/useEnhancedEffect.js");
-/* harmony import */ var _TextareaAutosize__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../TextareaAutosize */ "./node_modules/@mui/material/TextareaAutosize/TextareaAutosize.js");
+/* harmony import */ var _utils_useForkRef__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../utils/useForkRef */ "./node_modules/@mui/material/utils/useForkRef.js");
+/* harmony import */ var _utils_useEnhancedEffect__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../utils/useEnhancedEffect */ "./node_modules/@mui/material/utils/useEnhancedEffect.js");
 /* harmony import */ var _GlobalStyles__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../GlobalStyles */ "./node_modules/@mui/material/GlobalStyles/GlobalStyles.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./utils */ "./node_modules/@mui/material/InputBase/utils.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./utils */ "./node_modules/@mui/material/InputBase/utils.js");
 /* harmony import */ var _inputBaseClasses__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./inputBaseClasses */ "./node_modules/@mui/material/InputBase/inputBaseClasses.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
 const _excluded = ["aria-describedby", "autoComplete", "autoFocus", "className", "color", "components", "componentsProps", "defaultValue", "disabled", "endAdornment", "error", "fullWidth", "id", "inputComponent", "inputProps", "inputRef", "margin", "maxRows", "minRows", "multiline", "name", "onBlur", "onChange", "onClick", "onFocus", "onKeyDown", "onKeyUp", "placeholder", "readOnly", "renderSuffix", "rows", "size", "startAdornment", "type", "value"];
-
-
 
 
 
@@ -8075,7 +8384,6 @@ const InputBase = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(fun
   } = props,
         other = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__["default"])(props, _excluded);
 
-  const theme = (0,_styles_useTheme__WEBPACK_IMPORTED_MODULE_12__["default"])();
   const value = inputPropsProp.value != null ? inputPropsProp.value : valueProp;
   const {
     current: isControlled
@@ -8088,11 +8396,11 @@ const InputBase = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(fun
       }
     }
   }, []);
-  const handleInputPropsRefProp = (0,_utils_useForkRef__WEBPACK_IMPORTED_MODULE_13__["default"])(inputPropsProp.ref, handleInputRefWarning);
-  const handleInputRefProp = (0,_utils_useForkRef__WEBPACK_IMPORTED_MODULE_13__["default"])(inputRefProp, handleInputPropsRefProp);
-  const handleInputRef = (0,_utils_useForkRef__WEBPACK_IMPORTED_MODULE_13__["default"])(inputRef, handleInputRefProp);
+  const handleInputPropsRefProp = (0,_utils_useForkRef__WEBPACK_IMPORTED_MODULE_12__["default"])(inputPropsProp.ref, handleInputRefWarning);
+  const handleInputRefProp = (0,_utils_useForkRef__WEBPACK_IMPORTED_MODULE_12__["default"])(inputRefProp, handleInputPropsRefProp);
+  const handleInputRef = (0,_utils_useForkRef__WEBPACK_IMPORTED_MODULE_12__["default"])(inputRef, handleInputRefProp);
   const [focused, setFocused] = react__WEBPACK_IMPORTED_MODULE_2__.useState(false);
-  const muiFormControl = (0,_FormControl_useFormControl__WEBPACK_IMPORTED_MODULE_14__["default"])();
+  const muiFormControl = (0,_FormControl_useFormControl__WEBPACK_IMPORTED_MODULE_13__["default"])();
 
   if (true) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -8105,7 +8413,7 @@ const InputBase = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(fun
     }, [muiFormControl]);
   }
 
-  const fcs = (0,_FormControl_formControlState__WEBPACK_IMPORTED_MODULE_15__["default"])({
+  const fcs = (0,_FormControl_formControlState__WEBPACK_IMPORTED_MODULE_14__["default"])({
     props,
     muiFormControl,
     states: ['color', 'disabled', 'error', 'hiddenLabel', 'size', 'required', 'filled']
@@ -8125,7 +8433,7 @@ const InputBase = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(fun
   const onFilled = muiFormControl && muiFormControl.onFilled;
   const onEmpty = muiFormControl && muiFormControl.onEmpty;
   const checkDirty = react__WEBPACK_IMPORTED_MODULE_2__.useCallback(obj => {
-    if ((0,_utils__WEBPACK_IMPORTED_MODULE_16__.isFilled)(obj)) {
+    if ((0,_utils__WEBPACK_IMPORTED_MODULE_15__.isFilled)(obj)) {
       if (onFilled) {
         onFilled();
       }
@@ -8133,7 +8441,7 @@ const InputBase = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(fun
       onEmpty();
     }
   }, [onFilled, onEmpty]);
-  (0,_utils_useEnhancedEffect__WEBPACK_IMPORTED_MODULE_17__["default"])(() => {
+  (0,_utils_useEnhancedEffect__WEBPACK_IMPORTED_MODULE_16__["default"])(() => {
     if (isControlled) {
       checkDirty({
         value
@@ -8243,7 +8551,7 @@ const InputBase = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(fun
       }, inputProps);
     }
 
-    InputComponent = _TextareaAutosize__WEBPACK_IMPORTED_MODULE_18__["default"];
+    InputComponent = _mui_core__WEBPACK_IMPORTED_MODULE_17__["default"];
   }
 
   const handleAutoFill = event => {
@@ -8280,15 +8588,14 @@ const InputBase = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(fun
   const Input = components.Input || InputBaseComponent;
   inputProps = (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, inputProps, componentsProps.input);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
-    children: [inputGlobalStyles, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(Root, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, rootProps, !(0,_mui_core__WEBPACK_IMPORTED_MODULE_19__["default"])(Root) && {
-      ownerState: (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, ownerState, rootProps.ownerState),
-      theme
+    children: [inputGlobalStyles, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(Root, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, rootProps, !(0,_mui_core__WEBPACK_IMPORTED_MODULE_18__["default"])(Root) && {
+      ownerState: (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, ownerState, rootProps.ownerState)
     }, {
       ref: ref,
       onClick: handleClick
     }, other, {
       className: (0,clsx__WEBPACK_IMPORTED_MODULE_4__["default"])(classes.root, rootProps.className, className),
-      children: [startAdornment, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_FormControl_FormControlContext__WEBPACK_IMPORTED_MODULE_20__["default"].Provider, {
+      children: [startAdornment, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_FormControl_FormControlContext__WEBPACK_IMPORTED_MODULE_19__["default"].Provider, {
         value: null,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Input, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
           ownerState: ownerState,
@@ -8309,10 +8616,9 @@ const InputBase = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(fun
           onKeyDown: onKeyDown,
           onKeyUp: onKeyUp,
           type: type
-        }, inputProps, !(0,_mui_core__WEBPACK_IMPORTED_MODULE_19__["default"])(Input) && {
+        }, inputProps, !(0,_mui_core__WEBPACK_IMPORTED_MODULE_18__["default"])(Input) && {
           as: InputComponent,
-          ownerState: (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, ownerState, inputProps.ownerState),
-          theme
+          ownerState: (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, ownerState, inputProps.ownerState)
         }, {
           ref: handleInputRef,
           className: (0,clsx__WEBPACK_IMPORTED_MODULE_4__["default"])(classes.input, inputProps.className, inputPropsProp.className),
@@ -8421,7 +8727,7 @@ const InputBase = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(fun
    * Either a string to use a HTML element or a component.
    * @default 'input'
    */
-  inputComponent: _mui_utils__WEBPACK_IMPORTED_MODULE_21__["default"],
+  inputComponent: _mui_utils__WEBPACK_IMPORTED_MODULE_20__["default"],
 
   /**
    * [Attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Attributes) applied to the `input` element.
@@ -8432,7 +8738,7 @@ const InputBase = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(fun
   /**
    * Pass a ref to the `input` element.
    */
-  inputRef: _mui_utils__WEBPACK_IMPORTED_MODULE_22__["default"],
+  inputRef: _mui_utils__WEBPACK_IMPORTED_MODULE_21__["default"],
 
   /**
    * If `dense`, will adjust vertical spacing. This is normally obtained via context from
@@ -8537,7 +8843,7 @@ const InputBase = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(fun
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
-  sx: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object),
+  sx: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)]),
 
   /**
    * Type of the `input` element. It should be [a valid HTML5 input type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types).
@@ -8961,7 +9267,7 @@ const Input = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(functio
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
-  sx: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object),
+  sx: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)]),
 
   /**
    * Type of the `input` element. It should be [a valid HTML5 input type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types).
@@ -9190,7 +9496,7 @@ const Paper = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(functio
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
-  sx: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object),
+  sx: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)]),
 
   /**
    * The variant to use.
@@ -9412,7 +9718,7 @@ const SvgIcon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(funct
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
-  sx: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object),
+  sx: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)]),
 
   /**
    * Provides a human-readable title for the element that contains it.
@@ -9455,254 +9761,6 @@ function getSvgIconUtilityClass(slot) {
 }
 const svgIconClasses = (0,_mui_core__WEBPACK_IMPORTED_MODULE_1__["default"])('MuiSvgIcon', ['root', 'colorPrimary', 'colorSecondary', 'colorAction', 'colorError', 'colorDisabled', 'fontSizeInherit', 'fontSizeSmall', 'fontSizeMedium', 'fontSizeLarge']);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (svgIconClasses);
-
-/***/ }),
-
-/***/ "./node_modules/@mui/material/TextareaAutosize/TextareaAutosize.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/@mui/material/TextareaAutosize/TextareaAutosize.js ***!
-  \*************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
-/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _utils_debounce__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../utils/debounce */ "./node_modules/@mui/material/utils/debounce.js");
-/* harmony import */ var _utils_useForkRef__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/useForkRef */ "./node_modules/@mui/material/utils/useForkRef.js");
-/* harmony import */ var _utils_useEnhancedEffect__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../utils/useEnhancedEffect */ "./node_modules/@mui/material/utils/useEnhancedEffect.js");
-/* harmony import */ var _utils_ownerWindow__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/ownerWindow */ "./node_modules/@mui/material/utils/ownerWindow.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-
-const _excluded = ["onChange", "maxRows", "minRows", "style", "value"];
-
-
-
-
-
-
-
-
-
-function getStyleValue(computedStyle, property) {
-  return parseInt(computedStyle[property], 10) || 0;
-}
-
-const styles = {
-  shadow: {
-    // Visibility needed to hide the extra text area on iPads
-    visibility: 'hidden',
-    // Remove from the content flow
-    position: 'absolute',
-    // Ignore the scrollbar width
-    overflow: 'hidden',
-    height: 0,
-    top: 0,
-    left: 0,
-    // Create a new layer, increase the isolation of the computed values
-    transform: 'translateZ(0)'
-  }
-};
-const TextareaAutosize = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(function TextareaAutosize(props, ref) {
-  const {
-    onChange,
-    maxRows,
-    minRows = 1,
-    style,
-    value
-  } = props,
-        other = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__["default"])(props, _excluded);
-
-  const {
-    current: isControlled
-  } = react__WEBPACK_IMPORTED_MODULE_2__.useRef(value != null);
-  const inputRef = react__WEBPACK_IMPORTED_MODULE_2__.useRef(null);
-  const handleRef = (0,_utils_useForkRef__WEBPACK_IMPORTED_MODULE_5__["default"])(ref, inputRef);
-  const shadowRef = react__WEBPACK_IMPORTED_MODULE_2__.useRef(null);
-  const renders = react__WEBPACK_IMPORTED_MODULE_2__.useRef(0);
-  const [state, setState] = react__WEBPACK_IMPORTED_MODULE_2__.useState({});
-  const syncHeight = react__WEBPACK_IMPORTED_MODULE_2__.useCallback(() => {
-    const input = inputRef.current;
-    const containerWindow = (0,_utils_ownerWindow__WEBPACK_IMPORTED_MODULE_6__["default"])(input);
-    const computedStyle = containerWindow.getComputedStyle(input); // If input's width is shrunk and it's not visible, don't sync height.
-
-    if (computedStyle.width === '0px') {
-      return;
-    }
-
-    const inputShallow = shadowRef.current;
-    inputShallow.style.width = computedStyle.width;
-    inputShallow.value = input.value || props.placeholder || 'x';
-
-    if (inputShallow.value.slice(-1) === '\n') {
-      // Certain fonts which overflow the line height will cause the textarea
-      // to report a different scrollHeight depending on whether the last line
-      // is empty. Make it non-empty to avoid this issue.
-      inputShallow.value += ' ';
-    }
-
-    const boxSizing = computedStyle['box-sizing'];
-    const padding = getStyleValue(computedStyle, 'padding-bottom') + getStyleValue(computedStyle, 'padding-top');
-    const border = getStyleValue(computedStyle, 'border-bottom-width') + getStyleValue(computedStyle, 'border-top-width'); // The height of the inner content
-
-    const innerHeight = inputShallow.scrollHeight; // Measure height of a textarea with a single row
-
-    inputShallow.value = 'x';
-    const singleRowHeight = inputShallow.scrollHeight; // The height of the outer content
-
-    let outerHeight = innerHeight;
-
-    if (minRows) {
-      outerHeight = Math.max(Number(minRows) * singleRowHeight, outerHeight);
-    }
-
-    if (maxRows) {
-      outerHeight = Math.min(Number(maxRows) * singleRowHeight, outerHeight);
-    }
-
-    outerHeight = Math.max(outerHeight, singleRowHeight); // Take the box sizing into account for applying this value as a style.
-
-    const outerHeightStyle = outerHeight + (boxSizing === 'border-box' ? padding + border : 0);
-    const overflow = Math.abs(outerHeight - innerHeight) <= 1;
-    setState(prevState => {
-      // Need a large enough difference to update the height.
-      // This prevents infinite rendering loop.
-      if (renders.current < 20 && (outerHeightStyle > 0 && Math.abs((prevState.outerHeightStyle || 0) - outerHeightStyle) > 1 || prevState.overflow !== overflow)) {
-        renders.current += 1;
-        return {
-          overflow,
-          outerHeightStyle
-        };
-      }
-
-      if (true) {
-        if (renders.current === 20) {
-          console.error(['MUI: Too many re-renders. The layout is unstable.', 'TextareaAutosize limits the number of renders to prevent an infinite loop.'].join('\n'));
-        }
-      }
-
-      return prevState;
-    });
-  }, [maxRows, minRows, props.placeholder]);
-  react__WEBPACK_IMPORTED_MODULE_2__.useEffect(() => {
-    const handleResize = (0,_utils_debounce__WEBPACK_IMPORTED_MODULE_7__["default"])(() => {
-      renders.current = 0;
-      syncHeight();
-    });
-    const containerWindow = (0,_utils_ownerWindow__WEBPACK_IMPORTED_MODULE_6__["default"])(inputRef.current);
-    containerWindow.addEventListener('resize', handleResize);
-    let resizeObserver;
-
-    if (typeof ResizeObserver !== 'undefined') {
-      resizeObserver = new ResizeObserver(handleResize);
-      resizeObserver.observe(inputRef.current);
-    }
-
-    return () => {
-      handleResize.clear();
-      containerWindow.removeEventListener('resize', handleResize);
-
-      if (resizeObserver) {
-        resizeObserver.disconnect();
-      }
-    };
-  }, [syncHeight]);
-  (0,_utils_useEnhancedEffect__WEBPACK_IMPORTED_MODULE_8__["default"])(() => {
-    syncHeight();
-  });
-  react__WEBPACK_IMPORTED_MODULE_2__.useEffect(() => {
-    renders.current = 0;
-  }, [value]);
-
-  const handleChange = event => {
-    renders.current = 0;
-
-    if (!isControlled) {
-      syncHeight();
-    }
-
-    if (onChange) {
-      onChange(event);
-    }
-  };
-
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("textarea", (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
-      value: value,
-      onChange: handleChange,
-      ref: handleRef // Apply the rows prop to get a "correct" first SSR paint
-      ,
-      rows: minRows,
-      style: (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
-        height: state.outerHeightStyle,
-        // Need a large enough difference to allow scrolling.
-        // This prevents infinite rendering loop.
-        overflow: state.overflow ? 'hidden' : null
-      }, style)
-    }, other)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("textarea", {
-      "aria-hidden": true,
-      className: props.className,
-      readOnly: true,
-      ref: shadowRef,
-      tabIndex: -1,
-      style: (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, styles.shadow, style, {
-        padding: 0
-      })
-    })]
-  });
-});
- true ? TextareaAutosize.propTypes
-/* remove-proptypes */
-= {
-  // ----------------------------- Warning --------------------------------
-  // | These PropTypes are generated from the TypeScript type definitions |
-  // |     To update them edit the d.ts file and run "yarn proptypes"     |
-  // ----------------------------------------------------------------------
-
-  /**
-   * @ignore
-   */
-  className: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
-
-  /**
-   * Maximum number of rows to display.
-   */
-  maxRows: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().number), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string)]),
-
-  /**
-   * Minimum number of rows to display.
-   * @default 1
-   */
-  minRows: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().number), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string)]),
-
-  /**
-   * @ignore
-   */
-  onChange: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
-
-  /**
-   * @ignore
-   */
-  placeholder: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
-
-  /**
-   * @ignore
-   */
-  style: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object),
-
-  /**
-   * @ignore
-   */
-  value: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_3___default().arrayOf((prop_types__WEBPACK_IMPORTED_MODULE_3___default().string)), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().number), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string)])
-} : 0;
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TextareaAutosize);
 
 /***/ }),
 
@@ -9848,7 +9906,7 @@ const Toolbar = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(funct
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
-  sx: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object),
+  sx: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)]),
 
   /**
    * The variant to use.
@@ -10090,7 +10148,7 @@ const Typography = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(fu
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
-  sx: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object),
+  sx: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)]),
 
   /**
    * Applies the theme typography styles.
@@ -12149,7 +12207,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "useControlled": () => (/* reexport safe */ _useControlled__WEBPACK_IMPORTED_MODULE_13__["default"]),
 /* harmony export */   "useEventCallback": () => (/* reexport safe */ _useEventCallback__WEBPACK_IMPORTED_MODULE_14__["default"]),
 /* harmony export */   "useForkRef": () => (/* reexport safe */ _useForkRef__WEBPACK_IMPORTED_MODULE_15__["default"]),
-/* harmony export */   "useIsFocusVisible": () => (/* reexport safe */ _useIsFocusVisible__WEBPACK_IMPORTED_MODULE_16__["default"])
+/* harmony export */   "useIsFocusVisible": () => (/* reexport safe */ _useIsFocusVisible__WEBPACK_IMPORTED_MODULE_16__["default"]),
+/* harmony export */   "unstable_ClassNameGenerator": () => (/* reexport safe */ _mui_core__WEBPACK_IMPORTED_MODULE_17__["default"])
 /* harmony export */ });
 /* harmony import */ var _capitalize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./capitalize */ "./node_modules/@mui/material/utils/capitalize.js");
 /* harmony import */ var _createChainedFunction__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./createChainedFunction */ "./node_modules/@mui/material/utils/createChainedFunction.js");
@@ -12168,6 +12227,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _useEventCallback__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./useEventCallback */ "./node_modules/@mui/material/utils/useEventCallback.js");
 /* harmony import */ var _useForkRef__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./useForkRef */ "./node_modules/@mui/material/utils/useForkRef.js");
 /* harmony import */ var _useIsFocusVisible__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./useIsFocusVisible */ "./node_modules/@mui/material/utils/useIsFocusVisible.js");
+/* harmony import */ var _mui_core__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @mui/core */ "./node_modules/@mui/core/generateUtilityClass/ClassNameGenerator.js");
+
 
 
 
@@ -12675,7 +12736,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @emotion/react */ "./node_modules/@emotion/react/dist/emotion-react.browser.esm.js");
 /* harmony import */ var _StyledEngineProvider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./StyledEngineProvider */ "./node_modules/@mui/styled-engine/StyledEngineProvider/StyledEngineProvider.js");
 /* harmony import */ var _GlobalStyles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./GlobalStyles */ "./node_modules/@mui/styled-engine/GlobalStyles/GlobalStyles.js");
-/** @license MUI v5.0.1
+/** @license MUI v5.0.2
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -13649,7 +13710,11 @@ function createStyled(input = {}) {
 
     const muiStyledResolver = (styleArg, ...expressions) => {
       const expressionsWithDefaultTheme = expressions ? expressions.map(stylesArg => {
-        return typeof stylesArg === 'function' ? _ref => {
+        // On the server emotion doesn't use React.forwardRef for creating components, so the created
+        // component stays as a function. This condition makes sure that we do not interpolate functions
+        // which are basically components used as a selectors.
+        // eslint-disable-next-line no-underscore-dangle
+        return typeof stylesArg === 'function' && stylesArg.__emotion_real !== stylesArg ? _ref => {
           let {
             theme: themeInput
           } = _ref,
@@ -14928,11 +14993,11 @@ function styleFunctionSx(props) {
     return null;
   }
 
-  if (typeof styles === 'function') {
-    return styles(theme);
-  }
+  let stylesObject = styles;
 
-  if (typeof styles !== 'object') {
+  if (typeof styles === 'function') {
+    stylesObject = styles(theme);
+  } else if (typeof styles !== 'object') {
     // value
     return styles;
   }
@@ -14940,8 +15005,8 @@ function styleFunctionSx(props) {
   const emptyBreakpoints = (0,_breakpoints__WEBPACK_IMPORTED_MODULE_0__.createEmptyBreakpointObject)(theme.breakpoints);
   const breakpointsKeys = Object.keys(emptyBreakpoints);
   let css = emptyBreakpoints;
-  Object.keys(styles).forEach(styleKey => {
-    const value = callIfFn(styles[styleKey], theme);
+  Object.keys(stylesObject).forEach(styleKey => {
+    const value = callIfFn(stylesObject[styleKey], theme);
 
     if (typeof value === 'object') {
       if (_getThemeValue__WEBPACK_IMPORTED_MODULE_1__.propToStyleFunction[styleKey]) {
@@ -16398,25 +16463,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var redux_persist_integration_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux-persist/integration/react */ "./node_modules/redux-persist/es/integration/react.js");
-/* harmony import */ var _mui_material_styles__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/material/styles */ "./node_modules/@mui/system/esm/ThemeProvider/ThemeProvider.js");
-/* harmony import */ var _layouts_Catalog_Catalog__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./layouts/Catalog/Catalog */ "./resources/js/layouts/Catalog/Catalog.js");
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
-/* harmony import */ var _theme_theme__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../theme/theme */ "./resources/theme/theme.js");
-/* harmony import */ var _layouts_Header_Header__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./layouts/Header/Header */ "./resources/js/layouts/Header/Header.js");
-/* harmony import */ var _layouts_AdminPanel_AdminPanel__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./layouts/AdminPanel/AdminPanel */ "./resources/js/layouts/AdminPanel/AdminPanel.js");
-/* harmony import */ var _css_app_css__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../css/app.css */ "./resources/css/app.css");
-/* harmony import */ var _layouts_LoginForm_LoginForm__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./layouts/LoginForm/LoginForm */ "./resources/js/layouts/LoginForm/LoginForm.js");
-/* harmony import */ var _components_CourseCard_CourseCard__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/CourseCard/CourseCard */ "./resources/js/components/CourseCard/CourseCard.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-
-
-
-
-
+/* harmony import */ var _mui_material_styles__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/material/styles */ "./node_modules/@mui/system/esm/ThemeProvider/ThemeProvider.js");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
+/* harmony import */ var _theme_theme__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../theme/theme */ "./resources/theme/theme.js");
+/* harmony import */ var _components_Router_Router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/Router/Router */ "./resources/js/components/Router/Router.js");
+/* harmony import */ var _css_app_css__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../css/app.css */ "./resources/css/app.css");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
@@ -16430,38 +16483,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function App() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_redux__WEBPACK_IMPORTED_MODULE_2__.Provider, {
-    store: _store__WEBPACK_IMPORTED_MODULE_5__.store,
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(redux_persist_integration_react__WEBPACK_IMPORTED_MODULE_3__.PersistGate, {
-      persistor: _store__WEBPACK_IMPORTED_MODULE_5__.persistor,
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_styles__WEBPACK_IMPORTED_MODULE_13__["default"], {
-        theme: _theme_theme__WEBPACK_IMPORTED_MODULE_6__.theme,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.HashRouter, {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_layouts_Header_Header__WEBPACK_IMPORTED_MODULE_7__.Header, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Switch, {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Route, {
-              exact: true,
-              path: "/"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Route, {
-              exact: true,
-              path: "/courses/:courseId?",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_layouts_Catalog_Catalog__WEBPACK_IMPORTED_MODULE_4__.Catalog, {})
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Route, {
-              exact: true,
-              path: "/admin",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_layouts_AdminPanel_AdminPanel__WEBPACK_IMPORTED_MODULE_8__.AdminPanel, {})
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Route, {
-              exact: true,
-              path: "/signIn",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_layouts_LoginForm_LoginForm__WEBPACK_IMPORTED_MODULE_10__.LoginForm, {})
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Route, {
-              exact: true,
-              path: "/signUp",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_layouts_LoginForm_LoginForm__WEBPACK_IMPORTED_MODULE_10__.LoginForm, {
-                onSubmit: "addUser"
-              })
-            })]
-          })]
-        })
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_redux__WEBPACK_IMPORTED_MODULE_2__.Provider, {
+    store: _store__WEBPACK_IMPORTED_MODULE_4__.store,
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(redux_persist_integration_react__WEBPACK_IMPORTED_MODULE_3__.PersistGate, {
+      persistor: _store__WEBPACK_IMPORTED_MODULE_4__.persistor,
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_styles__WEBPACK_IMPORTED_MODULE_9__["default"], {
+        theme: _theme_theme__WEBPACK_IMPORTED_MODULE_5__.theme,
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Router_Router__WEBPACK_IMPORTED_MODULE_6__.Router, {})
       })
     })
   });
@@ -16470,7 +16498,7 @@ function App() {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
 
 if (document.getElementById('app')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(App, {}), document.getElementById('app'));
+  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(App, {}), document.getElementById('app'));
 }
 
 /***/ }),
@@ -17008,6 +17036,64 @@ Course.propTypes = {
 
 /***/ }),
 
+/***/ "./resources/js/components/Router/Router.js":
+/*!**************************************************!*\
+  !*** ./resources/js/components/Router/Router.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Router": () => (/* binding */ Router)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var _layouts_Header_Header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../layouts/Header/Header */ "./resources/js/layouts/Header/Header.js");
+/* harmony import */ var _layouts_Catalog_Catalog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../layouts/Catalog/Catalog */ "./resources/js/layouts/Catalog/Catalog.js");
+/* harmony import */ var _layouts_AdminPanel_AdminPanel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../layouts/AdminPanel/AdminPanel */ "./resources/js/layouts/AdminPanel/AdminPanel.js");
+/* harmony import */ var _layouts_LoginForm_LoginForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../layouts/LoginForm/LoginForm */ "./resources/js/layouts/LoginForm/LoginForm.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+
+
+
+
+var Router = function Router() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.HashRouter, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_layouts_Header_Header__WEBPACK_IMPORTED_MODULE_1__.Header, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Switch, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Route, {
+        exact: true,
+        path: "/"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Route, {
+        exact: true,
+        path: "/courses/:courseId?",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_layouts_Catalog_Catalog__WEBPACK_IMPORTED_MODULE_2__.Catalog, {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Route, {
+        exact: true,
+        path: "/admin",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_layouts_AdminPanel_AdminPanel__WEBPACK_IMPORTED_MODULE_3__.AdminPanel, {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Route, {
+        exact: true,
+        path: "/signIn",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_layouts_LoginForm_LoginForm__WEBPACK_IMPORTED_MODULE_4__.LoginForm, {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Route, {
+        exact: true,
+        path: "/signUp",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_layouts_LoginForm_LoginForm__WEBPACK_IMPORTED_MODULE_4__.LoginForm, {
+          onSubmit: "addUser"
+        })
+      })]
+    })]
+  });
+};
+
+/***/ }),
+
 /***/ "./resources/js/components/TableRow/TableRow.js":
 /*!******************************************************!*\
   !*** ./resources/js/components/TableRow/TableRow.js ***!
@@ -17480,7 +17566,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _urls_urls__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../urls/urls */ "./resources/urls/urls.js");
+/* harmony import */ var _utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/urls/urls */ "./resources/js/utils/urls/urls.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -17526,7 +17612,7 @@ var getCourseList = function getCourseList() {
               dispatch(courseListOnload());
               _context.prev = 1;
               _context.next = 4;
-              return fetch(_urls_urls__WEBPACK_IMPORTED_MODULE_1__.ALL_COURSES_URL);
+              return fetch(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.ADMIN_COURSE_LIST_URL);
 
             case 4:
               response = _context.sent;
@@ -17598,7 +17684,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "courseListReducer": () => (/* binding */ courseListReducer)
 /* harmony export */ });
 /* harmony import */ var _action__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./action */ "./resources/js/store/courseList/action.js");
-/* harmony import */ var _statuses_statuses__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../statuses/statuses */ "./resources/js/store/statuses/statuses.js");
+/* harmony import */ var _utils_statuses_statuses__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/statuses/statuses */ "./resources/js/utils/statuses/statuses.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -17622,7 +17708,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var initialState = {
   courseList: [],
   filteredList: [],
-  status: _statuses_statuses__WEBPACK_IMPORTED_MODULE_1__.STATUS_IDLE,
+  status: _utils_statuses_statuses__WEBPACK_IMPORTED_MODULE_1__.STATUS_IDLE,
   error: {
     state: false,
     message: ''
@@ -17640,14 +17726,14 @@ var courseListReducer = function courseListReducer() {
   switch (type) {
     case _action__WEBPACK_IMPORTED_MODULE_0__.COURSE_LIST_ONLOAD:
       return _objectSpread(_objectSpread({}, state), {}, {
-        status: _statuses_statuses__WEBPACK_IMPORTED_MODULE_1__.STATUS_REQUEST
+        status: _utils_statuses_statuses__WEBPACK_IMPORTED_MODULE_1__.STATUS_REQUEST
       });
 
     case _action__WEBPACK_IMPORTED_MODULE_0__.COURSE_LIST_LOADED:
       return _objectSpread(_objectSpread({}, state), {}, {
         courseList: payload,
         filteredList: [],
-        status: _statuses_statuses__WEBPACK_IMPORTED_MODULE_1__.STATUS_SUCCESS,
+        status: _utils_statuses_statuses__WEBPACK_IMPORTED_MODULE_1__.STATUS_SUCCESS,
         error: _objectSpread(_objectSpread({}, state.error), {}, {
           state: false
         }),
@@ -17660,7 +17746,7 @@ var courseListReducer = function courseListReducer() {
 
     case _action__WEBPACK_IMPORTED_MODULE_0__.COURSE_LIST_FAILED:
       return _objectSpread(_objectSpread({}, state), {}, {
-        status: _statuses_statuses__WEBPACK_IMPORTED_MODULE_1__.STATUS_FAILED,
+        status: _utils_statuses_statuses__WEBPACK_IMPORTED_MODULE_1__.STATUS_FAILED,
         error: _objectSpread(_objectSpread({}, state.error), {}, {
           state: true,
           message: payload
@@ -17744,34 +17830,34 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "store": () => (/* binding */ store),
 /* harmony export */   "persistor": () => (/* binding */ persistor)
 /* harmony export */ });
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var redux_persist__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux-persist */ "./node_modules/redux-persist/es/index.js");
 /* harmony import */ var redux_persist_lib_storage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux-persist/lib/storage */ "./node_modules/redux-persist/lib/storage/index.js");
-/* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/es/index.js");
-/* harmony import */ var _courseList_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./courseList/reducer */ "./resources/js/store/courseList/reducer.js");
+/* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/es/index.js");
+/* harmony import */ var _courseList_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./courseList/reducer */ "./resources/js/store/courseList/reducer.js");
 
 
 
 
 
-var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || redux__WEBPACK_IMPORTED_MODULE_4__.compose;
+var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || redux__WEBPACK_IMPORTED_MODULE_3__.compose;
 var persistConfig = {
   key: 'course-aggregator',
   blacklist: [],
   storage: redux_persist_lib_storage__WEBPACK_IMPORTED_MODULE_1__["default"]
 };
-var rootReducer = (0,redux__WEBPACK_IMPORTED_MODULE_4__.combineReducers)({
-  courseList: _courseList_reducer__WEBPACK_IMPORTED_MODULE_3__.courseListReducer
+var rootReducer = (0,redux__WEBPACK_IMPORTED_MODULE_3__.combineReducers)({
+  courseList: _courseList_reducer__WEBPACK_IMPORTED_MODULE_2__.courseListReducer
 });
 var persistedReducer = (0,redux_persist__WEBPACK_IMPORTED_MODULE_0__.persistReducer)(persistConfig, rootReducer);
-var store = (0,redux__WEBPACK_IMPORTED_MODULE_4__.createStore)(persistedReducer, composeEnhancers((0,redux__WEBPACK_IMPORTED_MODULE_4__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_2__["default"])));
+var store = (0,redux__WEBPACK_IMPORTED_MODULE_3__.createStore)(persistedReducer, composeEnhancers((0,redux__WEBPACK_IMPORTED_MODULE_3__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_4__["default"])));
 var persistor = (0,redux_persist__WEBPACK_IMPORTED_MODULE_0__.persistStore)(store);
 
 /***/ }),
 
-/***/ "./resources/js/store/statuses/statuses.js":
+/***/ "./resources/js/utils/statuses/statuses.js":
 /*!*************************************************!*\
-  !*** ./resources/js/store/statuses/statuses.js ***!
+  !*** ./resources/js/utils/statuses/statuses.js ***!
   \*************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -17787,6 +17873,23 @@ var STATUS_IDLE = 'IDLE';
 var STATUS_REQUEST = 'REQUEST';
 var STATUS_SUCCESS = 'SUCCESS';
 var STATUS_FAILED = 'FAILED';
+
+/***/ }),
+
+/***/ "./resources/js/utils/urls/urls.js":
+/*!*****************************************!*\
+  !*** ./resources/js/utils/urls/urls.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "PUBLIC_COURSES_LIST_URL": () => (/* binding */ PUBLIC_COURSES_LIST_URL),
+/* harmony export */   "ADMIN_COURSE_LIST_URL": () => (/* binding */ ADMIN_COURSE_LIST_URL)
+/* harmony export */ });
+var PUBLIC_COURSES_LIST_URL = 'http://127.0.0.1:8000/api/courses';
+var ADMIN_COURSE_LIST_URL = 'http://127.0.0.1:8000/api/admin/courses';
 
 /***/ }),
 
@@ -17819,21 +17922,6 @@ var theme = (0,_mui_material_styles__WEBPACK_IMPORTED_MODULE_0__["default"])({
     }
   }
 });
-
-/***/ }),
-
-/***/ "./resources/urls/urls.js":
-/*!********************************!*\
-  !*** ./resources/urls/urls.js ***!
-  \********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ALL_COURSES_URL": () => (/* binding */ ALL_COURSES_URL)
-/* harmony export */ });
-var ALL_COURSES_URL = 'http://127.0.0.1:8000/api/courses';
 
 /***/ }),
 
@@ -46924,7 +47012,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! hoist-non-react-statics */ "./node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js");
 /* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_is__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-is */ "./node_modules/react-is/index.js");
+/* harmony import */ var react_is__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-is */ "./node_modules/react-redux/node_modules/react-is/index.js");
 /* harmony import */ var _utils_Subscription__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/Subscription */ "./node_modules/react-redux/es/utils/Subscription.js");
 /* harmony import */ var _utils_useIsomorphicLayoutEffect__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/useIsomorphicLayoutEffect */ "./node_modules/react-redux/es/utils/useIsomorphicLayoutEffect.js");
 /* harmony import */ var _Context__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Context */ "./node_modules/react-redux/es/components/Context.js");
@@ -47059,14 +47147,14 @@ function connectAdvanced(
 /*
   selectorFactory is a func that is responsible for returning the selector function used to
   compute new props from state, props, and dispatch. For example:
-      export default connectAdvanced((dispatch, options) => (state, props) => ({
+     export default connectAdvanced((dispatch, options) => (state, props) => ({
       thing: state.things[props.thingId],
       saveThing: fields => dispatch(actionCreators.saveThing(props.thingId, fields)),
     }))(YourComponent)
-    Access to dispatch is provided to the factory so selectorFactories can bind actionCreators
+   Access to dispatch is provided to the factory so selectorFactories can bind actionCreators
   outside of their selector as an optimization. Options passed to connectAdvanced are passed to
   the selectorFactory, along with displayName and WrappedComponent, as the second argument.
-    Note that selectorFactory is responsible for all caching/memoization of inbound and outbound
+   Note that selectorFactory is responsible for all caching/memoization of inbound and outbound
   props. Do not use connectAdvanced directly without memoizing results between calls to your
   selector, otherwise the Connect component will re-render on every state or props change.
 */
@@ -48561,6 +48649,259 @@ function warning(message) {
   /* eslint-enable no-empty */
 
 }
+
+/***/ }),
+
+/***/ "./node_modules/react-redux/node_modules/react-is/cjs/react-is.development.js":
+/*!************************************************************************************!*\
+  !*** ./node_modules/react-redux/node_modules/react-is/cjs/react-is.development.js ***!
+  \************************************************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+/** @license React v17.0.2
+ * react-is.development.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+
+if (true) {
+  (function() {
+'use strict';
+
+// ATTENTION
+// When adding new symbols to this file,
+// Please consider also adding to 'react-devtools-shared/src/backend/ReactSymbols'
+// The Symbol used to tag the ReactElement-like types. If there is no native Symbol
+// nor polyfill, then a plain number is used for performance.
+var REACT_ELEMENT_TYPE = 0xeac7;
+var REACT_PORTAL_TYPE = 0xeaca;
+var REACT_FRAGMENT_TYPE = 0xeacb;
+var REACT_STRICT_MODE_TYPE = 0xeacc;
+var REACT_PROFILER_TYPE = 0xead2;
+var REACT_PROVIDER_TYPE = 0xeacd;
+var REACT_CONTEXT_TYPE = 0xeace;
+var REACT_FORWARD_REF_TYPE = 0xead0;
+var REACT_SUSPENSE_TYPE = 0xead1;
+var REACT_SUSPENSE_LIST_TYPE = 0xead8;
+var REACT_MEMO_TYPE = 0xead3;
+var REACT_LAZY_TYPE = 0xead4;
+var REACT_BLOCK_TYPE = 0xead9;
+var REACT_SERVER_BLOCK_TYPE = 0xeada;
+var REACT_FUNDAMENTAL_TYPE = 0xead5;
+var REACT_SCOPE_TYPE = 0xead7;
+var REACT_OPAQUE_ID_TYPE = 0xeae0;
+var REACT_DEBUG_TRACING_MODE_TYPE = 0xeae1;
+var REACT_OFFSCREEN_TYPE = 0xeae2;
+var REACT_LEGACY_HIDDEN_TYPE = 0xeae3;
+
+if (typeof Symbol === 'function' && Symbol.for) {
+  var symbolFor = Symbol.for;
+  REACT_ELEMENT_TYPE = symbolFor('react.element');
+  REACT_PORTAL_TYPE = symbolFor('react.portal');
+  REACT_FRAGMENT_TYPE = symbolFor('react.fragment');
+  REACT_STRICT_MODE_TYPE = symbolFor('react.strict_mode');
+  REACT_PROFILER_TYPE = symbolFor('react.profiler');
+  REACT_PROVIDER_TYPE = symbolFor('react.provider');
+  REACT_CONTEXT_TYPE = symbolFor('react.context');
+  REACT_FORWARD_REF_TYPE = symbolFor('react.forward_ref');
+  REACT_SUSPENSE_TYPE = symbolFor('react.suspense');
+  REACT_SUSPENSE_LIST_TYPE = symbolFor('react.suspense_list');
+  REACT_MEMO_TYPE = symbolFor('react.memo');
+  REACT_LAZY_TYPE = symbolFor('react.lazy');
+  REACT_BLOCK_TYPE = symbolFor('react.block');
+  REACT_SERVER_BLOCK_TYPE = symbolFor('react.server.block');
+  REACT_FUNDAMENTAL_TYPE = symbolFor('react.fundamental');
+  REACT_SCOPE_TYPE = symbolFor('react.scope');
+  REACT_OPAQUE_ID_TYPE = symbolFor('react.opaque.id');
+  REACT_DEBUG_TRACING_MODE_TYPE = symbolFor('react.debug_trace_mode');
+  REACT_OFFSCREEN_TYPE = symbolFor('react.offscreen');
+  REACT_LEGACY_HIDDEN_TYPE = symbolFor('react.legacy_hidden');
+}
+
+// Filter certain DOM attributes (e.g. src, href) if their values are empty strings.
+
+var enableScopeAPI = false; // Experimental Create Event Handle API.
+
+function isValidElementType(type) {
+  if (typeof type === 'string' || typeof type === 'function') {
+    return true;
+  } // Note: typeof might be other than 'symbol' or 'number' (e.g. if it's a polyfill).
+
+
+  if (type === REACT_FRAGMENT_TYPE || type === REACT_PROFILER_TYPE || type === REACT_DEBUG_TRACING_MODE_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || type === REACT_LEGACY_HIDDEN_TYPE || enableScopeAPI ) {
+    return true;
+  }
+
+  if (typeof type === 'object' && type !== null) {
+    if (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_BLOCK_TYPE || type[0] === REACT_SERVER_BLOCK_TYPE) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+function typeOf(object) {
+  if (typeof object === 'object' && object !== null) {
+    var $$typeof = object.$$typeof;
+
+    switch ($$typeof) {
+      case REACT_ELEMENT_TYPE:
+        var type = object.type;
+
+        switch (type) {
+          case REACT_FRAGMENT_TYPE:
+          case REACT_PROFILER_TYPE:
+          case REACT_STRICT_MODE_TYPE:
+          case REACT_SUSPENSE_TYPE:
+          case REACT_SUSPENSE_LIST_TYPE:
+            return type;
+
+          default:
+            var $$typeofType = type && type.$$typeof;
+
+            switch ($$typeofType) {
+              case REACT_CONTEXT_TYPE:
+              case REACT_FORWARD_REF_TYPE:
+              case REACT_LAZY_TYPE:
+              case REACT_MEMO_TYPE:
+              case REACT_PROVIDER_TYPE:
+                return $$typeofType;
+
+              default:
+                return $$typeof;
+            }
+
+        }
+
+      case REACT_PORTAL_TYPE:
+        return $$typeof;
+    }
+  }
+
+  return undefined;
+}
+var ContextConsumer = REACT_CONTEXT_TYPE;
+var ContextProvider = REACT_PROVIDER_TYPE;
+var Element = REACT_ELEMENT_TYPE;
+var ForwardRef = REACT_FORWARD_REF_TYPE;
+var Fragment = REACT_FRAGMENT_TYPE;
+var Lazy = REACT_LAZY_TYPE;
+var Memo = REACT_MEMO_TYPE;
+var Portal = REACT_PORTAL_TYPE;
+var Profiler = REACT_PROFILER_TYPE;
+var StrictMode = REACT_STRICT_MODE_TYPE;
+var Suspense = REACT_SUSPENSE_TYPE;
+var hasWarnedAboutDeprecatedIsAsyncMode = false;
+var hasWarnedAboutDeprecatedIsConcurrentMode = false; // AsyncMode should be deprecated
+
+function isAsyncMode(object) {
+  {
+    if (!hasWarnedAboutDeprecatedIsAsyncMode) {
+      hasWarnedAboutDeprecatedIsAsyncMode = true; // Using console['warn'] to evade Babel and ESLint
+
+      console['warn']('The ReactIs.isAsyncMode() alias has been deprecated, ' + 'and will be removed in React 18+.');
+    }
+  }
+
+  return false;
+}
+function isConcurrentMode(object) {
+  {
+    if (!hasWarnedAboutDeprecatedIsConcurrentMode) {
+      hasWarnedAboutDeprecatedIsConcurrentMode = true; // Using console['warn'] to evade Babel and ESLint
+
+      console['warn']('The ReactIs.isConcurrentMode() alias has been deprecated, ' + 'and will be removed in React 18+.');
+    }
+  }
+
+  return false;
+}
+function isContextConsumer(object) {
+  return typeOf(object) === REACT_CONTEXT_TYPE;
+}
+function isContextProvider(object) {
+  return typeOf(object) === REACT_PROVIDER_TYPE;
+}
+function isElement(object) {
+  return typeof object === 'object' && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
+}
+function isForwardRef(object) {
+  return typeOf(object) === REACT_FORWARD_REF_TYPE;
+}
+function isFragment(object) {
+  return typeOf(object) === REACT_FRAGMENT_TYPE;
+}
+function isLazy(object) {
+  return typeOf(object) === REACT_LAZY_TYPE;
+}
+function isMemo(object) {
+  return typeOf(object) === REACT_MEMO_TYPE;
+}
+function isPortal(object) {
+  return typeOf(object) === REACT_PORTAL_TYPE;
+}
+function isProfiler(object) {
+  return typeOf(object) === REACT_PROFILER_TYPE;
+}
+function isStrictMode(object) {
+  return typeOf(object) === REACT_STRICT_MODE_TYPE;
+}
+function isSuspense(object) {
+  return typeOf(object) === REACT_SUSPENSE_TYPE;
+}
+
+exports.ContextConsumer = ContextConsumer;
+exports.ContextProvider = ContextProvider;
+exports.Element = Element;
+exports.ForwardRef = ForwardRef;
+exports.Fragment = Fragment;
+exports.Lazy = Lazy;
+exports.Memo = Memo;
+exports.Portal = Portal;
+exports.Profiler = Profiler;
+exports.StrictMode = StrictMode;
+exports.Suspense = Suspense;
+exports.isAsyncMode = isAsyncMode;
+exports.isConcurrentMode = isConcurrentMode;
+exports.isContextConsumer = isContextConsumer;
+exports.isContextProvider = isContextProvider;
+exports.isElement = isElement;
+exports.isForwardRef = isForwardRef;
+exports.isFragment = isFragment;
+exports.isLazy = isLazy;
+exports.isMemo = isMemo;
+exports.isPortal = isPortal;
+exports.isProfiler = isProfiler;
+exports.isStrictMode = isStrictMode;
+exports.isSuspense = isSuspense;
+exports.isValidElementType = isValidElementType;
+exports.typeOf = typeOf;
+  })();
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/react-redux/node_modules/react-is/index.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/react-redux/node_modules/react-is/index.js ***!
+  \*****************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+if (false) {} else {
+  module.exports = __webpack_require__(/*! ./cjs/react-is.development.js */ "./node_modules/react-redux/node_modules/react-is/cjs/react-is.development.js");
+}
+
 
 /***/ }),
 
@@ -55953,25 +56294,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/** A function that accepts a potential "extra argument" value to be injected later,
+ * and returns an instance of the thunk middleware that uses that value
+ */
 function createThunkMiddleware(extraArgument) {
-  return function (_ref) {
+  // Standard Redux middleware definition pattern:
+  // See: https://redux.js.org/tutorials/fundamentals/part-4-store#writing-custom-middleware
+  var middleware = function middleware(_ref) {
     var dispatch = _ref.dispatch,
         getState = _ref.getState;
     return function (next) {
       return function (action) {
+        // The thunk middleware looks for any functions that were passed to `store.dispatch`.
+        // If this "action" is really a function, call it and return the result.
         if (typeof action === 'function') {
+          // Inject the store's `dispatch` and `getState` methods, as well as any "extra arg"
           return action(dispatch, getState, extraArgument);
-        }
+        } // Otherwise, pass the action down the middleware chain as usual
+
 
         return next(action);
       };
     };
   };
+
+  return middleware;
 }
 
-var thunk = createThunkMiddleware();
-thunk.withExtraArgument = createThunkMiddleware;
+var thunk = createThunkMiddleware(); // Attach the factory function so users can create a customized version
+// with whatever "extra arg" they want to inject into their thunks
 
+thunk.withExtraArgument = createThunkMiddleware;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (thunk);
 
 /***/ }),
