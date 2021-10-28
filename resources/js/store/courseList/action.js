@@ -1,4 +1,4 @@
-import { ALL_COURSES_URL } from '../../../urls/urls';
+import { ADMIN_COURSE_LIST_URL } from '../../../urls/urls';
 
 export const COURSE_LIST_ONLOAD = 'COURSE_LIST::COURSE_LIST_ONLOAD';
 export const COURSE_LIST_LOADED = 'COURSE_LIST::COURSE_LIST_LOADED';
@@ -28,7 +28,7 @@ export const getCourseList = () => async (dispatch) => {
     dispatch(courseListOnload());
 
     try {
-        const response = await fetch(ALL_COURSES_URL);
+        const response = await fetch(ADMIN_COURSE_LIST_URL);
 
         if (!response.ok) {
             throw new Error(`Request failed with status: ${response.status}`);
