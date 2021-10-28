@@ -8,7 +8,7 @@ export const AdminTable = ({ titles, table }) => {
             <tbody>
             <tr>
                 {titles.map(
-                    title => <td key={title} className={style.row__cell}>{title}</td>
+                    (title, index) => <td key={index} className={style.row__cell}>{title}</td>
                 )}
             </tr>
             {table.map(
