@@ -18978,25 +18978,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "courseListReducer": () => (/* binding */ courseListReducer)
 /* harmony export */ });
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
 /* harmony import */ var _action__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./action */ "./resources/js/store/courseList/action.js");
 /* harmony import */ var _utils_statuses_statuses__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/statuses/statuses */ "./resources/js/utils/statuses/statuses.js");
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
@@ -19009,56 +18993,72 @@ var initialState = {
     message: ''
   },
   isFiltered: false,
-  filters: {}
-};
-var courseListReducer = function courseListReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-
-  var _ref = arguments.length > 1 ? arguments[1] : undefined,
-      type = _ref.type,
-      payload = _ref.payload;
-
-  switch (type) {
-    case _action__WEBPACK_IMPORTED_MODULE_0__.COURSE_LIST_ONLOAD:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        status: _utils_statuses_statuses__WEBPACK_IMPORTED_MODULE_1__.STATUS_REQUEST
-      });
-
-    case _action__WEBPACK_IMPORTED_MODULE_0__.COURSE_LIST_LOADED:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        courseList: payload,
-        filteredList: [],
-        status: _utils_statuses_statuses__WEBPACK_IMPORTED_MODULE_1__.STATUS_SUCCESS,
-        error: _objectSpread(_objectSpread({}, state.error), {}, {
-          state: false
-        }),
-        isFiltered: false,
-        filters: {
-          'Языки программирования': ['PHP', 'JavaScript'],
-          'Языки курсов': ['Русский', 'Английский']
-        }
-      });
-
-    case _action__WEBPACK_IMPORTED_MODULE_0__.COURSE_LIST_FAILED:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        status: _utils_statuses_statuses__WEBPACK_IMPORTED_MODULE_1__.STATUS_FAILED,
-        error: _objectSpread(_objectSpread({}, state.error), {}, {
-          state: true,
-          message: payload
-        })
-      });
-
-    case _action__WEBPACK_IMPORTED_MODULE_0__.COURSE_LIST_FILTERED:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        status: 'FILTERED',
-        filteredList: _toConsumableArray(payload),
-        isFiltered: true
-      });
-
-    default:
-      return state;
+  filters: {
+    'Языки программирования': ['PHP', 'JavaScript'],
+    'Языки курсов': ['Русский', 'Английский']
   }
 };
+var courseListReducer = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.createReducer)(initialState, function (builder) {
+  builder.addCase(_action__WEBPACK_IMPORTED_MODULE_0__.courseListOnload, function (state) {
+    state.status = _utils_statuses_statuses__WEBPACK_IMPORTED_MODULE_1__.STATUS_REQUEST;
+  }).addCase(_action__WEBPACK_IMPORTED_MODULE_0__.courseListLoaded, function (state, _ref) {
+    var payload = _ref.payload;
+    state.courseList = payload;
+    state.status = _utils_statuses_statuses__WEBPACK_IMPORTED_MODULE_1__.STATUS_SUCCESS;
+    state.error.state = false;
+  }).addCase(_action__WEBPACK_IMPORTED_MODULE_0__.courseListFailed, function (state, _ref2) {
+    var payload = _ref2.payload;
+    state.status = _utils_statuses_statuses__WEBPACK_IMPORTED_MODULE_1__.STATUS_FAILED;
+    state.error = {
+      state: true,
+      message: payload
+    };
+  }).addDefaultCase(function () {});
+});
+/*export const courseListReducer = (state = initialState, { type, payload }) => {
+    switch (type) {
+        case COURSE_LIST_ONLOAD:
+            return {
+                ...state,
+                status: STATUS_REQUEST,
+            };
+        case COURSE_LIST_LOADED:
+            return {
+                ...state,
+                courseList: payload,
+                filteredList: [],
+                status: STATUS_SUCCESS,
+                error: {
+                    ...state.error,
+                    state: false,
+                },
+                isFiltered: false,
+                filters: {
+                    'Языки программирования': ['PHP', 'JavaScript'],
+                    'Языки курсов': ['Русский', 'Английский'],
+                },
+            };
+        case COURSE_LIST_FAILED:
+            return {
+                ...state,
+                status: STATUS_FAILED,
+                error: {
+                    ...state.error,
+                    state: true,
+                    message: payload,
+                },
+            };
+        case COURSE_LIST_FILTERED:
+            return {
+                ...state,
+                status: 'FILTERED',
+                filteredList: [...payload],
+                isFiltered: true,
+            };
+        default:
+            return state;
+    }
+};*/
 
 /***/ }),
 
