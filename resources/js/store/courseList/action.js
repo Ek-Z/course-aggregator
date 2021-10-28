@@ -1,11 +1,17 @@
+import { createAction } from '@reduxjs/toolkit';
 import { ADMIN_COURSE_LIST_URL } from '../../utils/urls/urls';
+import { instanceOf } from 'prop-types';
 
 export const COURSE_LIST_ONLOAD = 'COURSE_LIST::COURSE_LIST_ONLOAD';
 export const COURSE_LIST_LOADED = 'COURSE_LIST::COURSE_LIST_LOADED';
 export const COURSE_LIST_FAILED = 'COURSE_LIST::COURSE_LIST_FAILED';
 export const COURSE_LIST_FILTERED = 'COURSE_LIST::COURSE_LIST_FILTERED';
 
-export const courseListOnload = () => ({
+export const courseListOnload = createAction(COURSE_LIST_ONLOAD);
+export const courseListLoaded = createAction(COURSE_LIST_LOADED);
+export const courseListFailed = createAction(COURSE_LIST_FAILED);
+
+/*export const courseListOnload = () => ({
     type: COURSE_LIST_ONLOAD,
 });
 
@@ -22,9 +28,29 @@ export const courseListFailed = (err) => ({
 export const courseListFiltered = (courseList) => ({
     type: COURSE_LIST_FILTERED,
     payload: courseList,
-});
+});*/
 
-export const getCourseList = () => async (dispatch) => {
+export const getCourseList = () => async dispatch => {
+    dispatch(courseListOnload());
+
+    try {
+        const response = await fetch(ADMIN_COURSE_LIST_URL);
+
+        if (!response.ok) {
+            throw new Error(`Request failed with status: ${response.status}`);
+        }
+
+        const result = await response
+            .json()
+            .then(json => json.data);
+
+        dispatch(courseListLoaded(result));
+    } catch (error) {
+        dispatch(courseListFailed(error));
+    }
+};
+
+/*export const getCourseList = () => async (dispatch) => {
     dispatch(courseListOnload());
 
     try {
@@ -42,9 +68,9 @@ export const getCourseList = () => async (dispatch) => {
     } catch (e) {
         dispatch(courseListFailed(e));
     }
-};
+};*/
 
-export const courseListFilter = (value, courseList) => (dispatch) => {
+/*export const courseListFilter = (value, courseList) => (dispatch) => {
     value = value.trim();
 
     if (value) {
@@ -54,4 +80,5 @@ export const courseListFilter = (value, courseList) => (dispatch) => {
     } else {
         dispatch(courseListLoaded(courseList));
     }
-};
+};*/
+

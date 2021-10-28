@@ -10,7 +10,7 @@ export const Header = () => {
                 <Toolbar>
                     <Box sx={{ height: 40 }}>
                         <Link className={style.headerLinks} to="/">
-                            <svg>
+                            <svg className={style.logo}>
                                 <use xlinkHref="/assets/icons.svg#main-logo"/>
                             </svg>
                         </Link>
