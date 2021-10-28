@@ -1,4 +1,12 @@
-.headerLinks{
+.headerLinks {
+    display: block;
+    height: 100%;
     color: white;
     text-decoration: none;
+}
+
+.logo {
+    max-width: 120px;
+    width: 100%;
+    max-height: 40px;
 }

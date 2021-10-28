@@ -18567,6 +18567,7 @@ var Header = function Header() {
             className: _Header_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].headerLinks,
             to: "/",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
+              className: _Header_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].logo,
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("use", {
                 xlinkHref: "/assets/icons.svg#main-logo"
               })
@@ -19425,10 +19426,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "._3cNBrSNR5vj0IN0uIWxAmv {\n  color: white;\n  text-decoration: none;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "._3cNBrSNR5vj0IN0uIWxAmv {\n  display: block;\n  height: 100%;\n  color: white;\n  text-decoration: none;\n}\n\n.nQQEEEszVwYLEKws7DaRD {\n  max-width: 120px;\n  width: 100%;\n  max-height: 40px;\n}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
-	"headerLinks": "_3cNBrSNR5vj0IN0uIWxAmv"
+	"headerLinks": "_3cNBrSNR5vj0IN0uIWxAmv",
+	"logo": "nQQEEEszVwYLEKws7DaRD"
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
