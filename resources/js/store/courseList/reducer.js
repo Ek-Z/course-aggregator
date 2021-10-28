@@ -6,10 +6,7 @@ const initialState = {
     courseList: [],
     filteredList: [],
     status: STATUS_IDLE,
-    error: {
-        state: false,
-        message: '',
-    },
+    error: null,
     isFiltered: false,
     filters: {
         'Языки программирования': ['PHP', 'JavaScript'],
@@ -25,11 +22,11 @@ export const courseListReducer = createReducer(initialState, builder => {
         .addCase(courseListLoaded, (state, { payload }) => {
             state.courseList = payload;
             state.status = STATUS_SUCCESS;
-            state.error.state = false;
+            state.error = null;
         })
         .addCase(courseListFailed, (state, { payload }) => {
             state.status = STATUS_FAILED;
-            state.error = { state: true, message: payload };
+            state.error = payload;
         })
         .addDefaultCase(() => {});
 });

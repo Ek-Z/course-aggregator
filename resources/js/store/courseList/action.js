@@ -1,5 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 import { ADMIN_COURSE_LIST_URL } from '../../utils/urls/urls';
+import { instanceOf } from 'prop-types';
 
 export const COURSE_LIST_ONLOAD = 'COURSE_LIST::COURSE_LIST_ONLOAD';
 export const COURSE_LIST_LOADED = 'COURSE_LIST::COURSE_LIST_LOADED';

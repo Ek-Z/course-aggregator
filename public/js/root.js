@@ -18845,8 +18845,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
 /* harmony import */ var _utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/urls/urls */ "./resources/js/utils/urls/urls.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -18855,13 +18857,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+
 var COURSE_LIST_ONLOAD = 'COURSE_LIST::COURSE_LIST_ONLOAD';
 var COURSE_LIST_LOADED = 'COURSE_LIST::COURSE_LIST_LOADED';
 var COURSE_LIST_FAILED = 'COURSE_LIST::COURSE_LIST_FAILED';
 var COURSE_LIST_FILTERED = 'COURSE_LIST::COURSE_LIST_FILTERED';
-var courseListOnload = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.createAction)(COURSE_LIST_ONLOAD);
-var courseListLoaded = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.createAction)(COURSE_LIST_LOADED);
-var courseListFailed = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.createAction)(COURSE_LIST_FAILED);
+var courseListOnload = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.createAction)(COURSE_LIST_ONLOAD);
+var courseListLoaded = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.createAction)(COURSE_LIST_LOADED);
+var courseListFailed = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.createAction)(COURSE_LIST_FAILED);
 /*export const courseListOnload = () => ({
     type: COURSE_LIST_ONLOAD,
 });
@@ -18989,10 +18992,7 @@ var initialState = {
   courseList: [],
   filteredList: [],
   status: _utils_statuses_statuses__WEBPACK_IMPORTED_MODULE_1__.STATUS_IDLE,
-  error: {
-    state: false,
-    message: ''
-  },
+  error: null,
   isFiltered: false,
   filters: {
     'Языки программирования': ['PHP', 'JavaScript'],
@@ -19006,14 +19006,11 @@ var courseListReducer = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.createR
     var payload = _ref.payload;
     state.courseList = payload;
     state.status = _utils_statuses_statuses__WEBPACK_IMPORTED_MODULE_1__.STATUS_SUCCESS;
-    state.error.state = false;
+    state.error = null;
   }).addCase(_action__WEBPACK_IMPORTED_MODULE_0__.courseListFailed, function (state, _ref2) {
     var payload = _ref2.payload;
     state.status = _utils_statuses_statuses__WEBPACK_IMPORTED_MODULE_1__.STATUS_FAILED;
-    state.error = {
-      state: true,
-      message: payload
-    };
+    state.error = payload;
   }).addDefaultCase(function () {});
 });
 /*export const courseListReducer = (state = initialState, { type, payload }) => {
