@@ -1,4 +1,4 @@
-import { ADMIN_COURSE_LIST_URL } from '../../../urls/urls';
+import { ADMIN_COURSE_LIST_URL } from '../../utils/urls/urls';
 
 export const COURSE_LIST_ONLOAD = 'COURSE_LIST::COURSE_LIST_ONLOAD';
 export const COURSE_LIST_LOADED = 'COURSE_LIST::COURSE_LIST_LOADED';

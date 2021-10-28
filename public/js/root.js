@@ -17566,7 +17566,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _urls_urls__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../urls/urls */ "./resources/urls/urls.js");
+/* harmony import */ var _utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/urls/urls */ "./resources/js/utils/urls/urls.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -17612,7 +17612,7 @@ var getCourseList = function getCourseList() {
               dispatch(courseListOnload());
               _context.prev = 1;
               _context.next = 4;
-              return fetch(_urls_urls__WEBPACK_IMPORTED_MODULE_1__.ADMIN_COURSE_LIST_URL);
+              return fetch(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.ADMIN_COURSE_LIST_URL);
 
             case 4:
               response = _context.sent;
@@ -17684,7 +17684,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "courseListReducer": () => (/* binding */ courseListReducer)
 /* harmony export */ });
 /* harmony import */ var _action__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./action */ "./resources/js/store/courseList/action.js");
-/* harmony import */ var _statuses_statuses__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../statuses/statuses */ "./resources/js/store/statuses/statuses.js");
+/* harmony import */ var _utils_statuses_statuses__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/statuses/statuses */ "./resources/js/utils/statuses/statuses.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -17708,7 +17708,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var initialState = {
   courseList: [],
   filteredList: [],
-  status: _statuses_statuses__WEBPACK_IMPORTED_MODULE_1__.STATUS_IDLE,
+  status: _utils_statuses_statuses__WEBPACK_IMPORTED_MODULE_1__.STATUS_IDLE,
   error: {
     state: false,
     message: ''
@@ -17726,14 +17726,14 @@ var courseListReducer = function courseListReducer() {
   switch (type) {
     case _action__WEBPACK_IMPORTED_MODULE_0__.COURSE_LIST_ONLOAD:
       return _objectSpread(_objectSpread({}, state), {}, {
-        status: _statuses_statuses__WEBPACK_IMPORTED_MODULE_1__.STATUS_REQUEST
+        status: _utils_statuses_statuses__WEBPACK_IMPORTED_MODULE_1__.STATUS_REQUEST
       });
 
     case _action__WEBPACK_IMPORTED_MODULE_0__.COURSE_LIST_LOADED:
       return _objectSpread(_objectSpread({}, state), {}, {
         courseList: payload,
         filteredList: [],
-        status: _statuses_statuses__WEBPACK_IMPORTED_MODULE_1__.STATUS_SUCCESS,
+        status: _utils_statuses_statuses__WEBPACK_IMPORTED_MODULE_1__.STATUS_SUCCESS,
         error: _objectSpread(_objectSpread({}, state.error), {}, {
           state: false
         }),
@@ -17746,7 +17746,7 @@ var courseListReducer = function courseListReducer() {
 
     case _action__WEBPACK_IMPORTED_MODULE_0__.COURSE_LIST_FAILED:
       return _objectSpread(_objectSpread({}, state), {}, {
-        status: _statuses_statuses__WEBPACK_IMPORTED_MODULE_1__.STATUS_FAILED,
+        status: _utils_statuses_statuses__WEBPACK_IMPORTED_MODULE_1__.STATUS_FAILED,
         error: _objectSpread(_objectSpread({}, state.error), {}, {
           state: true,
           message: payload
@@ -17855,9 +17855,9 @@ var persistor = (0,redux_persist__WEBPACK_IMPORTED_MODULE_0__.persistStore)(stor
 
 /***/ }),
 
-/***/ "./resources/js/store/statuses/statuses.js":
+/***/ "./resources/js/utils/statuses/statuses.js":
 /*!*************************************************!*\
-  !*** ./resources/js/store/statuses/statuses.js ***!
+  !*** ./resources/js/utils/statuses/statuses.js ***!
   \*************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -17873,6 +17873,23 @@ var STATUS_IDLE = 'IDLE';
 var STATUS_REQUEST = 'REQUEST';
 var STATUS_SUCCESS = 'SUCCESS';
 var STATUS_FAILED = 'FAILED';
+
+/***/ }),
+
+/***/ "./resources/js/utils/urls/urls.js":
+/*!*****************************************!*\
+  !*** ./resources/js/utils/urls/urls.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "PUBLIC_COURSES_LIST_URL": () => (/* binding */ PUBLIC_COURSES_LIST_URL),
+/* harmony export */   "ADMIN_COURSE_LIST_URL": () => (/* binding */ ADMIN_COURSE_LIST_URL)
+/* harmony export */ });
+var PUBLIC_COURSES_LIST_URL = 'http://127.0.0.1:8000/api/courses';
+var ADMIN_COURSE_LIST_URL = 'http://127.0.0.1:8000/api/admin/courses';
 
 /***/ }),
 
@@ -17905,23 +17922,6 @@ var theme = (0,_mui_material_styles__WEBPACK_IMPORTED_MODULE_0__["default"])({
     }
   }
 });
-
-/***/ }),
-
-/***/ "./resources/urls/urls.js":
-/*!********************************!*\
-  !*** ./resources/urls/urls.js ***!
-  \********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "PUBLIC_COURSES_LIST_URL": () => (/* binding */ PUBLIC_COURSES_LIST_URL),
-/* harmony export */   "ADMIN_COURSE_LIST_URL": () => (/* binding */ ADMIN_COURSE_LIST_URL)
-/* harmony export */ });
-var PUBLIC_COURSES_LIST_URL = 'http://127.0.0.1:8000/api/courses';
-var ADMIN_COURSE_LIST_URL = 'http://127.0.0.1:8000/api/admin/courses';
 
 /***/ }),
 
