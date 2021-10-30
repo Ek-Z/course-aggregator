@@ -1,10 +1,12 @@
 //Переиспользуемая форма для регистрации и авторизации
 import Input from "@mui/material/Input";
-import React, {useState} from "react";
+import React from "react";
 import styles from "./LoginForm.module.scss"
 import { Button } from '@mui/material';
 
-export function LoginForm({title, button, onChange, onSubmit, name, email,password, c_password, error}) {
+export function LoginForm
+({title, button, onChange, onSubmit, name,
+     email,password, c_password, error, passwordsError}) {
     return (
         <form className={styles.loginForm} onSubmit={onSubmit}>
             <div className={styles.loginForm_block}>
@@ -29,7 +31,7 @@ export function LoginForm({title, button, onChange, onSubmit, name, email,passwo
                     className={styles.loginForm_block_input}
                     type="email"
                 />
-                {(error) && <div style={{ color:'red' }}>{error}</div>}
+                {error && <div style={{ color:'red' }}>{error}</div>}
                 <Input
                     name="password"
                     value={password}
@@ -39,6 +41,7 @@ export function LoginForm({title, button, onChange, onSubmit, name, email,passwo
                     type="password"
                     className={styles.loginForm_block_input}
                 />
+                {passwordsError && <div style={{ color:'red' }}>{passwordsError}</div> }
                 {(title === "Регистрация") &&
                 <Input
                     name="c_password"

@@ -1,11 +1,14 @@
 // Страница регистрации
-
 import {LoginForm} from "../../components/LoginForm/LoginForm";
 import React, {useState} from "react";
 import axios from "axios";
 import {useHistory} from "react-router";
+import {useDispatch} from "react-redux"
+import {logIn} from "../../store/session";
 
 export const LoginPage = () => {
+    const dispatch = useDispatch();
+
     const [user, setUser] = useState({
         email: "",
         password:""
@@ -29,14 +32,15 @@ export const LoginPage = () => {
         }
         try {
             let response = await axios.post("api/login",user);
-            localStorage.setItem("users",response.data);
-            alert("Приветствуем тебя, "+ response.data.data.name);
+            alert("Приветствуем Вас, "+ response.data.data.name);
+            dispatch(logIn(response.data.data.name));
             history.push("/");//редирект на главную страницу
         }
         catch (e) {
             console.log(`Error! ${e}`)
         }
     }
+
     return (
         <LoginForm
             title="Авторизация"

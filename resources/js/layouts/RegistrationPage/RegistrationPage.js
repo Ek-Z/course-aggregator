@@ -1,9 +1,10 @@
 // Страница авторизации
-
+import {LoginForm} from "../../components/LoginForm/LoginForm";
 import React, {useState} from "react";
 import axios from "axios";
 import {useHistory} from "react-router";
-import {LoginForm} from "../../components/LoginForm/LoginForm";
+import {useDispatch} from "react-redux"
+import {logIn} from "../../store/session";
 
 //валидация пароля
 const validate = (password) => {
@@ -19,8 +20,12 @@ export const RegistrationPage = () => {
         c_password:"",
     })
     const {name, email, password, c_password} = user;
+    const dispatch = useDispatch();
 
-    const [error,setError] = useState("")
+
+    const [error,setError] = useState("")//ошибка содержимого пароля
+    const [passwordsError, setPasswordsError] = useState("")//ошибка равенства двух введенных паролей
+
     let history = useHistory();
 
     const handleInput = (e) => {
@@ -29,6 +34,8 @@ export const RegistrationPage = () => {
 
     const signUp = async (e) =>{
         e.preventDefault();
+        setError("");
+        setPasswordsError("")
         if (user.name === ""){
             alert('Не введено имя пользователя')
         }
@@ -44,14 +51,19 @@ export const RegistrationPage = () => {
         else if (user.c_password === ""){
             alert('Повторно не введен пароль')
         }
+        else if (user.password !== user.c_password){
+            setPasswordsError('Пароли не совпадают')
+        }
         else {
             try {
                 await axios.post("api/register",user);
-                alert('Данные отправлены');
+                alert('Приветствуем Вас, '+ user.name);
+                dispatch(logIn(user.name))
                 history.push("/");//редирект на главную страницу
             }
             catch (e) {
-                console.log(`Error! ${e}`)
+                console.log(`Error! ${e}`);
+                alert('Вероятно пользователь с таким именем или паролем уже существует')
             }
         }
     }
@@ -66,6 +78,7 @@ export const RegistrationPage = () => {
             password={password}
             c_password={c_password}
             error={error}
+            passwordsError = {passwordsError}
         />
     )
 }
