@@ -18511,7 +18511,10 @@ var Catalog = function Catalog() {
   var courseList = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectCourseList);
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    dispatch((0,_store_courseList_action__WEBPACK_IMPORTED_MODULE_3__.getCourseList)());
+    //TODO: добавить проверку на админа
+
+    /*dispatch(getPublicCourseList());*/
+    dispatch((0,_store_courseList_action__WEBPACK_IMPORTED_MODULE_3__.getAdminCourseList)());
   }, [dispatch]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
     className: "container",
@@ -18841,14 +18844,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "courseListOnload": () => (/* binding */ courseListOnload),
 /* harmony export */   "courseListLoaded": () => (/* binding */ courseListLoaded),
 /* harmony export */   "courseListFailed": () => (/* binding */ courseListFailed),
-/* harmony export */   "getCourseList": () => (/* binding */ getCourseList)
+/* harmony export */   "getPublicCourseList": () => (/* binding */ getPublicCourseList),
+/* harmony export */   "getAdminCourseList": () => (/* binding */ getAdminCourseList)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
 /* harmony import */ var _utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/urls/urls */ "./resources/js/utils/urls/urls.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/HOF/HOF */ "./resources/js/utils/HOF/HOF.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -18884,10 +18887,10 @@ export const courseListFiltered = (courseList) => ({
     payload: courseList,
 });*/
 
-var getCourseList = function getCourseList() {
+var getPublicCourseList = function getPublicCourseList() {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(dispatch) {
-      var response, result;
+      var courseList;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -18895,45 +18898,66 @@ var getCourseList = function getCourseList() {
               dispatch(courseListOnload());
               _context.prev = 1;
               _context.next = 4;
-              return fetch(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.ADMIN_COURSE_LIST_URL);
+              return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.getData)(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.PUBLIC_COURSES_LIST_URL);
 
             case 4:
-              response = _context.sent;
-
-              if (response.ok) {
-                _context.next = 7;
-                break;
-              }
-
-              throw new Error("Request failed with status: ".concat(response.status));
-
-            case 7:
-              _context.next = 9;
-              return response.json().then(function (json) {
-                return json.data;
-              });
-
-            case 9:
-              result = _context.sent;
-              dispatch(courseListLoaded(result));
-              _context.next = 16;
+              courseList = _context.sent;
+              dispatch(courseListLoaded(courseList));
+              _context.next = 11;
               break;
 
-            case 13:
-              _context.prev = 13;
+            case 8:
+              _context.prev = 8;
               _context.t0 = _context["catch"](1);
               dispatch(courseListFailed(_context.t0));
 
-            case 16:
+            case 11:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[1, 13]]);
+      }, _callee, null, [[1, 8]]);
     }));
 
     return function (_x) {
       return _ref.apply(this, arguments);
+    };
+  }();
+};
+var getAdminCourseList = function getAdminCourseList() {
+  return /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(dispatch) {
+      var courseList;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              dispatch(courseListOnload());
+              _context2.prev = 1;
+              _context2.next = 4;
+              return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.getData)(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.ADMIN_COURSE_LIST_URL);
+
+            case 4:
+              courseList = _context2.sent;
+              dispatch(courseListLoaded(courseList));
+              _context2.next = 11;
+              break;
+
+            case 8:
+              _context2.prev = 8;
+              _context2.t0 = _context2["catch"](1);
+              dispatch(courseListFailed(_context2.t0));
+
+            case 11:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[1, 8]]);
+    }));
+
+    return function (_x2) {
+      return _ref2.apply(this, arguments);
     };
   }();
 };
@@ -19145,6 +19169,79 @@ var rootReducer = (0,redux__WEBPACK_IMPORTED_MODULE_4__.combineReducers)({
 var persistedReducer = (0,redux_persist__WEBPACK_IMPORTED_MODULE_0__.persistReducer)(persistConfig, rootReducer);
 var store = (0,redux__WEBPACK_IMPORTED_MODULE_4__.createStore)(persistedReducer, composeEnhancers((0,redux__WEBPACK_IMPORTED_MODULE_4__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_2__["default"])));
 var persistor = (0,redux_persist__WEBPACK_IMPORTED_MODULE_0__.persistStore)(store);
+
+/***/ }),
+
+/***/ "./resources/js/utils/HOF/HOF.js":
+/*!***************************************!*\
+  !*** ./resources/js/utils/HOF/HOF.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getData": () => (/* binding */ getData)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+// high order function
+function HOF(fn) {
+  return function () {
+    return fn.apply(void 0, arguments);
+  };
+}
+
+function fetchData(_x) {
+  return _fetchData.apply(this, arguments);
+}
+
+function _fetchData() {
+  _fetchData = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(url) {
+    var response;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return fetch(url);
+
+          case 2:
+            response = _context.sent;
+
+            if (response.ok) {
+              _context.next = 5;
+              break;
+            }
+
+            return _context.abrupt("return", new Error("Error: ".concat(response.statusText)));
+
+          case 5:
+            _context.next = 7;
+            return response.json().then(function (json) {
+              return json.data;
+            });
+
+          case 7:
+            return _context.abrupt("return", _context.sent);
+
+          case 8:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+  return _fetchData.apply(this, arguments);
+}
+
+var getData = HOF(fetchData);
 
 /***/ }),
 

@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
-import { ADMIN_COURSE_LIST_URL } from '../../utils/urls/urls';
-import { instanceOf } from 'prop-types';
+import { PUBLIC_COURSES_LIST_URL, ADMIN_COURSE_LIST_URL } from '../../utils/urls/urls';
+import { getData } from '../../utils/HOF/HOF';
 
 export const COURSE_LIST_ONLOAD = 'COURSE_LIST::COURSE_LIST_ONLOAD';
 export const COURSE_LIST_LOADED = 'COURSE_LIST::COURSE_LIST_LOADED';
@@ -30,21 +30,25 @@ export const courseListFiltered = (courseList) => ({
     payload: courseList,
 });*/
 
-export const getCourseList = () => async dispatch => {
+export const getPublicCourseList = () => async dispatch => {
     dispatch(courseListOnload());
 
     try {
-        const response = await fetch(ADMIN_COURSE_LIST_URL);
+        const courseList = await getData(PUBLIC_COURSES_LIST_URL);
 
-        if (!response.ok) {
-            throw new Error(`Request failed with status: ${response.status}`);
-        }
+        dispatch(courseListLoaded(courseList));
+    } catch (error) {
+        dispatch(courseListFailed(error));
+    }
+};
 
-        const result = await response
-            .json()
-            .then(json => json.data);
+export const getAdminCourseList = () => async dispatch => {
+    dispatch(courseListOnload());
 
-        dispatch(courseListLoaded(result));
+    try {
+        const courseList = await getData(ADMIN_COURSE_LIST_URL);
+
+        dispatch(courseListLoaded(courseList));
     } catch (error) {
         dispatch(courseListFailed(error));
     }
