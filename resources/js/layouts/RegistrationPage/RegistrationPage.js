@@ -56,7 +56,8 @@ export const RegistrationPage = () => {
         }
         else {
             try {
-                await axios.post("api/register",user);
+                let response = await axios.post("api/register",user);
+                localStorage.setItem("users",response.data);
                 alert('Приветствуем Вас, '+ user.name);
                 dispatch(logIn(user.name))
                 history.push("/");//редирект на главную страницу

@@ -13,12 +13,12 @@ export const Header = () => {
     //Функция для выхода
     const signOut = async (e) => {
         try {
-            let response = await axios.post("api/logout", {
+            await axios.post("api/logout", {
                 headers:{
                     'Content-Type': 'application/json'
                 }
             });
-            console.log(response);
+            localStorage.removeItem("users")
             dispatch(logOut());
         }
         catch (e) {

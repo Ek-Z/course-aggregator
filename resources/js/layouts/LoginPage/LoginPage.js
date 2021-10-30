@@ -32,6 +32,7 @@ export const LoginPage = () => {
         }
         try {
             let response = await axios.post("api/login",user);
+            localStorage.setItem("users",response.data);
             alert("Приветствуем Вас, "+ response.data.data.name);
             dispatch(logIn(response.data.data.name));
             history.push("/");//редирект на главную страницу
