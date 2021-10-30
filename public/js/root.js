@@ -18511,7 +18511,10 @@ var Catalog = function Catalog() {
   var courseList = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectCourseList);
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    dispatch((0,_store_courseList_action__WEBPACK_IMPORTED_MODULE_3__.getCourseList)());
+    //TODO: добавить проверку на админа
+
+    /*dispatch(getPublicCourseList());*/
+    dispatch((0,_store_courseList_action__WEBPACK_IMPORTED_MODULE_3__.getAdminCourseList)());
   }, [dispatch]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
     className: "container",
@@ -18841,7 +18844,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "courseListOnload": () => (/* binding */ courseListOnload),
 /* harmony export */   "courseListLoaded": () => (/* binding */ courseListLoaded),
 /* harmony export */   "courseListFailed": () => (/* binding */ courseListFailed),
-/* harmony export */   "getCourseList": () => (/* binding */ getCourseList)
+/* harmony export */   "getPublicCourseList": () => (/* binding */ getPublicCourseList),
+/* harmony export */   "getAdminCourseList": () => (/* binding */ getAdminCourseList)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
@@ -18883,7 +18887,7 @@ export const courseListFiltered = (courseList) => ({
     payload: courseList,
 });*/
 
-var getCourseList = function getCourseList() {
+var getPublicCourseList = function getPublicCourseList() {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(dispatch) {
       var courseList;
@@ -18894,7 +18898,7 @@ var getCourseList = function getCourseList() {
               dispatch(courseListOnload());
               _context.prev = 1;
               _context.next = 4;
-              return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.getData)(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.ADMIN_COURSE_LIST_URL);
+              return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.getData)(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.PUBLIC_COURSES_LIST_URL);
 
             case 4:
               courseList = _context.sent;
@@ -18917,6 +18921,43 @@ var getCourseList = function getCourseList() {
 
     return function (_x) {
       return _ref.apply(this, arguments);
+    };
+  }();
+};
+var getAdminCourseList = function getAdminCourseList() {
+  return /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(dispatch) {
+      var courseList;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              dispatch(courseListOnload());
+              _context2.prev = 1;
+              _context2.next = 4;
+              return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.getData)(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.ADMIN_COURSE_LIST_URL);
+
+            case 4:
+              courseList = _context2.sent;
+              dispatch(courseListLoaded(courseList));
+              _context2.next = 11;
+              break;
+
+            case 8:
+              _context2.prev = 8;
+              _context2.t0 = _context2["catch"](1);
+              dispatch(courseListFailed(_context2.t0));
+
+            case 11:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[1, 8]]);
+    }));
+
+    return function (_x2) {
+      return _ref2.apply(this, arguments);
     };
   }();
 };

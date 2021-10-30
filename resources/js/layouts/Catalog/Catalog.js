@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCourseList } from '../../store/courseList/selectors';
-import { getCourseList } from '../../store/courseList/action';
+import { getPublicCourseList, getAdminCourseList } from '../../store/courseList/action';
 import { CourseList } from '../../components/CourseList/CourseList';
 import { CourseFilter } from '../../components/CourseFilter/CourseFilter';
 
@@ -10,7 +10,9 @@ export const Catalog = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getCourseList());
+        //TODO: добавить проверку на админа
+        /*dispatch(getPublicCourseList());*/
+        dispatch(getAdminCourseList());
     }, [dispatch]);
 
     return (
