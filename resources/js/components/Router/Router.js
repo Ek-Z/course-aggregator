@@ -3,7 +3,8 @@ import { HashRouter, Route, Switch, useParams } from 'react-router-dom';
 import { Header } from '../../layouts/Header/Header';
 import { Catalog } from '../../layouts/Catalog/Catalog';
 import { AdminPanel } from '../../layouts/AdminPanel/AdminPanel';
-import { LoginForm } from '../../layouts/LoginForm/LoginForm';
+import {LoginPage} from "../../layouts/LoginPage/LoginPage";
+import {RegistrationPage} from "../../layouts/RegistrationPage/RegistrationPage";
 import { CourseCard } from '../CourseCard/CourseCard';
 
 export const Router = () => {
@@ -23,10 +24,10 @@ export const Router = () => {
                     <AdminPanel/>
                 </Route>
                 <Route exact={true} path="/signIn">
-                    <LoginForm/>
+                    <LoginPage/>
                 </Route>
                 <Route exact={true} path="/signUp">
-                    <LoginForm onSubmit="addUser"/>
+                    <RegistrationPage/>
                 </Route>
             </Switch>
         </HashRouter>
