@@ -8,7 +8,7 @@ export const CourseList = ({ list }) => {
     return (
         <section className={style.section}>
             <div className={style.section__wrap}>
-                <Box sx={{ flexGrow: 1, display: 'flex' }}>
+                <Box className={style.box}>
                     <Grid container justifyContent="center" spacing={{ xs: 3 }}>
                         {list.map(item => <Course key={item.id} item={item}/>)}
                     </Grid>

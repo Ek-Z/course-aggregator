@@ -3,6 +3,10 @@
     &__wrap {
         display: flex;
         flex-direction: column;
-        padding: 1rem;
     }
+}
+
+.box {
+    flex-grow: 1;
+    display: flex;
 }
