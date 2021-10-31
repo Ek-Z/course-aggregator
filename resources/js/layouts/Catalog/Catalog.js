@@ -1,10 +1,18 @@
-import { useSelector } from 'react-redux';
-import { selectCourseList } from '../../store/courseList/selectors';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCourseList, selectCourseListLength } from '../../store/courseList/selectors';
 import { CourseList } from '../../components/CourseList/CourseList';
 import { CourseFilter } from '../../components/CourseFilter/CourseFilter';
+import { getPublicCourseList } from '../../store/courseList/action';
 
 export const Catalog = () => {
     const courseList = useSelector(selectCourseList);
+    const courseListLength = useSelector(selectCourseListLength);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        !courseListLength && dispatch(getPublicCourseList());
+    }, [dispatch, courseListLength]);
 
     return (
         <div className="container" style={{ display: 'flex', flexDirection: 'column', marginTop: 20 }}>
