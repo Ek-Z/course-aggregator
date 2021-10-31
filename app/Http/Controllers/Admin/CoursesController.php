@@ -1,26 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
-use App\Http\Requests\FilterRequest;
 use App\Http\Resources\CourseResource;
-use Illuminate\Http\Request;
 
 class CoursesController extends Controller
 {
-    public function index(FilterRequest $request)
+    public function index()
     {
-        $data = $request->validated();
-        $query = Course::query();
-        if (isset($data['programmingLanguage_id'])) {
-            $query->where('programmingLanguage_id', $data['programmingLanguage_id']);
-            $courses = $query->get();
-            return $courses;
-        }
         return CourseResource::collection(Course::all());
     }
 
@@ -32,7 +23,8 @@ class CoursesController extends Controller
 
     public function show($id)
     {
-        return new CourseResource(Course::findOrFail($id));
+        $course = new CourseResource(Course::findOrFail($id));
+        return $course;
     }
 
     public function update(UpdateCourseRequest $request, $id)

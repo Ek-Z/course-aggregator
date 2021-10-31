@@ -3,17 +3,19 @@ import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
 import { courseListReducer } from './courseList/reducer';
+import { profileReducer } from "./session";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const persistConfig = {
-    key: 'example',
+    key: 'course-aggregator',
     blacklist: [],
     storage,
 };
 
 const rootReducer = combineReducers({
-    courseList: courseListReducer
+    courseList: courseListReducer,
+    profile: profileReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
