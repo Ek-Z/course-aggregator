@@ -20495,15 +20495,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Router": () => (/* binding */ Router)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _layouts_Header_Header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../layouts/Header/Header */ "./resources/js/layouts/Header/Header.js");
 /* harmony import */ var _layouts_Catalog_Catalog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../layouts/Catalog/Catalog */ "./resources/js/layouts/Catalog/Catalog.js");
 /* harmony import */ var _layouts_AdminPanel_AdminPanel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../layouts/AdminPanel/AdminPanel */ "./resources/js/layouts/AdminPanel/AdminPanel.js");
 /* harmony import */ var _layouts_LoginPage_LoginPage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../layouts/LoginPage/LoginPage */ "./resources/js/layouts/LoginPage/LoginPage.js");
 /* harmony import */ var _layouts_RegistrationPage_RegistrationPage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../layouts/RegistrationPage/RegistrationPage */ "./resources/js/layouts/RegistrationPage/RegistrationPage.js");
 /* harmony import */ var _CourseCard_CourseCard__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../CourseCard/CourseCard */ "./resources/js/components/CourseCard/CourseCard.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _layouts_Home_Home__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../layouts/Home/Home */ "./resources/js/layouts/Home/Home.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 
@@ -20515,31 +20517,32 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var Router = function Router() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.HashRouter, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_layouts_Header_Header__WEBPACK_IMPORTED_MODULE_1__.Header, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Switch, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.HashRouter, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_layouts_Header_Header__WEBPACK_IMPORTED_MODULE_1__.Header, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Switch, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Route, {
         exact: true,
-        path: "/"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
+        path: "/",
+        component: _layouts_Home_Home__WEBPACK_IMPORTED_MODULE_7__.Home
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Route, {
         exact: true,
         path: "/courses",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_layouts_Catalog_Catalog__WEBPACK_IMPORTED_MODULE_2__.Catalog, {})
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_layouts_Catalog_Catalog__WEBPACK_IMPORTED_MODULE_2__.Catalog, {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Route, {
         exact: true,
         path: "/courses/:courseId?",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_CourseCard_CourseCard__WEBPACK_IMPORTED_MODULE_6__.CourseCard, {})
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_CourseCard_CourseCard__WEBPACK_IMPORTED_MODULE_6__.CourseCard, {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Route, {
         exact: true,
         path: "/admin",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_layouts_AdminPanel_AdminPanel__WEBPACK_IMPORTED_MODULE_3__.AdminPanel, {})
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_layouts_AdminPanel_AdminPanel__WEBPACK_IMPORTED_MODULE_3__.AdminPanel, {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Route, {
         exact: true,
         path: "/signIn",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_layouts_LoginPage_LoginPage__WEBPACK_IMPORTED_MODULE_4__.LoginPage, {})
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_layouts_LoginPage_LoginPage__WEBPACK_IMPORTED_MODULE_4__.LoginPage, {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Route, {
         exact: true,
         path: "/signUp",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_layouts_RegistrationPage_RegistrationPage__WEBPACK_IMPORTED_MODULE_5__.RegistrationPage, {})
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_layouts_RegistrationPage_RegistrationPage__WEBPACK_IMPORTED_MODULE_5__.RegistrationPage, {})
       })]
     })]
   });
@@ -20642,15 +20645,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Catalog": () => (/* binding */ Catalog)
 /* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../store/courseList/selectors */ "./resources/js/store/courseList/selectors.js");
-/* harmony import */ var _store_courseList_action__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../store/courseList/action */ "./resources/js/store/courseList/action.js");
-/* harmony import */ var _components_CourseList_CourseList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../components/CourseList/CourseList */ "./resources/js/components/CourseList/CourseList.js");
-/* harmony import */ var _components_CourseFilter_CourseFilter__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/CourseFilter/CourseFilter */ "./resources/js/components/CourseFilter/CourseFilter.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store_courseList_selectors__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../store/courseList/selectors */ "./resources/js/store/courseList/selectors.js");
+/* harmony import */ var _components_CourseList_CourseList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/CourseList/CourseList */ "./resources/js/components/CourseList/CourseList.js");
+/* harmony import */ var _components_CourseFilter_CourseFilter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/CourseFilter/CourseFilter */ "./resources/js/components/CourseFilter/CourseFilter.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
@@ -20658,19 +20657,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var Catalog = function Catalog() {
-  var courseList = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectCourseList);
-  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    //TODO: добавить проверку на админа
-    dispatch((0,_store_courseList_action__WEBPACK_IMPORTED_MODULE_3__.getPublicCourseList)()); // dispatch(getAdminCourseList());
-  }, [dispatch]);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+  var courseList = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_1__.selectCourseList);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
     className: "container",
     style: {
       display: 'flex',
       marginTop: 50
     },
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_CourseFilter_CourseFilter__WEBPACK_IMPORTED_MODULE_5__.CourseFilter, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_CourseList_CourseList__WEBPACK_IMPORTED_MODULE_4__.CourseList, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_CourseFilter_CourseFilter__WEBPACK_IMPORTED_MODULE_3__.CourseFilter, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_CourseList_CourseList__WEBPACK_IMPORTED_MODULE_2__.CourseList, {
       list: courseList
     })]
   });
@@ -20856,6 +20850,49 @@ var Header = function Header() {
         })]
       })
     })
+  });
+};
+
+/***/ }),
+
+/***/ "./resources/js/layouts/Home/Home.js":
+/*!*******************************************!*\
+  !*** ./resources/js/layouts/Home/Home.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Home": () => (/* binding */ Home)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _components_CourseList_CourseList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/CourseList/CourseList */ "./resources/js/components/CourseList/CourseList.js");
+/* harmony import */ var _store_courseList_selectors__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../store/courseList/selectors */ "./resources/js/store/courseList/selectors.js");
+/* harmony import */ var _store_courseList_action__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../store/courseList/action */ "./resources/js/store/courseList/action.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+
+
+
+var Home = function Home() {
+  var bestCourseList = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_3__.selectBestCourses);
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    //TODO: добавить проверку на админа
+    dispatch((0,_store_courseList_action__WEBPACK_IMPORTED_MODULE_4__.getPublicCourseList)()); // dispatch(getAdminCourseList());
+  }, [dispatch]);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    className: "container",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h1", {
+      children: "\u0410\u0433\u0440\u0435\u0433\u0430\u0442\u043E\u0440 \u0431\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u044B\u0445 \u043A\u0443\u0440\u0441\u043E\u0432"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_CourseList_CourseList__WEBPACK_IMPORTED_MODULE_2__.CourseList, {
+      list: bestCourseList
+    })]
   });
 };
 
@@ -21497,7 +21534,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "selectCourseTitles": () => (/* binding */ selectCourseTitles),
 /* harmony export */   "selectCourseList": () => (/* binding */ selectCourseList),
 /* harmony export */   "selectCourseListLength": () => (/* binding */ selectCourseListLength),
-/* harmony export */   "selectSortedCourseList": () => (/* binding */ selectSortedCourseList),
+/* harmony export */   "selectBestCourses": () => (/* binding */ selectBestCourses),
 /* harmony export */   "selectFilteredList": () => (/* binding */ selectFilteredList),
 /* harmony export */   "selectIsFiltered": () => (/* binding */ selectIsFiltered),
 /* harmony export */   "selectFilters": () => (/* binding */ selectFilters),
@@ -21512,10 +21549,8 @@ var selectCourseList = function selectCourseList(state) {
 var selectCourseListLength = function selectCourseListLength(state) {
   return state.courseList.courseList.length;
 };
-var selectSortedCourseList = function selectSortedCourseList(state) {
-  return state.courseList.courseList.filter(function (course, index) {
-    return index < 5;
-  });
+var selectBestCourses = function selectBestCourses(state) {
+  return state.courseList.courseList.slice(0, 6);
 };
 var selectFilteredList = function selectFilteredList(state) {
   return state.courseList.filteredList;
