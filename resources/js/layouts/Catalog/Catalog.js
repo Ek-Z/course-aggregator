@@ -1,24 +1,28 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectCourseList } from '../../store/courseList/selectors';
-import { getPublicCourseList, getAdminCourseList } from '../../store/courseList/action';
+import { selectCourseList, selectCourseListLength } from '../../store/courseList/selectors';
 import { CourseList } from '../../components/CourseList/CourseList';
 import { CourseFilter } from '../../components/CourseFilter/CourseFilter';
+import { getPublicCourseList } from '../../store/courseList/action';
 
 export const Catalog = () => {
     const courseList = useSelector(selectCourseList);
+    const courseListLength = useSelector(selectCourseListLength);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        //TODO: добавить проверку на админа
-        dispatch(getPublicCourseList());
-        // dispatch(getAdminCourseList());
-    }, [dispatch]);
+        !courseListLength && dispatch(getPublicCourseList());
+    }, [dispatch, courseListLength]);
 
     return (
-        <div className="container" style={{ display: 'flex', marginTop: 50 }}>
-            <CourseFilter/>
-            <CourseList list={courseList}/>
+        <div className="container" style={{ display: 'flex', flexDirection: 'column', marginTop: 20 }}>
+            <h2 style={{ textAlign: 'center', marginBottom: 50 }}>
+                Список бесплатных курсов
+            </h2>
+            <div style={{ display: 'flex' }}>
+                <CourseFilter/>
+                <CourseList list={courseList}/>
+            </div>
         </div>
     );
 };

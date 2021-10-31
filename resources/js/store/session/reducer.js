@@ -1,7 +1,7 @@
 import {LOG_IN, LOG_OUT} from "./types";
 
 const initialState = {
-    username:"",
+    userName:"",
     session: false, //изначально false для неавторизованных пользователей
 };
 
