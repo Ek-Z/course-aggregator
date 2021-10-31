@@ -23,7 +23,7 @@ class FitredCoursesResource extends JsonResource
             'isActive' => $this->isActive,
             'language' => $this->language,
             'programmingLanguage_id' => $this->programmingLanguage_id,
-            //'programmingLanguage' => $this->programmingLanguage,
+            'programmingLanguage' => $this->programmingLanguage,
         ];
     }
 }
