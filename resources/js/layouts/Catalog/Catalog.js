@@ -11,8 +11,8 @@ export const Catalog = () => {
 
     useEffect(() => {
         //TODO: добавить проверку на админа
-        /*dispatch(getPublicCourseList());*/
-        dispatch(getAdminCourseList());
+        dispatch(getPublicCourseList());
+        // dispatch(getAdminCourseList());
     }, [dispatch]);
 
     return (
