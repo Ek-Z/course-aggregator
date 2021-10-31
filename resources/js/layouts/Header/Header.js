@@ -30,11 +30,9 @@ export const Header = () => {
         <AppBar position="static">
             <Container>
                 <Toolbar>
-
                     <Box sx={{ height: 40, width: "16vh"}}>
-
                         <Link className={style.headerLinks} to="/">
-                            <svg className={style.logo}>
+                            <svg className={style.Logo}>
                                 <use xlinkHref="/assets/icons.svg#main-logo"/>
                             </svg>
                         </Link>
