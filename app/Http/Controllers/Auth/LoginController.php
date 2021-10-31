@@ -21,6 +21,7 @@ class LoginController extends BaseController
             $user = Auth::user();
             $success['token'] =  $user->createToken('MyApp')->plainTextToken;
             $success['name'] =  $user->name;
+            $success['is_admin'] =  $user->is_admin;
 
             return $this->sendResponse($success, 'User login successfully.');
         } else {
