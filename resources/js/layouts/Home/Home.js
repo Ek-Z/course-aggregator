@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CourseList } from '../../components/CourseList/CourseList';
 import { selectBestCourses } from '../../store/courseList/selectors';
 import { getPublicCourseList } from '../../store/courseList/action';
+import style from './Home.module.scss';
 
 export const Home = () => {
     const bestCourseList = useSelector(selectBestCourses);
@@ -15,8 +16,8 @@ export const Home = () => {
     }, [dispatch]);
 
     return (
-        <div className={`container`}>
-            <h1>Агрегатор бесплатных курсов</h1>
+        <div className="container">
+            <h1 className={style.title}>Агрегатор бесплатных курсов</h1>
             <CourseList list={bestCourseList}/>
         </div>
     );
