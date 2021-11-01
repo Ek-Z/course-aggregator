@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
-use App\Http\Requests\StoreCourseRequest;
-use App\Http\Requests\UpdateCourseRequest;
+use App\Http\Requests\CourseRequest;
 use App\Http\Resources\CourseResource;
 
 class CoursesController extends Controller
@@ -15,7 +14,7 @@ class CoursesController extends Controller
         return CourseResource::collection(Course::all());
     }
 
-    public function store(StoreCourseRequest $request)
+    public function store(CourseRequest $request)
     {
         $created_course = Course::create($request->validated());
         return $created_course;
@@ -27,7 +26,7 @@ class CoursesController extends Controller
         return $course;
     }
 
-    public function update(UpdateCourseRequest $request, $id)
+    public function update(CourseRequest $request, $id)
     {
         $course = new CourseResource(Course::findOrFail($id));
         $course->fill($request->validated());

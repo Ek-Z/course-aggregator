@@ -18,13 +18,12 @@ class CreateCoursesTable extends Migration
             $table->foreignId('programmingLanguage_id')
                 ->constrained('programming_languages')
                 ->cascadeOnDelete();
-            $table->string('title', 191);
-            $table->string('source', 191)->nullable();
-            $table->string('image', 255)->nullable();
+            $table->string('title', 250);
+            $table->string('source_name', 250)->nullable();
+            $table->string('source_url');
+            $table->string('image', 250)->nullable();
             $table->enum('status', ['DRAFT', 'PUBLISHED', 'DELETED'])
                 ->default('DRAFT');
-            $table->boolean('isActive')
-                ->default(1);
             $table->softDeletes();
             $table->text('description')->nullable();
             $table->enum('language', ['English', 'Русский'])
