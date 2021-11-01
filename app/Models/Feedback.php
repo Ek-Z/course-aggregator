@@ -5,20 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Course extends Model
+class Feedback extends Model
 {
     use HasFactory;
 
-    protected $table = 'courses';
+    protected $table = 'feedbacks';
 
     protected $fillable = [
-        'programmingLanguage_id',
+        'user_id',
         'title',
-        'source_name',
-        'source_url',
-        'image',
         'status',
-        'language',
         'description'
     ];
 
@@ -28,8 +24,8 @@ class Course extends Model
         'deleted_at'
     ];
 
-    public function programmingLanguage()
+    public function user()
     {
-        return $this->belongsTo(ProgrammingLanguage::class, 'programmingLanguage_id', 'id');
+        return $this->belongsTo(Feedback::class, 'user_id', 'id');
     }
 }
