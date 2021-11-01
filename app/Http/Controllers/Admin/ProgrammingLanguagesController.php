@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\ProgrammingLanguage;
-use App\Http\Requests\StoreProgrammingLanguageRequest;
-use App\Http\Requests\UpdateProgrammingLanguageRequest;
+use App\Http\Requests\ProgrammingLanguageRequest;
 use App\Http\Resources\ProgrammingLanguageResource;
 
 class ProgrammingLanguagesController extends Controller
@@ -16,7 +15,7 @@ class ProgrammingLanguagesController extends Controller
         return ProgrammingLanguageResource::collection(ProgrammingLanguage::all());
     }
 
-    public function store(StoreProgrammingLanguageRequest $request)
+    public function store(ProgrammingLanguageRequest $request)
     {
         $created_programmingLanguage = ProgrammingLanguage::create($request->validated());
         return $created_programmingLanguage;
@@ -28,7 +27,7 @@ class ProgrammingLanguagesController extends Controller
     }
 
 
-    public function update(UpdateProgrammingLanguageRequest $request, $id)
+    public function update(ProgrammingLanguageRequest $request, $id)
     {
         $programmingLanguage = new ProgrammingLanguageResource(ProgrammingLanguage::findOrFail($id));
         $programmingLanguage->fill($request->validated());

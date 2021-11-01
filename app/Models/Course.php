@@ -10,12 +10,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Course extends Model
 {
     use HasFactory, SoftDeletes;
+
     protected $table = 'courses';
 
     protected $fillable = [
         'programmingLanguage_id',
         'title',
-        'source',
+        'source_name',
+        'source_url',
         'image',
         'status',
         'language',
@@ -31,5 +33,10 @@ class Course extends Model
     public function programmingLanguage()
     {
         return $this->belongsTo(ProgrammingLanguage::class, 'programmingLanguage_id', 'id');
+    }
+
+    public function course_review()
+    {
+        return $this->hasMany(Review::class);
     }
 }
