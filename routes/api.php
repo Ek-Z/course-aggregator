@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\Admin\CoursesController as AdminCoursesController;
 use App\Http\Controllers\Admin\ProgrammingLanguagesController as AdminProgrammingLanguagesController;
+use App\Http\Controllers\Admin\ReviewController as AdminReviewController;
 use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\ProgrammingLanguagesController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\UserReviewController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use GuzzleHttp\Middleware;
@@ -24,12 +27,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [LoginController::class, 'logout']);
+    Route::resource('review', UserReviewController::class);
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
         Route::apiResources([
             'courses' => AdminCoursesController::class,
         ]);
         Route::apiResources([
             'programmingLanguages' => AdminProgrammingLanguagesController::class,
+        ]);
+        Route::apiResources([
+            'reviews' => AdminReviewController::class,
         ]);
     });
 });
@@ -50,3 +57,6 @@ Route::group(['prefix' => 'courses', 'as' => 'courses.'], function () {
 
 Route::get('/programmingLanguages', [ProgrammingLanguagesController::class, 'index'])
     ->name('programmingLanguages.index');
+
+Route::get('course_review', [ReviewController::class, 'index'])
+    ->name('course.review');
