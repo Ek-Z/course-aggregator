@@ -2,6 +2,13 @@
 
 use Illuminate\Support\Str;
 
+$url =  parse_url(getenv("CLEARDB_DATABASE_URL"));
+
+$host = $url["https://grim-moonlight-48111.herokuapp.com/"];
+$username = $url["b177833cae329d"];
+$password = $url["c5324fc1"];
+$database = substr($url["heroku_15542ff5076adff"], 1);
+
 return [
 
     /*
@@ -15,7 +22,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'your_heroku_mysql_connection'),
 
     /*
     |--------------------------------------------------------------------------
@@ -34,6 +41,17 @@ return [
     */
 
     'connections' => [
+
+        'your_heroku_mysql_connection' => array(
+            'driver' => 'mysql',
+            'host' => $host,
+            'database' => $database,
+            'username' => $username,
+            'password' => $password,
+            'charset' => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix' => '',
+        ),
 
         'sqlite' => [
             'driver' => 'sqlite',
