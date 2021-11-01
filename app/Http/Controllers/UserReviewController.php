@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class FeedbackController extends Controller
+class UserReviewController extends Controller
 {
     /**
      * Display a listing of the resource.

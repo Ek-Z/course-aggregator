@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use App\Models\Feedback;
+use App\Models\Review;
 
 class User extends Authenticatable
 {
@@ -44,8 +44,8 @@ class User extends Authenticatable
         'is_admin' => 'boolean'
     ];
 
-    public function feedback()
+    public function review()
     {
-        return $this->hasMany(Feedback::class);
+        return $this->hasMany(Review::class);
     }
 }
