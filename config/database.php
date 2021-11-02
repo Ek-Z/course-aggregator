@@ -4,10 +4,10 @@ use Illuminate\Support\Str;
 
 $url =  parse_url(getenv("CLEARDB_DATABASE_URL"));
 
-$host = $url["https://grim-moonlight-48111.herokuapp.com/"];
-$username = $url["b177833cae329d"];
-$password = $url["c5324fc1"];
-$database = substr($url["heroku_15542ff5076adff"], 1);
+$host = $url["host"] ?? null;
+$username = $url["user"] ?? null;
+$password = $url["pass"] ?? null;
+$database = substr($url["path"], 1);
 
 return [
 
