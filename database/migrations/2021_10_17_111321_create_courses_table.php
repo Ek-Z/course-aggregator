@@ -25,6 +25,7 @@ class CreateCoursesTable extends Migration
             $table->enum('status', ['DRAFT', 'PUBLISHED', 'DELETED'])
                 ->default('DRAFT');
             $table->softDeletes();
+            $table->text('short_description')->nullable();
             $table->text('description')->nullable();
             $table->enum('language', ['English', 'Русский'])
                 ->default('Русский');
