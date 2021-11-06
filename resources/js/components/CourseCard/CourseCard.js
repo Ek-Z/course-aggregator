@@ -10,7 +10,7 @@ export const CourseCard = () => {
     const course = useSelector(selectCourse);
 
     return (
-        <Route exact={true} path={`/courses/${courseId}`}>
+        <Route exact={true} path={`/course/${courseId}`}>
             <CourseInfo item={course}/>
         </Route>
     );

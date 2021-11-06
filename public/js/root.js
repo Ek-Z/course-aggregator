@@ -19939,7 +19939,7 @@ var CourseCard = function CourseCard() {
   var course = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(selectCourse);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
     exact: true,
-    path: "/courses/".concat(courseId),
+    path: "/course/".concat(courseId),
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_CourseInfo_CourseInfo__WEBPACK_IMPORTED_MODULE_3__.CourseInfo, {
       item: course
     })
@@ -20329,7 +20329,7 @@ var Course = function Course(_ref) {
     item: true,
     xs: 5,
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
-      to: "/courses/".concat(item.id),
+      to: "/course/".concat(item.id),
       style: {
         textDecoration: 'none'
       },
@@ -20526,7 +20526,7 @@ var Router = function Router() {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_layouts_Catalog_Catalog__WEBPACK_IMPORTED_MODULE_2__.Catalog, {})
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Route, {
         exact: true,
-        path: "/courses/:courseId?",
+        path: "/course/:courseId?",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_CourseCard_CourseCard__WEBPACK_IMPORTED_MODULE_6__.CourseCard, {})
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Route, {
         exact: true,
@@ -21765,13 +21765,11 @@ var STATUS_FAILED = 'FAILED';
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "SERVER": () => (/* binding */ SERVER),
 /* harmony export */   "PUBLIC_COURSES_LIST_URL": () => (/* binding */ PUBLIC_COURSES_LIST_URL),
 /* harmony export */   "ADMIN_COURSE_LIST_URL": () => (/* binding */ ADMIN_COURSE_LIST_URL)
 /* harmony export */ });
-var SERVER = '';
-var PUBLIC_COURSES_LIST_URL = 'http://127.0.0.1:8000/api/courses';
-var ADMIN_COURSE_LIST_URL = 'http://127.0.0.1:8000/api/admin/courses';
+var PUBLIC_COURSES_LIST_URL = "api/courses";
+var ADMIN_COURSE_LIST_URL = "api/admin/courses";
 
 /***/ }),
 
