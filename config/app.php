@@ -2,6 +2,8 @@
 
 return [
 
+    'log' => 'errorlog',
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
@@ -52,7 +54,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'https://grim-moonlight-48111.herokuapp.com/'),
 
     'asset_url' => env('ASSET_URL', null),
 

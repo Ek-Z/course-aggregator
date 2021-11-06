@@ -17,6 +17,7 @@ class FitredCoursesResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'short_description' => $this->short_description,
             'description' => $this->description,
             'source_name' => $this->source_name,
             'source_url' => $this->source_url,

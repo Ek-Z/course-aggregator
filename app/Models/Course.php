@@ -35,7 +35,7 @@ class Course extends Model
         return $this->belongsTo(ProgrammingLanguage::class, 'programmingLanguage_id', 'id');
     }
 
-    public function course_review()
+    public function courseReview()
     {
         return $this->hasMany(Review::class);
     }
