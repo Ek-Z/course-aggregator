@@ -21325,25 +21325,6 @@ var COURSE_LIST_FILTERED = 'COURSE_LIST::COURSE_LIST_FILTERED';
 var courseListOnload = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.createAction)(COURSE_LIST_ONLOAD);
 var courseListLoaded = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.createAction)(COURSE_LIST_LOADED);
 var courseListFailed = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.createAction)(COURSE_LIST_FAILED);
-/*export const courseListOnload = () => ({
-    type: COURSE_LIST_ONLOAD,
-});
-
-export const courseListLoaded = (courseList) => ({
-    type: COURSE_LIST_LOADED,
-    payload: courseList,
-});
-
-export const courseListFailed = (err) => ({
-    type: COURSE_LIST_FAILED,
-    payload: err,
-});
-
-export const courseListFiltered = (courseList) => ({
-    type: COURSE_LIST_FILTERED,
-    payload: courseList,
-});*/
-
 var getPublicCourseList = function getPublicCourseList() {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(dispatch) {
@@ -21355,7 +21336,7 @@ var getPublicCourseList = function getPublicCourseList() {
               dispatch(courseListOnload());
               _context.prev = 1;
               _context.next = 4;
-              return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.getData)(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.PUBLIC_COURSES_LIST_URL);
+              return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.fetchData)(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.PUBLIC_COURSES_LIST_URL);
 
             case 4:
               courseList = _context.sent;
@@ -21392,7 +21373,7 @@ var getAdminCourseList = function getAdminCourseList() {
               dispatch(courseListOnload());
               _context2.prev = 1;
               _context2.next = 4;
-              return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.getData)(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.ADMIN_COURSE_LIST_URL);
+              return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.fetchData)(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.ADMIN_COURSE_LIST_URL);
 
             case 4:
               courseList = _context2.sent;
@@ -21418,37 +21399,6 @@ var getAdminCourseList = function getAdminCourseList() {
     };
   }();
 };
-/*export const getCourseList = () => async (dispatch) => {
-    dispatch(courseListOnload());
-
-    try {
-        const response = await fetch(ADMIN_COURSE_LIST_URL);
-
-        if (!response.ok) {
-            throw new Error(`Request failed with status: ${response.status}`);
-        }
-
-        const result = await response
-            .json()
-            .then(json => json.data);
-
-        dispatch(courseListLoaded(result));
-    } catch (e) {
-        dispatch(courseListFailed(e));
-    }
-};*/
-
-/*export const courseListFilter = (value, courseList) => (dispatch) => {
-    value = value.trim();
-
-    if (value) {
-        const pattern = new RegExp(value, 'gi');
-        const filteredList = courseList.filter((course) => pattern.test(course.title));
-        dispatch(courseListFiltered(filteredList));
-    } else {
-        dispatch(courseListLoaded(courseList));
-    }
-};*/
 
 /***/ }),
 
@@ -21494,50 +21444,6 @@ var courseListReducer = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.createR
     state.error = payload;
   }).addDefaultCase(function () {});
 });
-/*export const courseListReducer = (state = initialState, { type, payload }) => {
-    switch (type) {
-        case COURSE_LIST_ONLOAD:
-            return {
-                ...state,
-                status: STATUS_REQUEST,
-            };
-        case COURSE_LIST_LOADED:
-            return {
-                ...state,
-                courseList: payload,
-                filteredList: [],
-                status: STATUS_SUCCESS,
-                error: {
-                    ...state.error,
-                    state: false,
-                },
-                isFiltered: false,
-                filters: {
-                    'Языки программирования': ['PHP', 'JavaScript'],
-                    'Языки курсов': ['Русский', 'Английский'],
-                },
-            };
-        case COURSE_LIST_FAILED:
-            return {
-                ...state,
-                status: STATUS_FAILED,
-                error: {
-                    ...state.error,
-                    state: true,
-                    message: payload,
-                },
-            };
-        case COURSE_LIST_FILTERED:
-            return {
-                ...state,
-                status: 'FILTERED',
-                filteredList: [...payload],
-                isFiltered: true,
-            };
-        default:
-            return state;
-    }
-};*/
 
 /***/ }),
 
@@ -21774,7 +21680,7 @@ var LOG_OUT = "@session/log out";
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getData": () => (/* binding */ getData)
+/* harmony export */   "fetchData": () => (/* binding */ fetchData)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
@@ -21783,13 +21689,6 @@ __webpack_require__.r(__webpack_exports__);
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-// high order function
-function HOF(fn) {
-  return function () {
-    return fn.apply(void 0, arguments);
-  };
-}
 
 function fetchData(_x) {
   return _fetchData.apply(this, arguments);
@@ -21834,8 +21733,6 @@ function _fetchData() {
   return _fetchData.apply(this, arguments);
 }
 
-var getData = HOF(fetchData);
-
 /***/ }),
 
 /***/ "./resources/js/utils/statuses/statuses.js":
@@ -21868,9 +21765,11 @@ var STATUS_FAILED = 'FAILED';
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "SERVER": () => (/* binding */ SERVER),
 /* harmony export */   "PUBLIC_COURSES_LIST_URL": () => (/* binding */ PUBLIC_COURSES_LIST_URL),
 /* harmony export */   "ADMIN_COURSE_LIST_URL": () => (/* binding */ ADMIN_COURSE_LIST_URL)
 /* harmony export */ });
+var SERVER = '';
 var PUBLIC_COURSES_LIST_URL = 'http://127.0.0.1:8000/api/courses';
 var ADMIN_COURSE_LIST_URL = 'http://127.0.0.1:8000/api/admin/courses';
 
