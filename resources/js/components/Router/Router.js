@@ -18,7 +18,7 @@ export const Router = () => {
                 <Route exact={true} path="/courses">
                     <Catalog/>
                 </Route>
-                <Route exact={true} path="/courses/:courseId?">
+                <Route exact={true} path="/course/:courseId?">
                     <CourseCard/>
                 </Route>
                 <Route exact={true} path="/admin">

@@ -1,10 +1,4 @@
-// high order function
-
-function HOF (fn) {
-    return (...args) => fn(...args);
-}
-
-async function fetchData (url) {
+export async function fetchData (url) {
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -15,6 +9,4 @@ async function fetchData (url) {
         .json()
         .then(json => json.data);
 }
-
-export const getData = HOF(fetchData);
 
