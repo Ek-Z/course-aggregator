@@ -12,4 +12,6 @@
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
- require('./App');
+//require('./App');
+
+require('App');
