@@ -17,11 +17,7 @@ export const Header = () => {
     //Функция для выхода
     const signOut = async (e) => {
         try {
-            await axios.post('api/logout', {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
+            await axios.post('api/logout');
             localStorage.removeItem('users');
             dispatch(logOut());
         } catch (e) {
