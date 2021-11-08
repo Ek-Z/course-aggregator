@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="{{ secure_asset('js/root.js') }}" defer></script>
         <title>Amogus</title>
+        <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
         <link rel="stylesheet" href="{{ secure_asset('css/app.css') }}"/>
     </head>
     <body>

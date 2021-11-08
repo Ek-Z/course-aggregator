@@ -3,6 +3,7 @@ import Input from "@mui/material/Input";
 import React from "react";
 import styles from "./LoginForm.module.scss"
 import { Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 export function LoginForm
 ({title, button, onChange, onSubmit, name,
@@ -55,7 +56,13 @@ export function LoginForm
                 <Button type="submit" color="primary" variant="contained"
                         className={styles.loginForm_block_btn}
                 >{button}</Button>
-            </div>
+                {(title==="Авторизация") &&
+                <Link className={styles.loginForm_link}to="/signUp">У вас нет аккаунта? Зарегистрируйтесь</Link>
+                }
+                {(title==="Регистрация") &&
+                <Link className={styles.loginForm_link}to="/signIn">У вас уже есть аккаунт? Войдите</Link>
+                }
+                    </div>
         </form>
     )
 }
