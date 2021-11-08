@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { logOut } from '../../store/session';
 import { selectSessionState, selectUserName } from '../../store/session/selectors';
+import Tooltip from '@mui/material/Tooltip';
 
 export const Header = () => {
     const sessionState = useSelector(selectSessionState);//авторизован ли пользователь
@@ -43,6 +44,18 @@ export const Header = () => {
                                 Курсы
                             </Link>
                         </Button>
+                        {sessionState &&
+                        <Tooltip title="Мои закладки">
+                            <Button color="inherit" variant="outlined" sx={{ marginRight: '1.5rem' }}>
+                                {/*Указать ссылку на страницу "Избранное"*/}
+                                <Link className={style.headerLinks} to="#">
+                                    <i className="fas fa-heart">
+                                        <div className={style.counterBlock}>0</div>
+                                    </i>
+                                </Link>
+                            </Button>
+                        </Tooltip>
+                        }
                         {sessionState &&
                         <Button color="inherit" variant="outlined" sx={{ marginRight: '1.5rem' }}>
                             <Link className={style.headerLinks} to="/admin">
