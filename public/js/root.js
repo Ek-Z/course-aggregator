@@ -19939,7 +19939,7 @@ var CourseCard = function CourseCard() {
   var course = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(selectCourse);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
     exact: true,
-    path: "/courses/".concat(courseId),
+    path: "/course/".concat(courseId),
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_CourseInfo_CourseInfo__WEBPACK_IMPORTED_MODULE_3__.CourseInfo, {
       item: course
     })
@@ -20329,7 +20329,7 @@ var Course = function Course(_ref) {
     item: true,
     xs: 5,
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
-      to: "/courses/".concat(item.id),
+      to: "/course/".concat(item.id),
       style: {
         textDecoration: 'none'
       },
@@ -20526,7 +20526,7 @@ var Router = function Router() {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_layouts_Catalog_Catalog__WEBPACK_IMPORTED_MODULE_2__.Catalog, {})
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Route, {
         exact: true,
-        path: "/courses/:courseId?",
+        path: "/course/:courseId?",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_CourseCard_CourseCard__WEBPACK_IMPORTED_MODULE_6__.CourseCard, {})
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Route, {
         exact: true,
@@ -21325,25 +21325,6 @@ var COURSE_LIST_FILTERED = 'COURSE_LIST::COURSE_LIST_FILTERED';
 var courseListOnload = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.createAction)(COURSE_LIST_ONLOAD);
 var courseListLoaded = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.createAction)(COURSE_LIST_LOADED);
 var courseListFailed = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.createAction)(COURSE_LIST_FAILED);
-/*export const courseListOnload = () => ({
-    type: COURSE_LIST_ONLOAD,
-});
-
-export const courseListLoaded = (courseList) => ({
-    type: COURSE_LIST_LOADED,
-    payload: courseList,
-});
-
-export const courseListFailed = (err) => ({
-    type: COURSE_LIST_FAILED,
-    payload: err,
-});
-
-export const courseListFiltered = (courseList) => ({
-    type: COURSE_LIST_FILTERED,
-    payload: courseList,
-});*/
-
 var getPublicCourseList = function getPublicCourseList() {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(dispatch) {
@@ -21355,7 +21336,7 @@ var getPublicCourseList = function getPublicCourseList() {
               dispatch(courseListOnload());
               _context.prev = 1;
               _context.next = 4;
-              return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.getData)(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.PUBLIC_COURSES_LIST_URL);
+              return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.fetchData)(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.PUBLIC_COURSES_LIST_URL);
 
             case 4:
               courseList = _context.sent;
@@ -21392,7 +21373,7 @@ var getAdminCourseList = function getAdminCourseList() {
               dispatch(courseListOnload());
               _context2.prev = 1;
               _context2.next = 4;
-              return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.getData)(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.ADMIN_COURSE_LIST_URL);
+              return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.fetchData)(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.ADMIN_COURSE_LIST_URL);
 
             case 4:
               courseList = _context2.sent;
@@ -21418,37 +21399,6 @@ var getAdminCourseList = function getAdminCourseList() {
     };
   }();
 };
-/*export const getCourseList = () => async (dispatch) => {
-    dispatch(courseListOnload());
-
-    try {
-        const response = await fetch(ADMIN_COURSE_LIST_URL);
-
-        if (!response.ok) {
-            throw new Error(`Request failed with status: ${response.status}`);
-        }
-
-        const result = await response
-            .json()
-            .then(json => json.data);
-
-        dispatch(courseListLoaded(result));
-    } catch (e) {
-        dispatch(courseListFailed(e));
-    }
-};*/
-
-/*export const courseListFilter = (value, courseList) => (dispatch) => {
-    value = value.trim();
-
-    if (value) {
-        const pattern = new RegExp(value, 'gi');
-        const filteredList = courseList.filter((course) => pattern.test(course.title));
-        dispatch(courseListFiltered(filteredList));
-    } else {
-        dispatch(courseListLoaded(courseList));
-    }
-};*/
 
 /***/ }),
 
@@ -21494,50 +21444,6 @@ var courseListReducer = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.createR
     state.error = payload;
   }).addDefaultCase(function () {});
 });
-/*export const courseListReducer = (state = initialState, { type, payload }) => {
-    switch (type) {
-        case COURSE_LIST_ONLOAD:
-            return {
-                ...state,
-                status: STATUS_REQUEST,
-            };
-        case COURSE_LIST_LOADED:
-            return {
-                ...state,
-                courseList: payload,
-                filteredList: [],
-                status: STATUS_SUCCESS,
-                error: {
-                    ...state.error,
-                    state: false,
-                },
-                isFiltered: false,
-                filters: {
-                    'Языки программирования': ['PHP', 'JavaScript'],
-                    'Языки курсов': ['Русский', 'Английский'],
-                },
-            };
-        case COURSE_LIST_FAILED:
-            return {
-                ...state,
-                status: STATUS_FAILED,
-                error: {
-                    ...state.error,
-                    state: true,
-                    message: payload,
-                },
-            };
-        case COURSE_LIST_FILTERED:
-            return {
-                ...state,
-                status: 'FILTERED',
-                filteredList: [...payload],
-                isFiltered: true,
-            };
-        default:
-            return state;
-    }
-};*/
 
 /***/ }),
 
@@ -21774,7 +21680,7 @@ var LOG_OUT = "@session/log out";
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getData": () => (/* binding */ getData)
+/* harmony export */   "fetchData": () => (/* binding */ fetchData)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
@@ -21783,13 +21689,6 @@ __webpack_require__.r(__webpack_exports__);
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-// high order function
-function HOF(fn) {
-  return function () {
-    return fn.apply(void 0, arguments);
-  };
-}
 
 function fetchData(_x) {
   return _fetchData.apply(this, arguments);
@@ -21834,8 +21733,6 @@ function _fetchData() {
   return _fetchData.apply(this, arguments);
 }
 
-var getData = HOF(fetchData);
-
 /***/ }),
 
 /***/ "./resources/js/utils/statuses/statuses.js":
@@ -21871,8 +21768,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "PUBLIC_COURSES_LIST_URL": () => (/* binding */ PUBLIC_COURSES_LIST_URL),
 /* harmony export */   "ADMIN_COURSE_LIST_URL": () => (/* binding */ ADMIN_COURSE_LIST_URL)
 /* harmony export */ });
-var PUBLIC_COURSES_LIST_URL = 'http://127.0.0.1:8000/api/courses';
-var ADMIN_COURSE_LIST_URL = 'http://127.0.0.1:8000/api/admin/courses';
+var PUBLIC_COURSES_LIST_URL = 'api/courses';
+var ADMIN_COURSE_LIST_URL = 'api/admin/courses';
 
 /***/ }),
 
@@ -65067,7 +64964,7 @@ function combine (array, callback) {
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"_args":[["axios@0.21.4","D:\\\\OpenServer\\\\domains\\\\course-aggregator"]],"_development":true,"_from":"axios@0.21.4","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"axios@0.21.4","name":"axios","escapedName":"axios","rawSpec":"0.21.4","saveSpec":null,"fetchSpec":"0.21.4"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_spec":"0.21.4","_where":"D:\\\\OpenServer\\\\domains\\\\course-aggregator","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
+module.exports = JSON.parse('{"_from":"axios@^0.21","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"axios@^0.21","name":"axios","escapedName":"axios","rawSpec":"^0.21","saveSpec":null,"fetchSpec":"^0.21"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_shasum":"c67b90dc0568e5c1cf2b0b858c43ba28e2eda575","_spec":"axios@^0.21","_where":"C:\\\\openserver\\\\OpenServer\\\\domains\\\\course-aggregator","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundleDependencies":false,"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"deprecated":false,"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
 
 /***/ })
 

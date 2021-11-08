@@ -11,7 +11,7 @@ class CoursesController extends Controller
     public function index(FilterRequest $request)
     {
         $data = $request->validated();
-        $query = new FitredCoursesResource(Course::query()->where('status', 'PUBLISHED'));
+        $query = new FitredCoursesResource(Course::query());
 
         //фильтруем курсы по языку программирования
         if (isset($data['programmingLanguage_id'])) {
