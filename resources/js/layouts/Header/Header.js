@@ -62,20 +62,15 @@ export const Header = () => {
                                 Добавить курс
                             </Link>
                         </Button>}
-                        {!sessionState &&
-                        <Button color="secondary" variant="contained" sx={{ color: 'inherit' }}>
-                            <Link className={style.headerLinks} to="/signUp">
-                                Регистрация
-                            </Link>
-                        </Button>
-                        }
                     </Box>
                     {!sessionState &&
-                    <IconButton color="inherit" aria-label="profile">
-                        <Link to="/signIn">
-                            <Avatar/>
-                        </Link>
-                    </IconButton>
+                    <Tooltip title="Войти">
+                        <IconButton color="inherit" aria-label="profile">
+                            <Link to="/signIn">
+                                <Avatar/>
+                            </Link>
+                        </IconButton>
+                    </Tooltip>
                     }
                     {sessionState && <>
                         <Button color="inherit" variant="outlined" sx={{ marginRight: '1.5rem', border: 0 }}>
