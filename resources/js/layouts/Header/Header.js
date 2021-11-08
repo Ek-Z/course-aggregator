@@ -5,13 +5,14 @@ import style from './Header.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { logOut } from '../../store/session';
-import { selectSessionState, selectUserName } from '../../store/session/selectors';
+import { selectSessionState, selectUserName, selectIsAdmin } from '../../store/session/selectors';
 import Tooltip from '@mui/material/Tooltip';
 import * as React from 'react';
 
 export const Header = () => {
     const sessionState = useSelector(selectSessionState);//авторизован ли пользователь
     const userName = useSelector(selectUserName);//достаем имя пользователя для вывода на экран
+    const isAdmin = useSelector(selectIsAdmin);//достаем статус пользователя (админ/не админ)
     const dispatch = useDispatch();
     //Функция для выхода
     const signOut = async (e) => {
@@ -92,7 +93,7 @@ export const Header = () => {
                             </Button>
                         </Tooltip>
                         }
-                        {sessionState &&
+                        {isAdmin &&
                         <Tooltip title="Открыть панель администратора">
                         <Button color="inherit" variant="outlined" sx={{ marginRight: '1.5rem' }}>
                                 <Link className={style.headerLinks} to="/admin">
