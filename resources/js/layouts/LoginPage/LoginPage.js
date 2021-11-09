@@ -31,11 +31,16 @@ export const LoginPage = () => {
             alert('Не ввведен пароль')
         }
         try {
-            let response = await axios.post("api/login",user);
-            localStorage.setItem("users",response.data);
-            alert("Приветствуем Вас, "+ response.data.data.name);
-            dispatch(logIn(response.data.data));
-            history.push("/");//редирект на главную страницу
+            let response = await axios.post("api/login", user);
+            if (response.status === 200) {
+                localStorage.setItem("userData", JSON.stringify(response.data));
+                console.log("userData:", JSON.parse(localStorage.getItem("userData")));
+                alert("Приветствуем Вас, " + response.data.data.name);
+                dispatch(logIn(response.data.data));
+                history.push("/");//редирект на главную страницу
+            } else {
+                console.log("Ошибка! ", response)
+            }
         }
         catch (e) {
             console.log(`Error! ${e}`)
