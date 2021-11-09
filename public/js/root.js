@@ -27075,31 +27075,45 @@ var Header = function Header() {
 
   var signOut = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(e) {
+      var userToken, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.prev = 0;
-              _context.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_3___default().post('api/logout');
+              userToken = JSON.parse(localStorage.getItem("userData")).data.token; //токен пользователя
 
-            case 3:
-              localStorage.removeItem('users');
-              dispatch((0,_store_session__WEBPACK_IMPORTED_MODULE_4__.logOut)());
-              _context.next = 10;
+              _context.prev = 1;
+              _context.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_3___default().post('api/logout', {
+                headers: {
+                  'Authorization': "Bearer ".concat(userToken)
+                }
+              });
+
+            case 4:
+              response = _context.sent;
+
+              if (response.status === 200) {
+                localStorage.removeItem('userData');
+                dispatch((0,_store_session__WEBPACK_IMPORTED_MODULE_4__.logOut)());
+              } else {
+                console.log("Ошибка! ", response);
+              }
+
+              _context.next = 11;
               break;
 
-            case 7:
-              _context.prev = 7;
-              _context.t0 = _context["catch"](0);
+            case 8:
+              _context.prev = 8;
+              _context.t0 = _context["catch"](1);
               console.log("Error! ".concat(_context.t0));
 
-            case 10:
+            case 11:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[0, 7]]);
+      }, _callee, null, [[1, 8]]);
     }));
 
     return function signOut(_x) {
@@ -27454,25 +27468,31 @@ var LoginPage = function LoginPage() {
 
             case 5:
               response = _context.sent;
-              localStorage.setItem("users", response.data);
-              alert("Приветствуем Вас, " + response.data.data.name);
-              dispatch((0,_store_session__WEBPACK_IMPORTED_MODULE_5__.logIn)(response.data.data));
-              history.push("/"); //редирект на главную страницу
 
-              _context.next = 15;
+              if (response.status === 200) {
+                localStorage.setItem("userData", JSON.stringify(response.data));
+                console.log("userData:", JSON.parse(localStorage.getItem("userData")));
+                alert("Приветствуем Вас, " + response.data.data.name);
+                dispatch((0,_store_session__WEBPACK_IMPORTED_MODULE_5__.logIn)(response.data.data));
+                history.push("/"); //редирект на главную страницу
+              } else {
+                console.log("Ошибка! ", response);
+              }
+
+              _context.next = 12;
               break;
 
-            case 12:
-              _context.prev = 12;
+            case 9:
+              _context.prev = 9;
               _context.t0 = _context["catch"](2);
               console.log("Error! ".concat(_context.t0));
 
-            case 15:
+            case 12:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[2, 12]]);
+      }, _callee, null, [[2, 9]]);
     }));
 
     return function signIn(_x) {
@@ -27604,7 +27624,7 @@ var RegistrationPage = function RegistrationPage() {
               }
 
               alert('Не введено имя пользователя');
-              _context.next = 41;
+              _context.next = 38;
               break;
 
             case 7:
@@ -27614,7 +27634,7 @@ var RegistrationPage = function RegistrationPage() {
               }
 
               alert('Не введен email');
-              _context.next = 41;
+              _context.next = 38;
               break;
 
             case 11:
@@ -27624,7 +27644,7 @@ var RegistrationPage = function RegistrationPage() {
               }
 
               alert('Не введен пароль');
-              _context.next = 41;
+              _context.next = 38;
               break;
 
             case 15:
@@ -27634,7 +27654,7 @@ var RegistrationPage = function RegistrationPage() {
               }
 
               setError('Пароль должен состоять не менее, чем из 8 следующих символов: 0-9a-zA-Z!@#$%^&*');
-              _context.next = 41;
+              _context.next = 38;
               break;
 
             case 19:
@@ -27644,7 +27664,7 @@ var RegistrationPage = function RegistrationPage() {
               }
 
               alert('Повторно не введен пароль');
-              _context.next = 41;
+              _context.next = 38;
               break;
 
             case 23:
@@ -27654,7 +27674,7 @@ var RegistrationPage = function RegistrationPage() {
               }
 
               setPasswordsError('Пароли не совпадают');
-              _context.next = 41;
+              _context.next = 38;
               break;
 
             case 27:
@@ -27664,26 +27684,32 @@ var RegistrationPage = function RegistrationPage() {
 
             case 30:
               response = _context.sent;
-              localStorage.setItem("users", response.data);
-              alert('Приветствуем Вас, ' + user.name);
-              dispatch((0,_store_session__WEBPACK_IMPORTED_MODULE_5__.logIn)(user.name));
-              history.push("/"); //редирект на главную страницу
 
-              _context.next = 41;
+              if (response.status === 200) {
+                localStorage.setItem("userData", JSON.stringify(response.data));
+                console.log("userData:", JSON.parse(localStorage.getItem("userData")));
+                alert('Приветствуем Вас, ' + user.name);
+                dispatch((0,_store_session__WEBPACK_IMPORTED_MODULE_5__.logIn)(user.name));
+                history.push("/"); //редирект на главную страницу
+              } else {
+                console.log("Ошибка! ", response);
+              }
+
+              _context.next = 38;
               break;
 
-            case 37:
-              _context.prev = 37;
+            case 34:
+              _context.prev = 34;
               _context.t0 = _context["catch"](27);
               console.log("Error! ".concat(_context.t0));
               alert('Вероятно пользователь с таким именем или паролем уже существует');
 
-            case 41:
+            case 38:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[27, 37]]);
+      }, _callee, null, [[27, 34]]);
     }));
 
     return function signUp(_x) {
