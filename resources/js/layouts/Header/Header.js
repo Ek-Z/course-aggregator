@@ -16,10 +16,19 @@ export const Header = () => {
     const dispatch = useDispatch();
     //Функция для выхода
     const signOut = async (e) => {
+        const userToken = JSON.parse(localStorage.getItem("userData")).data.token;//токен пользователя
         try {
-            await axios.post('api/logout');
-            localStorage.removeItem('users');
-            dispatch(logOut());
+            let response = await axios.post('api/logout', {
+                headers: {
+                    'Authorization':`Bearer ${userToken}`
+                }
+            });
+            if (response.status === 200){
+                localStorage.removeItem('userData');
+                dispatch(logOut());
+            } else {
+                console.log("Ошибка! ", response)
+            }
         } catch (e) {
             console.log(`Error! ${e}`);
         }

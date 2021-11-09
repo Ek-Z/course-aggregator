@@ -57,10 +57,15 @@ export const RegistrationPage = () => {
         else {
             try {
                 let response = await axios.post("api/register",user);
-                localStorage.setItem("users",response.data);
-                alert('Приветствуем Вас, '+ user.name);
-                dispatch(logIn(user.name))
-                history.push("/");//редирект на главную страницу
+                if(response.status === 200){
+                    localStorage.setItem("userData",JSON.stringify(response.data));
+                    console.log("userData:", JSON.parse(localStorage.getItem("userData")));
+                    alert('Приветствуем Вас, '+ user.name);
+                    dispatch(logIn(user.name))
+                    history.push("/");//редирект на главную страницу
+                } else {
+                    console.log("Ошибка! ", response)
+                }
             }
             catch (e) {
                 console.log(`Error! ${e}`);
