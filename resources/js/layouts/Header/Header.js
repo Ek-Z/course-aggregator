@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { AppBar, Avatar, Container, IconButton, Toolbar, Button, ClickAwayListener, Grow, Paper, Popper,  MenuItem, MenuList, Stack} from '@mui/material';
+import { AppBar, Avatar, Container, IconButton, Toolbar, Button, ClickAwayListener, Grow, Paper, Popper, MenuItem, MenuList, Stack } from '@mui/material';
 import { Box } from '@mui/system';
 import style from './Header.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,12 +18,12 @@ export const Header = () => {
     const signOut = async (e) => {
         const userToken = JSON.parse(localStorage.getItem("userData")).data.token;//токен пользователя
         try {
-            let response = await axios.post('api/logout', {
+            let response = await axios.post('api/logout', {}, {
                 headers: {
-                    'Authorization':`Bearer ${userToken}`
+                    'Authorization': `Bearer ${userToken}`
                 }
             });
-            if (response.status === 200){
+            if (response.status === 200) {
                 localStorage.removeItem('userData');
                 dispatch(logOut());
             } else {
@@ -76,7 +76,7 @@ export const Header = () => {
                     <Box sx={{ height: 40 }}>
                         <Link className={style.headerLinks} to="/">
                             <svg className={style.logo}>
-                                <use xlinkHref="/assets/icons.svg#main-logo"/>
+                                <use xlinkHref="/assets/icons.svg#main-logo" />
                             </svg>
                         </Link>
                     </Box>
@@ -87,96 +87,96 @@ export const Header = () => {
                             </Link>
                         </Button>
                         {sessionState &&
-                        <Tooltip title="Мои закладки">
-                            <Button color="inherit" variant="outlined" sx={{ marginRight: '1.5rem' }}>
-                                {/*Указать ссылку на страницу "Избранное"*/}
-                                <Link className={style.headerLinks} to="#">
-                                    <i className="far fa-heart" style={{ fontSize: '20px' }}>
-                                        <div className={style.counterBlock}>0</div>
-                                    </i>
-                                </Link>
-                            </Button>
-                        </Tooltip>
+                            <Tooltip title="Мои закладки">
+                                <Button color="inherit" variant="outlined" sx={{ marginRight: '1.5rem' }}>
+                                    {/*Указать ссылку на страницу "Избранное"*/}
+                                    <Link className={style.headerLinks} to="#">
+                                        <i className="far fa-heart" style={{ fontSize: '20px' }}>
+                                            <div className={style.counterBlock}>0</div>
+                                        </i>
+                                    </Link>
+                                </Button>
+                            </Tooltip>
                         }
                         {isAdmin &&
-                        <Tooltip title="Открыть панель администратора">
-                        <Button color="inherit" variant="outlined" sx={{ marginRight: '1.5rem' }}>
-                                <Link className={style.headerLinks} to="/admin">
-                                    Админ-панель
-                                </Link>
-                        </Button>
-                        </Tooltip>
+                            <Tooltip title="Открыть панель администратора">
+                                <Button color="inherit" variant="outlined" sx={{ marginRight: '1.5rem' }}>
+                                    <Link className={style.headerLinks} to="/admin">
+                                        Админ-панель
+                                    </Link>
+                                </Button>
+                            </Tooltip>
                         }
                     </Box>
                     {!sessionState &&
-                    <Box>
-                        <Stack direction="row" spacing={2}>
-                            <div>
-                                <Tooltip title="Войти">
-                                <IconButton
-                                    color="inherit"
-                                    aria-label="profile"
-                                    ref={anchorRef}
-                                    id="composition-button"
-                                    aria-controls={open ? 'composition-menu' : undefined}
-                                    aria-expanded={open ? 'true' : undefined}
-                                    aria-haspopup="true"
-                                    onClick={handleToggle}
-                                >
-
-                                        <Avatar/>
-                                </IconButton>
-                                </Tooltip>
-                                <Popper
-                                    open={open}
-                                    anchorEl={anchorRef.current}
-                                    role={undefined}
-                                    placement="bottom-start"
-                                    transition
-                                    disablePortal
-                                >
-                                    {({ TransitionProps, placement }) => (
-                                        <Grow
-                                            {...TransitionProps}
-                                            style={{
-                                                transformOrigin:
-                                                    placement === 'bottom-start' ? 'left top' : 'left bottom',
-                                            }}
+                        <Box>
+                            <Stack direction="row" spacing={2}>
+                                <div>
+                                    <Tooltip title="Войти">
+                                        <IconButton
+                                            color="inherit"
+                                            aria-label="profile"
+                                            ref={anchorRef}
+                                            id="composition-button"
+                                            aria-controls={open ? 'composition-menu' : undefined}
+                                            aria-expanded={open ? 'true' : undefined}
+                                            aria-haspopup="true"
+                                            onClick={handleToggle}
                                         >
-                                            <Paper>
-                                                <ClickAwayListener onClickAway={handleClose}>
-                                                    <MenuList
-                                                        autoFocusItem={open}
-                                                        id="composition-menu"
-                                                        aria-labelledby="composition-button"
-                                                        onKeyDown={handleListKeyDown}
-                                                    >
-                                                        <MenuItem onClick={handleClose}>
-                                                            <Link to="/signUp" style={{textDecoration:'none', color:'black'}}>
-                                                                Регистрация
-                                                            </Link>
-                                                        </MenuItem>
-                                                        <MenuItem onClick={handleClose}>
-                                                            <Link to="/signIn" style={{textDecoration:'none', color:'black'}}>
-                                                                Авторизация
-                                                            </Link>
-                                                        </MenuItem>
-                                                    </MenuList>
-                                                </ClickAwayListener>
-                                            </Paper>
-                                        </Grow>
-                                    )}
-                                </Popper>
-                            </div>
-                        </Stack>
-                    </Box>
+
+                                            <Avatar />
+                                        </IconButton>
+                                    </Tooltip>
+                                    <Popper
+                                        open={open}
+                                        anchorEl={anchorRef.current}
+                                        role={undefined}
+                                        placement="bottom-start"
+                                        transition
+                                        disablePortal
+                                    >
+                                        {({ TransitionProps, placement }) => (
+                                            <Grow
+                                                {...TransitionProps}
+                                                style={{
+                                                    transformOrigin:
+                                                        placement === 'bottom-start' ? 'left top' : 'left bottom',
+                                                }}
+                                            >
+                                                <Paper>
+                                                    <ClickAwayListener onClickAway={handleClose}>
+                                                        <MenuList
+                                                            autoFocusItem={open}
+                                                            id="composition-menu"
+                                                            aria-labelledby="composition-button"
+                                                            onKeyDown={handleListKeyDown}
+                                                        >
+                                                            <MenuItem onClick={handleClose}>
+                                                                <Link to="/signUp" style={{ textDecoration: 'none', color: 'black' }}>
+                                                                    Регистрация
+                                                                </Link>
+                                                            </MenuItem>
+                                                            <MenuItem onClick={handleClose}>
+                                                                <Link to="/signIn" style={{ textDecoration: 'none', color: 'black' }}>
+                                                                    Авторизация
+                                                                </Link>
+                                                            </MenuItem>
+                                                        </MenuList>
+                                                    </ClickAwayListener>
+                                                </Paper>
+                                            </Grow>
+                                        )}
+                                    </Popper>
+                                </div>
+                            </Stack>
+                        </Box>
                     }
                     {sessionState && <>
                         <Button color="inherit" variant="outlined" sx={{ marginRight: '1.5rem', border: 0 }}>
                             {userName}
                         </Button>
                         <Button onClick={() => signOut()} color="inherit" variant="outlined"
-                                sx={{ marginRight: '1.5rem', border: 0 }}>
+                            sx={{ marginRight: '1.5rem', border: 0 }}>
                             Выйти
                         </Button>
                     </>}

@@ -27084,7 +27084,7 @@ var Header = function Header() {
 
               _context.prev = 1;
               _context.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_3___default().post('api/logout', {
+              return axios__WEBPACK_IMPORTED_MODULE_3___default().post('api/logout', {}, {
                 headers: {
                   'Authorization': "Bearer ".concat(userToken)
                 }
