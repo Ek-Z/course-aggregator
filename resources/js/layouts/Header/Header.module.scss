@@ -6,12 +6,37 @@
 }
 
 .logo {
-    max-width: 120px;
-    width: 100%;
-    max-height: 40px;
+    display: flex;
+    position: relative;
+    $root: &;
+
+    &_icon {
+        max-width: 120px;
+        width: 100%;
+        max-height: 40px;
+        color: #f84646;
+        transition: color 300ms;
+    }
+
+    &_text {
+        position: absolute;
+        top: 10px;
+        left: 12px;
+        font-weight: 700;
+        font-size: 20px;
+        text-shadow: 0 0 2px #000;
+    }
+
+    &:hover {
+        #{$root} {
+            &_icon {
+                color: #be001e;
+            }
+        }
+    }
 }
 
-.counterBlock{
+.counterBlock {
     width: 15px;
     height: 15px;
     position: absolute;
@@ -29,6 +54,6 @@
 
 }
 
-.heart{
+.heart {
     font-size: 20px;
 }
