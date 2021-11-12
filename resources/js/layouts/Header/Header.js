@@ -88,11 +88,10 @@ export const Header = () => {
             <Container>
                 <Toolbar>
                     <Box sx={{ height: 40 }}>
-                        <Link className={`${style.headerLinks} ${style.logo}`} to="/">
-                            <svg className={style.logo_icon}>
-                                <use xlinkHref="/assets/icons.svg#main-logo"/>
+                        <Link className={style.headerLinks} to="/">
+                            <svg className={style.logo}>
+                                <use xlinkHref="/assets/logo.svg#header-logo"/>
                             </svg>
-                            <div className={style.logo_text}>IT Courses</div>
                         </Link>
                     </Box>
                     <Box mr={3} ml={'auto'}>

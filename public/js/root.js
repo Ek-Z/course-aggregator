@@ -27169,18 +27169,15 @@ var Header = function Header() {
           sx: {
             height: 40
           },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_12__.Link, {
-            className: "".concat(_Header_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].headerLinks, " ").concat(_Header_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].logo),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_12__.Link, {
+            className: _Header_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].headerLinks,
             to: "/",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("svg", {
-              className: _Header_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].logo_icon,
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("svg", {
+              className: _Header_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].logo,
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("use", {
-                xlinkHref: "/assets/icons.svg#main-logo"
+                xlinkHref: "/assets/logo.svg#header-logo"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-              className: _Header_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].logo_text,
-              children: "IT Courses"
-            })]
+            })
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_mui_system__WEBPACK_IMPORTED_MODULE_11__["default"], {
           mr: 3,
@@ -28526,13 +28523,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "._3cNBrSNR5vj0IN0uIWxAmv {\n  display: block;\n  height: 100%;\n  color: white;\n  text-decoration: none;\n}\n\n.nQQEEEszVwYLEKws7DaRD {\n  display: flex;\n  position: relative;\n}\n._3t7f0dbWodBXIuXErmZUoz {\n  max-width: 120px;\n  width: 100%;\n  max-height: 40px;\n  color: #f84646;\n  transition: color 300ms;\n}\n._3aI9eirOJUVduktc-9E4he {\n  position: absolute;\n  top: 10px;\n  left: 12px;\n  font-weight: 700;\n  font-size: 20px;\n  text-shadow: 0 0 2px #000;\n}\n.nQQEEEszVwYLEKws7DaRD:hover ._3t7f0dbWodBXIuXErmZUoz {\n  color: #be001e;\n}\n\n._21A6mSe-9z843a1AzOevgV {\n  width: 15px;\n  height: 15px;\n  position: absolute;\n  top: 4%;\n  right: 22%;\n  font-size: 8px;\n  line-height: 12px;\n  font-family: arial;\n  font-weight: 100;\n  color: #3f50b5;\n  background-color: white;\n  border-radius: 50%;\n  box-sizing: border-box;\n  border: 2px solid #3f50b5;\n}\n\n._3Kn7uTKIsGVG5wskyvyEig {\n  font-size: 20px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "._3cNBrSNR5vj0IN0uIWxAmv {\n  display: block;\n  height: 100%;\n  color: white;\n  text-decoration: none;\n}\n\n.nQQEEEszVwYLEKws7DaRD {\n  max-width: 150px;\n  max-height: 40px;\n  width: 100%;\n  color: #f84646;\n  transition: color 300ms;\n}\n.nQQEEEszVwYLEKws7DaRD:hover {\n  color: #be001e;\n}\n\n._21A6mSe-9z843a1AzOevgV {\n  width: 15px;\n  height: 15px;\n  position: absolute;\n  top: 4%;\n  right: 22%;\n  font-size: 8px;\n  line-height: 12px;\n  font-family: arial;\n  font-weight: 100;\n  color: #3f50b5;\n  background-color: white;\n  border-radius: 50%;\n  box-sizing: border-box;\n  border: 2px solid #3f50b5;\n}\n\n._3Kn7uTKIsGVG5wskyvyEig {\n  font-size: 20px;\n}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"headerLinks": "_3cNBrSNR5vj0IN0uIWxAmv",
 	"logo": "nQQEEEszVwYLEKws7DaRD",
-	"logo_icon": "_3t7f0dbWodBXIuXErmZUoz",
-	"logo_text": "_3aI9eirOJUVduktc-9E4he",
 	"counterBlock": "_21A6mSe-9z843a1AzOevgV",
 	"heart": "_3Kn7uTKIsGVG5wskyvyEig"
 };
