@@ -6,12 +6,18 @@
 }
 
 .logo {
-    max-width: 120px;
-    width: 100%;
+    max-width: 150px;
     max-height: 40px;
+    width: 100%;
+    color: #f84646;
+    transition: color 300ms;
+
+    &:hover {
+        color: #be001e;
+    }
 }
 
-.counterBlock{
+.counterBlock {
     width: 15px;
     height: 15px;
     position: absolute;
@@ -29,6 +35,6 @@
 
 }
 
-.heart{
+.heart {
     font-size: 20px;
 }
