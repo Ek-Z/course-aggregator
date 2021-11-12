@@ -1,7 +1,7 @@
 node_modules
 public/hot
 public/storage
-public/js/root.js
+//public/js/root.js
 storage/*.key
 vendor
 .env
