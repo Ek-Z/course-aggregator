@@ -1,8 +1,12 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Typography, CardMedia, CardContent, Card, Grid } from '@mui/material';
+import { useEffect } from 'react';
 
 export const Course = ({ item }) => {
+    useEffect(() => {
+        console.log(item);
+    }, [item]);
     return (
         <Grid item xs={5}>
             <Link to={`/course/${item.id}`} style={{ textDecoration: 'none' }}>
@@ -14,7 +18,7 @@ export const Course = ({ item }) => {
                             sx={{ maxHeight: '5rem', textOverflow: 'ellipsis', overflow: 'hidden' }}
                             variant="body2"
                         >
-                            {item.description}
+                            {item.short_description}
                         </Typography>
                         <Typography sx={{ display: 'block', marginTop: 'auto', alignSelf: 'flex-end' }} variant="h6">
                             {item.author}
