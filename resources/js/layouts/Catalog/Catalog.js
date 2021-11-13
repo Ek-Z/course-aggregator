@@ -4,6 +4,7 @@ import { selectCourseList, selectCourseListLength } from '../../store/courseList
 import { CourseList } from '../../components/CourseList/CourseList';
 import { CourseFilter } from '../../components/CourseFilter/CourseFilter';
 import { getPublicCourseList } from '../../store/courseList/action';
+import InputSearch from "../../components/InputSearch/InputSearch";
 
 export const Catalog = () => {
     const courseList = useSelector(selectCourseList);
@@ -19,6 +20,7 @@ export const Catalog = () => {
             <h2 style={{ textAlign: 'center', marginBottom: 50 }}>
                 Список бесплатных курсов
             </h2>
+            <InputSearch/>
             <div style={{ display: 'flex' }}>
                 <CourseFilter/>
                 <CourseList list={courseList}/>
