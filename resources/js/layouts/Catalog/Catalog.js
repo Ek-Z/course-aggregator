@@ -1,12 +1,19 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectCourseList, selectCourseListLength } from '../../store/courseList/selectors';
+import {
+    selectCourseList,
+    selectCourseListLength,
+    selectFilteredList,
+    selectFilterWords
+} from '../../store/courseList/selectors';
 import { CourseList } from '../../components/CourseList/CourseList';
 import { CourseFilter } from '../../components/CourseFilter/CourseFilter';
 import { getPublicCourseList } from '../../store/courseList/action';
 import InputSearch from "../../components/InputSearch/InputSearch";
 
 export const Catalog = () => {
+    const filterWords = useSelector(selectFilterWords);
+    const filteredList = useSelector(selectFilteredList)
     const courseList = useSelector(selectCourseList);
     const courseListLength = useSelector(selectCourseListLength);
     const dispatch = useDispatch();
@@ -23,7 +30,7 @@ export const Catalog = () => {
             <InputSearch/>
             <div style={{ display: 'flex' }}>
                 <CourseFilter/>
-                <CourseList list={courseList}/>
+                <CourseList list={filterWords ? filteredList : courseList}/>
             </div>
         </div>
     );

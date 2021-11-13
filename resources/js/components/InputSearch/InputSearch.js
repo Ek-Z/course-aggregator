@@ -6,22 +6,20 @@ import {Button} from "@mui/material";
 import {Link} from "react-router-dom";
 import style from "./InputSearch.module.scss"
 import {useState} from "react";
-import {useHistory} from "react-router";
+import {useDispatch} from "react-redux";
+import {filterList, searchWords} from "../../store/courseList/action";
 
 export default function InputSearch() {
+    const dispatch = useDispatch();
     const [search, setSearch] = useState("")
-    let history = useHistory();
-
     const onInputChange = (event) => {
         setSearch(event.target.value);
         console.log(search)
-
     }
 
     const clickSearch = () => {
-        if (search == ""){
-            history.push("/courses");//редирект на страницу каталога
-        } else {
+        dispatch(searchWords(search))
+        if (search !== ""){
             fetch(`/api/courses/search/${search}`, {
                 headers:{
                     'Content-Type':'application/json',
@@ -29,13 +27,11 @@ export default function InputSearch() {
                     'Access-Control-Allow-Credentials': 'true',
                     'Access-Control-Allow-Headers' : 'Origin, Content-Type, Accept'
                 },
-                cache: 'no-cache',
-                credentials: 'same-origin',
             })
                 .then(response => response.json())
                 .then(result => {
-                    console.log(result);
-                    history.push("/courses");//редирект на страницу каталога
+                    console.log("result:", result);
+                    dispatch(filterList(result));
                 })
                 .catch((error) => console.log(error))
             console.log(search)
@@ -64,7 +60,7 @@ export default function InputSearch() {
                     endAdornment: (
                         <InputAdornment position="end">
                             <Button onClick={clickSearch} color="secondary" variant="contained" sx={{ marginRight: '1.5rem' }} >
-                                <Link to="#">
+                                <Link to="/courses">
                                     найти курсы
                                 </Link>
                             </Button>
