@@ -16,7 +16,7 @@ export const Filter = ({ filterName, filterOptions, onChange }) => {
             filter.push(
                 <FormControlLabel
                     key={key}
-                    control={<Checkbox checked={value} onChange={() => onChange({ filterName, filterOption: key })} />}
+                    control={<Checkbox color="secondary" checked={value} onChange={() => onChange({ filterName, filterOption: key })} />}
                     label={key}
                 />
             );

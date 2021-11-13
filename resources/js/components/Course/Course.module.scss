@@ -1,25 +1,21 @@
 .course {
+
+    &:hover {
+
+        .image {
+            transform: scale(1.1);
+        }
+    }
+}
+
+.image {
+    min-height: 200px;
+    height: 100%;
+    object-fit: cover;
     width: 100%;
-    display: flex;
-    align-items: center;
-    border: 1px solid black;
-    padding: 10px;
+    transition: transform 300ms;
 
-    &__wrap {
-        display: flex;
-        flex-direction: column;
-    }
-
-    &__title {
-        font-size: 30px;
-    }
-
-    &__summary {
-        font-size: 18px;
-    }
-
-    &__author {
-        margin-left: auto;
-        font-weight: 600;
+    &_wrap {
+        overflow: hidden;
     }
 }
