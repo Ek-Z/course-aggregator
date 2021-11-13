@@ -23,7 +23,7 @@ class LoginController extends BaseController
             $success['name'] =  $user->name;
             $success['is_admin'] =  $user->is_admin;
 
-            return $this->sendResponse($success, 'User login successfully.');
+            return $this->sendResponse($success);
         } else {
             return $this->sendError('Unauthorised.', ['error' => 'Unauthorised']);
         }
@@ -33,7 +33,7 @@ class LoginController extends BaseController
     public function logout()
     {
         auth()->user()->tokens()->delete();
-        
+
         return [
             'message' => 'You have successfully logged out and the token was successfully deleted'
         ];
