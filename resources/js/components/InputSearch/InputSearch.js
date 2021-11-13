@@ -5,17 +5,32 @@ import TextField from '@mui/material/TextField';
 import {Button} from "@mui/material";
 import {Link} from "react-router-dom";
 import style from "./InputSearch.module.scss"
-import {useState} from "react";
-import {useDispatch} from "react-redux";
+import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {filterList, searchWords} from "../../store/courseList/action";
+import {selectFilterWords} from "../../store/courseList/selectors";
+import {useHistory} from "react-router";
+import { useRouteMatch } from 'react-router-dom';
 
 export default function InputSearch() {
+    const match = useRouteMatch();
+    let history = useHistory();
+
     const dispatch = useDispatch();
-    const [search, setSearch] = useState("")
+    const filterWords = useSelector(selectFilterWords);
+    const [search, setSearch] = useState(filterWords)
+
     const onInputChange = (event) => {
         setSearch(event.target.value);
-        console.log(search)
     }
+
+    useEffect(() => {
+        window.addEventListener("beforeunload", () => {
+            dispatch(searchWords(""));
+            setSearch(filterWords)
+        })
+    },[search])
+
 
     const clickSearch = () => {
         dispatch(searchWords(search))
@@ -30,13 +45,19 @@ export default function InputSearch() {
             })
                 .then(response => response.json())
                 .then(result => {
-                    console.log("result:", result);
                     dispatch(filterList(result));
                 })
                 .catch((error) => console.log(error))
-            console.log(search)
         }
     }
+    const handlePressInput = ({ code }) => {
+        if (code === "Enter") {
+            clickSearch();
+            if (match.path == "/"){
+                history.push("/courses");
+            }
+        }
+    };
 
     return (
         <Box
@@ -56,10 +77,11 @@ export default function InputSearch() {
                 className={style.inputSearch}
                 id="outlined-basic"
                 variant="outlined"
+                onKeyPress={handlePressInput}
                 InputProps={{
                     endAdornment: (
                         <InputAdornment position="end">
-                            <Button onClick={clickSearch} color="secondary" variant="contained" sx={{ marginRight: '1.5rem' }} >
+                            <Button type="button" onClick={clickSearch} color="secondary" variant="contained" sx={{ marginRight: '1.5rem' }} >
                                 <Link to="/courses">
                                     найти курсы
                                 </Link>
@@ -68,7 +90,6 @@ export default function InputSearch() {
                     ),
                 }}
             />
-
 
         </Box>
     );
