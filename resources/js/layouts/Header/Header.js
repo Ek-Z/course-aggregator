@@ -22,6 +22,8 @@ import { logOut } from '../../store/session';
 import { selectSessionState, selectUserName, selectIsAdmin } from '../../store/session/selectors';
 import Tooltip from '@mui/material/Tooltip';
 import * as React from 'react';
+import { searchWords} from "../../store/courseList/action";
+
 
 export const Header = () => {
     const sessionState = useSelector(selectSessionState);//авторизован ли пользователь
@@ -47,6 +49,11 @@ export const Header = () => {
             console.log(`Error! ${e}`);
         }
     };
+
+    //обновление строки поиска при переходе на главную или на страницу каталога ("Бесплатно")
+    const updateSearch = () =>{
+        dispatch(searchWords(""));
+    }
 
     //настройки для выпадающего меню
     const [open, setOpen] = React.useState(false);
@@ -88,7 +95,7 @@ export const Header = () => {
             <Container>
                 <Toolbar>
                     <Box sx={{ height: 40 }}>
-                        <Link className={style.headerLinks} to="/">
+                        <Link className={style.headerLinks} to="/" onClick={updateSearch}>
                             <svg className={style.logo}>
                                 <use xlinkHref="/assets/logo.svg#header-logo"/>
                             </svg>
@@ -96,7 +103,7 @@ export const Header = () => {
                     </Box>
                     <Box mr={3} ml={'auto'}>
                         <Button color="secondary" variant="contained" sx={{ marginRight: '1.5rem' }}>
-                            <Link className={style.headerLinks} to="/courses">
+                            <Link className={style.headerLinks} to="/courses" onClick={updateSearch}>
                                 Бесплатно
                             </Link>
                         </Button>
