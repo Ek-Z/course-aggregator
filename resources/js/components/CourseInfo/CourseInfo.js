@@ -1,13 +1,44 @@
+import * as React from 'react';
 import PropTypes from 'prop-types';
+import { Button } from '@mui/material';
+import imagePlug from '../../../images/image-plug.jpg';
+import style from './CourseInfo.module.scss';
 
 export const CourseInfo = ({ item }) => {
     return (
-        <article style={{ display: 'flex', flexDirection: 'column' }} data-course-id={item.id}>
-            <img src={item.image} alt="green iguana"/>
-            <h3>{item.title}</h3>
-            <p>{item.description}</p>
-            <div>{item.source}</div>
-            <div>{item.language}</div>
+        <article className={style.course} data-course-id={item.id}>
+            <div className={`${style.wrap} container`}>
+                <h3 className={style.title}>{item.title}</h3>
+                <div className={style.summary}>{item.short_description}</div>
+                <div className={style.grid}>
+                    <div className={style.description}>
+                        {/*TODO: Сделать рендер описания по абзацам через параграфы*/}
+                        <p>{item.description}</p>
+                    </div>
+                    <img
+                        src={item.image || imagePlug}
+                        alt="green iguana"
+                        className={style.image}
+                    />
+                    <div className={style.tags}>
+                        <div>{item.source_name}</div>
+                        <div>{item.language}</div>
+                        <div>{item.programmingLanguage.title}</div>
+                    </div>
+                    <Button
+                        color="secondary"
+                        variant="contained"
+                        sx={{
+                            padding: 2,
+                            color: '#fff',
+                            fontWeight: 500,
+                            fontSize: '15px'
+                        }}
+                    >
+                        Перейти к курсу
+                    </Button>
+                </div>
+            </div>
         </article>
     );
 };
