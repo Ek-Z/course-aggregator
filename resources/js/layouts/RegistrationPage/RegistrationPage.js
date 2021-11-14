@@ -17,9 +17,9 @@ export const RegistrationPage = () => {
         name:"",
         email:"",
         password:"",
-        c_password:"",
+        confirm_password:"",
     })
-    const {name, email, password, c_password} = user;
+    const {name, email, password, confirm_password} = user;
     const dispatch = useDispatch();
 
 
@@ -48,10 +48,10 @@ export const RegistrationPage = () => {
         else if(!validate(user.password)){
             setError('Пароль должен состоять не менее, чем из 8 следующих символов: 0-9a-zA-Z!@#$%^&*')
         }
-        else if (user.c_password === ""){
+        else if (user.confirm_password === ""){
             alert('Повторно не введен пароль')
         }
-        else if (user.password !== user.c_password){
+        else if (user.password !== user.confirm_password){
             setPasswordsError('Пароли не совпадают')
         }
         else {
@@ -82,7 +82,7 @@ export const RegistrationPage = () => {
             name={name}
             email={email}
             password={password}
-            c_password={c_password}
+            confirm_password={confirm_password}
             error={error}
             passwordsError = {passwordsError}
         />

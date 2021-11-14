@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 export function AuthForm
 ({title, button, onChange, onSubmit, name,
-     email,password, c_password, error, passwordsError}) {
+     email,password, confirm_password, error, passwordsError}) {
     return (
         <form className={styles.loginForm} onSubmit={onSubmit}>
             <div className={styles.loginForm_block}>
@@ -45,8 +45,8 @@ export function AuthForm
                 {passwordsError && <div style={{ color:'red' }}>{passwordsError}</div> }
                 {(title === "Регистрация") &&
                 <Input
-                    name="c_password"
-                    value={c_password}
+                    name="confirm_password"
+                    value={confirm_password}
                     onChange={onChange}
                     fullWidth={true}
                     placeholder="Повторите пароль"
