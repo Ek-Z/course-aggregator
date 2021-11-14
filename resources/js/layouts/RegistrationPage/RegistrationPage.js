@@ -21,7 +21,7 @@ export const RegistrationPage = () => {
     })
     const dispatch = useDispatch();
 
-    //ошибка содержимого пароля
+    //ошибка содержимого инпутов
     const [error,setError] = useState({
         name:"",
         email:"",

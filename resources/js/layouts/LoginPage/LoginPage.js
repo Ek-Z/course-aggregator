@@ -14,9 +14,15 @@ export const LoginPage = () => {
         password:""
     });
 
-    let history = useHistory();
+    //ошибка содержимого инпутов
+    const [error,setError] = useState({
+        name:"",
+        email:"",
+        password:"",
+        confirm_password:""
+    })
 
-    const {email,password} = user;
+    let history = useHistory();
 
     const onInputChange = e => {
         setUser({ ...user, [e.target.name]: e.target.value });
@@ -25,17 +31,15 @@ export const LoginPage = () => {
     const signIn = async (e) => {
         e.preventDefault();
         if(user.email === '') {
-            alert('Не введен email')
+            setError({email: 'Поле email не должно быть пустым'});
         }
         else if(user.password === '') {
-            alert('Не ввведен пароль')
+            setError({password: 'Поле пароля не должно быть пустым'});
         }
         try {
             let response = await axios.post("api/login", user);
             if (response.status === 200) {
                 localStorage.setItem("userData", JSON.stringify(response.data));
-                console.log("userData:", JSON.parse(localStorage.getItem("userData")));
-                alert("Приветствуем Вас, " + response.data.data.name);
                 dispatch(logIn(response.data.data));
                 history.push("/");//редирект на главную страницу
             } else {
@@ -53,8 +57,8 @@ export const LoginPage = () => {
             button="Войти"
             onChange={onInputChange}
             onSubmit={signIn}
-            email={email}
-            password={password}
+            user={user}
+            error={error}
         />
     )
 }
