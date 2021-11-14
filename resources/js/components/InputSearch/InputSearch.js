@@ -31,6 +31,12 @@ export default function InputSearch() {
         })
     },[search])
 
+    useEffect(() => {
+        if (!filterWords){
+            setSearch("")
+        }
+    },[filterWords])
+
 
     const clickSearch = () => {
         dispatch(searchWords(search))
@@ -61,7 +67,6 @@ export default function InputSearch() {
 
     return (
         <Box
-            component="form"
             sx={{
                 width:700,
                 display:'block',
