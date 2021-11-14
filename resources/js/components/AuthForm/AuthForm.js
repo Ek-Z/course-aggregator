@@ -5,7 +5,7 @@ import styles from "./LoginForm.module.scss"
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-export function LoginForm
+export function AuthForm
 ({title, button, onChange, onSubmit, name,
      email,password, c_password, error, passwordsError}) {
     return (

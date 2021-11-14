@@ -1,5 +1,5 @@
 // Страница авторизации
-import {LoginForm} from "../../components/LoginForm/LoginForm";
+import {AuthForm} from "../../components/AuthForm/AuthForm";
 import React, {useState} from "react";
 import axios from "axios";
 import {useHistory} from "react-router";
@@ -74,7 +74,7 @@ export const RegistrationPage = () => {
         }
     }
     return (
-        <LoginForm
+        <AuthForm
             title="Регистрация"
             button="Зарегистрироваться"
             onChange={handleInput}
