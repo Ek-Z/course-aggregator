@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { courseListFailed, courseListLoaded, courseListOnload } from './action';
+import {courseListFailed, courseListLoaded, courseListOnload, filterList, searchWords} from './action';
 import { STATUS_FAILED, STATUS_IDLE, STATUS_REQUEST, STATUS_SUCCESS } from '../../utils/statuses/statuses';
 
 const initialState = {
@@ -12,6 +12,7 @@ const initialState = {
         'Языки программирования': ['PHP', 'JavaScript'],
         'Языки курсов': ['Русский', 'Английский'],
     },
+    filterWords:"",
 };
 
 export const courseListReducer = createReducer(initialState, builder => {
@@ -27,6 +28,12 @@ export const courseListReducer = createReducer(initialState, builder => {
         .addCase(courseListFailed, (state, { payload }) => {
             state.status = STATUS_FAILED;
             state.error = payload;
+        })
+        .addCase(searchWords, (state, { payload }) => {
+            state.filterWords = payload
+        })
+        .addCase(filterList, (state, { payload }) => {
+            state.filteredList = payload
         })
         .addDefaultCase(() => {});
 });
