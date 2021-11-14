@@ -5,30 +5,25 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FilterRequest;
 use App\Models\Course;
 use App\Http\Resources\FitredCoursesResource;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class CoursesController extends Controller
 {
+    /**
+     * Фильтрация курсов
+     * 
+     * Пример запроса:         
+     * /api/courses?filter[language]=Русский&filter[programmingLanguage_id]=35
+     */
     public function index(FilterRequest $request)
     {
-        $data = $request->validated();
-        $query = new FitredCoursesResource(Course::query());
+        $query = Course::where('status', 'PUBLISHED');
 
-        //фильтруем курсы по языку программирования
-        if (isset($data['programmingLanguage_id'])) {
-            $query->where('programmingLanguage_id', $data['programmingLanguage_id']);
-            $courses = $query->get();
-            return $courses;
-        }
-
-        // фильтруем курсы по языку курса (Русский, English)
-        if (isset($data['language'])) {
-            $query->where('language', $data['language']);
-            $courses = $query->get();
-            return $courses;
-        }
-
-        $courses = FitredCoursesResource::collection(Course::all());
-        return $courses;
+        $coursesQuery = QueryBuilder::for($query)
+            ->allowedFilters('language', 'programmingLanguage')
+            ->paginate(6)
+            ->appends(request()->query());
+        return FitredCoursesResource::collection($coursesQuery);
     }
 
     public function show($id)

@@ -35,3 +35,9 @@ export const getAdminCourseList = () => async dispatch => {
     }
 };
 
+export const SEARCH_WORDS = 'FILTER_WORDS::SEARCH_WORDS';
+export const searchWords = createAction(SEARCH_WORDS);
+
+export const FILTER_LIST = 'FILTERED_LIST::FILTER_LIST';
+export const filterList = createAction(FILTER_LIST);
+

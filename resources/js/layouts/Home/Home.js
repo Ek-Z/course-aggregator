@@ -4,6 +4,7 @@ import { CourseList } from '../../components/CourseList/CourseList';
 import { selectBestCourses } from '../../store/courseList/selectors';
 import { getPublicCourseList } from '../../store/courseList/action';
 import style from './Home.module.scss';
+import InputSearch from "../../components/InputSearch/InputSearch";
 
 export const Home = () => {
     const bestCourseList = useSelector(selectBestCourses);
@@ -18,6 +19,7 @@ export const Home = () => {
     return (
         <div className="container">
             <h1 className={style.title}>Агрегатор бесплатных курсов</h1>
+            <InputSearch className={style.input}/>
             <CourseList list={bestCourseList}/>
         </div>
     );

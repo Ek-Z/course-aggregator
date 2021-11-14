@@ -21,7 +21,7 @@ class RegisterController extends BaseController
             'name' => 'required',
             'email' => 'required|email',
             'password' => 'required',
-            'c_password' => 'required|same:password',
+            'confirm_password' => 'required|same:password',
         ]);
 
         if ($validator->fails()) {
@@ -34,6 +34,6 @@ class RegisterController extends BaseController
         $success['token'] =  $user->createToken('MyApp')->plainTextToken;
         $success['name'] =  $user->name;
 
-        return $this->sendResponse($success, 'User register successfully.');
+        return $this->sendResponse($success);
     }
 }

@@ -1,23 +1,40 @@
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { Typography, CardMedia, CardContent, Card, Grid } from '@mui/material';
+import imagePlug from '../../../images/image-plug.jpg';
+import style from './Course.module.scss';
 
 export const Course = ({ item }) => {
     return (
         <Grid item xs={5}>
             <Link to={`/course/${item.id}`} style={{ textDecoration: 'none' }}>
-                <Card sx={{ maxWidth: 500, height: '100%', display: 'flex', flexDirection: 'column' }}>
-                    <CardMedia component="img" height={140} image={item.image} alt="green iguana"/>
-                    <CardContent sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                        <Typography variant="h5">{item.title}</Typography>
+                <Card className={style.course}
+                      sx={{ maxWidth: 500, height: '100%', display: 'flex', flexDirection: 'column' }}>
+                    {/*<CardMedia className={style.MuiCardMediaImg} component="img" height={200} image={item.image || imagePlug} alt="green iguana"/>*/}
+                    <div className={style.image_wrap}>
+                        <img className={style.image} src={item.image || imagePlug} alt="green iguana"/>
+                    </div>
+                    <CardContent sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', justifyContent: 'space-between', padding: '24px 20px' }}>
+                        <Typography variant="h6">{item.title}</Typography>
                         <Typography
-                            sx={{ maxHeight: '5rem', textOverflow: 'ellipsis', overflow: 'hidden' }}
+                            sx={{
+                                maxHeight: '5rem',
+                                textOverflow: 'ellipsis',
+                                overflow: 'hidden',
+                            }}
                             variant="body2"
                         >
-                            {item.description}
+                            {item.short_description}
                         </Typography>
-                        <Typography sx={{ display: 'block', marginTop: 'auto', alignSelf: 'flex-end' }} variant="h6">
-                            {item.author}
+                        <Typography
+                            sx={{
+                                alignSelf: 'flex-end',
+                                textTransform: 'uppercase',
+                                fontWeight: 600,
+                            }}
+                            color="secondary"
+                            variant="body2">
+                            Подробнее
                         </Typography>
                     </CardContent>
                 </Card>
