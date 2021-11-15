@@ -1,5 +1,5 @@
 // Страница регистрации
-import {LoginForm} from "../../components/LoginForm/LoginForm";
+import {AuthForm} from "../../components/AuthForm/AuthForm";
 import React, {useState} from "react";
 import axios from "axios";
 import {useHistory} from "react-router";
@@ -14,9 +14,15 @@ export const LoginPage = () => {
         password:""
     });
 
-    let history = useHistory();
+    //ошибка содержимого инпутов
+    const [error,setError] = useState({
+        name:"",
+        email:"",
+        password:"",
+        confirm_password:""
+    })
 
-    const {email,password} = user;
+    let history = useHistory();
 
     const onInputChange = e => {
         setUser({ ...user, [e.target.name]: e.target.value });
@@ -25,36 +31,36 @@ export const LoginPage = () => {
     const signIn = async (e) => {
         e.preventDefault();
         if(user.email === '') {
-            alert('Не введен email')
+            setError({email: 'Поле email не должно быть пустым'});
         }
         else if(user.password === '') {
-            alert('Не ввведен пароль')
+            setError({password: 'Поле пароля не должно быть пустым'});
         }
-        try {
-            let response = await axios.post("api/login", user);
-            if (response.status === 200) {
-                localStorage.setItem("userData", JSON.stringify(response.data));
-                console.log("userData:", JSON.parse(localStorage.getItem("userData")));
-                alert("Приветствуем Вас, " + response.data.data.name);
-                dispatch(logIn(response.data.data));
-                history.push("/");//редирект на главную страницу
-            } else {
-                console.log("Ошибка! ", response)
+        else {
+            try {
+                let response = await axios.post("api/login", user);
+                if (response.status === 200) {
+                    localStorage.setItem("userData", JSON.stringify(response.data));
+                    dispatch(logIn(response.data.data));
+                    history.push("/");//редирект на главную страницу
+                } else {
+                    console.log("Ошибка! ", response)
+                }
             }
-        }
-        catch (e) {
-            console.log(`Error! ${e}`)
+            catch (e) {
+                console.log(`Error! ${e}`)
+            }
         }
     }
 
     return (
-        <LoginForm
+        <AuthForm
             title="Авторизация"
             button="Войти"
             onChange={onInputChange}
             onSubmit={signIn}
-            email={email}
-            password={password}
+            user={user}
+            error={error}
         />
     )
 }
