@@ -1,5 +1,13 @@
 import { createReducer } from '@reduxjs/toolkit';
-import {courseListFailed, courseListLoaded, courseListOnload, filterList, searchWords} from './action';
+import {
+    courseListFailed,
+    courseListLoaded,
+    courseListOnload,
+    filterFailed,
+    filterList,
+    filterLoaded,
+    searchWords
+} from './action';
 import { STATUS_FAILED, STATUS_IDLE, STATUS_REQUEST, STATUS_SUCCESS } from '../../utils/statuses/statuses';
 
 const initialState = {
@@ -9,10 +17,11 @@ const initialState = {
     error: null,
     isFiltered: false,
     filters: {
-        'Языки программирования': ['PHP', 'JavaScript'],
+        'Языки программирования': null,
         'Языки курсов': ['Русский', 'Английский'],
     },
-    filterWords:"",
+    filtersError: null,
+    filterWords: '',
 };
 
 export const courseListReducer = createReducer(initialState, builder => {
@@ -29,11 +38,18 @@ export const courseListReducer = createReducer(initialState, builder => {
             state.status = STATUS_FAILED;
             state.error = payload;
         })
+        .addCase(filterLoaded, (state, { payload }) => {
+            state.filters['Языки программирования'] = payload;
+            state.filtersError = null;
+        })
+        .addCase(filterFailed, (state, { payload }) => {
+            state.filtersError = payload;
+        })
         .addCase(searchWords, (state, { payload }) => {
-            state.filterWords = payload
+            state.filterWords = payload;
         })
         .addCase(filterList, (state, { payload }) => {
-            state.filteredList = payload
+            state.filteredList = payload;
         })
         .addDefaultCase(() => {});
 });

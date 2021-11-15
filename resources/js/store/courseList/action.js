@@ -6,10 +6,21 @@ export const COURSE_LIST_ONLOAD = 'COURSE_LIST::COURSE_LIST_ONLOAD';
 export const COURSE_LIST_LOADED = 'COURSE_LIST::COURSE_LIST_LOADED';
 export const COURSE_LIST_FAILED = 'COURSE_LIST::COURSE_LIST_FAILED';
 export const COURSE_LIST_FILTERED = 'COURSE_LIST::COURSE_LIST_FILTERED';
+export const SEARCH_WORDS = 'FILTER_WORDS::SEARCH_WORDS';
+export const FILTER_LIST = 'FILTERED_LIST::FILTER_LIST';
+
+export const FILTER_INIT = 'FILTER::FILTER_INIT';
+export const FILTER_LOADED = 'FILTER::FILTER_LOADED';
+export const FILTER_FAILED = 'FILTER::FILTER_FAILED';
 
 export const courseListOnload = createAction(COURSE_LIST_ONLOAD);
 export const courseListLoaded = createAction(COURSE_LIST_LOADED);
 export const courseListFailed = createAction(COURSE_LIST_FAILED);
+export const searchWords = createAction(SEARCH_WORDS);
+export const filterList = createAction(FILTER_LIST);
+export const filterInit = createAction(FILTER_INIT);
+export const filterLoaded = createAction(FILTER_LOADED);
+export const filterFailed = createAction(FILTER_FAILED);
 
 export const getPublicCourseList = () => async dispatch => {
     dispatch(courseListOnload());
@@ -35,9 +46,14 @@ export const getAdminCourseList = () => async dispatch => {
     }
 };
 
-export const SEARCH_WORDS = 'FILTER_WORDS::SEARCH_WORDS';
-export const searchWords = createAction(SEARCH_WORDS);
+export const getFilters = () => async dispatch => {
+    dispatch(filterInit());
 
-export const FILTER_LIST = 'FILTERED_LIST::FILTER_LIST';
-export const filterList = createAction(FILTER_LIST);
+    try {
+        const filters = await fetchData('/api/programmingLanguages');
 
+        dispatch(filterLoaded(filters));
+    } catch (err) {
+        dispatch(filterFailed(err));
+    }
+};
