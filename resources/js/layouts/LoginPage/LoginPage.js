@@ -36,18 +36,20 @@ export const LoginPage = () => {
         else if(user.password === '') {
             setError({password: 'Поле пароля не должно быть пустым'});
         }
-        try {
-            let response = await axios.post("api/login", user);
-            if (response.status === 200) {
-                localStorage.setItem("userData", JSON.stringify(response.data));
-                dispatch(logIn(response.data.data));
-                history.push("/");//редирект на главную страницу
-            } else {
-                console.log("Ошибка! ", response)
+        else {
+            try {
+                let response = await axios.post("api/login", user);
+                if (response.status === 200) {
+                    localStorage.setItem("userData", JSON.stringify(response.data));
+                    dispatch(logIn(response.data.data));
+                    history.push("/");//редирект на главную страницу
+                } else {
+                    console.log("Ошибка! ", response)
+                }
             }
-        }
-        catch (e) {
-            console.log(`Error! ${e}`)
+            catch (e) {
+                console.log(`Error! ${e}`)
+            }
         }
     }
 
