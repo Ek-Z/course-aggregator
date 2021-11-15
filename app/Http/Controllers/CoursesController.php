@@ -21,7 +21,7 @@ class CoursesController extends Controller
 
         $coursesQuery = QueryBuilder::for($query)
             ->allowedFilters('language', 'programmingLanguage')
-            ->paginate(6)
+            ->paginate(8)
             ->appends(request()->query());
         return FitredCoursesResource::collection($coursesQuery);
     }
@@ -45,7 +45,7 @@ class CoursesController extends Controller
     {
         $courses = Course::where('status', 'PUBLISHED')
             ->orderBy('id', 'desc')
-            ->take(4)
+            ->take(6)
             ->get();
         return FitredCoursesResource::collection($courses);
     }
