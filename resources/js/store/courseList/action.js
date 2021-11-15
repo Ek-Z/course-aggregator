@@ -13,6 +13,7 @@ export const FILTER_INIT = 'FILTER::INIT';
 export const FILTER_LOADED = 'FILTER::LOADED';
 export const FILTER_FAILED = 'FILTER::FAILED';
 export const FILTER_STATE_CHANGED = 'FILTER::STATE_CHANGED';
+export const FILTER_SUBMIT = 'FILTER::SUBMIT';
 
 export const courseListOnload = createAction(COURSE_LIST_ONLOAD);
 export const courseListLoaded = createAction(COURSE_LIST_LOADED);
@@ -26,6 +27,7 @@ export const filterStateChanged = createAction(
     FILTER_STATE_CHANGED,
     (index, title) => ({ payload: { index, title } })
 );
+export const filterSubmit = createAction(FILTER_SUBMIT);
 
 export const getPublicCourseList = () => async dispatch => {
     dispatch(courseListOnload());
@@ -71,4 +73,41 @@ export const getFilters = () => async dispatch => {
 
 export const changeFilterState = (filterIndex, filterTitle) => dispatch => {
     dispatch(filterStateChanged(filterIndex, filterTitle));
+};
+
+export const getSelectedFilters = filters => async dispatch => {
+    dispatch(filterSubmit());
+
+    let selectedFilters = {};
+
+    for (const filtersKey in filters) {
+        const selectedFilter = filters[filtersKey].filter(filter => filter.state === true);
+        selectedFilters = { ...selectedFilters, [filtersKey]: selectedFilter };
+        if (!selectedFilters[filtersKey].length) delete selectedFilters[filtersKey];
+    }
+
+    let filterPath = [];
+
+    for (const selectedFiltersKey in selectedFilters) {
+        let languages = [];
+        let programmingLanguages = [];
+
+        if (selectedFiltersKey === 'Языки курсов') {
+            for (const language of selectedFilters[selectedFiltersKey]) {
+                languages = [...languages, language.title];
+            }
+            filterPath = [...filterPath, `filter[language]=${languages.join('')}`];
+        }
+
+        if (selectedFiltersKey === 'Языки программирования') {
+            for (const programmingLanguage of selectedFilters[selectedFiltersKey]) {
+                programmingLanguages = [...programmingLanguages, programmingLanguage.id];
+            }
+            filterPath = [...filterPath, `filter[programmingLanguage_id]=${programmingLanguages.join('')}`];
+        }
+    }
+
+    const filteredCourseList = await fetchData(`${PUBLIC_COURSES_LIST_URL}?${filterPath.join('')}`);
+
+
 };

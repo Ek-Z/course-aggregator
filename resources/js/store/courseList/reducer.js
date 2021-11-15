@@ -19,7 +19,7 @@ const initialState = {
     filters: {
         data: {
             'Языки программирования': null,
-            'Языки курсов': [{ id: 1, title: 'Русский', state: false }, { id: 2, title: 'Английский', state: false }],
+            'Языки курсов': [{ id: 1, title: 'Русский', state: false }, { id: 2, title: 'English', state: false }],
         },
         status: STATUS_IDLE,
         error: null,

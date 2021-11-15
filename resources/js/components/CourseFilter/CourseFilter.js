@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@mui/material';
-import { getFilters } from '../../store/courseList/action';
+import { getFilters, getSelectedFilters } from '../../store/courseList/action';
 import { selectFilters, selectFiltersStatus } from '../../store/courseList/selectors';
 import { Filters } from '../Filters/Filters';
 import style from './CourseFilter.module.scss';
@@ -14,12 +14,7 @@ export const CourseFilter = () => {
     const handleSubmit = evt => {
         evt.preventDefault();
 
-        let selectedFilters = {};
-        for (const filtersKey in filters) {
-            const selectedFilter = filters[filtersKey].filter(filter => filter.state === true);
-            selectedFilters = { [filtersKey]: selectedFilter };
-        }
-        console.log(selectedFilters);
+        dispatch(getSelectedFilters(filters));
     };
 
     React.useEffect(() => {

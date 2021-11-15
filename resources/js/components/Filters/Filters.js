@@ -20,7 +20,7 @@ export const Filters = ({ filterTitles, filterValues }) => {
     };
 
     return (
-        <Accordion defaultExpanded={true}>
+        <Accordion defaultExpanded={true} disableGutters={true}>
             <AccordionSummary>
                 <Typography>{filterTitles}</Typography>
             </AccordionSummary>
