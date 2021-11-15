@@ -3,9 +3,9 @@ import {
     courseListFailed,
     courseListLoaded,
     courseListOnload,
-    filterFailed,
+    filterFailed, filterInit,
     filterList,
-    filterLoaded,
+    filterLoaded, filterStateChanged,
     searchWords
 } from './action';
 import { STATUS_FAILED, STATUS_IDLE, STATUS_REQUEST, STATUS_SUCCESS } from '../../utils/statuses/statuses';
@@ -17,10 +17,13 @@ const initialState = {
     error: null,
     isFiltered: false,
     filters: {
-        'Языки программирования': null,
-        'Языки курсов': ['Русский', 'Английский'],
+        data: {
+            'Языки программирования': null,
+            'Языки курсов': [{ id: 1, title: 'Русский', state: false }, { id: 2, title: 'Английский', state: false }],
+        },
+        status: STATUS_IDLE,
+        error: null,
     },
-    filtersError: null,
     filterWords: '',
 };
 
@@ -38,12 +41,19 @@ export const courseListReducer = createReducer(initialState, builder => {
             state.status = STATUS_FAILED;
             state.error = payload;
         })
+        .addCase(filterInit, state => {
+            state.filters.status = STATUS_REQUEST;
+        })
         .addCase(filterLoaded, (state, { payload }) => {
-            state.filters['Языки программирования'] = payload;
-            state.filtersError = null;
+            state.filters.data['Языки программирования'] = payload;
+            state.filters.status = STATUS_SUCCESS;
         })
         .addCase(filterFailed, (state, { payload }) => {
-            state.filtersError = payload;
+            state.filters.status = STATUS_FAILED;
+            state.filters.error = payload;
+        })
+        .addCase(filterStateChanged, (state, { payload }) => {
+            state.filters.data[payload.title][payload.index].state = !state.filters.data[payload.title][payload.index].state;
         })
         .addCase(searchWords, (state, { payload }) => {
             state.filterWords = payload;
