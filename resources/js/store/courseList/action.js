@@ -18,6 +18,7 @@ export const FILTER_SUBMIT = 'FILTER::SUBMIT';
 export const courseListOnload = createAction(COURSE_LIST_ONLOAD);
 export const courseListLoaded = createAction(COURSE_LIST_LOADED);
 export const courseListFailed = createAction(COURSE_LIST_FAILED);
+export const courseListFiltered = createAction(COURSE_LIST_FILTERED);
 export const searchWords = createAction(SEARCH_WORDS);
 export const filterList = createAction(FILTER_LIST);
 export const filterInit = createAction(FILTER_INIT);
@@ -109,5 +110,5 @@ export const getSelectedFilters = filters => async dispatch => {
 
     const filteredCourseList = await fetchData(`${PUBLIC_COURSES_LIST_URL}?${filterPath.join('')}`);
 
-
+    dispatch(courseListFiltered(filteredCourseList));
 };

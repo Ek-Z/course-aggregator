@@ -25,18 +25,23 @@ export const CourseInfo = ({ item }) => {
                         <div>{item.language}</div>
                         <div>{item.programmingLanguage.title}</div>
                     </div>
-                    <Button
-                        color="secondary"
-                        variant="contained"
-                        sx={{
-                            padding: 2,
-                            color: '#fff',
-                            fontWeight: 500,
-                            fontSize: '15px'
-                        }}
+                    <a
+                        href={item.source_url}
+                        target="_blank"
                     >
-                        Перейти к курсу
-                    </Button>
+                        <Button
+                            color="secondary"
+                            variant="contained"
+                            sx={{
+                                padding: 2,
+                                color: '#fff',
+                                fontWeight: 500,
+                                fontSize: '15px'
+                            }}
+                        >
+                            Перейти к курсу
+                        </Button>
+                    </a>
                 </div>
             </div>
         </article>

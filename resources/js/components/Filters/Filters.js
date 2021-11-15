@@ -9,6 +9,7 @@ import {
     FormControlLabel,
     Checkbox
 } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { filterStateChanged } from '../../store/courseList/action';
 
 export const Filters = ({ filterTitles, filterValues }) => {
@@ -21,7 +22,7 @@ export const Filters = ({ filterTitles, filterValues }) => {
 
     return (
         <Accordion defaultExpanded={true} disableGutters={true}>
-            <AccordionSummary>
+            <AccordionSummary expandIcon={<ExpandMoreIcon/>}>
                 <Typography>{filterTitles}</Typography>
             </AccordionSummary>
             <AccordionDetails>

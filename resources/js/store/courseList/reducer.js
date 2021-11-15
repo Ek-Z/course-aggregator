@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import {
-    courseListFailed,
+    courseListFailed, courseListFiltered,
     courseListLoaded,
     courseListOnload,
     filterFailed, filterInit,
@@ -36,10 +36,15 @@ export const courseListReducer = createReducer(initialState, builder => {
             state.courseList = payload;
             state.status = STATUS_SUCCESS;
             state.error = null;
+            state.isFiltered = false;
         })
         .addCase(courseListFailed, (state, { payload }) => {
             state.status = STATUS_FAILED;
             state.error = payload;
+        })
+        .addCase(courseListFiltered, (state, { payload }) => {
+            state.filteredList = payload;
+            state.isFiltered = true;
         })
         .addCase(filterInit, state => {
             state.filters.status = STATUS_REQUEST;
@@ -60,6 +65,7 @@ export const courseListReducer = createReducer(initialState, builder => {
         })
         .addCase(filterList, (state, { payload }) => {
             state.filteredList = payload;
+            state.isFiltered = true;
         })
         .addDefaultCase(() => {});
 });
