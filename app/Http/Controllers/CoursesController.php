@@ -36,4 +36,17 @@ class CoursesController extends Controller
     {
         return Course::where('title', 'like', '%' . $title . '%')->get();
     }
+
+    /**
+     * Вывод последних добавленных курсов
+     */
+
+    public function newcourses()
+    {
+        $courses = Course::where('status', 'PUBLISHED')
+            ->orderBy('id', 'desc')
+            ->take(4)
+            ->get();
+        return FitredCoursesResource::collection($courses);
+    }
 }
