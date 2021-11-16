@@ -22,7 +22,7 @@ export const Catalog = () => {
     const dispatch = useDispatch();
 
     const  [currentPage, setCurrentPage] = useState(1)//текущая страница = 1
-    const [coursesPerPage] = useState(4)//всего курсов на странице
+    const [coursesPerPage] = useState(8)//всего курсов на странице
 
     //номер последней страницы пагинации
     const lastPageIndex = currentPage * coursesPerPage

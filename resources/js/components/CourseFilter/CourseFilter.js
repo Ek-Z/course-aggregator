@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectFilters } from '../../store/courseList/selectors';
 import { Filter } from './Filter/Filter';
+import {Button} from "@mui/material";
+import * as React from "react";
 
 const parseArrToObj = (filters) => {
     const filtersObj = {};
@@ -44,13 +46,15 @@ export const CourseFilter = ({ onSubmit }) => {
         <div className={style.filter__container}>
             <form action="#" onSubmit={handleSubmit}>
                 {FiltersList().map((el) => el)}
-                <button type="submit">Поиск</button>
+                <Button color="secondary" variant="contained" sx={{ color:'white', margin:'11px auto 0', display:'block', padding:'23.5px 22.5px' }}>
+                     Применить
+                </Button>
             </form>
         </div>
     );
 };
 
-/* 
+/*
 
 filters = {
     "Языки программирования": ['PHP','JavaScript'],
