@@ -1,20 +1,21 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CourseList } from '../../components/CourseList/CourseList';
-import { selectBestCourses } from '../../store/courseList/selectors';
+import { selectBestCourses, selectCourseListLength } from '../../store/courseList/selectors';
 import { getPublicCourseList } from '../../store/courseList/action';
 import style from './Home.module.scss';
-import InputSearch from "../../components/InputSearch/InputSearch";
+import InputSearch from '../../components/InputSearch/InputSearch';
 
 export const Home = () => {
+    const courseListLength = useSelector(selectCourseListLength);
     const bestCourseList = useSelector(selectBestCourses);
     const dispatch = useDispatch();
 
     useEffect(() => {
         //TODO: добавить проверку на админа
-        dispatch(getPublicCourseList());
+        !courseListLength && dispatch(getPublicCourseList());
         // dispatch(getAdminCourseList());
-    }, [dispatch]);
+    }, [dispatch, courseListLength]);
 
     return (
         <div className="container">
