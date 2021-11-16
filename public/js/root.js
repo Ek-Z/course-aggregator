@@ -33779,9 +33779,9 @@ function InputSearch() {
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_7__["default"], {
     sx: {
-      // width:700,
+      width: '100%',
       display: 'block',
-      margin: '0 10px 25px 10px'
+      margin: '0 auto 25px'
     },
     noValidate: true,
     autoComplete: "off",
@@ -34058,9 +34058,10 @@ __webpack_require__.r(__webpack_exports__);
 var Footer = function Footer() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("footer", {
     style: {
+      display: 'flex',
       height: '100px',
       backgroundColor: '#f84646',
-      marginTop: '20px'
+      marginTop: '24px'
     }
   });
 };
@@ -34202,7 +34203,7 @@ var Header = function Header() {
 
 
   var updateSearch = function updateSearch() {
-    dispatch((0,_store_courseList_action__WEBPACK_IMPORTED_MODULE_7__.searchWords)(""));
+    dispatch((0,_store_courseList_action__WEBPACK_IMPORTED_MODULE_7__.searchWords)(''));
   }; //настройки для выпадающего меню
 
 
@@ -34267,16 +34268,17 @@ var Header = function Header() {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_system__WEBPACK_IMPORTED_MODULE_12__["default"], {
           mr: 3,
           ml: 'auto',
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_14__["default"], {
-            color: "secondary",
-            variant: "contained",
-            sx: {
-              marginRight: '1.5rem'
-            },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Link, {
-              className: _Header_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].headerLinks,
-              to: "/courses",
-              onClick: updateSearch,
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Link, {
+            className: _Header_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].headerLinks,
+            to: "/courses",
+            onClick: updateSearch,
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_14__["default"], {
+              color: "secondary",
+              variant: "contained",
+              sx: {
+                marginRight: '1.5rem',
+                color: '#ffffff'
+              },
               children: "\u0411\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u043E"
             })
           }), sessionState && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_Tooltip__WEBPACK_IMPORTED_MODULE_15__["default"], {
@@ -35881,9 +35883,10 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "._1qF0SspAISYSHkdN9rswfU {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  padding-top: 80px;\n  text-align: center;\n}\n\n._2DrIYRF_Lp5WkeJpfubSa4 {\n  font-size: 48px;\n  font-weight: 900;\n  line-height: 64px;\n  margin-bottom: 30px;\n}\n\n._3FX_qX3JKKlGO6X7cHHLtj {\n  font-size: 24px;\n  font-weight: 300;\n  line-height: 1;\n  margin-bottom: 50px;\n}\n\n.iZ42CMR3mODI8jLWEN0pw {\n  display: grid;\n  -moz-column-gap: 30px;\n       column-gap: 30px;\n  justify-items: center;\n  grid-template-columns: 1fr minmax(200px, auto);\n}\n\n._1CQAqIUJWkmkp912ScbiXG {\n  font-size: 16px;\n  line-height: 24px;\n  text-indent: 50px;\n  text-align: justify;\n  grid-row: span 4;\n}\n\n._2KKS85_oqoSpEl3V85Kvoz {\n  width: 100%;\n  height: 140px;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n\n._3b42CCh7k2PxP-LYoAlpI9 {\n  display: flex;\n  justify-content: space-evenly;\n  -moz-column-gap: 44px;\n       column-gap: 44px;\n  row-gap: 22px;\n  flex-wrap: wrap;\n  padding: 30px 0 50px;\n}\n._3b42CCh7k2PxP-LYoAlpI9 > div {\n  padding: 6px 12px;\n  background-color: #e4e6e7;\n  border-radius: 50px;\n  cursor: pointer;\n  transition: background-color 300ms;\n}\n._3b42CCh7k2PxP-LYoAlpI9 > div:hover {\n  background-color: #b2b4b5;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "._3FdbGshfH1EetphxvIlcN_ {\n  height: calc(100vh - 188px);\n}\n\n._1qF0SspAISYSHkdN9rswfU {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  padding-top: 80px;\n  text-align: center;\n}\n\n._2DrIYRF_Lp5WkeJpfubSa4 {\n  font-size: 48px;\n  font-weight: 900;\n  line-height: 64px;\n  margin-bottom: 30px;\n}\n\n._3FX_qX3JKKlGO6X7cHHLtj {\n  font-size: 24px;\n  font-weight: 300;\n  line-height: 1;\n  margin-bottom: 50px;\n}\n\n.iZ42CMR3mODI8jLWEN0pw {\n  display: grid;\n  -moz-column-gap: 30px;\n       column-gap: 30px;\n  justify-items: center;\n  grid-template-columns: 1fr minmax(200px, auto);\n}\n\n._1CQAqIUJWkmkp912ScbiXG {\n  font-size: 16px;\n  line-height: 24px;\n  text-indent: 50px;\n  text-align: justify;\n  grid-row: span 4;\n}\n\n._2KKS85_oqoSpEl3V85Kvoz {\n  width: 100%;\n  height: 140px;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n\n._3b42CCh7k2PxP-LYoAlpI9 {\n  display: flex;\n  justify-content: space-evenly;\n  -moz-column-gap: 44px;\n       column-gap: 44px;\n  row-gap: 22px;\n  flex-wrap: wrap;\n  padding: 30px 0 50px;\n}\n._3b42CCh7k2PxP-LYoAlpI9 > div {\n  padding: 6px 12px;\n  background-color: #e4e6e7;\n  border-radius: 50px;\n  cursor: pointer;\n  transition: background-color 300ms;\n}\n._3b42CCh7k2PxP-LYoAlpI9 > div:hover {\n  background-color: #b2b4b5;\n}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
+	"course": "_3FdbGshfH1EetphxvIlcN_",
 	"wrap": "_1qF0SspAISYSHkdN9rswfU",
 	"title": "_2DrIYRF_Lp5WkeJpfubSa4",
 	"summary": "_3FX_qX3JKKlGO6X7cHHLtj",

@@ -22,8 +22,7 @@ import { logOut } from '../../store/session';
 import { selectSessionState, selectUserName, selectIsAdmin } from '../../store/session/selectors';
 import Tooltip from '@mui/material/Tooltip';
 import * as React from 'react';
-import { searchWords} from "../../store/courseList/action";
-
+import { searchWords } from '../../store/courseList/action';
 
 export const Header = () => {
     const sessionState = useSelector(selectSessionState);//авторизован ли пользователь
@@ -51,9 +50,9 @@ export const Header = () => {
     };
 
     //обновление строки поиска при переходе на главную или на страницу каталога ("Бесплатно")
-    const updateSearch = () =>{
-        dispatch(searchWords(""));
-    }
+    const updateSearch = () => {
+        dispatch(searchWords(''));
+    };
 
     //настройки для выпадающего меню
     const [open, setOpen] = React.useState(false);
@@ -102,11 +101,14 @@ export const Header = () => {
                         </Link>
                     </Box>
                     <Box mr={3} ml={'auto'}>
-                        <Button color="secondary" variant="contained" sx={{ marginRight: '1.5rem' }}>
-                            <Link className={style.headerLinks} to="/courses" onClick={updateSearch}>
+                        <Link className={style.headerLinks} to="/courses" onClick={updateSearch}>
+                            <Button color="secondary"
+                                    variant="contained"
+                                    sx={{ marginRight: '1.5rem', color: '#ffffff' }}
+                            >
                                 Бесплатно
-                            </Link>
-                        </Button>
+                            </Button>
+                        </Link>
                         {sessionState &&
                         <Tooltip title="Мои закладки">
                             <Button color="inherit" variant="outlined" sx={{ marginRight: '1.5rem' }}>

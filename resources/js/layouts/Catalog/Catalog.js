@@ -25,7 +25,7 @@ export const Catalog = () => {
     }, [dispatch, courseListLength, filteredListLength]);
 
     return (
-        <div className="container" style={{ display: 'flex', flexDirection: 'column', marginTop: 20 }}>
+        <div className="container" style={{ display: 'flex', flexDirection: 'column', marginTop: 20}}>
             <h2 style={{ textAlign: 'center', marginBottom: 50 }}>
                 Список бесплатных курсов
             </h2>
