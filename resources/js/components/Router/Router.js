@@ -8,31 +8,36 @@ import { RegistrationPage } from '../../layouts/RegistrationPage/RegistrationPag
 import { CourseCard } from '../CourseCard/CourseCard';
 import { Home } from '../../layouts/Home/Home';
 import { Footer } from '../../layouts/Footer/Footer';
+import style from './Router.module.scss';
 
 export const Router = () => {
     return (
         <HashRouter>
-            <Header/>
-            <Switch>
-                <Route exact={true} path="/" component={Home}>
-                </Route>
-                <Route exact={true} path="/courses">
-                    <Catalog/>
-                </Route>
-                <Route exact={true} path="/course/:courseId?">
-                    <CourseCard/>
-                </Route>
-                <Route exact={true} path="/admin">
-                    <AdminPanel/>
-                </Route>
-                <Route exact={true} path="/signIn">
-                    <LoginPage/>
-                </Route>
-                <Route exact={true} path="/signUp">
-                    <RegistrationPage/>
-                </Route>
-            </Switch>
-            <Footer/>
+            <div className={style.bg}>
+                <div className={style.application}>
+                    <Header/>
+                    <Switch>
+                        <Route exact={true} path="/" component={Home}>
+                        </Route>
+                        <Route exact={true} path="/courses">
+                            <Catalog/>
+                        </Route>
+                        <Route exact={true} path="/course/:courseId?">
+                            <CourseCard/>
+                        </Route>
+                        <Route exact={true} path="/admin">
+                            <AdminPanel/>
+                        </Route>
+                        <Route exact={true} path="/signIn">
+                            <LoginPage/>
+                        </Route>
+                        <Route exact={true} path="/signUp">
+                            <RegistrationPage/>
+                        </Route>
+                    </Switch>
+                    <Footer/>
+                </div>
+            </div>
         </HashRouter>
     );
 };

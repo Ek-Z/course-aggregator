@@ -10,6 +10,7 @@ import { CourseList } from '../../components/CourseList/CourseList';
 import { CourseFilter } from '../../components/CourseFilter/CourseFilter';
 import { getPublicCourseList } from '../../store/courseList/action';
 import InputSearch from '../../components/InputSearch/InputSearch';
+import style from './Catalog.module.scss';
 
 export const Catalog = () => {
     const filterWords = useSelector(selectFilterWords);
@@ -25,15 +26,17 @@ export const Catalog = () => {
     }, [dispatch, courseListLength, filteredListLength]);
 
     return (
-        <div className="container" style={{ display: 'flex', flexDirection: 'column', marginTop: 20}}>
-            <h2 style={{ textAlign: 'center', marginBottom: 50 }}>
-                Список бесплатных курсов
-            </h2>
-            <InputSearch/>
-            <div style={{ display: 'flex' }}>
-                <CourseFilter/>
-                {isFiltered ? <CourseList list={filteredList}/> : <CourseList list={courseList}/>}
+        <section className={style.catalog}>
+            <div className={`container ${style.wrap}`}>
+                <h2 className={style.title}>
+                    Список бесплатных курсов
+                </h2>
+                <InputSearch/>
+                <div className={style.list}>
+                    <CourseFilter/>
+                    {isFiltered ? <CourseList list={filteredList}/> : <CourseList list={courseList}/>}
+                </div>
             </div>
-        </div>
+        </section>
     );
 };

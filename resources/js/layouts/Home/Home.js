@@ -19,7 +19,10 @@ export const Home = () => {
 
     return (
         <div className="container">
-            <h1 className={style.title}>Агрегатор бесплатных курсов</h1>
+            <h1 className={style.title}>
+                Агрегатор бесплатных курсов
+                <span>Мы собрали все бесплатные курсы по программированию</span>
+            </h1>
             <InputSearch className={style.input}/>
             <CourseList list={bestCourseList}/>
         </div>

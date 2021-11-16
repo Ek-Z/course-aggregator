@@ -1,7 +1,13 @@
+import style from './Footer.module.scss';
+
 export const Footer = () => {
     return (
-        <footer style={{ display: 'flex', height: '100px', backgroundColor: '#f84646', marginTop: '24px' }}>
-            {/*TODO: Сделать полноценный footer */}
+        <footer className={style.footer}>
+            <div className={`${style.wrap} container`}>
+                <div>
+                    © Copyright 2021 - GB
+                </div>
+            </div>
         </footer>
     );
 };

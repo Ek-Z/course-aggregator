@@ -90,7 +90,7 @@ export const Header = () => {
     }, [open]);
 
     return (
-        <AppBar position="static">
+        <AppBar position="static" color="transparent">
             <Container>
                 <Toolbar>
                     <Box sx={{ height: 40 }}>
@@ -100,7 +100,7 @@ export const Header = () => {
                             </svg>
                         </Link>
                     </Box>
-                    <Box mr={3} ml={'auto'}>
+                    <Box mr={3} ml={'auto'} sx={{ display: 'flex', alignItems: 'center' }}>
                         <Link className={style.headerLinks} to="/courses" onClick={updateSearch}>
                             <Button color="secondary"
                                     variant="contained"
@@ -111,14 +111,18 @@ export const Header = () => {
                         </Link>
                         {sessionState &&
                         <Tooltip title="Мои закладки">
-                            <Button color="inherit" variant="outlined" sx={{ marginRight: '1.5rem' }}>
+                            <IconButton
+                                color="default"
+                                variant="outlined"
+                                sx={{ border: 'none', width: '50px' }}
+                            >
                                 {/*Указать ссылку на страницу "Избранное"*/}
                                 <Link className={style.headerLinks} to="#">
-                                    <i className="far fa-heart" style={{ fontSize: '20px' }}>
+                                    <i className="far fa-heart" style={{ fontSize: '20px', color: '#000' }}>
                                         <div className={style.counterBlock}>0</div>
                                     </i>
                                 </Link>
-                            </Button>
+                            </IconButton>
                         </Tooltip>
                         }
                         {isAdmin &&
