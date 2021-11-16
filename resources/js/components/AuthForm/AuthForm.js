@@ -54,7 +54,7 @@ export function AuthForm({title, button, onChange, onSubmit, user, error}) {
                     type="password"
                     className={styles.loginForm_block_input}
                 />}
-                <Button type="submit" color="primary" variant="contained"
+                <Button type="submit" color="secondary" variant="contained"
                         className={styles.loginForm_block_btn}
                 >{button}</Button>
                 {(title==="Авторизация") &&
