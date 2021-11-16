@@ -32,9 +32,15 @@ class CoursesController extends Controller
         return $course;
     }
 
+    /**
+     * Поиск курсов по заголовку
+     */
+
     public function search($title)
     {
-        return Course::where('title', 'like', '%' . $title . '%')->get();
+        $searchCourses = Course::where('title', 'like', '%' . $title . '%')
+            ->paginate(8);
+        return FitredCoursesResource::collection($searchCourses);
     }
 
     /**
