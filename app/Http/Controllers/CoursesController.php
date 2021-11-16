@@ -21,7 +21,7 @@ class CoursesController extends Controller
 
         $coursesQuery = QueryBuilder::for($query)
             ->allowedFilters('language', 'programmingLanguage')
-            ->paginate(6)
+            ->paginate(8)
             ->appends(request()->query());
         return FitredCoursesResource::collection($coursesQuery);
     }
@@ -35,5 +35,18 @@ class CoursesController extends Controller
     public function search($title)
     {
         return Course::where('title', 'like', '%' . $title . '%')->get();
+    }
+
+    /**
+     * Вывод последних добавленных курсов
+     */
+
+    public function newcourses()
+    {
+        $courses = Course::where('status', 'PUBLISHED')
+            ->orderBy('id', 'desc')
+            ->take(6)
+            ->get();
+        return FitredCoursesResource::collection($courses);
     }
 }

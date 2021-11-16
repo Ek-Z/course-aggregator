@@ -1,71 +1,46 @@
+import * as React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Button } from '@mui/material';
+import { getFilters, getSelectedFilters } from '../../store/courseList/action';
+import { selectFilters, selectFiltersStatus } from '../../store/courseList/selectors';
+import { Filters } from '../Filters/Filters';
 import style from './CourseFilter.module.scss';
 
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { selectFilters } from '../../store/courseList/selectors';
-import { Filter } from './Filter/Filter';
-
-const parseArrToObj = (filters) => {
-    const filtersObj = {};
-    for (const [key, value] of Object.entries(filters)) {
-        const filter = {};
-        value.forEach((option) => (filter[option] = false));
-        filtersObj[key] = filter;
-    }
-    return filtersObj;
-};
-
-export const CourseFilter = ({ onSubmit }) => {
+export const CourseFilter = () => {
     const filters = useSelector(selectFilters);
-    const [filtersObj, setFiltersObj] = useState(parseArrToObj(filters));
+    const filterStatus = useSelector(selectFiltersStatus);
+    const dispatch = useDispatch();
 
-    const handleSubmit = (evt) => {
+    const handleSubmit = evt => {
         evt.preventDefault();
-        console.log(filtersObj);
+
+        dispatch(getSelectedFilters(filters));
     };
 
-    const handleChangeOptions = ({ filterName, filterOption }) => {
-        setFiltersObj((prev) => {
-            const newState = { ...filtersObj };
-            newState[filterName][filterOption] = !newState[filterName][filterOption];
-            return newState;
-        });
-    };
-
-    const FiltersList = () => {
-        const filters = [];
-        for (const [key, value] of Object.entries(filtersObj)) {
-            filters.push(<Filter key={key} filterName={key} filterOptions={value} onChange={handleChangeOptions} />);
-        }
-        return filters;
-    };
+    React.useEffect(() => {
+        filterStatus !== 'SUCCESS' && dispatch(getFilters());
+    }, [dispatch]);
 
     return (
-        <div className={style.filter__container}>
-            <form action="#" onSubmit={handleSubmit}>
-                {FiltersList().map((el) => el)}
-                <button type="submit">Поиск</button>
-            </form>
-        </div>
+        <form action="#" className={style.filter} onSubmit={handleSubmit}>
+            {filterStatus === 'SUCCESS' && Object.entries(filters).map((filter, index) => filter ?
+                <Filters key={index} filterTitles={filter[0]} filterValues={filter[1]}/> :
+                null
+            )}
+            <Button
+                onClick={handleSubmit}
+                color="secondary"
+                variant="contained"
+                sx={{
+                    color: '#fff',
+                    width: '100%',
+                    fontWeight: 500,
+                    fontSize: '15px',
+                    marginTop: '16px'
+                }}
+            >
+                Поиск
+            </Button>
+        </form>
     );
 };
-
-/* 
-
-filters = {
-    "Языки программирования": ['PHP','JavaScript'],
-    "Языки курса": ['Русский', 'Английский']
-}
-
-filtersObj = {
-    "Языки программирования": {
-        PHP: false,
-        JavaScript: false,
-    },
-    "Языки курса": {
-        Русский: false,
-        Английский: false
-    }
-}
-
-*/

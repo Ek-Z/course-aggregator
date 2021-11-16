@@ -1,5 +1,5 @@
 // Страница авторизации
-import {LoginForm} from "../../components/LoginForm/LoginForm";
+import {AuthForm} from "../../components/AuthForm/AuthForm";
 import React, {useState} from "react";
 import axios from "axios";
 import {useHistory} from "react-router";
@@ -17,14 +17,17 @@ export const RegistrationPage = () => {
         name:"",
         email:"",
         password:"",
-        c_password:"",
+        confirm_password:"",
     })
-    const {name, email, password, c_password} = user;
     const dispatch = useDispatch();
 
-
-    const [error,setError] = useState("")//ошибка содержимого пароля
-    const [passwordsError, setPasswordsError] = useState("")//ошибка равенства двух введенных паролей
+    //ошибка содержимого инпутов
+    const [error,setError] = useState({
+        name:"",
+        email:"",
+        password:"",
+        confirm_password:""
+    })
 
     let history = useHistory();
 
@@ -34,25 +37,29 @@ export const RegistrationPage = () => {
 
     const signUp = async (e) =>{
         e.preventDefault();
-        setError("");
-        setPasswordsError("")
+        setError({...error,
+            name:"",
+            email:"",
+            password:"",
+            confirm_password:"",
+        });
         if (user.name === ""){
-            alert('Не введено имя пользователя')
+            setError({name: 'Поле имени не должно быть пустым'});
         }
         else if (user.email === ""){
-            alert('Не введен email')
+            setError({email: 'Поле email не должно быть пустым'});
         }
         else if (user.password === ""){
-            alert('Не введен пароль')
+            setError({password: 'Поле пароля не должно быть пустым'});
         }
         else if(!validate(user.password)){
-            setError('Пароль должен состоять не менее, чем из 8 следующих символов: 0-9a-zA-Z!@#$%^&*')
+            setError({password: 'Пароль должен состоять не менее, чем из 8 следующих символов: 0-9a-zA-Z!@#$%^&*'});
         }
-        else if (user.c_password === ""){
-            alert('Повторно не введен пароль')
+        else if (user.confirm_password === ""){
+            setError({confirm_password: 'Повторно не введен пароль'});
         }
-        else if (user.password !== user.c_password){
-            setPasswordsError('Пароли не совпадают')
+        else if (user.password !== user.confirm_password){
+            setError({...error, confirm_password: 'Пароли не совпадают'})
         }
         else {
             try {
@@ -60,8 +67,7 @@ export const RegistrationPage = () => {
                 if(response.status === 200){
                     localStorage.setItem("userData",JSON.stringify(response.data));
                     console.log("userData:", JSON.parse(localStorage.getItem("userData")));
-                    alert('Приветствуем Вас, '+ user.name);
-                    dispatch(logIn(user.name))
+                    dispatch(logIn(response.data.data))
                     history.push("/");//редирект на главную страницу
                 } else {
                     console.log("Ошибка! ", response)
@@ -74,17 +80,13 @@ export const RegistrationPage = () => {
         }
     }
     return (
-        <LoginForm
+        <AuthForm
             title="Регистрация"
             button="Зарегистрироваться"
             onChange={handleInput}
             onSubmit={signUp}
-            name={name}
-            email={email}
-            password={password}
-            c_password={c_password}
+            user={user}
             error={error}
-            passwordsError = {passwordsError}
         />
     )
 }

@@ -4,16 +4,17 @@ import {
     selectCourseList,
     selectCourseListLength,
     selectFilteredList,
-    selectFilterWords
+    selectFilterWords, selectIsFiltered
 } from '../../store/courseList/selectors';
 import { CourseList } from '../../components/CourseList/CourseList';
 import { CourseFilter } from '../../components/CourseFilter/CourseFilter';
 import { getPublicCourseList } from '../../store/courseList/action';
-import InputSearch from "../../components/InputSearch/InputSearch";
+import InputSearch from '../../components/InputSearch/InputSearch';
 
 export const Catalog = () => {
     const filterWords = useSelector(selectFilterWords);
-    const filteredList = useSelector(selectFilteredList)
+    const filteredList = useSelector(selectFilteredList);
+    const isFiltered = useSelector(selectIsFiltered);
     const courseList = useSelector(selectCourseList);
     const courseListLength = useSelector(selectCourseListLength);
     const dispatch = useDispatch();
@@ -30,7 +31,7 @@ export const Catalog = () => {
             <InputSearch/>
             <div style={{ display: 'flex' }}>
                 <CourseFilter/>
-                <CourseList list={filterWords ? filteredList : courseList}/>
+                <CourseList list={isFiltered ? filteredList : courseList}/>
             </div>
         </div>
     );

@@ -27,9 +27,17 @@ export default function InputSearch() {
     useEffect(() => {
         window.addEventListener("beforeunload", () => {
             dispatch(searchWords(""));
+            dispatch(filterList([]))
             setSearch(filterWords)
         })
     },[search])
+
+    useEffect(() => {
+        if (!filterWords){
+            setSearch("");
+            dispatch(filterList([]))
+        }
+    },[filterWords])
 
 
     const clickSearch = () => {
@@ -61,11 +69,10 @@ export default function InputSearch() {
 
     return (
         <Box
-            component="form"
             sx={{
-                width:700,
+                // width:700,
                 display:'block',
-                margin: '0 auto 25px',
+                margin: '0 10px 25px 10px',
             }}
             noValidate
             autoComplete="off"
@@ -77,11 +84,12 @@ export default function InputSearch() {
                 className={style.inputSearch}
                 id="outlined-basic"
                 variant="outlined"
+                fullWidth={true}
                 onKeyPress={handlePressInput}
                 InputProps={{
                     endAdornment: (
-                        <InputAdornment position="end">
-                            <Button type="button" onClick={clickSearch} color="secondary" variant="contained" sx={{ marginRight: '1.5rem' }} >
+                        <InputAdornment position="end" sx={{ height: '100%', margin:'0' }}>
+                            <Button type="button" onClick={clickSearch} color="secondary" variant="contained" sx={{ marginRight: '0' }} >
                                 <Link to="/courses">
                                     найти курсы
                                 </Link>
