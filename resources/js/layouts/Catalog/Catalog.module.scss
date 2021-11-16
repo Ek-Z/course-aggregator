@@ -1,0 +1,10 @@
+.pagination{
+    width: 50%;
+    margin: auto auto 30px;
+    justify-self: flex-end;
+    display: block;
+    & ul{
+        justify-content: center;
+        margin: 10px 0;
+    }
+}
