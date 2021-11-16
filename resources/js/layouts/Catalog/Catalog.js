@@ -45,8 +45,8 @@ export const Catalog = () => {
 
     return (
         <div className="container" style={{ display: 'flex', flexDirection: 'column', marginTop: 20 }}>
-            <h2 style={{ textAlign: 'center', marginBottom: 50 }}>
-                Список бесплатных курсов
+            <h2 style={{ textAlign: 'center', marginBottom: 50 }} className={style.title}>
+                Бесплатные курсы
             </h2>
             <InputSearch/>
             <div style={{ display: 'flex' }}>
