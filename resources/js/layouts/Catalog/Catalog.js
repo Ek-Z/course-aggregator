@@ -3,36 +3,40 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     selectCourseList,
     selectCourseListLength,
-    selectFilteredList,
+    selectFilteredList, selectFilteredListLength, selectFilters,
     selectFilterWords, selectIsFiltered
 } from '../../store/courseList/selectors';
 import { CourseList } from '../../components/CourseList/CourseList';
 import { CourseFilter } from '../../components/CourseFilter/CourseFilter';
 import { getPublicCourseList } from '../../store/courseList/action';
 import InputSearch from '../../components/InputSearch/InputSearch';
+import style from './Catalog.module.scss';
 
 export const Catalog = () => {
     const filterWords = useSelector(selectFilterWords);
     const filteredList = useSelector(selectFilteredList);
+    const filteredListLength = useSelector(selectFilteredListLength);
     const isFiltered = useSelector(selectIsFiltered);
     const courseList = useSelector(selectCourseList);
     const courseListLength = useSelector(selectCourseListLength);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        !courseListLength && dispatch(getPublicCourseList());
-    }, [dispatch, courseListLength]);
+        (!courseListLength || !filteredListLength) && dispatch(getPublicCourseList());
+    }, [dispatch, courseListLength, filteredListLength]);
 
     return (
-        <div className="container" style={{ display: 'flex', flexDirection: 'column', marginTop: 20 }}>
-            <h2 style={{ textAlign: 'center', marginBottom: 50 }}>
-                Список бесплатных курсов
-            </h2>
-            <InputSearch/>
-            <div style={{ display: 'flex' }}>
-                <CourseFilter/>
-                <CourseList list={isFiltered ? filteredList : courseList}/>
+        <section className={style.catalog}>
+            <div className={`container ${style.wrap}`}>
+                <h2 className={style.title}>
+                    Список бесплатных курсов
+                </h2>
+                <InputSearch/>
+                <div className={style.list}>
+                    <CourseFilter/>
+                    {isFiltered ? <CourseList list={filteredList}/> : <CourseList list={courseList}/>}
+                </div>
             </div>
-        </div>
+        </section>
     );
 };

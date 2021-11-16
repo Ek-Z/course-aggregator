@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 import { PUBLIC_COURSES_LIST_URL, ADMIN_COURSE_LIST_URL } from '../../utils/urls/urls';
-import { fetchData } from '../../utils/HOF/HOF';
+import { fetchData, setFilterPath, checkFilterState, setDefaultFilterState } from '../../utils/HOF/HOF';
 
 export const COURSE_LIST_ONLOAD = 'COURSE_LIST::ONLOAD';
 export const COURSE_LIST_LOADED = 'COURSE_LIST::LOADED';
@@ -59,12 +59,7 @@ export const getFilters = () => async dispatch => {
 
     try {
         const filters = await fetchData('/api/programmingLanguages');
-
-        let statefulFilters = [];
-        for (let filter of filters) {
-            filter = { ...filter, state: false };
-            statefulFilters = [...statefulFilters, filter];
-        }
+        const statefulFilters = setDefaultFilterState(filters);
 
         dispatch(filterLoaded(statefulFilters));
     } catch (err) {
@@ -79,36 +74,8 @@ export const changeFilterState = (filterIndex, filterTitle) => dispatch => {
 export const getSelectedFilters = filters => async dispatch => {
     dispatch(filterSubmit());
 
-    let selectedFilters = {};
-
-    for (const filtersKey in filters) {
-        const selectedFilter = filters[filtersKey].filter(filter => filter.state === true);
-        selectedFilters = { ...selectedFilters, [filtersKey]: selectedFilter };
-        if (!selectedFilters[filtersKey].length) delete selectedFilters[filtersKey];
-    }
-
-    let filterPath = [];
-
-    for (const selectedFiltersKey in selectedFilters) {
-        let languages = [];
-        let programmingLanguages = [];
-
-        if (selectedFiltersKey === 'Языки курсов') {
-            for (const language of selectedFilters[selectedFiltersKey]) {
-                languages = [...languages, language.title];
-            }
-            filterPath = [...filterPath, `filter[language]=${languages.join('')}`];
-        }
-
-        if (selectedFiltersKey === 'Языки программирования') {
-            for (const programmingLanguage of selectedFilters[selectedFiltersKey]) {
-                programmingLanguages = [...programmingLanguages, programmingLanguage.id];
-            }
-            filterPath = [...filterPath, `filter[programmingLanguage_id]=${programmingLanguages.join('')}`];
-        }
-    }
-
-    const filteredCourseList = await fetchData(`${PUBLIC_COURSES_LIST_URL}?${filterPath.join('')}`);
+    const selectedFilters = checkFilterState(filters);
+    const filteredCourseList = await setFilterPath(selectedFilters);
 
     dispatch(courseListFiltered(filteredCourseList));
 };
