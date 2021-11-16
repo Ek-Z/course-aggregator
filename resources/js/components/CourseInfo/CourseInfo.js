@@ -1,7 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
-import imagePlug from '../../../images/image-plug.jpg';
+import imagePlug from '../../../../public/images/image-plug.jpg';
 import style from './CourseInfo.module.scss';
 
 export const CourseInfo = ({ item }) => {

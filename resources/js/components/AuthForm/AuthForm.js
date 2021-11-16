@@ -8,7 +8,7 @@ import {Error} from "../Error/Error";
 
 export function AuthForm({title, button, onChange, onSubmit, user, error}) {
     return (
-        <form className={styles.loginForm} onSubmit={onSubmit}>
+        <form className={`${styles.loginForm} container`} onSubmit={onSubmit}>
             <div className={styles.loginForm_block}>
                 <h1 className={styles.loginForm_block_title}>{title}</h1>
                 {error.name && <Error textError={error.name}/>}

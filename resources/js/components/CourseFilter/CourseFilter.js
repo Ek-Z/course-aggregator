@@ -5,6 +5,7 @@ import { getFilters, getSelectedFilters } from '../../store/courseList/action';
 import { selectFilters, selectFiltersStatus } from '../../store/courseList/selectors';
 import { Filters } from '../Filters/Filters';
 import style from './CourseFilter.module.scss';
+import { STATUS_SUCCESS } from '../../utils/statuses/statuses';
 
 export const CourseFilter = () => {
     const filters = useSelector(selectFilters);
@@ -18,7 +19,7 @@ export const CourseFilter = () => {
     };
 
     React.useEffect(() => {
-        filterStatus !== 'SUCCESS' && dispatch(getFilters());
+        filterStatus !== STATUS_SUCCESS && dispatch(getFilters());
     }, [dispatch]);
 
     return (
