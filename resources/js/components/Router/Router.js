@@ -7,6 +7,7 @@ import { LoginPage } from '../../layouts/LoginPage/LoginPage';
 import { RegistrationPage } from '../../layouts/RegistrationPage/RegistrationPage';
 import { CourseCard } from '../CourseCard/CourseCard';
 import { Home } from '../../layouts/Home/Home';
+import { Footer } from '../../layouts/Footer/Footer';
 
 export const Router = () => {
     return (
@@ -31,6 +32,7 @@ export const Router = () => {
                     <RegistrationPage/>
                 </Route>
             </Switch>
+            <Footer/>
         </HashRouter>
     );
 };
