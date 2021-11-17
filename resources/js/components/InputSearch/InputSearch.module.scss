@@ -1,11 +1,16 @@
-.inputSearch{
-    & div{
-        & input{
+.inputSearch {
+    background-color: rgba(255, 255, 255, .7);
+    border-radius: 4px;
+
+    & > div {
+
+        & > input {
             min-width: 50%;
         }
     }
 }
-a{
+
+a {
     text-decoration: none;
     color: white;
 }

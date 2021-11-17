@@ -4,6 +4,8 @@ export const selectCourseListLength = (state) => state.courseList.courseList.len
 export const selectBestCourses = (state) => state.courseList.courseList.slice(0, 6);
 export const selectFilteredList = (state) => state.courseList.filteredList;
 export const selectIsFiltered = (state) => state.courseList.isFiltered;
-export const selectFilters = (state) => state.courseList.filters;
+export const selectFilteredListLength = state => state.courseList.filteredList.length;
+export const selectFilters = state => state.courseList.filters.data;
+export const selectFiltersStatus = state => state.courseList.filters.status;
 export const selectExactCourse = courseId => state => state.courseList.courseList.find(course => course.id === +courseId);
 export const selectFilterWords = (state) => state.courseList.filterWords;

@@ -70,9 +70,9 @@ export default function InputSearch() {
     return (
         <Box
             sx={{
-                // width:700,
+                width: '100%',
                 display:'block',
-                margin: '0 10px 25px 10px',
+                margin: '0 auto 25px',
             }}
             noValidate
             autoComplete="off"

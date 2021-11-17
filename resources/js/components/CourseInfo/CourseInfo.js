@@ -1,7 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
-import imagePlug from '../../../images/image-plug.jpg';
+import imagePlug from '../../../../public/images/image-plug.jpg';
 import style from './CourseInfo.module.scss';
 
 export const CourseInfo = ({ item }) => {
@@ -25,18 +25,23 @@ export const CourseInfo = ({ item }) => {
                         <div>{item.language}</div>
                         <div>{item.programmingLanguage.title}</div>
                     </div>
-                    <Button
-                        color="secondary"
-                        variant="contained"
-                        sx={{
-                            padding: 2,
-                            color: '#fff',
-                            fontWeight: 500,
-                            fontSize: '15px'
-                        }}
+                    <a
+                        href={item.source_url}
+                        target="_blank"
                     >
-                        Перейти к курсу
-                    </Button>
+                        <Button
+                            color="secondary"
+                            variant="contained"
+                            sx={{
+                                padding: 2,
+                                color: '#fff',
+                                fontWeight: 500,
+                                fontSize: '15px'
+                            }}
+                        >
+                            Перейти к курсу
+                        </Button>
+                    </a>
                 </div>
             </div>
         </article>

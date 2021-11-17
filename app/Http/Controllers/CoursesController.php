@@ -11,8 +11,8 @@ class CoursesController extends Controller
 {
     /**
      * Фильтрация курсов
-     * 
-     * Пример запроса:         
+     *
+     * Пример запроса:
      * /api/courses?filter[language]=Русский&filter[programmingLanguage_id]=35
      */
     public function index(FilterRequest $request)
@@ -20,7 +20,7 @@ class CoursesController extends Controller
         $query = Course::where('status', 'PUBLISHED');
 
         $coursesQuery = QueryBuilder::for($query)
-            ->allowedFilters('language', 'programmingLanguage')
+            ->allowedFilters('language', 'programmingLanguage_id')
             ->paginate(8)
             ->appends(request()->query());
         return FitredCoursesResource::collection($coursesQuery);

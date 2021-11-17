@@ -1,6 +1,4 @@
 .filter {
-    &__container {
-        width: 300px;
-        flex-shrink: 0;
-    }
+    max-width: 260px;
+    width: 100%;
 }
