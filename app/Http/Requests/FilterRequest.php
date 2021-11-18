@@ -26,6 +26,7 @@ class FilterRequest extends FormRequest
         return [
             'programmingLanguage_id' => ['integer', 'exists:courses'],
             'language' => ['string', 'exists:courses'],
+            'title' => ['string'],
         ];
     }
 }
