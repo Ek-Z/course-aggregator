@@ -12,6 +12,7 @@ export const FILTER_FAILED = 'FILTER::FAILED';
 export const FILTER_STATE_CHANGED = 'FILTER::STATE_CHANGED';
 export const FILTER_SET_VALUE = 'FILTER::SET_VALUE';
 export const FILTER_SUBMIT = 'FILTER::SUBMIT';
+export const FILTER_CLEAR = 'FILTER::CLEAR';
 
 export const courseListOnload = createAction(COURSE_LIST_ONLOAD);
 export const courseListLoaded = createAction(COURSE_LIST_LOADED);
@@ -26,6 +27,7 @@ export const filterStateChanged = createAction(
 );
 export const setInputValue = createAction(FILTER_SET_VALUE);
 export const filterSubmit = createAction(FILTER_SUBMIT);
+export const filterClear = createAction(FILTER_CLEAR);
 
 export const getPublicCourseList = () => async dispatch => {
   dispatch(courseListOnload());
@@ -78,4 +80,10 @@ export const getSelectedFilters = (filters, inputValue) => async dispatch => {
   const filteredCourseList = await setFilterPath(selectedFilters);
 
   dispatch(courseListFiltered(filteredCourseList));
+};
+
+export const setFilterClear = filters => dispatch => {
+  const clearedFilters = setDefaultFilterState(filters);
+
+  dispatch(filterClear(clearedFilters));
 };

@@ -33728,9 +33728,10 @@ var InputSearch = function InputSearch() {
             variant: "contained",
             onClick: handleSubmit,
             sx: {
-              marginRight: '0'
+              marginRight: '0',
+              color: '#ffffff'
             },
-            children: "\u041D\u0430\u0439\u0442\u0438"
+            children: "\u041D\u0430\u0439\u0442\u0438 \u043A\u0443\u0440\u0441\u044B"
           })
         })
       }
@@ -33934,6 +33935,7 @@ __webpack_require__.r(__webpack_exports__);
 var Catalog = function Catalog() {
   var filteredList = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectFilteredList);
   var filteredListLength = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectFilteredListLength);
+  var programmingLanguages = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectProgrammingLanguages);
   var isFiltered = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectIsFiltered);
   var courseList = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectCourseList);
   var courseListLength = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectCourseListLength);
@@ -33941,6 +33943,11 @@ var Catalog = function Catalog() {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     (!courseListLength || !filteredListLength) && dispatch((0,_store_courseList_action__WEBPACK_IMPORTED_MODULE_5__.getPublicCourseList)());
   }, [dispatch, courseListLength, filteredListLength]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    return function () {
+      !!programmingLanguages && dispatch((0,_store_courseList_action__WEBPACK_IMPORTED_MODULE_5__.setFilterClear)(programmingLanguages));
+    };
+  }, []);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("section", {
     className: _Catalog_module_scss__WEBPACK_IMPORTED_MODULE_7__["default"].catalog,
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
@@ -34820,6 +34827,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "FILTER_STATE_CHANGED": () => (/* binding */ FILTER_STATE_CHANGED),
 /* harmony export */   "FILTER_SET_VALUE": () => (/* binding */ FILTER_SET_VALUE),
 /* harmony export */   "FILTER_SUBMIT": () => (/* binding */ FILTER_SUBMIT),
+/* harmony export */   "FILTER_CLEAR": () => (/* binding */ FILTER_CLEAR),
 /* harmony export */   "courseListOnload": () => (/* binding */ courseListOnload),
 /* harmony export */   "courseListLoaded": () => (/* binding */ courseListLoaded),
 /* harmony export */   "courseListFailed": () => (/* binding */ courseListFailed),
@@ -34830,11 +34838,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "filterStateChanged": () => (/* binding */ filterStateChanged),
 /* harmony export */   "setInputValue": () => (/* binding */ setInputValue),
 /* harmony export */   "filterSubmit": () => (/* binding */ filterSubmit),
+/* harmony export */   "filterClear": () => (/* binding */ filterClear),
 /* harmony export */   "getPublicCourseList": () => (/* binding */ getPublicCourseList),
 /* harmony export */   "getAdminCourseList": () => (/* binding */ getAdminCourseList),
 /* harmony export */   "getFilters": () => (/* binding */ getFilters),
 /* harmony export */   "changeFilterState": () => (/* binding */ changeFilterState),
-/* harmony export */   "getSelectedFilters": () => (/* binding */ getSelectedFilters)
+/* harmony export */   "getSelectedFilters": () => (/* binding */ getSelectedFilters),
+/* harmony export */   "setFilterClear": () => (/* binding */ setFilterClear)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
@@ -34866,6 +34876,7 @@ var FILTER_FAILED = 'FILTER::FAILED';
 var FILTER_STATE_CHANGED = 'FILTER::STATE_CHANGED';
 var FILTER_SET_VALUE = 'FILTER::SET_VALUE';
 var FILTER_SUBMIT = 'FILTER::SUBMIT';
+var FILTER_CLEAR = 'FILTER::CLEAR';
 var courseListOnload = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.createAction)(COURSE_LIST_ONLOAD);
 var courseListLoaded = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.createAction)(COURSE_LIST_LOADED);
 var courseListFailed = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.createAction)(COURSE_LIST_FAILED);
@@ -34883,6 +34894,7 @@ var filterStateChanged = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.create
 });
 var setInputValue = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.createAction)(FILTER_SET_VALUE);
 var filterSubmit = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.createAction)(FILTER_SUBMIT);
+var filterClear = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.createAction)(FILTER_CLEAR);
 var getPublicCourseList = function getPublicCourseList() {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(dispatch) {
@@ -35033,6 +35045,12 @@ var getSelectedFilters = function getSelectedFilters(filters, inputValue) {
     };
   }();
 };
+var setFilterClear = function setFilterClear(filters) {
+  return function (dispatch) {
+    var clearedFilters = (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.setDefaultFilterState)(filters);
+    dispatch(filterClear(clearedFilters));
+  };
+};
 
 /***/ }),
 
@@ -35110,6 +35128,10 @@ var courseListReducer = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.createR
   }).addCase(_action__WEBPACK_IMPORTED_MODULE_0__.filterStateChanged, function (state, _ref7) {
     var payload = _ref7.payload;
     state.filters.data[payload.title][payload.index].state = !state.filters.data[payload.title][payload.index].state;
+  }).addCase(_action__WEBPACK_IMPORTED_MODULE_0__.filterClear, function (state, _ref8) {
+    var payload = _ref8.payload;
+    state.filters.data['Языки программирования'] = payload;
+    state.isFiltered = false;
   }).addDefaultCase(function () {});
 });
 
@@ -35134,7 +35156,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "selectFilters": () => (/* binding */ selectFilters),
 /* harmony export */   "selectFiltersStatus": () => (/* binding */ selectFiltersStatus),
 /* harmony export */   "selectExactCourse": () => (/* binding */ selectExactCourse),
-/* harmony export */   "selectInputValue": () => (/* binding */ selectInputValue)
+/* harmony export */   "selectInputValue": () => (/* binding */ selectInputValue),
+/* harmony export */   "selectProgrammingLanguages": () => (/* binding */ selectProgrammingLanguages)
 /* harmony export */ });
 var selectCourseTitles = function selectCourseTitles(state) {
   return Object.keys(state.courseList.courseList[0]);
@@ -35172,6 +35195,9 @@ var selectExactCourse = function selectExactCourse(courseId) {
 };
 var selectInputValue = function selectInputValue(state) {
   return state.courseList.filters.inputValue;
+};
+var selectProgrammingLanguages = function selectProgrammingLanguages(state) {
+  return state.courseList.filters.data['Языки программирования'];
 };
 
 /***/ }),

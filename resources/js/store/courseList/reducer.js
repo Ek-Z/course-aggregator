@@ -2,7 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import {
   courseListFailed, courseListFiltered,
   courseListLoaded,
-  courseListOnload,
+  courseListOnload, filterClear,
   filterFailed, filterInit,
   filterLoaded, filterStateChanged, setInputValue,
 } from './action';
@@ -60,6 +60,10 @@ export const courseListReducer = createReducer(initialState, builder => {
     })
     .addCase(filterStateChanged, (state, { payload }) => {
       state.filters.data[payload.title][payload.index].state = !state.filters.data[payload.title][payload.index].state;
+    })
+    .addCase(filterClear, (state, { payload }) => {
+      state.filters.data['Языки программирования'] = payload;
+      state.isFiltered = false;
     })
     .addDefaultCase(() => {});
 });

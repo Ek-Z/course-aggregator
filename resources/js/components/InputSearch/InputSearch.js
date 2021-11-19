@@ -43,10 +43,11 @@ export const InputSearch = () => {
                                     variant="contained"
                                     onClick={handleSubmit}
                                     sx={{
-                                        marginRight: '0'
+                                        marginRight: '0',
+                                        color: '#ffffff'
                                     }}
                             >
-                                Найти
+                                Найти курсы
                             </Button>
                         </InputAdornment>
                     ),

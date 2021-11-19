@@ -4,17 +4,18 @@ import {
     selectCourseList,
     selectCourseListLength,
     selectFilteredList, selectFilteredListLength,
-    selectIsFiltered
+    selectIsFiltered, selectProgrammingLanguages
 } from '../../store/courseList/selectors';
 import { CourseList } from '../../components/CourseList/CourseList';
 import { CourseFilter } from '../../components/CourseFilter/CourseFilter';
-import { getPublicCourseList } from '../../store/courseList/action';
+import { getPublicCourseList, setFilterClear } from '../../store/courseList/action';
 import { InputSearch } from '../../components/InputSearch/InputSearch';
 import style from './Catalog.module.scss';
 
 export const Catalog = () => {
     const filteredList = useSelector(selectFilteredList);
     const filteredListLength = useSelector(selectFilteredListLength);
+    const programmingLanguages = useSelector(selectProgrammingLanguages);
     const isFiltered = useSelector(selectIsFiltered);
     const courseList = useSelector(selectCourseList);
     const courseListLength = useSelector(selectCourseListLength);
@@ -23,6 +24,12 @@ export const Catalog = () => {
     useEffect(() => {
         (!courseListLength || !filteredListLength) && dispatch(getPublicCourseList());
     }, [dispatch, courseListLength, filteredListLength]);
+
+    useEffect(() => {
+        return () => {
+            !!programmingLanguages && dispatch(setFilterClear(programmingLanguages));
+        };
+    }, []);
 
     return (
         <section className={style.catalog}>

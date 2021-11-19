@@ -9,3 +9,4 @@ export const selectFilters = state => state.courseList.filters.data;
 export const selectFiltersStatus = state => state.courseList.filters.status;
 export const selectExactCourse = courseId => state => state.courseList.courseList.find(course => course.id === +courseId);
 export const selectInputValue = state => state.courseList.filters.inputValue;
+export const selectProgrammingLanguages = state => state.courseList.filters.data['Языки программирования'];
