@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     selectCourseList,
     selectCourseListLength,
-    selectFilteredList, selectFilteredListLength, selectFilters,
-    selectFilterWords, selectIsFiltered
+    selectFilteredList, selectFilteredListLength,
+    selectIsFiltered
 } from '../../store/courseList/selectors';
 import { CourseList } from '../../components/CourseList/CourseList';
 import { CourseFilter } from '../../components/CourseFilter/CourseFilter';
@@ -13,7 +13,6 @@ import InputSearch from '../../components/InputSearch/InputSearch';
 import style from './Catalog.module.scss';
 
 export const Catalog = () => {
-    const filterWords = useSelector(selectFilterWords);
     const filteredList = useSelector(selectFilteredList);
     const filteredListLength = useSelector(selectFilteredListLength);
     const isFiltered = useSelector(selectIsFiltered);
