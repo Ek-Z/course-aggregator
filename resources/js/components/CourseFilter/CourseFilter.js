@@ -4,8 +4,8 @@ import { Button } from '@mui/material';
 import { getFilters, getSelectedFilters } from '../../store/courseList/action';
 import { selectFilters, selectFiltersStatus } from '../../store/courseList/selectors';
 import { Filters } from '../Filters/Filters';
+import { STATUSES } from '../../utils/statuses/statuses';
 import style from './CourseFilter.module.scss';
-import { STATUS_SUCCESS } from '../../utils/statuses/statuses';
 
 export const CourseFilter = () => {
     const filters = useSelector(selectFilters);
@@ -19,14 +19,14 @@ export const CourseFilter = () => {
     };
 
     React.useEffect(() => {
-        filterStatus !== STATUS_SUCCESS && dispatch(getFilters());
+        filterStatus !== STATUSES.SUCCESS && dispatch(getFilters());
     }, [dispatch]);
 
     return (
         <form action="#" className={style.filter} onSubmit={handleSubmit}>
-            {filterStatus === 'SUCCESS' && Object.entries(filters).map((filter, index) => filter ?
+            {filterStatus === STATUSES.SUCCESS && Object.entries(filters).map((filter, index) => filter ?
                 <Filters key={index} filterTitles={filter[0]} filterValues={filter[1]}/> :
-                null
+                <div>Пустой див</div>
             )}
             <Button
                 onClick={handleSubmit}
@@ -40,7 +40,7 @@ export const CourseFilter = () => {
                     marginTop: '16px'
                 }}
             >
-                Поиск
+                Применить
             </Button>
         </form>
     );

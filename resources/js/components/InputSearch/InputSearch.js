@@ -1,46 +1,57 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import InputAdornment from '@mui/material/InputAdornment';
-import TextField from '@mui/material/TextField';
-import { Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Button, TextField, InputAdornment } from '@mui/material';
+import { selectFilters } from '../../store/courseList/selectors';
+import { getSelectedFilters, setInputValue } from '../../store/courseList/action';
 import style from './InputSearch.module.scss';
 
-export default function InputSearch () {
+export const InputSearch = () => {
+    const [value, setValue] = React.useState('');
+    const filters = useSelector(selectFilters);
+    const dispatch = useDispatch();
+
+    const handleChange = evt => setValue(evt.target.value);
+
+    const handleSubmit = evt => {
+        evt.preventDefault();
+        value && dispatch(setInputValue(value.trim()));
+        dispatch(getSelectedFilters(filters, value.trim()));
+    };
+
+    React.useEffect(() => {
+        setValue('');
+
+        return () => {
+            setValue('');
+        };
+    }, []);
 
     return (
-        <Box
-            sx={{
-                width: '100%',
-                display: 'block',
-                margin: '0 auto 25px',
-            }}
-            noValidate
-            autoComplete="off"
-        >
+        <form onSubmit={handleSubmit} className={style.form}>
             <TextField
-                name="search"
-                value={''}
-                onChange={()=>{}}
+                autoFocus={true}
+                value={value}
+                onChange={handleChange}
                 className={style.inputSearch}
-                id="outlined-basic"
                 variant="outlined"
                 fullWidth={true}
-                onKeyPress={() => {}}
                 InputProps={{
                     endAdornment: (
                         <InputAdornment position="end" sx={{ height: '100%', margin: '0' }}>
-                            <Button type="button" color="secondary" variant="contained"
-                                    sx={{ marginRight: '0' }}>
-                                <Link to="/courses">
-                                    найти курсы
-                                </Link>
+                            <Button type="submit"
+                                    color="secondary"
+                                    variant="contained"
+                                    onClick={handleSubmit}
+                                    sx={{
+                                        marginRight: '0'
+                                    }}
+                            >
+                                Найти
                             </Button>
                         </InputAdornment>
                     ),
                 }}
             />
-
-        </Box>
+        </form>
     );
-}
+};

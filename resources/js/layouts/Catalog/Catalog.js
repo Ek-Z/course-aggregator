@@ -9,7 +9,7 @@ import {
 import { CourseList } from '../../components/CourseList/CourseList';
 import { CourseFilter } from '../../components/CourseFilter/CourseFilter';
 import { getPublicCourseList } from '../../store/courseList/action';
-import InputSearch from '../../components/InputSearch/InputSearch';
+import { InputSearch } from '../../components/InputSearch/InputSearch';
 import style from './Catalog.module.scss';
 
 export const Catalog = () => {
@@ -27,9 +27,7 @@ export const Catalog = () => {
     return (
         <section className={style.catalog}>
             <div className={`container ${style.wrap}`}>
-                <h2 className={style.title}>
-                    Список бесплатных курсов
-                </h2>
+                <h2 className={style.title}>Список бесплатных курсов</h2>
                 <InputSearch/>
                 <div className={style.list}>
                     <CourseFilter/>
