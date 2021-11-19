@@ -4,7 +4,6 @@ import { CourseList } from '../../components/CourseList/CourseList';
 import { selectBestCourses, selectCourseListLength } from '../../store/courseList/selectors';
 import { getPublicCourseList } from '../../store/courseList/action';
 import style from './Home.module.scss';
-import InputSearch from '../../components/InputSearch/InputSearch';
 
 export const Home = () => {
     const courseListLength = useSelector(selectCourseListLength);
@@ -23,7 +22,7 @@ export const Home = () => {
                 Агрегатор бесплатных курсов
                 <span>Мы собрали все бесплатные курсы по программированию</span>
             </h1>
-            <InputSearch className={style.input}/>
+            {/*<InputSearch className={style.input}/>*/}
             <CourseList list={bestCourseList}/>
         </div>
     );
