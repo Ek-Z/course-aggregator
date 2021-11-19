@@ -11,6 +11,8 @@ import { CourseFilter } from '../../components/CourseFilter/CourseFilter';
 import { getPublicCourseList, setFilterClear } from '../../store/courseList/action';
 import { InputSearch } from '../../components/InputSearch/InputSearch';
 import style from './Catalog.module.scss';
+import {getPagesOfCourseList} from "../../store/pages/action";
+import {selectCurrentPage} from "../../store/pages/selectors";
 
 export const Catalog = () => {
     const filteredList = useSelector(selectFilteredList);
@@ -19,7 +21,13 @@ export const Catalog = () => {
     const isFiltered = useSelector(selectIsFiltered);
     const courseList = useSelector(selectCourseList);
     const courseListLength = useSelector(selectCourseListLength);
+    const currentPage = useSelector(selectCurrentPage);
     const dispatch = useDispatch();
+
+
+    useEffect(() => {
+        dispatch(getPagesOfCourseList());
+    },[])
 
     useEffect(() => {
         (!courseListLength || !filteredListLength) && dispatch(getPublicCourseList());
