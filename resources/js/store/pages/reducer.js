@@ -1,9 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { STATUSES } from '../../utils/statuses/statuses';
 import {changePage, pagesLoaded} from "./action";
 
 const initialState = {
-  status: STATUSES.IDLE,
   currentPage:1,
   lastPage:1
 };
