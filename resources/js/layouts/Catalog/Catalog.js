@@ -11,8 +11,9 @@ import { CourseFilter } from '../../components/CourseFilter/CourseFilter';
 import { getPublicCourseList, setFilterClear } from '../../store/courseList/action';
 import { InputSearch } from '../../components/InputSearch/InputSearch';
 import style from './Catalog.module.scss';
-import {getPagesOfCourseList} from "../../store/pages/action";
-import {selectCurrentPage} from "../../store/pages/selectors";
+import {changePage, getPagesOfCourseList} from "../../store/pages/action";
+import {selectCurrentPage, selectLastPage} from "../../store/pages/selectors";
+import Pagination from "@mui/material/Pagination";
 
 export const Catalog = () => {
     const filteredList = useSelector(selectFilteredList);
@@ -22,15 +23,19 @@ export const Catalog = () => {
     const courseList = useSelector(selectCourseList);
     const courseListLength = useSelector(selectCourseListLength);
     const currentPage = useSelector(selectCurrentPage);
+    const lastPage = useSelector(selectLastPage)
     const dispatch = useDispatch();
-
 
     useEffect(() => {
         dispatch(getPagesOfCourseList());
     },[])
 
     useEffect(() => {
-        (!courseListLength || !filteredListLength) && dispatch(getPublicCourseList());
+        dispatch(getPublicCourseList(currentPage))
+    },[currentPage])
+
+    useEffect(() => {
+        (!courseListLength || !filteredListLength) && dispatch(getPublicCourseList(currentPage));
     }, [dispatch, courseListLength, filteredListLength]);
 
     useEffect(() => {
@@ -48,6 +53,12 @@ export const Catalog = () => {
                     <CourseFilter/>
                     {isFiltered ? <CourseList list={filteredList}/> : <CourseList list={courseList}/>}
                 </div>
+                <Pagination className={style.pagination}
+                            key={`button-${currentPage}`}
+                            count={lastPage}
+                            defaultPage={currentPage}
+                            onChange={(event, newPage) => dispatch(changePage(newPage))}
+                />
             </div>
         </section>
     );
