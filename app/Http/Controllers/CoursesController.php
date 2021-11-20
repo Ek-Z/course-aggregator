@@ -33,4 +33,17 @@ class CoursesController extends Controller
         $course = new FitredCoursesResource(Course::findOrFail($id));
         return $course;
     }
+    
+    /**
+     * Вывод последних добавленных курсов
+     */
+
+    public function newcourses()
+    {
+        $courses = Course::where('status', 'PUBLISHED')
+            ->orderBy('id', 'desc')
+            ->take(6)
+            ->get();
+        return FitredCoursesResource::collection($courses);
+    }
 }
