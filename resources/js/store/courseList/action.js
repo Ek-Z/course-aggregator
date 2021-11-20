@@ -29,11 +29,11 @@ export const setInputValue = createAction(FILTER_SET_VALUE);
 export const filterSubmit = createAction(FILTER_SUBMIT);
 export const filterClear = createAction(FILTER_CLEAR);
 
-export const getPublicCourseList = () => async dispatch => {
+export const getPublicCourseList = (currentPage) => async dispatch => {
   dispatch(courseListOnload());
 
   try {
-    const courseList = await fetchData(PUBLIC_COURSES_LIST_URL);
+    const courseList = await fetchData(`${PUBLIC_COURSES_LIST_URL}?page=${currentPage}`);
 
     dispatch(courseListLoaded(courseList));
   } catch (error) {

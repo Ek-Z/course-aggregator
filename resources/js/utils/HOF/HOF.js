@@ -12,6 +12,19 @@ export async function fetchData (url) {
         .then(json => json.data);
 }
 
+export async function fetchMeta (url) {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+        return new Error(`Error: ${response.statusText}`);
+    }
+
+    return await response
+        .json()
+        .then(json => json.meta);
+}
+
+
 export function setDefaultFilterState (filters) {
     let statefulFilters = [];
 

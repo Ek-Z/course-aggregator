@@ -4,13 +4,17 @@ import {
     selectCourseList,
     selectCourseListLength,
     selectFilteredList, selectFilteredListLength,
-    selectIsFiltered, selectProgrammingLanguages
+    selectIsFiltered, selectProgrammingLanguages, selectStatus
 } from '../../store/courseList/selectors';
 import { CourseList } from '../../components/CourseList/CourseList';
 import { CourseFilter } from '../../components/CourseFilter/CourseFilter';
 import { getPublicCourseList, setFilterClear } from '../../store/courseList/action';
 import { InputSearch } from '../../components/InputSearch/InputSearch';
 import style from './Catalog.module.scss';
+import {changePage, getPagesOfCourseList} from "../../store/pages/action";
+import {selectCurrentPage, selectLastPage} from "../../store/pages/selectors";
+import Pagination from "@mui/material/Pagination";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export const Catalog = () => {
     const filteredList = useSelector(selectFilteredList);
@@ -19,10 +23,21 @@ export const Catalog = () => {
     const isFiltered = useSelector(selectIsFiltered);
     const courseList = useSelector(selectCourseList);
     const courseListLength = useSelector(selectCourseListLength);
+    const currentPage = useSelector(selectCurrentPage);
+    const lastPage = useSelector(selectLastPage)
+    const pending = useSelector(selectStatus)
     const dispatch = useDispatch();
 
     useEffect(() => {
-        (!courseListLength || !filteredListLength) && dispatch(getPublicCourseList());
+        dispatch(getPagesOfCourseList());
+    },[])
+
+    useEffect(() => {
+        dispatch(getPublicCourseList(currentPage))
+    },[currentPage])
+
+    useEffect(() => {
+        (!courseListLength || !filteredListLength) && dispatch(getPublicCourseList(currentPage));
     }, [dispatch, courseListLength, filteredListLength]);
 
     useEffect(() => {
@@ -40,7 +55,19 @@ export const Catalog = () => {
                     <CourseFilter/>
                     {isFiltered ? <CourseList list={filteredList}/> : <CourseList list={courseList}/>}
                 </div>
+                <Pagination className={style.pagination}
+                            key={`button-${currentPage}`}
+                            count={lastPage}
+                            defaultPage={currentPage}
+                            onChange={(event, newPage) => dispatch(changePage(newPage))}
+                />
+                {pending==="REQUEST" &&
+                <div style={{position:'fixed', width:'100vh', height:'100vh', display:'flex', justifyContent:'center', alignItems:'center'}}>
+                    <CircularProgress color="secondary" style={{width:'80px', height:'80px'}}/>
+                </div>
+                }
             </div>
+
         </section>
     );
 };
