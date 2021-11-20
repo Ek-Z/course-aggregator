@@ -11,10 +11,11 @@ import { CourseFilter } from '../../components/CourseFilter/CourseFilter';
 import { getPublicCourseList, setFilterClear } from '../../store/courseList/action';
 import { InputSearch } from '../../components/InputSearch/InputSearch';
 import style from './Catalog.module.scss';
-import {changePage, getPagesOfCourseList} from "../../store/pages/action";
-import {selectCurrentPage, selectLastPage} from "../../store/pages/selectors";
-import Pagination from "@mui/material/Pagination";
-import CircularProgress from "@mui/material/CircularProgress";
+import { changePage, getPagesOfCourseList } from '../../store/pages/action';
+import { selectCurrentPage, selectLastPage } from '../../store/pages/selectors';
+import Pagination from '@mui/material/Pagination';
+import CircularProgress from '@mui/material/CircularProgress';
+import { STATUSES } from '../../utils/statuses/statuses';
 
 export const Catalog = () => {
     const filteredList = useSelector(selectFilteredList);
@@ -24,27 +25,27 @@ export const Catalog = () => {
     const courseList = useSelector(selectCourseList);
     const courseListLength = useSelector(selectCourseListLength);
     const currentPage = useSelector(selectCurrentPage);
-    const lastPage = useSelector(selectLastPage)
-    const pending = useSelector(selectStatus)
+    const lastPage = useSelector(selectLastPage);
+    const status = useSelector(selectStatus);
     const dispatch = useDispatch();
+
+    const handleChange = (event, newPage) => dispatch(changePage(newPage));
 
     useEffect(() => {
         dispatch(getPagesOfCourseList());
-    },[])
-
-    useEffect(() => {
-        dispatch(getPublicCourseList(currentPage))
-    },[currentPage])
-
-    useEffect(() => {
-        (!courseListLength || !filteredListLength) && dispatch(getPublicCourseList(currentPage));
-    }, [dispatch, courseListLength, filteredListLength]);
-
-    useEffect(() => {
+        console.log(programmingLanguages);
         return () => {
             !!programmingLanguages && dispatch(setFilterClear(programmingLanguages));
         };
     }, []);
+
+    useEffect(() => {
+        dispatch(getPublicCourseList(currentPage));
+    }, [dispatch, currentPage]);
+
+    useEffect(() => {
+        (!courseListLength || !filteredListLength) && dispatch(getPublicCourseList(currentPage));
+    }, [dispatch, courseListLength, filteredListLength]);
 
     return (
         <section className={style.catalog}>
@@ -53,19 +54,21 @@ export const Catalog = () => {
                 <InputSearch/>
                 <div className={style.list}>
                     <CourseFilter/>
-                    {isFiltered ? <CourseList list={filteredList}/> : <CourseList list={courseList}/>}
+                    {status === STATUSES.REQUEST ?
+                        <div className={style.loader_wrap}>
+                            <CircularProgress color="secondary" className={style.loader}/>
+                        </div> :
+                        <>
+                            {isFiltered ? <CourseList list={filteredList}/> : <CourseList list={courseList}/>}
+                        </>
+                    }
                 </div>
                 <Pagination className={style.pagination}
                             key={`button-${currentPage}`}
                             count={lastPage}
                             defaultPage={currentPage}
-                            onChange={(event, newPage) => dispatch(changePage(newPage))}
+                            onChange={handleChange}
                 />
-                {pending==="REQUEST" &&
-                <div style={{position:'fixed', width:'100vh', height:'100vh', display:'flex', justifyContent:'center', alignItems:'center'}}>
-                    <CircularProgress color="secondary" style={{width:'80px', height:'80px'}}/>
-                </div>
-                }
             </div>
 
         </section>

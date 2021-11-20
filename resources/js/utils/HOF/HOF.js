@@ -9,21 +9,8 @@ export async function fetchData (url) {
 
     return await response
         .json()
-        .then(json => json.data);
+        .then(json => ({ data: json.data, meta: json.meta }));
 }
-
-export async function fetchMeta (url) {
-    const response = await fetch(url);
-
-    if (!response.ok) {
-        return new Error(`Error: ${response.statusText}`);
-    }
-
-    return await response
-        .json()
-        .then(json => json.meta);
-}
-
 
 export function setDefaultFilterState (filters) {
     let statefulFilters = [];

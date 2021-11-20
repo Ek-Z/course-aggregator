@@ -35,7 +35,7 @@ export const getPublicCourseList = (currentPage) => async dispatch => {
   try {
     const courseList = await fetchData(`${PUBLIC_COURSES_LIST_URL}?page=${currentPage}`);
 
-    dispatch(courseListLoaded(courseList));
+    dispatch(courseListLoaded(courseList.data));
   } catch (error) {
     dispatch(courseListFailed(error));
   }
@@ -47,7 +47,7 @@ export const getAdminCourseList = () => async dispatch => {
   try {
     const courseList = await fetchData(ADMIN_COURSE_LIST_URL);
 
-    dispatch(courseListLoaded(courseList));
+    dispatch(courseListLoaded(courseList.data));
   } catch (error) {
     dispatch(courseListFailed(error));
   }
@@ -58,7 +58,7 @@ export const getFilters = () => async dispatch => {
 
   try {
     const filters = await fetchData('/api/programmingLanguages');
-    const statefulFilters = setDefaultFilterState(filters);
+    const statefulFilters = setDefaultFilterState(filters.data);
 
     dispatch(filterLoaded(statefulFilters));
   } catch (err) {
