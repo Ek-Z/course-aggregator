@@ -14,7 +14,7 @@ import style from './Catalog.module.scss';
 import { changePage, getPagesOfCourseList } from '../../store/pages/action';
 import { selectCurrentPage, selectLastPage } from '../../store/pages/selectors';
 import Pagination from '@mui/material/Pagination';
-import CircularProgress from '@mui/material/CircularProgress';
+import { ProgressLoader } from '../../components/ProgressLoader/ProgressLoader';
 import { STATUSES } from '../../utils/statuses/statuses';
 
 export const Catalog = () => {
@@ -33,19 +33,19 @@ export const Catalog = () => {
 
     useEffect(() => {
         dispatch(getPagesOfCourseList());
-        console.log(programmingLanguages);
+
         return () => {
             !!programmingLanguages && dispatch(setFilterClear(programmingLanguages));
         };
     }, []);
 
-    useEffect(() => {
+    /*useEffect(() => {
         dispatch(getPublicCourseList(currentPage));
-    }, [dispatch, currentPage]);
+    }, [dispatch, currentPage]);*/
 
     useEffect(() => {
         (!courseListLength || !filteredListLength) && dispatch(getPublicCourseList(currentPage));
-    }, [dispatch, courseListLength, filteredListLength]);
+    }, [dispatch, courseListLength, filteredListLength, currentPage]);
 
     return (
         <section className={style.catalog}>
@@ -55,9 +55,7 @@ export const Catalog = () => {
                 <div className={style.list}>
                     <CourseFilter/>
                     {status === STATUSES.REQUEST ?
-                        <div className={style.loader_wrap}>
-                            <CircularProgress color="secondary" className={style.loader}/>
-                        </div> :
+                        <ProgressLoader/> :
                         <>
                             {isFiltered ? <CourseList list={filteredList}/> : <CourseList list={courseList}/>}
                         </>

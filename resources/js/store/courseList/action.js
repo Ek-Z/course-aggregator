@@ -22,68 +22,80 @@ export const filterInit = createAction(FILTER_INIT);
 export const filterLoaded = createAction(FILTER_LOADED);
 export const filterFailed = createAction(FILTER_FAILED);
 export const filterStateChanged = createAction(
-  FILTER_STATE_CHANGED,
-  (index, title) => ({ payload: { index, title } })
+    FILTER_STATE_CHANGED,
+    (index, title) => ({ payload: { index, title } })
 );
 export const setInputValue = createAction(FILTER_SET_VALUE);
 export const filterSubmit = createAction(FILTER_SUBMIT);
 export const filterClear = createAction(FILTER_CLEAR);
 
+export const getLastCourses = () => async dispatch => {
+    dispatch(courseListOnload());
+
+    try {
+        const lastCourses = await fetchData('/api/newcourses');
+
+        dispatch(courseListLoaded(lastCourses.data));
+    } catch (err) {
+        dispatch(courseListFailed(err));
+    }
+};
+
 export const getPublicCourseList = (currentPage) => async dispatch => {
-  dispatch(courseListOnload());
+    dispatch(courseListOnload());
 
-  try {
-    const courseList = await fetchData(`${PUBLIC_COURSES_LIST_URL}?page=${currentPage}`);
+    try {
+        const courseList = await fetchData(`${PUBLIC_COURSES_LIST_URL}?page=${currentPage}`);
 
-    dispatch(courseListLoaded(courseList.data));
-  } catch (error) {
-    dispatch(courseListFailed(error));
-  }
+        dispatch(courseListLoaded(courseList.data));
+    } catch (error) {
+        dispatch(courseListFailed(error));
+    }
 };
 
 export const getAdminCourseList = () => async dispatch => {
-  dispatch(courseListOnload());
+    dispatch(courseListOnload());
 
-  try {
-    const courseList = await fetchData(ADMIN_COURSE_LIST_URL);
+    try {
+        const courseList = await fetchData(ADMIN_COURSE_LIST_URL);
 
-    dispatch(courseListLoaded(courseList.data));
-  } catch (error) {
-    dispatch(courseListFailed(error));
-  }
+        dispatch(courseListLoaded(courseList.data));
+    } catch (error) {
+        dispatch(courseListFailed(error));
+    }
 };
 
 export const getFilters = () => async dispatch => {
-  dispatch(filterInit());
+    dispatch(filterInit());
 
-  try {
-    const filters = await fetchData('/api/programmingLanguages');
-    const statefulFilters = setDefaultFilterState(filters.data);
+    try {
+        const filters = await fetchData('/api/programmingLanguages');
+        const statefulFilters = setDefaultFilterState(filters.data);
 
-    dispatch(filterLoaded(statefulFilters));
-  } catch (err) {
-    dispatch(filterFailed(err));
-  }
+        dispatch(filterLoaded(statefulFilters));
+    } catch (err) {
+        dispatch(filterFailed(err));
+    }
 };
 
 export const changeFilterState = (filterIndex, filterTitle) => dispatch => {
-  dispatch(filterStateChanged(filterIndex, filterTitle));
+    dispatch(filterStateChanged(filterIndex, filterTitle));
 };
 
 export const getSelectedFilters = (filters, inputValue) => async dispatch => {
-  dispatch(filterSubmit());
+    dispatch(filterSubmit());
 
-  let selectedFilters = checkFilterState(filters);
+    let selectedFilters = checkFilterState(filters);
 
-  if (inputValue) selectedFilters = { ...selectedFilters, 'Заголовок': inputValue };
+    if (inputValue) selectedFilters = { ...selectedFilters, 'Заголовок': inputValue };
 
-  const filteredCourseList = await setFilterPath(selectedFilters);
+    const filteredCourseList = await setFilterPath(selectedFilters);
 
-  dispatch(courseListFiltered(filteredCourseList));
+    dispatch(courseListFiltered(filteredCourseList));
 };
 
 export const setFilterClear = filters => dispatch => {
-  const clearedFilters = setDefaultFilterState(filters);
+    const clearedFilters = setDefaultFilterState(filters);
 
-  dispatch(filterClear(clearedFilters));
+    dispatch(filterClear(clearedFilters));
 };

@@ -35024,6 +35024,35 @@ var InputSearch = function InputSearch() {
 
 /***/ }),
 
+/***/ "./resources/js/components/ProgressLoader/ProgressLoader.js":
+/*!******************************************************************!*\
+  !*** ./resources/js/components/ProgressLoader/ProgressLoader.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ProgressLoader": () => (/* binding */ ProgressLoader)
+/* harmony export */ });
+/* harmony import */ var _mui_material_CircularProgress__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @mui/material/CircularProgress */ "./node_modules/@mui/material/CircularProgress/CircularProgress.js");
+/* harmony import */ var _ProgressLoader_module_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProgressLoader.module.scss */ "./resources/js/components/ProgressLoader/ProgressLoader.module.scss");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+var ProgressLoader = function ProgressLoader() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    className: _ProgressLoader_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].loader_wrap,
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_mui_material_CircularProgress__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      color: "secondary",
+      className: _ProgressLoader_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].loader
+    })
+  });
+};
+
+/***/ }),
+
 /***/ "./resources/js/components/Router/Router.js":
 /*!**************************************************!*\
   !*** ./resources/js/components/Router/Router.js ***!
@@ -35207,9 +35236,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_pages_action__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../store/pages/action */ "./resources/js/store/pages/action.js");
 /* harmony import */ var _store_pages_selectors__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../store/pages/selectors */ "./resources/js/store/pages/selectors.js");
 /* harmony import */ var _mui_material_Pagination__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/material/Pagination */ "./node_modules/@mui/material/Pagination/Pagination.js");
-/* harmony import */ var _mui_material_CircularProgress__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material/CircularProgress */ "./node_modules/@mui/material/CircularProgress/CircularProgress.js");
-/* harmony import */ var _utils_statuses_statuses__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../utils/statuses/statuses */ "./resources/js/utils/statuses/statuses.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _components_ProgressLoader_ProgressLoader__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../components/ProgressLoader/ProgressLoader */ "./resources/js/components/ProgressLoader/ProgressLoader.js");
+/* harmony import */ var _utils_statuses_statuses__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../utils/statuses/statuses */ "./resources/js/utils/statuses/statuses.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
@@ -35244,40 +35273,34 @@ var Catalog = function Catalog() {
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     dispatch((0,_store_pages_action__WEBPACK_IMPORTED_MODULE_8__.getPagesOfCourseList)());
-    console.log(programmingLanguages);
     return function () {
       !!programmingLanguages && dispatch((0,_store_courseList_action__WEBPACK_IMPORTED_MODULE_5__.setFilterClear)(programmingLanguages));
     };
   }, []);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    dispatch((0,_store_courseList_action__WEBPACK_IMPORTED_MODULE_5__.getPublicCourseList)(currentPage));
-  }, [dispatch, currentPage]);
+  /*useEffect(() => {
+      dispatch(getPublicCourseList(currentPage));
+  }, [dispatch, currentPage]);*/
+
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     (!courseListLength || !filteredListLength) && dispatch((0,_store_courseList_action__WEBPACK_IMPORTED_MODULE_5__.getPublicCourseList)(currentPage));
-  }, [dispatch, courseListLength, filteredListLength]);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("section", {
+  }, [dispatch, courseListLength, filteredListLength, currentPage]);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("section", {
     className: _Catalog_module_scss__WEBPACK_IMPORTED_MODULE_7__["default"].catalog,
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
       className: "container ".concat(_Catalog_module_scss__WEBPACK_IMPORTED_MODULE_7__["default"].wrap),
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("h2", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("h2", {
         className: _Catalog_module_scss__WEBPACK_IMPORTED_MODULE_7__["default"].title,
         children: "\u0421\u043F\u0438\u0441\u043E\u043A \u0431\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u044B\u0445 \u043A\u0443\u0440\u0441\u043E\u0432"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_InputSearch_InputSearch__WEBPACK_IMPORTED_MODULE_6__.InputSearch, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_InputSearch_InputSearch__WEBPACK_IMPORTED_MODULE_6__.InputSearch, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
         className: _Catalog_module_scss__WEBPACK_IMPORTED_MODULE_7__["default"].list,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_CourseFilter_CourseFilter__WEBPACK_IMPORTED_MODULE_4__.CourseFilter, {}), status === _utils_statuses_statuses__WEBPACK_IMPORTED_MODULE_10__.STATUSES.REQUEST ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
-          className: _Catalog_module_scss__WEBPACK_IMPORTED_MODULE_7__["default"].loader_wrap,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_CircularProgress__WEBPACK_IMPORTED_MODULE_12__["default"], {
-            color: "secondary",
-            className: _Catalog_module_scss__WEBPACK_IMPORTED_MODULE_7__["default"].loader
-          })
-        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.Fragment, {
-          children: isFiltered ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_CourseList_CourseList__WEBPACK_IMPORTED_MODULE_3__.CourseList, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_CourseFilter_CourseFilter__WEBPACK_IMPORTED_MODULE_4__.CourseFilter, {}), status === _utils_statuses_statuses__WEBPACK_IMPORTED_MODULE_11__.STATUSES.REQUEST ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_ProgressLoader_ProgressLoader__WEBPACK_IMPORTED_MODULE_10__.ProgressLoader, {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.Fragment, {
+          children: isFiltered ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_CourseList_CourseList__WEBPACK_IMPORTED_MODULE_3__.CourseList, {
             list: filteredList
-          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_CourseList_CourseList__WEBPACK_IMPORTED_MODULE_3__.CourseList, {
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_CourseList_CourseList__WEBPACK_IMPORTED_MODULE_3__.CourseList, {
             list: courseList
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material_Pagination__WEBPACK_IMPORTED_MODULE_13__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Pagination__WEBPACK_IMPORTED_MODULE_13__["default"], {
         className: _Catalog_module_scss__WEBPACK_IMPORTED_MODULE_7__["default"].pagination,
         count: lastPage,
         defaultPage: currentPage,
@@ -35686,7 +35709,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_courseList_selectors__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../store/courseList/selectors */ "./resources/js/store/courseList/selectors.js");
 /* harmony import */ var _store_courseList_action__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../store/courseList/action */ "./resources/js/store/courseList/action.js");
 /* harmony import */ var _Home_module_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Home.module.scss */ "./resources/js/layouts/Home/Home.module.scss");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _utils_statuses_statuses__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../utils/statuses/statuses */ "./resources/js/utils/statuses/statuses.js");
+/* harmony import */ var _components_ProgressLoader_ProgressLoader__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../components/ProgressLoader/ProgressLoader */ "./resources/js/components/ProgressLoader/ProgressLoader.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
 
 
 
@@ -35696,22 +35723,26 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var Home = function Home() {
+  var courseList = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_3__.selectCourseList);
   var courseListLength = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_3__.selectCourseListLength);
-  var bestCourseList = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_3__.selectBestCourses);
+  var status = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_3__.selectStatus);
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    //TODO: добавить проверку на админа
-    !courseListLength && dispatch((0,_store_courseList_action__WEBPACK_IMPORTED_MODULE_4__.getPublicCourseList)()); // dispatch(getAdminCourseList());
+    if (!courseListLength) {
+      dispatch((0,_store_courseList_action__WEBPACK_IMPORTED_MODULE_4__.getLastCourses)());
+    } else {
+      courseListLength > 6 && dispatch((0,_store_courseList_action__WEBPACK_IMPORTED_MODULE_4__.getLastCourses)());
+    }
   }, [dispatch, courseListLength]);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
     className: "container",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("h1", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("h1", {
       className: _Home_module_scss__WEBPACK_IMPORTED_MODULE_5__["default"].title,
-      children: ["\u0410\u0433\u0440\u0435\u0433\u0430\u0442\u043E\u0440 \u0431\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u044B\u0445 \u043A\u0443\u0440\u0441\u043E\u0432", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+      children: ["\u0410\u0433\u0440\u0435\u0433\u0430\u0442\u043E\u0440 \u0431\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u044B\u0445 \u043A\u0443\u0440\u0441\u043E\u0432", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
         children: "\u041C\u044B \u0441\u043E\u0431\u0440\u0430\u043B\u0438 \u0432\u0441\u0435 \u0431\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u044B\u0435 \u043A\u0443\u0440\u0441\u044B \u043F\u043E \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044E"
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_CourseList_CourseList__WEBPACK_IMPORTED_MODULE_2__.CourseList, {
-      list: bestCourseList
+    }), status === _utils_statuses_statuses__WEBPACK_IMPORTED_MODULE_6__.STATUSES.REQUEST ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_ProgressLoader_ProgressLoader__WEBPACK_IMPORTED_MODULE_7__.ProgressLoader, {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_CourseList_CourseList__WEBPACK_IMPORTED_MODULE_2__.CourseList, {
+      list: courseList
     })]
   });
 };
@@ -36159,6 +36190,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "setInputValue": () => (/* binding */ setInputValue),
 /* harmony export */   "filterSubmit": () => (/* binding */ filterSubmit),
 /* harmony export */   "filterClear": () => (/* binding */ filterClear),
+/* harmony export */   "getLastCourses": () => (/* binding */ getLastCourses),
 /* harmony export */   "getPublicCourseList": () => (/* binding */ getPublicCourseList),
 /* harmony export */   "getAdminCourseList": () => (/* binding */ getAdminCourseList),
 /* harmony export */   "getFilters": () => (/* binding */ getFilters),
@@ -36215,10 +36247,10 @@ var filterStateChanged = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.create
 var setInputValue = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.createAction)(FILTER_SET_VALUE);
 var filterSubmit = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.createAction)(FILTER_SUBMIT);
 var filterClear = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.createAction)(FILTER_CLEAR);
-var getPublicCourseList = function getPublicCourseList(currentPage) {
+var getLastCourses = function getLastCourses() {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(dispatch) {
-      var courseList;
+      var lastCourses;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -36226,11 +36258,11 @@ var getPublicCourseList = function getPublicCourseList(currentPage) {
               dispatch(courseListOnload());
               _context.prev = 1;
               _context.next = 4;
-              return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.fetchData)("".concat(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.PUBLIC_COURSES_LIST_URL, "?page=").concat(currentPage));
+              return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.fetchData)('/api/newcourses');
 
             case 4:
-              courseList = _context.sent;
-              dispatch(courseListLoaded(courseList.data));
+              lastCourses = _context.sent;
+              dispatch(courseListLoaded(lastCourses.data));
               _context.next = 11;
               break;
 
@@ -36252,7 +36284,7 @@ var getPublicCourseList = function getPublicCourseList(currentPage) {
     };
   }();
 };
-var getAdminCourseList = function getAdminCourseList() {
+var getPublicCourseList = function getPublicCourseList(currentPage) {
   return /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(dispatch) {
       var courseList;
@@ -36263,7 +36295,7 @@ var getAdminCourseList = function getAdminCourseList() {
               dispatch(courseListOnload());
               _context2.prev = 1;
               _context2.next = 4;
-              return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.fetchData)(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.ADMIN_COURSE_LIST_URL);
+              return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.fetchData)("".concat(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.PUBLIC_COURSES_LIST_URL, "?page=").concat(currentPage));
 
             case 4:
               courseList = _context2.sent;
@@ -36289,41 +36321,78 @@ var getAdminCourseList = function getAdminCourseList() {
     };
   }();
 };
-var getFilters = function getFilters() {
+var getAdminCourseList = function getAdminCourseList() {
   return /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(dispatch) {
-      var filters, statefulFilters;
+      var courseList;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              dispatch(filterInit());
+              dispatch(courseListOnload());
               _context3.prev = 1;
               _context3.next = 4;
-              return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.fetchData)('/api/programmingLanguages');
+              return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.fetchData)(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.ADMIN_COURSE_LIST_URL);
 
             case 4:
-              filters = _context3.sent;
-              statefulFilters = (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.setDefaultFilterState)(filters.data);
-              dispatch(filterLoaded(statefulFilters));
-              _context3.next = 12;
+              courseList = _context3.sent;
+              dispatch(courseListLoaded(courseList.data));
+              _context3.next = 11;
               break;
 
-            case 9:
-              _context3.prev = 9;
+            case 8:
+              _context3.prev = 8;
               _context3.t0 = _context3["catch"](1);
-              dispatch(filterFailed(_context3.t0));
+              dispatch(courseListFailed(_context3.t0));
 
-            case 12:
+            case 11:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, null, [[1, 9]]);
+      }, _callee3, null, [[1, 8]]);
     }));
 
     return function (_x3) {
       return _ref3.apply(this, arguments);
+    };
+  }();
+};
+var getFilters = function getFilters() {
+  return /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(dispatch) {
+      var filters, statefulFilters;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              dispatch(filterInit());
+              _context4.prev = 1;
+              _context4.next = 4;
+              return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.fetchData)('/api/programmingLanguages');
+
+            case 4:
+              filters = _context4.sent;
+              statefulFilters = (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.setDefaultFilterState)(filters.data);
+              dispatch(filterLoaded(statefulFilters));
+              _context4.next = 12;
+              break;
+
+            case 9:
+              _context4.prev = 9;
+              _context4.t0 = _context4["catch"](1);
+              dispatch(filterFailed(_context4.t0));
+
+            case 12:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[1, 9]]);
+    }));
+
+    return function (_x4) {
+      return _ref4.apply(this, arguments);
     };
   }();
 };
@@ -36334,34 +36403,34 @@ var changeFilterState = function changeFilterState(filterIndex, filterTitle) {
 };
 var getSelectedFilters = function getSelectedFilters(filters, inputValue) {
   return /*#__PURE__*/function () {
-    var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(dispatch) {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(dispatch) {
       var selectedFilters, filteredCourseList;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
         while (1) {
-          switch (_context4.prev = _context4.next) {
+          switch (_context5.prev = _context5.next) {
             case 0:
               dispatch(filterSubmit());
               selectedFilters = (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.checkFilterState)(filters);
               if (inputValue) selectedFilters = _objectSpread(_objectSpread({}, selectedFilters), {}, {
                 'Заголовок': inputValue
               });
-              _context4.next = 5;
+              _context5.next = 5;
               return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.setFilterPath)(selectedFilters);
 
             case 5:
-              filteredCourseList = _context4.sent;
+              filteredCourseList = _context5.sent;
               dispatch(courseListFiltered(filteredCourseList));
 
             case 7:
             case "end":
-              return _context4.stop();
+              return _context5.stop();
           }
         }
-      }, _callee4);
+      }, _callee5);
     }));
 
-    return function (_x4) {
-      return _ref4.apply(this, arguments);
+    return function (_x5) {
+      return _ref5.apply(this, arguments);
     };
   }();
 };
@@ -37399,6 +37468,34 @@ ___CSS_LOADER_EXPORT___.locals = {
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[3]!./resources/js/components/ProgressLoader/ProgressLoader.module.scss":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[3]!./resources/js/components/ProgressLoader/ProgressLoader.module.scss ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "._305DjrhqJb4XWAcyZM05Uu {\n  width: 100px;\n  height: 100px;\n}\n._3QNasR26GDbPYyi7hLe9cl {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin: 0 auto;\n}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {
+	"loader": "_305DjrhqJb4XWAcyZM05Uu",
+	"loader_wrap": "_3QNasR26GDbPYyi7hLe9cl"
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[3]!./resources/js/components/Router/Router.module.scss":
 /*!*************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[3]!./resources/js/components/Router/Router.module.scss ***!
@@ -37477,15 +37574,13 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "._28gJ_4r6wM75y4cQ3HFyum {\n  padding-top: 20px;\n  display: flex;\n  flex-direction: column;\n}\n\n._1gQ7vVz0Y3yRosXCeqj1fl {\n  text-align: center;\n  padding-bottom: 30px;\n  font-size: 32px;\n}\n\n._21tKxAC7J6FNId2S6iZqZC {\n  display: flex;\n}\n\n._2bAPrxcaEMpRfnj6wQ5Dn6 {\n  width: 50%;\n  margin: auto auto 30px;\n  justify-self: flex-end;\n  display: block;\n}\n._2bAPrxcaEMpRfnj6wQ5Dn6 ul {\n  justify-content: center;\n  margin: 10px 0;\n}\n\n._3nYGpCjo45UJT0EpMySrTj {\n  width: 100px;\n  height: 100px;\n}\n._2I9K5fE0TO5Rby_6-mOglC {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin: 0 auto;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "._28gJ_4r6wM75y4cQ3HFyum {\n  padding-top: 20px;\n  display: flex;\n  flex-direction: column;\n}\n\n._1gQ7vVz0Y3yRosXCeqj1fl {\n  text-align: center;\n  padding-bottom: 30px;\n  font-size: 32px;\n}\n\n._21tKxAC7J6FNId2S6iZqZC {\n  display: flex;\n}\n\n._2bAPrxcaEMpRfnj6wQ5Dn6 {\n  width: 50%;\n  margin: auto auto 30px;\n  justify-self: flex-end;\n  display: block;\n}\n._2bAPrxcaEMpRfnj6wQ5Dn6 ul {\n  justify-content: center;\n  margin: 10px 0;\n}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"wrap": "_28gJ_4r6wM75y4cQ3HFyum",
 	"title": "_1gQ7vVz0Y3yRosXCeqj1fl",
 	"list": "_21tKxAC7J6FNId2S6iZqZC",
-	"pagination": "_2bAPrxcaEMpRfnj6wQ5Dn6",
-	"loader": "_3nYGpCjo45UJT0EpMySrTj",
-	"loader_wrap": "_2I9K5fE0TO5Rby_6-mOglC"
+	"pagination": "_2bAPrxcaEMpRfnj6wQ5Dn6"
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -78931,6 +79026,36 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_InputSearch_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ "./resources/js/components/ProgressLoader/ProgressLoader.module.scss":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/ProgressLoader/ProgressLoader.module.scss ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_ProgressLoader_module_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!../../../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!../../../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[3]!./ProgressLoader.module.scss */ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[3]!./resources/js/components/ProgressLoader/ProgressLoader.module.scss");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_ProgressLoader_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_ProgressLoader_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
