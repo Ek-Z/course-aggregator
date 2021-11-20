@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     selectCourseList,
     selectCourseListLength,
-    selectFilteredList, selectFilteredListLength,
-    selectIsFiltered, selectProgrammingLanguages, selectStatus
+ selectProgrammingLanguages, selectStatus
 } from '../../store/courseList/selectors';
 import { CourseList } from '../../components/CourseList/CourseList';
 import { CourseFilter } from '../../components/CourseFilter/CourseFilter';
@@ -18,10 +17,7 @@ import { ProgressLoader } from '../../components/ProgressLoader/ProgressLoader';
 import { STATUSES } from '../../utils/statuses/statuses';
 
 export const Catalog = () => {
-    const filteredList = useSelector(selectFilteredList);
-    const filteredListLength = useSelector(selectFilteredListLength);
     const programmingLanguages = useSelector(selectProgrammingLanguages);
-    const isFiltered = useSelector(selectIsFiltered);
     const courseList = useSelector(selectCourseList);
     const courseListLength = useSelector(selectCourseListLength);
     const currentPage = useSelector(selectCurrentPage);
@@ -39,13 +35,13 @@ export const Catalog = () => {
         };
     }, []);
 
-    /*useEffect(() => {
+    useEffect(() => {
         dispatch(getPublicCourseList(currentPage));
-    }, [dispatch, currentPage]);*/
+    }, [dispatch, currentPage]);
 
     useEffect(() => {
-        (!courseListLength || !filteredListLength) && dispatch(getPublicCourseList(currentPage));
-    }, [dispatch, courseListLength, filteredListLength, currentPage]);
+        !courseListLength && dispatch(getPublicCourseList(currentPage));
+    }, [dispatch, courseListLength, currentPage]);
 
     return (
         <section className={style.catalog}>
@@ -56,9 +52,7 @@ export const Catalog = () => {
                     <CourseFilter/>
                     {status === STATUSES.REQUEST ?
                         <ProgressLoader/> :
-                        <>
-                            {isFiltered ? <CourseList list={filteredList}/> : <CourseList list={courseList}/>}
-                        </>
+                        <CourseList list={courseList}/>
                     }
                 </div>
                 <Pagination className={style.pagination}

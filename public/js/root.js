@@ -35254,12 +35254,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var Catalog = function Catalog() {
-  var filteredList = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectFilteredList);
-  var filteredListLength = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectFilteredListLength);
   var programmingLanguages = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectProgrammingLanguages);
-  var isFiltered = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectIsFiltered);
   var courseList = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectCourseList);
   var courseListLength = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectCourseListLength);
   var currentPage = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_pages_selectors__WEBPACK_IMPORTED_MODULE_9__.selectCurrentPage);
@@ -35277,13 +35273,12 @@ var Catalog = function Catalog() {
       !!programmingLanguages && dispatch((0,_store_courseList_action__WEBPACK_IMPORTED_MODULE_5__.setFilterClear)(programmingLanguages));
     };
   }, []);
-  /*useEffect(() => {
-      dispatch(getPublicCourseList(currentPage));
-  }, [dispatch, currentPage]);*/
-
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    (!courseListLength || !filteredListLength) && dispatch((0,_store_courseList_action__WEBPACK_IMPORTED_MODULE_5__.getPublicCourseList)(currentPage));
-  }, [dispatch, courseListLength, filteredListLength, currentPage]);
+    dispatch((0,_store_courseList_action__WEBPACK_IMPORTED_MODULE_5__.getPublicCourseList)(currentPage));
+  }, [dispatch, currentPage]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    !courseListLength && dispatch((0,_store_courseList_action__WEBPACK_IMPORTED_MODULE_5__.getPublicCourseList)(currentPage));
+  }, [dispatch, courseListLength, currentPage]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("section", {
     className: _Catalog_module_scss__WEBPACK_IMPORTED_MODULE_7__["default"].catalog,
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
@@ -35293,12 +35288,8 @@ var Catalog = function Catalog() {
         children: "\u0421\u043F\u0438\u0441\u043E\u043A \u0431\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u044B\u0445 \u043A\u0443\u0440\u0441\u043E\u0432"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_InputSearch_InputSearch__WEBPACK_IMPORTED_MODULE_6__.InputSearch, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
         className: _Catalog_module_scss__WEBPACK_IMPORTED_MODULE_7__["default"].list,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_CourseFilter_CourseFilter__WEBPACK_IMPORTED_MODULE_4__.CourseFilter, {}), status === _utils_statuses_statuses__WEBPACK_IMPORTED_MODULE_11__.STATUSES.REQUEST ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_ProgressLoader_ProgressLoader__WEBPACK_IMPORTED_MODULE_10__.ProgressLoader, {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.Fragment, {
-          children: isFiltered ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_CourseList_CourseList__WEBPACK_IMPORTED_MODULE_3__.CourseList, {
-            list: filteredList
-          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_CourseList_CourseList__WEBPACK_IMPORTED_MODULE_3__.CourseList, {
-            list: courseList
-          })
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_CourseFilter_CourseFilter__WEBPACK_IMPORTED_MODULE_4__.CourseFilter, {}), status === _utils_statuses_statuses__WEBPACK_IMPORTED_MODULE_11__.STATUSES.REQUEST ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_ProgressLoader_ProgressLoader__WEBPACK_IMPORTED_MODULE_10__.ProgressLoader, {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_CourseList_CourseList__WEBPACK_IMPORTED_MODULE_3__.CourseList, {
+          list: courseList
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_mui_material_Pagination__WEBPACK_IMPORTED_MODULE_13__["default"], {
         className: _Catalog_module_scss__WEBPACK_IMPORTED_MODULE_7__["default"].pagination,
@@ -36499,7 +36490,7 @@ var courseListReducer = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.createR
     state.error = payload;
   }).addCase(_action__WEBPACK_IMPORTED_MODULE_0__.courseListFiltered, function (state, _ref3) {
     var payload = _ref3.payload;
-    state.filteredList = payload;
+    state.courseList = payload;
     state.isFiltered = true;
   }).addCase(_action__WEBPACK_IMPORTED_MODULE_0__.filterInit, function (state) {
     state.filters.status = _utils_statuses_statuses__WEBPACK_IMPORTED_MODULE_1__.STATUSES.REQUEST;

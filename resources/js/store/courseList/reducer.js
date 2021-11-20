@@ -41,7 +41,7 @@ export const courseListReducer = createReducer(initialState, builder => {
       state.error = payload;
     })
     .addCase(courseListFiltered, (state, { payload }) => {
-      state.filteredList = payload;
+      state.courseList = payload;
       state.isFiltered = true;
     })
     .addCase(filterInit, state => {
