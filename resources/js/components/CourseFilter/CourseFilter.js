@@ -26,7 +26,7 @@ export const CourseFilter = () => {
         <form action="#" className={style.filter} onSubmit={handleSubmit}>
             {filterStatus === STATUSES.SUCCESS && Object.entries(filters).map((filter, index) => filter ?
                 <Filters key={index} filterTitles={filter[0]} filterValues={filter[1]}/> :
-                <div>Пустой див</div>
+                <div>Ошибка</div>
             )}
             <Button
                 onClick={handleSubmit}

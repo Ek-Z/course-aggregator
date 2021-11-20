@@ -91,7 +91,7 @@ export const getSelectedFilters = (filters, inputValue) => async dispatch => {
 
     const filteredCourseList = await setFilterPath(selectedFilters);
 
-    dispatch(courseListFiltered(filteredCourseList));
+    dispatch(courseListFiltered(filteredCourseList.data));
 };
 
 export const setFilterClear = filters => dispatch => {

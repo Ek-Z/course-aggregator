@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Pagination } from '@mui/material';
 import {
     selectCourseList,
     selectCourseListLength,
- selectProgrammingLanguages, selectStatus
+    selectProgrammingLanguages, selectStatus
 } from '../../store/courseList/selectors';
 import { CourseList } from '../../components/CourseList/CourseList';
 import { CourseFilter } from '../../components/CourseFilter/CourseFilter';
@@ -12,7 +13,6 @@ import { InputSearch } from '../../components/InputSearch/InputSearch';
 import style from './Catalog.module.scss';
 import { changePage, getPagesOfCourseList } from '../../store/pages/action';
 import { selectCurrentPage, selectLastPage } from '../../store/pages/selectors';
-import Pagination from '@mui/material/Pagination';
 import { ProgressLoader } from '../../components/ProgressLoader/ProgressLoader';
 import { STATUSES } from '../../utils/statuses/statuses';
 
@@ -62,7 +62,6 @@ export const Catalog = () => {
                             onChange={handleChange}
                 />
             </div>
-
         </section>
     );
 };
