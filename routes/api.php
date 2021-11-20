@@ -53,6 +53,8 @@ Route::group(['prefix' => 'courses', 'as' => 'courses.'], function () {
         ->name('show');
 });
 
+Route::get('newcourses', [CoursesController::class, 'newcourses']);
+
 Route::get('/programmingLanguages', [ProgrammingLanguagesController::class, 'index'])
     ->name('programmingLanguages.index');
 
