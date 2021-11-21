@@ -9,6 +9,7 @@ import { CourseCard } from '../CourseCard/CourseCard';
 import { Home } from '../../layouts/Home/Home';
 import { Footer } from '../../layouts/Footer/Footer';
 import style from './Router.module.scss';
+import { AddCourse } from '../AddCourse/AddCourse';
 
 export const Router = () => {
     return (
@@ -21,6 +22,7 @@ export const Router = () => {
                         <Route exact={true} path="/courses" component={Catalog}/>
                         <Route exact={true} path="/course/:courseId?" component={CourseCard}/>
                         <Route exact={true} path="/admin" component={AdminPanel}/>
+                        <Route exact={true} path="/admin/addCourse" component={AddCourse}/>
                         <Route exact={true} path="/signIn" component={LoginPage}/>
                         <Route exact={true} path="/signUp" component={RegistrationPage}/>
                     </Switch>
