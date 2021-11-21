@@ -9,7 +9,7 @@ export async function fetchData (url) {
 
     return await response
         .json()
-        .then(json => json.data);
+        .then(json => ({ data: json.data, meta: json.meta }));
 }
 
 export function setDefaultFilterState (filters) {
@@ -42,18 +42,27 @@ export async function setFilterPath (selectedFilters) {
         let languages = [];
         let programmingLanguages = [];
 
-        if (selectedFiltersKey === 'Языки курсов') {
-            for (const language of selectedFilters[selectedFiltersKey]) {
-                languages = [...languages, language.title];
-            }
-            filterPath = [...filterPath, `filter[language]=${languages.join(',')}`];
-        }
+        switch (selectedFiltersKey) {
+            case 'Языки курсов':
+                for (const language of selectedFilters[selectedFiltersKey]) {
+                    languages = [...languages, language.title];
+                }
+                filterPath = [...filterPath, `filter[language]=${languages.join(',')}`];
+                break;
 
-        if (selectedFiltersKey === 'Языки программирования') {
-            for (const programmingLanguage of selectedFilters[selectedFiltersKey]) {
-                programmingLanguages = [...programmingLanguages, programmingLanguage.id];
-            }
-            filterPath = [...filterPath, `filter[programmingLanguage_id]=${programmingLanguages.join(',')}`];
+            case 'Языки программирования':
+                for (const programmingLanguage of selectedFilters[selectedFiltersKey]) {
+                    programmingLanguages = [...programmingLanguages, programmingLanguage.id];
+                }
+                filterPath = [...filterPath, `filter[programmingLanguage_id]=${programmingLanguages.join(',')}`];
+                break;
+
+            case 'Заголовок':
+                filterPath = [...filterPath, `filter[title]=${selectedFilters[selectedFiltersKey]}`];
+                break;
+
+            default:
+                break;
         }
     }
 

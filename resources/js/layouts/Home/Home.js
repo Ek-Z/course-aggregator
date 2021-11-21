@@ -1,20 +1,28 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CourseList } from '../../components/CourseList/CourseList';
-import { selectBestCourses, selectCourseListLength } from '../../store/courseList/selectors';
-import { getPublicCourseList } from '../../store/courseList/action';
+import {
+    selectCourseList,
+    selectCourseListLength,
+    selectStatus
+} from '../../store/courseList/selectors';
+import { getLastCourses } from '../../store/courseList/action';
 import style from './Home.module.scss';
-import InputSearch from '../../components/InputSearch/InputSearch';
+import { STATUSES } from '../../utils/statuses/statuses';
+import { ProgressLoader } from '../../components/ProgressLoader/ProgressLoader';
 
 export const Home = () => {
+    const courseList = useSelector(selectCourseList);
     const courseListLength = useSelector(selectCourseListLength);
-    const bestCourseList = useSelector(selectBestCourses);
+    const status = useSelector(selectStatus);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        //TODO: добавить проверку на админа
-        !courseListLength && dispatch(getPublicCourseList());
-        // dispatch(getAdminCourseList());
+        if (!courseListLength) {
+            dispatch(getLastCourses());
+        } else {
+            courseListLength > 6 && dispatch(getLastCourses());
+        }
     }, [dispatch, courseListLength]);
 
     return (
@@ -23,8 +31,10 @@ export const Home = () => {
                 Агрегатор бесплатных курсов
                 <span>Мы собрали все бесплатные курсы по программированию</span>
             </h1>
-            <InputSearch className={style.input}/>
-            <CourseList list={bestCourseList}/>
+            {status === STATUSES.REQUEST ?
+                <ProgressLoader/> :
+                <CourseList list={courseList}/>
+            }
         </div>
     );
 };

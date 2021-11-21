@@ -1,41 +1,66 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Pagination } from '@mui/material';
 import {
     selectCourseList,
     selectCourseListLength,
-    selectFilteredList, selectFilteredListLength, selectFilters,
-    selectFilterWords, selectIsFiltered
+    selectProgrammingLanguages, selectStatus
 } from '../../store/courseList/selectors';
 import { CourseList } from '../../components/CourseList/CourseList';
 import { CourseFilter } from '../../components/CourseFilter/CourseFilter';
-import { getPublicCourseList } from '../../store/courseList/action';
-import InputSearch from '../../components/InputSearch/InputSearch';
+import { getPublicCourseList, setFilterClear } from '../../store/courseList/action';
+import { InputSearch } from '../../components/InputSearch/InputSearch';
 import style from './Catalog.module.scss';
+import { changePage, getPagesOfCourseList } from '../../store/pages/action';
+import { selectCurrentPage, selectLastPage } from '../../store/pages/selectors';
+import { ProgressLoader } from '../../components/ProgressLoader/ProgressLoader';
+import { STATUSES } from '../../utils/statuses/statuses';
 
 export const Catalog = () => {
-    const filterWords = useSelector(selectFilterWords);
-    const filteredList = useSelector(selectFilteredList);
-    const filteredListLength = useSelector(selectFilteredListLength);
-    const isFiltered = useSelector(selectIsFiltered);
+    const programmingLanguages = useSelector(selectProgrammingLanguages);
     const courseList = useSelector(selectCourseList);
     const courseListLength = useSelector(selectCourseListLength);
+    const currentPage = useSelector(selectCurrentPage);
+    const lastPage = useSelector(selectLastPage);
+    const status = useSelector(selectStatus);
     const dispatch = useDispatch();
 
+    const handleChange = (event, newPage) => dispatch(changePage(newPage));
+
     useEffect(() => {
-        (!courseListLength || !filteredListLength) && dispatch(getPublicCourseList());
-    }, [dispatch, courseListLength, filteredListLength]);
+        dispatch(getPagesOfCourseList());
+
+        return () => {
+            !!programmingLanguages && dispatch(setFilterClear(programmingLanguages));
+        };
+    }, []);
+
+    useEffect(() => {
+        dispatch(getPublicCourseList(currentPage));
+    }, [dispatch, currentPage]);
+
+    useEffect(() => {
+        !courseListLength && dispatch(getPublicCourseList(currentPage));
+    }, [dispatch, courseListLength, currentPage]);
 
     return (
         <section className={style.catalog}>
             <div className={`container ${style.wrap}`}>
-                <h2 className={style.title}>
-                    Список бесплатных курсов
-                </h2>
+                <h2 className={style.title}>Список бесплатных курсов</h2>
                 <InputSearch/>
                 <div className={style.list}>
                     <CourseFilter/>
-                    {isFiltered ? <CourseList list={filteredList}/> : <CourseList list={courseList}/>}
+                    {status === STATUSES.REQUEST ?
+                        <ProgressLoader/> :
+                        <CourseList list={courseList}/>
+                    }
                 </div>
+                <Pagination className={style.pagination}
+                            key={`button-${currentPage}`}
+                            count={lastPage}
+                            defaultPage={currentPage}
+                            onChange={handleChange}
+                />
             </div>
         </section>
     );

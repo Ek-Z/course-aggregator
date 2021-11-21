@@ -51,8 +51,6 @@ Route::group(['prefix' => 'courses', 'as' => 'courses.'], function () {
         ->name('index');;
     Route::get('/{id}', [CoursesController::class, 'show'])
         ->name('show');
-    Route::get('/search/{title}', [CoursesController::class, 'search'])
-        ->name('search');
 });
 
 Route::get('newcourses', [CoursesController::class, 'newcourses']);

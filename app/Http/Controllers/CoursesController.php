@@ -10,17 +10,19 @@ use Spatie\QueryBuilder\QueryBuilder;
 class CoursesController extends Controller
 {
     /**
-     * Фильтрация курсов
+     * Фильтрация курсов по языку программирования, языку курса, заголовку
+     * Сортировка по id от новых к старым
      *
      * Пример запроса:
-     * /api/courses?filter[language]=Русский&filter[programmingLanguage_id]=35
+     * /api/courses?filter[language]=Русский&filter[programmingLanguage_id]=35&filter[title]=PHP
      */
     public function index(FilterRequest $request)
     {
         $query = Course::where('status', 'PUBLISHED');
 
-        $coursesQuery = QueryBuilder::for($query)
-            ->allowedFilters('language', 'programmingLanguage_id')
+        $coursesQuery = QueryBuilder::for($query, $request)
+            ->allowedFilters('language', 'programmingLanguage_id', 'title')
+            ->defaultSort('-id')
             ->paginate(8)
             ->appends(request()->query());
         return FitredCoursesResource::collection($coursesQuery);
@@ -31,12 +33,7 @@ class CoursesController extends Controller
         $course = new FitredCoursesResource(Course::findOrFail($id));
         return $course;
     }
-
-    public function search($title)
-    {
-        return Course::where('title', 'like', '%' . $title . '%')->get();
-    }
-
+    
     /**
      * Вывод последних добавленных курсов
      */

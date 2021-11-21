@@ -17,23 +17,12 @@ export const Router = () => {
                 <div className={style.application}>
                     <Header/>
                     <Switch>
-                        <Route exact={true} path="/" component={Home}>
-                        </Route>
-                        <Route exact={true} path="/courses">
-                            <Catalog/>
-                        </Route>
-                        <Route exact={true} path="/course/:courseId?">
-                            <CourseCard/>
-                        </Route>
-                        <Route exact={true} path="/admin">
-                            <AdminPanel/>
-                        </Route>
-                        <Route exact={true} path="/signIn">
-                            <LoginPage/>
-                        </Route>
-                        <Route exact={true} path="/signUp">
-                            <RegistrationPage/>
-                        </Route>
+                        <Route exact={true} path="/" component={Home}/>
+                        <Route exact={true} path="/courses" component={Catalog}/>
+                        <Route exact={true} path="/course/:courseId?" component={CourseCard}/>
+                        <Route exact={true} path="/admin" component={AdminPanel}/>
+                        <Route exact={true} path="/signIn" component={LoginPage}/>
+                        <Route exact={true} path="/signUp" component={RegistrationPage}/>
                     </Switch>
                     <Footer/>
                 </div>

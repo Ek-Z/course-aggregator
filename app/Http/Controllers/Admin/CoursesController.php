@@ -11,7 +11,7 @@ class CoursesController extends Controller
 {
     public function index()
     {
-        return CourseResource::collection(Course::all());
+        return CourseResource::collection(Course::paginate(8));
     }
 
     public function store(CourseRequest $request)

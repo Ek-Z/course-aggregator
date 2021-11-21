@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { Link } from 'react-router-dom';
 import {
     AppBar,
@@ -21,8 +22,6 @@ import axios from 'axios';
 import { logOut } from '../../store/session';
 import { selectSessionState, selectUserName, selectIsAdmin } from '../../store/session/selectors';
 import Tooltip from '@mui/material/Tooltip';
-import * as React from 'react';
-import { searchWords } from '../../store/courseList/action';
 
 export const Header = () => {
     const sessionState = useSelector(selectSessionState);//авторизован ли пользователь
@@ -30,7 +29,7 @@ export const Header = () => {
     const isAdmin = useSelector(selectIsAdmin);//достаем статус пользователя (админ/не админ)
     const dispatch = useDispatch();
     //Функция для выхода
-    const signOut = async (e) => {
+    const signOut = async () => {
         const userToken = JSON.parse(localStorage.getItem('userData')).data.token;//токен пользователя
         try {
             let response = await axios.post('api/logout', {}, {
@@ -47,11 +46,6 @@ export const Header = () => {
         } catch (e) {
             console.log(`Error! ${e}`);
         }
-    };
-
-    //обновление строки поиска при переходе на главную или на страницу каталога ("Бесплатно")
-    const updateSearch = () => {
-        dispatch(searchWords(''));
     };
 
     //настройки для выпадающего меню
@@ -94,14 +88,14 @@ export const Header = () => {
             <Container>
                 <Toolbar>
                     <Box sx={{ height: 40 }}>
-                        <Link className={style.headerLinks} to="/" onClick={updateSearch}>
+                        <Link className={style.headerLinks} to="/">
                             <svg className={style.logo}>
                                 <use xlinkHref="/assets/logo.svg#header-logo"/>
                             </svg>
                         </Link>
                     </Box>
                     <Box mr={3} ml={'auto'} sx={{ display: 'flex', alignItems: 'center' }}>
-                        <Link className={style.headerLinks} to="/courses" onClick={updateSearch}>
+                        <Link className={style.headerLinks} to="/courses">
                             <Button color="secondary"
                                     variant="contained"
                                     sx={{ marginRight: '1.5rem', color: '#ffffff' }}

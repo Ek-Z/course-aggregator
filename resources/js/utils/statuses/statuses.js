@@ -1,4 +1,6 @@
-export const STATUS_IDLE = 'IDLE';
-export const STATUS_REQUEST = 'REQUEST';
-export const STATUS_SUCCESS = 'SUCCESS';
-export const STATUS_FAILED = 'FAILED';
+export const STATUSES = {
+    IDLE: 'IDLE',
+    REQUEST: 'REQUEST',
+    SUCCESS: 'SUCCESS',
+    FAILED: 'FAILED',
+};
