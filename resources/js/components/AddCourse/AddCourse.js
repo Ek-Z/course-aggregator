@@ -1,8 +1,10 @@
 import * as React from 'react';
-import { useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { fetchData } from '../../utils/HOF/HOF';
 import { ADMIN_COURSE_LIST_URL } from '../../utils/urls/urls';
 import style from './AddCourse.module.scss';
+import { useSelector } from 'react-redux';
+import { selectIsAdmin } from '../../store/session/selectors';
 
 export const AddCourse = () => {
     const [languages, setLanguages] = React.useState([]);
@@ -14,7 +16,7 @@ export const AddCourse = () => {
     const sourceNameRef = React.useRef(null);
     const sourceUrlRef = React.useRef(null);
     const courseImageRef = React.useRef(null);
-    const history = useHistory();
+    const isAdmin = useSelector(selectIsAdmin);
 
     const getProgrammingLanguages = async () => {
         return await fetchData('/api/programmingLanguages');
@@ -52,17 +54,15 @@ export const AddCourse = () => {
         const response = await fetch(ADMIN_COURSE_LIST_URL, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${userToken}`
+                'Content-Type': 'application/json; charset=utf-8',
+                Authorization: `Bearer ${userToken}`,
             },
-            body: JSON.stringify(newCourseData)
+            body: JSON.stringify(newCourseData),
         });
-
-        console.log(response);
 
         if (response.status === 200) {
             alert('Курс успешно добавлен');
-            history.push('/admin');
+            return <Redirect to="/admin"/>
         }
     };
 
@@ -71,9 +71,13 @@ export const AddCourse = () => {
         setLanguages(languagesData.data);
     }, []);
 
+    if (!isAdmin) {
+        return <Redirect to="/"/>;
+    }
+
     return (
         <div className={`container ${style.wrap}`}>
-            <form onSubmit={addNewCourse} className={style.form}>
+            <form onSubmit={addNewCourse} className={style.form} method="POST">
                 <label htmlFor="title">
                     Название курса
                     <input
@@ -136,7 +140,7 @@ export const AddCourse = () => {
                     URL источника
                     <input
                         id="source_url"
-                        type="text"
+                        type="url"
                         name="source_url"
                         placeholder="Введите URL источника"
                         ref={sourceUrlRef}

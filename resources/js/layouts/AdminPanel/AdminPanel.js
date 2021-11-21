@@ -14,6 +14,8 @@ import { ADMIN_COURSE_LIST_URL } from '../../utils/urls/urls';
 import { STATUSES } from '../../utils/statuses/statuses';
 import { ProgressLoader } from '../../components/ProgressLoader/ProgressLoader';
 import style from './AdminPanel.module.scss';
+import { selectIsAdmin } from '../../store/session/selectors';
+import { Redirect } from 'react-router-dom';
 
 export const AdminPanel = () => {
     const titles = useSelector(selectCourseTitles);
@@ -21,6 +23,7 @@ export const AdminPanel = () => {
     const currentPage = useSelector(selectCurrentPage);
     const lastPage = useSelector(selectLastPage);
     const status = useSelector(selectStatus);
+    const isAdmin = useSelector(selectIsAdmin);
     const dispatch = useDispatch();
 
     React.useEffect(() => {
@@ -30,6 +33,10 @@ export const AdminPanel = () => {
     React.useEffect(() => {
         dispatch(getAdminCourseList(currentPage));
     }, [dispatch, currentPage]);
+
+    if (!isAdmin) {
+        return <Redirect to="/"/>;
+    }
 
     return (
         <div className={style.wrap}>
