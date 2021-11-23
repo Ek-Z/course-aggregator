@@ -1,9 +1,9 @@
 import React from "react";
-
+import style from './Error.module.scss';
 export const Error = ({textError}) => {
     return(
         <>
-            <div style={{ color:'red' }}>{textError}</div>
+            <div className={style.Error}>{textError}</div>
         </>
     )
 }
