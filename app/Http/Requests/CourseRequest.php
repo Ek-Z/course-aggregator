@@ -25,8 +25,8 @@ class CourseRequest extends FormRequest
     {
         return [
             'title' => 'required|string|min:5|max:250',
-            'sourse_name' => 'string|max:250',
-            'sourse_url' => 'required|url',
+            'sourсe_name' => 'string|max:250',
+            'sourсe_url' => 'required|url',
             'image' => 'image',
             'description' => 'string',
             'programmingLanguage_id' => 'required|integer|exists:programming_languages,id',
