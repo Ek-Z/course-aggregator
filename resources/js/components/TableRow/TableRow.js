@@ -3,23 +3,23 @@ import style from './TableRow.module.scss';
 import { ADMIN_COURSE_LIST_URL } from '../../utils/urls/urls';
 
 export const TableRow = ({ item }) => {
-    const deleteCourse = async () => {
+    const deleteCourse = () => {
         const userToken = JSON
             .parse(localStorage.getItem('userData'))
             .data
             .token;
         console.log(item.id);
-        const response = await fetch(`${ADMIN_COURSE_LIST_URL}/${item.id}`, {
+        fetch(`${ADMIN_COURSE_LIST_URL}/${item.id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8',
-                'Authorization': `${userToken}`
+                'Authorization': `${userToken}`,
+                'x-csrf-token': document.querySelector("[name='csrf-token']").getAttribute('content')
             }
-        });
-
-        if (response.status === 200) {
+        }).then(() => {
             alert('Курс успешно удалён');
-        }
+        })
+
     };
 
     return (

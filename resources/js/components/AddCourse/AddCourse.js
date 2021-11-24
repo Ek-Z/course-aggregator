@@ -5,6 +5,7 @@ import { ADMIN_COURSE_LIST_URL } from '../../utils/urls/urls';
 import style from './AddCourse.module.scss';
 import { useSelector } from 'react-redux';
 import { selectIsAdmin } from '../../store/session/selectors';
+import {useHistory} from "react-router";
 
 export const AddCourse = () => {
     const [languages, setLanguages] = React.useState([]);
@@ -17,12 +18,13 @@ export const AddCourse = () => {
     const sourceUrlRef = React.useRef(null);
     const courseImageRef = React.useRef(null);
     const isAdmin = useSelector(selectIsAdmin);
+    let history = useHistory();
 
     const getProgrammingLanguages = async () => {
         return await fetchData('/api/programmingLanguages');
     };
 
-    const addNewCourse = async (evt) => {
+    const addNewCourse = (evt) => {
         evt.preventDefault();
 
         if (!courseTitleRef.current?.value.trim() && !sourceUrlRef.current?.value.trim()) {
@@ -51,19 +53,20 @@ export const AddCourse = () => {
             .data
             .token;
 
-        const response = await fetch(ADMIN_COURSE_LIST_URL, {
+        fetch(ADMIN_COURSE_LIST_URL, {
             method: 'POST',
             headers: {
+                'Accept': 'application/json',
                 'Content-Type': 'application/json; charset=utf-8',
-                Authorization: `Bearer ${userToken}`,
+                'Authorization': `Bearer ${userToken}`,
+                'x-csrf-token': document.querySelector("[name='csrf-token']").getAttribute('content')
             },
             body: JSON.stringify(newCourseData),
-        });
-
-        if (response.status === 200) {
+        }).then(() => {
             alert('Курс успешно добавлен');
-            return <Redirect to="/admin"/>
-        }
+            history.push("/admin");
+            // return <Redirect to="/admin"/>
+        })
     };
 
     React.useEffect(async () => {
