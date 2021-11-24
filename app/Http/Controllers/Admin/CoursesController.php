@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Http\Requests\CourseRequest;
 use App\Http\Resources\CourseResource;
+use Illuminate\Http\Request;
 
 class CoursesController extends Controller
 {
@@ -14,9 +15,10 @@ class CoursesController extends Controller
         return CourseResource::collection(Course::paginate(8));
     }
 
-    public function store(CourseRequest $request)
+    public function store(Request $request)
     {
-        $created_course = Course::create($request->validated());
+        //$created_course = Course::create($request->validated());
+        $created_course = Course::create($request->all());
         return $created_course;
     }
 

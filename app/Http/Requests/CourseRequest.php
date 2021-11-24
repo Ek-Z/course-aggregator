@@ -24,12 +24,15 @@ class CourseRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string|min:5|max:250',
-            'sourсe_name' => 'string|max:250',
-            'sourсe_url' => 'required|url',
-            'image' => 'image',
-            'description' => 'string',
             'programmingLanguage_id' => 'required|integer|exists:programming_languages,id',
+            'title' => 'required|string|min:5|max:250',
+            'sourсe_name' => 'nullable|string|max:250',
+            'sourсe_url' => 'required|url',
+            'image' => 'nullable|image',
+            'short_description' => 'nullable',
+            'description' => 'nullable',
+            'language' => 'nullable',
+            'status' => 'nullable'
         ];
     }
 }
