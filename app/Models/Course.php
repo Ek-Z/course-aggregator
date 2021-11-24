@@ -21,7 +21,8 @@ class Course extends Model
         'image',
         'status',
         'language',
-        'description'
+        'description',
+        'short_description'
     ];
 
     protected $hidden = [
