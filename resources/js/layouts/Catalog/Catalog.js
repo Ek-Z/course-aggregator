@@ -15,6 +15,7 @@ import { changePage, getPagesOfCourseList } from '../../store/pages/action';
 import { selectCurrentPage, selectLastPage } from '../../store/pages/selectors';
 import { ProgressLoader } from '../../components/ProgressLoader/ProgressLoader';
 import { STATUSES } from '../../utils/statuses/statuses';
+import { PUBLIC_COURSES_LIST_URL } from '../../utils/urls/urls';
 
 export const Catalog = () => {
     const programmingLanguages = useSelector(selectProgrammingLanguages);
@@ -25,10 +26,8 @@ export const Catalog = () => {
     const status = useSelector(selectStatus);
     const dispatch = useDispatch();
 
-    const handleChange = (event, newPage) => dispatch(changePage(newPage));
-
     useEffect(() => {
-        dispatch(getPagesOfCourseList());
+        dispatch(getPagesOfCourseList(PUBLIC_COURSES_LIST_URL));
 
         return () => {
             !!programmingLanguages && dispatch(setFilterClear(programmingLanguages));
@@ -59,7 +58,9 @@ export const Catalog = () => {
                             key={`button-${currentPage}`}
                             count={lastPage}
                             defaultPage={currentPage}
-                            onChange={handleChange}
+                            onChange={
+                                (event, newPage) => dispatch(changePage(newPage))
+                            }
                 />
             </div>
         </section>

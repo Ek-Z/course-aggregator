@@ -41,7 +41,7 @@ export const getLastCourses = () => async dispatch => {
     }
 };
 
-export const getPublicCourseList = (currentPage) => async dispatch => {
+export const getPublicCourseList = currentPage => async dispatch => {
     dispatch(courseListOnload());
 
     try {
@@ -53,11 +53,11 @@ export const getPublicCourseList = (currentPage) => async dispatch => {
     }
 };
 
-export const getAdminCourseList = () => async dispatch => {
+export const getAdminCourseList = currentPage => async dispatch => {
     dispatch(courseListOnload());
 
     try {
-        const courseList = await fetchData(ADMIN_COURSE_LIST_URL);
+        const courseList = await fetchData(`${ADMIN_COURSE_LIST_URL}?page=${currentPage}`);
 
         dispatch(courseListLoaded(courseList.data));
     } catch (error) {

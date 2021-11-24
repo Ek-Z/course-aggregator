@@ -1,7 +1,6 @@
 export const selectCourseTitles = state => Object.keys(state.courseList.courseList[0]);
 export const selectCourseList = (state) => state.courseList.courseList;
 export const selectCourseListLength = (state) => state.courseList.courseList.length;
-export const selectBestCourses = (state) => state.courseList.courseList.slice(0, 6);
 export const selectFilteredList = (state) => state.courseList.filteredList;
 export const selectIsFiltered = (state) => state.courseList.isFiltered;
 export const selectFilteredListLength = state => state.courseList.filteredList.length;
