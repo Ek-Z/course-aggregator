@@ -8,11 +8,11 @@ export const CourseList = ({ list }) => {
     return (
         <section className={style.section}>
             <div className={style.section__wrap}>
-                <Box className={style.box}>
-                    <Grid container justifyContent="center" spacing={{ xs: 3 }}>
+                <div className={style.box}>
+                    <div className={style.conteiner}>
                         {list.map(item => <Course key={item.id} item={item}/>)}
-                    </Grid>
-                </Box>
+                    </div>
+                </div>
             </div>
         </section>
     );

@@ -10,3 +10,11 @@
     flex-grow: 1;
     display: flex;
 }
+.conteiner{
+    display: grid;
+    width: 100%;
+    grid-template-columns: 436px 436px;
+    grid-column-gap: 24px;
+    grid-row-gap: 24px;
+    justify-content: center;
+}

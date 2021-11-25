@@ -34685,8 +34685,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _mui_system__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/system */ "./node_modules/@mui/system/esm/Box/Box.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Grid/Grid.js");
 /* harmony import */ var _Course_Course__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Course/Course */ "./resources/js/components/Course/Course.js");
 /* harmony import */ var _CourseList_module_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CourseList.module.scss */ "./resources/js/components/CourseList/CourseList.module.scss");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
@@ -34702,14 +34700,10 @@ var CourseList = function CourseList(_ref) {
     className: _CourseList_module_scss__WEBPACK_IMPORTED_MODULE_2__["default"].section,
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: _CourseList_module_scss__WEBPACK_IMPORTED_MODULE_2__["default"].section__wrap,
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_system__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: _CourseList_module_scss__WEBPACK_IMPORTED_MODULE_2__["default"].box,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
-          container: true,
-          justifyContent: "center",
-          spacing: {
-            xs: 3
-          },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: _CourseList_module_scss__WEBPACK_IMPORTED_MODULE_2__["default"].conteiner,
           children: list.map(function (item) {
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Course_Course__WEBPACK_IMPORTED_MODULE_1__.Course, {
               item: item
@@ -37393,11 +37387,12 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "._3RwcTc7bRvkRLn6GOMlvyK {\n  display: flex;\n  flex-direction: column;\n}\n\n._2oHcD0AB4-yWweiNN1RXG- {\n  flex-grow: 1;\n  display: flex;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "._3RwcTc7bRvkRLn6GOMlvyK {\n  display: flex;\n  flex-direction: column;\n}\n\n._2oHcD0AB4-yWweiNN1RXG- {\n  flex-grow: 1;\n  display: flex;\n}\n\n._3BKD6wLMZjf8p299DzM_jI {\n  display: grid;\n  width: 100%;\n  grid-template-columns: 436px 436px;\n  grid-column-gap: 24px;\n  grid-row-gap: 24px;\n  justify-content: center;\n}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"section__wrap": "_3RwcTc7bRvkRLn6GOMlvyK",
-	"box": "_2oHcD0AB4-yWweiNN1RXG-"
+	"box": "_2oHcD0AB4-yWweiNN1RXG-",
+	"conteiner": "_3BKD6wLMZjf8p299DzM_jI"
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
