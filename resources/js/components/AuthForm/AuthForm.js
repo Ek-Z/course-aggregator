@@ -1,12 +1,25 @@
 //Переиспользуемая форма для регистрации и авторизации
 import Input from "@mui/material/Input";
-import React from "react";
+import React, {useEffect} from "react";
 import styles from "./AuthForm.module.scss"
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import {Error} from "../Error/Error";
+import {ProgressLoader} from "../ProgressLoader/ProgressLoader";
+import {useDispatch, useSelector} from "react-redux";
+import {selectSessionError, selectSessionPending} from "../../store/session/selectors";
+import {clearError} from "../../store/session";
 
 export function AuthForm({title, button, onChange, onSubmit, user, error}) {
+    const pending = useSelector(selectSessionPending)
+    const sessionError = useSelector(selectSessionError)
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(clearError())
+    },[])
+
     return (
         <form className={`${styles.loginForm} container`} onSubmit={onSubmit}>
             <div className={styles.loginForm_block}>
@@ -63,6 +76,8 @@ export function AuthForm({title, button, onChange, onSubmit, user, error}) {
                 {(title==="Регистрация") &&
                 <Link className={styles.loginForm_link}to="/signIn">У вас уже есть аккаунт? Войдите</Link>
                 }
+                {pending ? <ProgressLoader/> : <div style={{height:'40px'}}></div> }
+                {sessionError!==null ? <p style={{height:'40px', color:'red'}}>Ошибка! Возможно введено что-то не так или проблема на сервере...</p> : <p style={{height:'40px'}}></p>}
                     </div>
         </form>
     )

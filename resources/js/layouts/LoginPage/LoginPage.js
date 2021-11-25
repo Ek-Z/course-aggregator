@@ -1,12 +1,13 @@
 // Страница регистрации
 import {AuthForm} from "../../components/AuthForm/AuthForm";
-import React, {useState} from "react";
-import axios from "axios";
+import React, {useEffect, useState} from "react";
 import {useHistory} from "react-router";
-import {useDispatch} from "react-redux"
-import {logIn} from "../../store/session";
+import {useDispatch, useSelector} from "react-redux"
+import {logInThunk} from "../../store/session/thunks";
+import {selectUserName} from "../../store/session/selectors";
 
 export const LoginPage = () => {
+    const username = useSelector(selectUserName)
     const dispatch = useDispatch();
 
     const [user, setUser] = useState({
@@ -22,7 +23,13 @@ export const LoginPage = () => {
         confirm_password:""
     })
 
+    useEffect(() => {
+        if (username){
+            history.push("/")
+        }
+    },[username])
     let history = useHistory();
+
 
     const onInputChange = e => {
         setUser({ ...user, [e.target.name]: e.target.value });
@@ -37,19 +44,7 @@ export const LoginPage = () => {
             setError({password: 'Поле пароля не должно быть пустым'});
         }
         else {
-            try {
-                let response = await axios.post("api/login", user);
-                if (response.status === 200) {
-                    localStorage.setItem("userData", JSON.stringify(response.data));
-                    dispatch(logIn(response.data.data));
-                    history.push("/");//редирект на главную страницу
-                } else {
-                    console.log("Ошибка! ", response)
-                }
-            }
-            catch (e) {
-                console.log(`Error! ${e}`)
-            }
+            await dispatch(logInThunk(user))
         }
     }
 
