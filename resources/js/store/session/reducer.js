@@ -1,4 +1,12 @@
-import {CLEAR_ERROR, LOG_IN_ERROR, LOG_IN_START, LOG_IN_SUCCESS, LOG_OUT} from "./types";
+import {
+    CLEAR_ERROR,
+    LOG_IN_ERROR,
+    LOG_IN_START,
+    LOG_IN_SUCCESS,
+    LOG_OUT_ERROR,
+    LOG_OUT_START,
+    LOG_OUT_SUCCESS
+} from "./types";
 
 const initialState = {
     userName:"",
@@ -35,13 +43,26 @@ export const profileReducer = (state = initialState, action) => {
             return {
                 ...state,
                 sessionError: null
-            }
-        case LOG_OUT:
+            };
+        case LOG_OUT_START:
             return {
                 ...state,
+                sessionPending: true,
+                sessionError: null,
+            };
+        case LOG_OUT_SUCCESS:
+            return {
                 userName: "",
                 is_admin: false,
-                session: false
+                session: false,
+                sessionPending: false,
+                sessionError: null,
+            };
+        case LOG_OUT_ERROR:
+            return {
+                ...state,
+                sessionPending: false,
+                sessionError: action.payload
             };
         default:
             return state;

@@ -1,5 +1,5 @@
-import {LOGIN_URL, REGISTER_URL} from "../../utils/urls/urls";
-import {logInError, logInStart, logInSuccess} from "./actions";
+import {LOGIN_URL, LOGOUT_URL, REGISTER_URL} from "../../utils/urls/urls";
+import {logInError, logInStart, logInSuccess, logOutError, logOutStart, logOutSuccess} from "./actions";
 import axios from "axios";
 
 export const logInThunk = (user) => async dispatch => {
@@ -29,5 +29,26 @@ export const registerThunk = (user) => async dispatch => {
     catch (e) {
         dispatch(logInError(e));
         console.log('ошибка', e)
+    }
+};
+
+export const logOutThunk = () => async dispatch => {
+    dispatch (logOutStart());
+    try {
+        let userToken = JSON.parse(localStorage.getItem('userData')).data.token;//токен пользователя
+        let response = await axios.post(LOGOUT_URL, {}, {
+            headers: {
+                'Authorization': `Bearer ${userToken}`
+            }
+        });
+        if (response.status === 200){
+            localStorage.removeItem('userData');
+            dispatch(logOutSuccess());
+        }
+    }
+    catch (e) {
+        dispatch(logOutError(e));
+        console.log('ошибка', e);
+        alert('Произошла ошибка на сервере')
     }
 };

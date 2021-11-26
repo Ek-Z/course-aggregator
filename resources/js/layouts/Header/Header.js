@@ -18,34 +18,22 @@ import {
 import { Box } from '@mui/system';
 import style from './Header.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
-import { logOut } from '../../store/session';
-import { selectSessionState, selectUserName, selectIsAdmin } from '../../store/session/selectors';
+import {selectSessionState, selectUserName, selectIsAdmin, selectSessionPending} from '../../store/session/selectors';
 import Tooltip from '@mui/material/Tooltip';
+import {logOutThunk} from "../../store/session/thunks";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export const Header = () => {
     const sessionState = useSelector(selectSessionState);//авторизован ли пользователь
     const userName = useSelector(selectUserName);//достаем имя пользователя для вывода на экран
     const isAdmin = useSelector(selectIsAdmin);//достаем статус пользователя (админ/не админ)
+    const pending = useSelector(selectSessionPending)
+    const username = useSelector(selectUserName)
+
     const dispatch = useDispatch();
     //Функция для выхода
-    const signOut = async () => {
-        const userToken = JSON.parse(localStorage.getItem('userData')).data.token;//токен пользователя
-        try {
-            let response = await axios.post('api/logout', {}, {
-                headers: {
-                    'Authorization': `Bearer ${userToken}`
-                }
-            });
-            if (response.status === 200) {
-                localStorage.removeItem('userData');
-                dispatch(logOut());
-            } else {
-                console.log('Ошибка! ', response);
-            }
-        } catch (e) {
-            console.log(`Error! ${e}`);
-        }
+    const signOut = () => {
+        dispatch(logOutThunk())
     };
 
     //настройки для выпадающего меню
@@ -205,6 +193,7 @@ export const Header = () => {
                     </>}
                 </Toolbar>
             </Container>
+            {(pending && username) ? <CircularProgress color="secondary" style={{position:'absolute', left:'93%', top:'1%'}}/> : <div></div> }
         </AppBar>
     );
 };

@@ -1,10 +1,8 @@
-// Страница авторизации
+// Страница регистрации
 import {AuthForm} from "../../components/AuthForm/AuthForm";
 import React, {useEffect, useState} from "react";
-import axios from "axios";
 import {useHistory} from "react-router";
 import {useDispatch, useSelector} from "react-redux"
-import {logIn} from "../../store/session";
 import {registerThunk} from "../../store/session/thunks";
 import {selectUserName} from "../../store/session/selectors";
 

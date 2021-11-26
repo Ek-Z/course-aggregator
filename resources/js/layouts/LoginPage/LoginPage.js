@@ -1,4 +1,4 @@
-// Страница регистрации
+// Страница авторизации
 import {AuthForm} from "../../components/AuthForm/AuthForm";
 import React, {useEffect, useState} from "react";
 import {useHistory} from "react-router";
