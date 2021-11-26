@@ -75,13 +75,15 @@ export const Header = () => {
         <AppBar position="static" color="transparent">
             <Container>
                 <Toolbar>
-                    <Box sx={{ height: 40 }}>
-                        <Link className={style.headerLinks} to="/">
-                            <svg className={style.logo}>
-                                <use xlinkHref="/assets/logo.svg#header-logo"/>
-                            </svg>
-                        </Link>
-                    </Box>
+                    <Tooltip title="Главная страница">
+                        <Box sx={{ height: 40 }}>
+                            <Link className={style.headerLinks} to="/">
+                                <svg className={style.logo}>
+                                    <use xlinkHref="/assets/logo.svg#header-logo"/>
+                                </svg>
+                            </Link>
+                        </Box>
+                    </Tooltip>
                     <Box mr={3} ml={'auto'} sx={{ display: 'flex', alignItems: 'center' }}>
                         <Link className={style.headerLinks} to="/courses">
                             <Button color="secondary"
@@ -109,7 +111,7 @@ export const Header = () => {
                         }
                         {isAdmin &&
                         <Tooltip title="Открыть панель администратора">
-                            <Button color="inherit" variant="outlined" sx={{ marginRight: '1.5rem' }}>
+                            <Button color="inherit" variant="outlined" sx={{ marginRight: '1.5rem', border:0 }}>
                                 <Link className={style.headerLinks} to="/admin">
                                     Админ-панель
                                 </Link>
