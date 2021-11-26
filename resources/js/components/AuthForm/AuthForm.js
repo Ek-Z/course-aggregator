@@ -67,17 +67,17 @@ export function AuthForm({title, button, onChange, onSubmit, user, error}) {
                     type="password"
                     className={styles.loginForm_block_input}
                 />}
-                <Button type="submit" color="primary" variant="contained"
+                <Button type="submit" color="secondary" variant="contained"
                         className={styles.loginForm_block_btn}
                 >{button}</Button>
                 {(title==="Авторизация") &&
                 <Link className={styles.loginForm_link}to="/signUp">У вас нет аккаунта? Зарегистрируйтесь</Link>
                 }
                 {(title==="Регистрация") &&
-                <Link className={styles.loginForm_link}to="/signIn">У вас уже есть аккаунт? Войдите</Link>
+                <Link className={styles.loginForm_link} to="/signIn">У вас уже есть аккаунт? Войдите</Link>
                 }
-                {pending ? <ProgressLoader/> : <div style={{height:'40px'}}></div> }
-                {sessionError!==null ? <p style={{height:'40px', color:'red'}}>Ошибка! Возможно введено что-то не так или проблема на сервере...</p> : <p style={{height:'40px'}}></p>}
+                {pending ? <ProgressLoader/> : <div className={styles.loginForm_status}></div> }
+                {sessionError!==null ? <p className={styles.loginForm_status}>Ошибка! Возможно введено что-то не так или проблема на сервере...</p> : <p className={styles.loginForm_status}></p>}
                     </div>
         </form>
     )

@@ -35,7 +35,7 @@ export const LoginPage = () => {
         setUser({ ...user, [e.target.name]: e.target.value });
     };
 
-    const signIn = async (e) => {
+    const signIn = (e) => {
         e.preventDefault();
         if(user.email === '') {
             setError({email: 'Поле email не должно быть пустым'});
@@ -44,7 +44,7 @@ export const LoginPage = () => {
             setError({password: 'Поле пароля не должно быть пустым'});
         }
         else {
-            await dispatch(logInThunk(user))
+            dispatch(logInThunk(user))
         }
     }
 
