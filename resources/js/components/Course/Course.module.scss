@@ -9,6 +9,7 @@
 
 .course {
     min-width: 400px;
+
     &:hover {
 
         .image {
@@ -22,7 +23,8 @@
     height: 100%;
     object-fit: cover;
     transition: transform 300ms;
-    width:100%;
+    width: 100%;
+
     &_wrap {
         overflow: hidden;
         max-height: 230px;

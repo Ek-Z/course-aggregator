@@ -5,11 +5,9 @@ import style from './CourseList.module.scss';
 export const CourseList = ({ list }) => {
     return (
         <section className={style.section}>
-            <div className={style.section__wrap}>
-                <div className={style.box}>
-                    <div className={style.conteiner}>
-                        {list.map(item => <Course key={item.id} item={item}/>)}
-                    </div>
+            <div className={style.wrap}>
+                <div className={style.grid}>
+                    {list.map(item => <Course key={item.id} item={item}/>)}
                 </div>
             </div>
         </section>

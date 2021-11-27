@@ -10,12 +10,12 @@ import { CourseList } from '../../components/CourseList/CourseList';
 import { CourseFilter } from '../../components/CourseFilter/CourseFilter';
 import { getPublicCourseList, setFilterClear } from '../../store/courseList/action';
 import { InputSearch } from '../../components/InputSearch/InputSearch';
-import style from './Catalog.module.scss';
 import { getCurrentPage, getPagesOfCourseList } from '../../store/pages/action';
 import { selectCurrentPage, selectLastPage } from '../../store/pages/selectors';
 import { ProgressLoader } from '../../components/ProgressLoader/ProgressLoader';
 import { STATUSES } from '../../utils/statuses/statuses';
 import { URLS } from '../../utils/urls/urls';
+import style from './Catalog.module.scss';
 
 export const Catalog = () => {
     const programmingLanguages = useSelector(selectProgrammingLanguages);
