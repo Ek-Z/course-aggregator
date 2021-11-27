@@ -16,15 +16,11 @@
 
 .list {
     display: flex;
+    justify-content: space-between;
 }
 
-.pagination{
-    width: 50%;
-    margin: auto auto 30px;
-    justify-self: flex-end;
-    display: block;
-    & ul{
-        justify-content: center;
-        margin: 10px 0;
-    }
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
 }

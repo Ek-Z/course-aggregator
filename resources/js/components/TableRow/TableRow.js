@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import style from './TableRow.module.scss';
-import { ADMIN_COURSE_LIST_URL } from '../../utils/urls/urls';
+import { URLS } from '../../utils/urls/urls';
 
 export const TableRow = ({ item }) => {
     const deleteCourse = () => {
@@ -9,7 +9,7 @@ export const TableRow = ({ item }) => {
             .data
             .token;
         console.log(item.id);
-        fetch(`${ADMIN_COURSE_LIST_URL}/${item.id}`, {
+        fetch(`${URLS.ADMIN_COURSELIST}/${item.id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8',

@@ -1,16 +1,15 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Typography, CardMedia, CardContent, Card, Grid } from '@mui/material';
+import { Typography, CardContent, Card, Grid } from '@mui/material';
 import imagePlug from '../../../../public/images/image-plug.jpg';
 import style from './Course.module.scss';
 
 export const Course = ({ item }) => {
     return (
-        <Grid item xs={5} style={{ maxWidth: '460px' }}>
-            <Link to={`/course/${item.id}`} style={{ textDecoration: 'none' }}>
+        <Grid item xs={5} className={style.grid}>
+            <Link to={`/course/${item.id}`} className={style.link}>
                 <Card className={style.course}
                       sx={{ maxWidth: 500, height: '100%', display: 'flex', flexDirection: 'column' }}>
-                    {/*<CardMedia className={style.MuiCardMediaImg} component="img" height={200} image={item.image || imagePlug} alt="green iguana"/>*/}
                     <div className={style.image_wrap}>
                         <img className={style.image} src={item.image || imagePlug} alt="green iguana"/>
                     </div>
