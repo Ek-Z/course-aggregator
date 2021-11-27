@@ -19,7 +19,7 @@ export const Router = () => {
                     <Header/>
                     <Switch>
                         <Route exact={true} path="/" component={Home}/>
-                        <Route exact={true} path="/courses" component={Catalog}/>
+                        <Route exact={true} path="/courses/:filterPath?" component={Catalog}/>
                         <Route exact={true} path="/course/:courseId?" component={CourseCard}/>
                         <Route exact={true} path="/admin" component={AdminPanel}/>
                         <Route exact={true} path="/admin/addCourse" component={AddCourse}/>

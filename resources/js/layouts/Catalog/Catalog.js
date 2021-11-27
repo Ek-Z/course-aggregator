@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Pagination } from '@mui/material';
 import {
     selectCourseList,
-    selectCourseListLength,
+    selectCourseListLength, selectFilterPath,
     selectProgrammingLanguages, selectStatus
 } from '../../store/courseList/selectors';
 import { CourseList } from '../../components/CourseList/CourseList';
@@ -24,7 +25,11 @@ export const Catalog = () => {
     const currentPage = useSelector(selectCurrentPage);
     const lastPage = useSelector(selectLastPage);
     const status = useSelector(selectStatus);
+    const filter = useSelector(selectFilterPath);
+    console.log('filter:', filter);
     const dispatch = useDispatch();
+    const { filterPath } = useParams();
+    console.log('filterPath:', filterPath);
 
     useEffect(() => {
         dispatch(getPagesOfCourseList(PUBLIC_COURSES_LIST_URL));

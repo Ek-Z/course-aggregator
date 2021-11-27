@@ -38,14 +38,14 @@ export const AddCourse = () => {
         }
 
         const newCourseData = {
-            title: courseTitleRef.current?.value.trim(), // передаёт название курса (тип: строка)
-            language: courseLanguageRef.current?.selectedOptions[0].value, // передаёт язык курса (тип: строка)
-            short_description: courseShortDescriptionRef.current?.value.trim(), // передаёт краткое описание курса (тип: строка)
-            description: courseDescriptionRef.current?.value.trim(), // передаёт полное описание курса (тип: строка)
-            programmingLanguage_id: +courseProgrammingLanguageRef.current?.selectedOptions[0].id, // передаёт id языка программирования (тип: число)
-            source_name: sourceNameRef.current?.value.trim(), //передаёт название источника курса (тип: строка)
-            source_url: sourceUrlRef.current?.value.trim(), // передаёт ссылку источника курс (тип: строка)
-            image: courseImageRef.current?.value // передаёт путь к картинке (тип: строка)
+            title: courseTitleRef.current?.value.trim(),
+            language: courseLanguageRef.current?.selectedOptions[0].value,
+            short_description: courseShortDescriptionRef.current?.value.trim(),
+            description: courseDescriptionRef.current?.value.trim(),
+            programmingLanguage_id: +courseProgrammingLanguageRef.current?.selectedOptions[0].id,
+            source_name: sourceNameRef.current?.value.trim(),
+            source_url: sourceUrlRef.current?.value.trim(),
+            image: courseImageRef.current?.value
         };
 
         const userToken = JSON
@@ -65,7 +65,6 @@ export const AddCourse = () => {
         }).then(() => {
             alert('Курс успешно добавлен');
             history.push("/admin");
-            // return <Redirect to="/admin"/>
         })
     };
 
