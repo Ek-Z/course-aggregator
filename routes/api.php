@@ -30,6 +30,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [LoginController::class, 'logout']);
     Route::resource('reviews', UserReviewController::class);
     Route::get('my_favorites', [UsersController::class, 'myFavorites']);
+    Route::post('favorite/{id}', [CoursesController::class, 'favoriteCourse']);
+    Route::post('unfavorite/{id}', [CoursesController::class, 'unfavoriteCourse']);
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
         Route::apiResources([
             'courses' => AdminCoursesController::class,
@@ -62,6 +64,3 @@ Route::get('/programmingLanguages', [ProgrammingLanguagesController::class, 'ind
 
 Route::get('course_reviews', [ReviewController::class, 'index'])
     ->name('course.reviews');
-
-Route::post('favorite/{course}', [CoursesController::class, 'favoriteCourse']);
-Route::post('unfavorite/{course}', [CoursesController::class, 'unfavoriteCourse']);

@@ -52,12 +52,12 @@ class CoursesController extends Controller
     /**
      * Favorite a particular course
      *
-     * @param  Course $course
+     * @param  $id
      * @return Response
      */
-    public function favoriteCourse(Course $course)
+    public function favoriteCourse($id)
     {
-        Auth::user()->favorites()->attach($course->id);
+        Auth::user()->favorites()->attach($id);
 
         return back();
     }
@@ -65,12 +65,12 @@ class CoursesController extends Controller
     /**
      * Unfavorite a particular course
      *
-     * @param  Course $course
+     * @param  $id
      * @return Response
      */
-    public function unFavoriteCourse(Course $course)
+    public function unFavoriteCourse($id)
     {
-        Auth::user()->favorites()->detach($course->id);
+        Auth::user()->favorites()->detach($id);
 
         return back();
     }

@@ -15,8 +15,8 @@ class UsersController extends Controller
      */
     public function myFavorites()
     {
-        $myFavorites = Auth::user()->favorites;
+        $data = Auth::user()->favorites;
 
-        return compact('myFavorites');
+        return compact('data');
     }
 }
