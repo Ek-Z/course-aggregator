@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\FilterRequest;
 use App\Models\Course;
+use App\Models\User;
 use App\Http\Resources\FitredCoursesResource;
 use Spatie\QueryBuilder\QueryBuilder;
+use Illuminate\Support\Facades\Auth;
 
 class CoursesController extends Controller
 {
@@ -33,7 +35,7 @@ class CoursesController extends Controller
         $course = new FitredCoursesResource(Course::findOrFail($id));
         return $course;
     }
-    
+
     /**
      * Вывод последних добавленных курсов
      */
@@ -45,5 +47,31 @@ class CoursesController extends Controller
             ->take(6)
             ->get();
         return FitredCoursesResource::collection($courses);
+    }
+
+    /**
+     * Favorite a particular course
+     *
+     * @param  Course $course
+     * @return Response
+     */
+    public function favoriteCourse(Course $course)
+    {
+        Auth::user()->favorites()->attach($course->id);
+
+        return back();
+    }
+
+    /**
+     * Unfavorite a particular course
+     *
+     * @param  Course $course
+     * @return Response
+     */
+    public function unFavoriteCourse(Course $course)
+    {
+        Auth::user()->favorites()->detach($course->id);
+
+        return back();
     }
 }

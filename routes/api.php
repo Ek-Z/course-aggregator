@@ -9,6 +9,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserReviewController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\UsersController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [LoginController::class, 'logout']);
     Route::resource('reviews', UserReviewController::class);
+    Route::get('my_favorites', [UsersController::class, 'myFavorites']);
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
         Route::apiResources([
             'courses' => AdminCoursesController::class,
@@ -60,3 +62,6 @@ Route::get('/programmingLanguages', [ProgrammingLanguagesController::class, 'ind
 
 Route::get('course_reviews', [ReviewController::class, 'index'])
     ->name('course.reviews');
+
+Route::post('favorite/{course}', [CoursesController::class, 'favoriteCourse']);
+Route::post('unfavorite/{course}', [CoursesController::class, 'unfavoriteCourse']);

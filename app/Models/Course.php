@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Favorite;
+use Illuminate\Support\Facades\Auth;
 
 class Course extends Model
 {
@@ -39,5 +41,17 @@ class Course extends Model
     public function courseReview()
     {
         return $this->hasMany(Review::class);
+    }
+
+    /**
+     * Determine whether a course has been marked as favorite by a user
+     *
+     * @return boolean
+     */
+    public function favorited()
+    {
+        return (bool) Favorite::where('user_id', Auth::id())
+            ->where('course_id', $this->id)
+            ->first();
     }
 }
