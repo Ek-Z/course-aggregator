@@ -34985,8 +34985,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
 var CourseList = function CourseList(_ref) {
   var list = _ref.list;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("section", {
@@ -35046,14 +35044,10 @@ var Course = function Course(_ref) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
     item: true,
     xs: 5,
-    style: {
-      maxWidth: '460px'
-    },
+    className: _Course_module_scss__WEBPACK_IMPORTED_MODULE_2__["default"].grid,
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
       to: "/course/".concat(item.id),
-      style: {
-        textDecoration: 'none'
-      },
+      className: _Course_module_scss__WEBPACK_IMPORTED_MODULE_2__["default"].link,
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
         className: _Course_module_scss__WEBPACK_IMPORTED_MODULE_2__["default"].course,
         sx: {
@@ -35394,7 +35388,7 @@ var Router = function Router() {
             component: _layouts_Home_Home__WEBPACK_IMPORTED_MODULE_7__.Home
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
             exact: true,
-            path: "/courses/:filterPath?",
+            path: "/courses",
             component: _layouts_Catalog_Catalog__WEBPACK_IMPORTED_MODULE_2__.Catalog
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
             exact: true,
@@ -35581,9 +35575,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Catalog": () => (/* binding */ Catalog)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Pagination/Pagination.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Pagination/Pagination.js");
 /* harmony import */ var _store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../store/courseList/selectors */ "./resources/js/store/courseList/selectors.js");
 /* harmony import */ var _components_CourseList_CourseList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/CourseList/CourseList */ "./resources/js/components/CourseList/CourseList.js");
 /* harmony import */ var _components_CourseFilter_CourseFilter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../components/CourseFilter/CourseFilter */ "./resources/js/components/CourseFilter/CourseFilter.js");
@@ -35612,7 +35605,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var Catalog = function Catalog() {
   var programmingLanguages = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectProgrammingLanguages);
   var courseList = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectCourseList);
@@ -35620,23 +35612,21 @@ var Catalog = function Catalog() {
   var currentPage = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_pages_selectors__WEBPACK_IMPORTED_MODULE_9__.selectCurrentPage);
   var lastPage = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_pages_selectors__WEBPACK_IMPORTED_MODULE_9__.selectLastPage);
   var status = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectStatus);
-  var filter = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectFilterPath);
-  console.log('filter:', filter);
+  var filterPath = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectFilterPath);
+  var isFiltered = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_2__.selectIsFiltered);
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
 
-  var _useParams = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_14__.useParams)(),
-      filterPath = _useParams.filterPath;
+  var handlePageChange = function handlePageChange(_, pageNumber) {
+    return dispatch((0,_store_pages_action__WEBPACK_IMPORTED_MODULE_8__.getCurrentPage)(pageNumber, filterPath));
+  };
 
-  console.log('filterPath:', filterPath);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    dispatch((0,_store_pages_action__WEBPACK_IMPORTED_MODULE_8__.getPagesOfCourseList)(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_12__.PUBLIC_COURSES_LIST_URL));
+    dispatch((0,_store_pages_action__WEBPACK_IMPORTED_MODULE_8__.getPagesOfCourseList)(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_12__.URLS.PUBLIC_COURSELIST));
+    dispatch((0,_store_courseList_action__WEBPACK_IMPORTED_MODULE_5__.getPublicCourseList)(currentPage));
     return function () {
       !!programmingLanguages && dispatch((0,_store_courseList_action__WEBPACK_IMPORTED_MODULE_5__.setFilterClear)(programmingLanguages));
     };
   }, []);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    dispatch((0,_store_courseList_action__WEBPACK_IMPORTED_MODULE_5__.getPublicCourseList)(currentPage));
-  }, [dispatch, currentPage]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     !courseListLength && dispatch((0,_store_courseList_action__WEBPACK_IMPORTED_MODULE_5__.getPublicCourseList)(currentPage));
   }, [dispatch, courseListLength, currentPage]);
@@ -35652,13 +35642,11 @@ var Catalog = function Catalog() {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_CourseFilter_CourseFilter__WEBPACK_IMPORTED_MODULE_4__.CourseFilter, {}), status === _utils_statuses_statuses__WEBPACK_IMPORTED_MODULE_11__.STATUSES.REQUEST ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_ProgressLoader_ProgressLoader__WEBPACK_IMPORTED_MODULE_10__.ProgressLoader, {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_CourseList_CourseList__WEBPACK_IMPORTED_MODULE_3__.CourseList, {
           list: courseList
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_15__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_14__["default"], {
         className: _Catalog_module_scss__WEBPACK_IMPORTED_MODULE_7__["default"].pagination,
         count: lastPage,
         defaultPage: currentPage,
-        onChange: function onChange(event, newPage) {
-          return dispatch((0,_store_pages_action__WEBPACK_IMPORTED_MODULE_8__.changePage)(newPage));
-        }
+        onChange: handlePageChange
       }, "button-".concat(currentPage))]
     })
   });
@@ -36347,6 +36335,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "FILTER_STATE_CHANGED": () => (/* binding */ FILTER_STATE_CHANGED),
 /* harmony export */   "FILTER_SET_VALUE": () => (/* binding */ FILTER_SET_VALUE),
 /* harmony export */   "FILTER_SUBMIT": () => (/* binding */ FILTER_SUBMIT),
+/* harmony export */   "FILTER_SET_PATH": () => (/* binding */ FILTER_SET_PATH),
 /* harmony export */   "FILTER_CLEAR": () => (/* binding */ FILTER_CLEAR),
 /* harmony export */   "courseListOnload": () => (/* binding */ courseListOnload),
 /* harmony export */   "courseListLoaded": () => (/* binding */ courseListLoaded),
@@ -36358,6 +36347,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "filterStateChanged": () => (/* binding */ filterStateChanged),
 /* harmony export */   "setInputValue": () => (/* binding */ setInputValue),
 /* harmony export */   "filterSubmit": () => (/* binding */ filterSubmit),
+/* harmony export */   "filterSetPath": () => (/* binding */ filterSetPath),
 /* harmony export */   "filterClear": () => (/* binding */ filterClear),
 /* harmony export */   "getLastCourses": () => (/* binding */ getLastCourses),
 /* harmony export */   "getPublicCourseList": () => (/* binding */ getPublicCourseList),
@@ -36369,9 +36359,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
 /* harmony import */ var _utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/urls/urls */ "./resources/js/utils/urls/urls.js");
 /* harmony import */ var _utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/HOF/HOF */ "./resources/js/utils/HOF/HOF.js");
+/* harmony import */ var _pages_action__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../pages/action */ "./resources/js/store/pages/action.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -36387,6 +36378,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+
 var COURSE_LIST_ONLOAD = 'COURSE_LIST::ONLOAD';
 var COURSE_LIST_LOADED = 'COURSE_LIST::LOADED';
 var COURSE_LIST_FAILED = 'COURSE_LIST::FAILED';
@@ -36397,15 +36389,16 @@ var FILTER_FAILED = 'FILTER::FAILED';
 var FILTER_STATE_CHANGED = 'FILTER::STATE_CHANGED';
 var FILTER_SET_VALUE = 'FILTER::SET_VALUE';
 var FILTER_SUBMIT = 'FILTER::SUBMIT';
+var FILTER_SET_PATH = 'FILTER::SET_PATH';
 var FILTER_CLEAR = 'FILTER::CLEAR';
-var courseListOnload = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.createAction)(COURSE_LIST_ONLOAD);
-var courseListLoaded = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.createAction)(COURSE_LIST_LOADED);
-var courseListFailed = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.createAction)(COURSE_LIST_FAILED);
-var courseListFiltered = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.createAction)(COURSE_LIST_FILTERED);
-var filterInit = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.createAction)(FILTER_INIT);
-var filterLoaded = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.createAction)(FILTER_LOADED);
-var filterFailed = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.createAction)(FILTER_FAILED);
-var filterStateChanged = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.createAction)(FILTER_STATE_CHANGED, function (index, title) {
+var courseListOnload = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_4__.createAction)(COURSE_LIST_ONLOAD);
+var courseListLoaded = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_4__.createAction)(COURSE_LIST_LOADED);
+var courseListFailed = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_4__.createAction)(COURSE_LIST_FAILED);
+var courseListFiltered = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_4__.createAction)(COURSE_LIST_FILTERED);
+var filterInit = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_4__.createAction)(FILTER_INIT);
+var filterLoaded = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_4__.createAction)(FILTER_LOADED);
+var filterFailed = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_4__.createAction)(FILTER_FAILED);
+var filterStateChanged = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_4__.createAction)(FILTER_STATE_CHANGED, function (index, title) {
   return {
     payload: {
       index: index,
@@ -36413,9 +36406,10 @@ var filterStateChanged = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.create
     }
   };
 });
-var setInputValue = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.createAction)(FILTER_SET_VALUE);
-var filterSubmit = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.createAction)(FILTER_SUBMIT);
-var filterClear = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.createAction)(FILTER_CLEAR);
+var setInputValue = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_4__.createAction)(FILTER_SET_VALUE);
+var filterSubmit = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_4__.createAction)(FILTER_SUBMIT);
+var filterSetPath = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_4__.createAction)(FILTER_SET_PATH);
+var filterClear = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_4__.createAction)(FILTER_CLEAR);
 var getLastCourses = function getLastCourses() {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(dispatch) {
@@ -36427,7 +36421,7 @@ var getLastCourses = function getLastCourses() {
               dispatch(courseListOnload());
               _context.prev = 1;
               _context.next = 4;
-              return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.fetchData)('/api/newcourses');
+              return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.fetchData)(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.URLS.NEW_COURSES);
 
             case 4:
               lastCourses = _context.sent;
@@ -36453,7 +36447,7 @@ var getLastCourses = function getLastCourses() {
     };
   }();
 };
-var getPublicCourseList = function getPublicCourseList(currentPage) {
+var getPublicCourseList = function getPublicCourseList(currentPage, filterPath) {
   return /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(dispatch) {
       var courseList;
@@ -36464,7 +36458,7 @@ var getPublicCourseList = function getPublicCourseList(currentPage) {
               dispatch(courseListOnload());
               _context2.prev = 1;
               _context2.next = 4;
-              return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.fetchData)("".concat(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.PUBLIC_COURSES_LIST_URL, "?page=").concat(currentPage));
+              return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.fetchData)("".concat(filterPath ? _utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.URLS.PUBLIC_COURSELIST + "?".concat(filterPath) + "&page=".concat(currentPage) : _utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.URLS.PUBLIC_COURSELIST + "?page=".concat(currentPage)));
 
             case 4:
               courseList = _context2.sent;
@@ -36490,7 +36484,7 @@ var getPublicCourseList = function getPublicCourseList(currentPage) {
     };
   }();
 };
-var getAdminCourseList = function getAdminCourseList(currentPage) {
+var getAdminCourseList = function getAdminCourseList(currentPage, filterPath) {
   return /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(dispatch) {
       var courseList;
@@ -36501,7 +36495,7 @@ var getAdminCourseList = function getAdminCourseList(currentPage) {
               dispatch(courseListOnload());
               _context3.prev = 1;
               _context3.next = 4;
-              return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.fetchData)("".concat(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.ADMIN_COURSE_LIST_URL, "?page=").concat(currentPage));
+              return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.fetchData)("".concat(filterPath ? _utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.URLS.ADMIN_COURSELIST + "?".concat(filterPath) + "&page=".concat(currentPage) : _utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.URLS.ADMIN_COURSELIST + "?page=".concat(currentPage)));
 
             case 4:
               courseList = _context3.sent;
@@ -36538,7 +36532,7 @@ var getFilters = function getFilters() {
               dispatch(filterInit());
               _context4.prev = 1;
               _context4.next = 4;
-              return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.fetchData)('/api/programmingLanguages');
+              return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.fetchData)(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.URLS.PROGRAMMING_LANGUAGES);
 
             case 4:
               filters = _context4.sent;
@@ -36573,7 +36567,7 @@ var changeFilterState = function changeFilterState(filterIndex, filterTitle) {
 var getSelectedFilters = function getSelectedFilters(filters, inputValue) {
   return /*#__PURE__*/function () {
     var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(dispatch) {
-      var selectedFilters, filteredCourseList;
+      var selectedFilters, filterPath, filteredCourseList;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
@@ -36583,14 +36577,17 @@ var getSelectedFilters = function getSelectedFilters(filters, inputValue) {
               if (inputValue) selectedFilters = _objectSpread(_objectSpread({}, selectedFilters), {}, {
                 'Заголовок': inputValue
               });
-              _context5.next = 5;
-              return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.setFilterPath)(selectedFilters);
-
-            case 5:
-              filteredCourseList = _context5.sent;
-              dispatch(courseListFiltered(filteredCourseList.data));
+              filterPath = (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.setFilterPath)(selectedFilters);
+              dispatch(filterSetPath(filterPath));
+              _context5.next = 7;
+              return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.fetchData)("".concat(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.URLS.PUBLIC_COURSELIST + "?".concat(filterPath)));
 
             case 7:
+              filteredCourseList = _context5.sent;
+              dispatch((0,_pages_action__WEBPACK_IMPORTED_MODULE_3__.pagesLoaded)(filteredCourseList.meta));
+              dispatch(courseListFiltered(filteredCourseList.data));
+
+            case 10:
             case "end":
               return _context5.stop();
           }
@@ -36661,7 +36658,6 @@ var courseListReducer = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.createR
     state.courseList = payload;
     state.status = _utils_statuses_statuses__WEBPACK_IMPORTED_MODULE_1__.STATUSES.SUCCESS;
     state.error = null;
-    state.isFiltered = false;
   }).addCase(_action__WEBPACK_IMPORTED_MODULE_0__.courseListFailed, function (state, _ref2) {
     var payload = _ref2.payload;
     state.status = _utils_statuses_statuses__WEBPACK_IMPORTED_MODULE_1__.STATUSES.FAILED;
@@ -36686,10 +36682,14 @@ var courseListReducer = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.createR
   }).addCase(_action__WEBPACK_IMPORTED_MODULE_0__.filterStateChanged, function (state, _ref7) {
     var payload = _ref7.payload;
     state.filters.data[payload.title][payload.index].state = !state.filters.data[payload.title][payload.index].state;
-  }).addCase(_action__WEBPACK_IMPORTED_MODULE_0__.filterClear, function (state, _ref8) {
+  }).addCase(_action__WEBPACK_IMPORTED_MODULE_0__.filterSetPath, function (state, _ref8) {
     var payload = _ref8.payload;
+    state.filterPath = payload;
+  }).addCase(_action__WEBPACK_IMPORTED_MODULE_0__.filterClear, function (state, _ref9) {
+    var payload = _ref9.payload;
     state.filters.data['Языки программирования'] = payload;
     state.isFiltered = false;
+    state.filterPath = '';
   }).addDefaultCase(function () {});
 });
 
@@ -36820,12 +36820,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "CHANGE_PAGE": () => (/* binding */ CHANGE_PAGE),
 /* harmony export */   "pagesLoaded": () => (/* binding */ pagesLoaded),
 /* harmony export */   "changePage": () => (/* binding */ changePage),
-/* harmony export */   "getPagesOfCourseList": () => (/* binding */ getPagesOfCourseList)
+/* harmony export */   "getPagesOfCourseList": () => (/* binding */ getPagesOfCourseList),
+/* harmony export */   "getCurrentPage": () => (/* binding */ getCurrentPage)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
 /* harmony import */ var _utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/HOF/HOF */ "./resources/js/utils/HOF/HOF.js");
+/* harmony import */ var _courseList_action__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../courseList/action */ "./resources/js/store/courseList/action.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -36834,10 +36836,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+
 var PAGES_LOADED = 'PAGES::LOADED';
 var CHANGE_PAGE = 'PAGES::CHANGE_PAGE';
-var pagesLoaded = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.createAction)(PAGES_LOADED);
-var changePage = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.createAction)(CHANGE_PAGE);
+var pagesLoaded = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.createAction)(PAGES_LOADED);
+var changePage = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.createAction)(CHANGE_PAGE);
 var getPagesOfCourseList = function getPagesOfCourseList(url) {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(dispatch) {
@@ -36865,6 +36868,12 @@ var getPagesOfCourseList = function getPagesOfCourseList(url) {
       return _ref.apply(this, arguments);
     };
   }();
+};
+var getCurrentPage = function getCurrentPage(pageNumber, filterPath) {
+  return function (dispatch) {
+    dispatch(changePage(pageNumber));
+    dispatch((0,_courseList_action__WEBPACK_IMPORTED_MODULE_2__.getPublicCourseList)(pageNumber, filterPath));
+  };
 };
 
 /***/ }),
@@ -37164,7 +37173,7 @@ var logInThunk = function logInThunk(user) {
               dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_2__.logInStart)());
               _context.prev = 1;
               _context.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_3___default().post(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.LOGIN_URL, user);
+              return axios__WEBPACK_IMPORTED_MODULE_3___default().post(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.URLS.LOGIN, user);
 
             case 4:
               response = _context.sent;
@@ -37207,7 +37216,7 @@ var registerThunk = function registerThunk(user) {
               dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_2__.logInStart)());
               _context2.prev = 1;
               _context2.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_3___default().post(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.REGISTER_URL, user);
+              return axios__WEBPACK_IMPORTED_MODULE_3___default().post(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.URLS.REGISTER, user);
 
             case 4:
               response = _context2.sent;
@@ -37252,7 +37261,7 @@ var logOutThunk = function logOutThunk() {
               userToken = JSON.parse(localStorage.getItem('userData')).data.token; //токен пользователя
 
               _context3.next = 5;
-              return axios__WEBPACK_IMPORTED_MODULE_3___default().post(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.LOGOUT_URL, {}, {
+              return axios__WEBPACK_IMPORTED_MODULE_3___default().post(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.URLS.LOGOUT, {}, {
                 headers: {
                   'Authorization': "Bearer ".concat(userToken)
                 }
@@ -37335,7 +37344,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _urls_urls__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../urls/urls */ "./resources/js/utils/urls/urls.js");
 
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -37361,7 +37369,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 
 function fetchData(_x) {
   return _fetchData.apply(this, arguments);
@@ -37444,94 +37451,61 @@ function checkFilterState(filters) {
 
   return selectedFilters;
 }
-function setFilterPath(_x2) {
-  return _setFilterPath.apply(this, arguments);
-}
+function setFilterPath(selectedFilters) {
+  if (!Object.values(selectedFilters).length) return '';
+  var filterPath = [];
 
-function _setFilterPath() {
-  _setFilterPath = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(selectedFilters) {
-    var filterPath, selectedFiltersKey, languages, programmingLanguages, _iterator2, _step2, language, _iterator3, _step3, programmingLanguage;
+  for (var selectedFiltersKey in selectedFilters) {
+    var languages = [];
+    var programmingLanguages = [];
 
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            filterPath = [];
-            _context2.t0 = _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().keys(selectedFilters);
+    switch (selectedFiltersKey) {
+      case 'Языки курсов':
+        var _iterator2 = _createForOfIteratorHelper(selectedFilters[selectedFiltersKey]),
+            _step2;
 
-          case 2:
-            if ((_context2.t1 = _context2.t0()).done) {
-              _context2.next = 22;
-              break;
-            }
-
-            selectedFiltersKey = _context2.t1.value;
-            languages = [];
-            programmingLanguages = [];
-            _context2.t2 = selectedFiltersKey;
-            _context2.next = _context2.t2 === 'Языки курсов' ? 9 : _context2.t2 === 'Языки программирования' ? 13 : _context2.t2 === 'Заголовок' ? 17 : 19;
-            break;
-
-          case 9:
-            _iterator2 = _createForOfIteratorHelper(selectedFilters[selectedFiltersKey]);
-
-            try {
-              for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-                language = _step2.value;
-                languages = [].concat(_toConsumableArray(languages), [language.title]);
-              }
-            } catch (err) {
-              _iterator2.e(err);
-            } finally {
-              _iterator2.f();
-            }
-
-            filterPath = [].concat(_toConsumableArray(filterPath), ["filter[language]=".concat(languages.join(','))]);
-            return _context2.abrupt("break", 20);
-
-          case 13:
-            _iterator3 = _createForOfIteratorHelper(selectedFilters[selectedFiltersKey]);
-
-            try {
-              for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
-                programmingLanguage = _step3.value;
-                programmingLanguages = [].concat(_toConsumableArray(programmingLanguages), [programmingLanguage.id]);
-              }
-            } catch (err) {
-              _iterator3.e(err);
-            } finally {
-              _iterator3.f();
-            }
-
-            filterPath = [].concat(_toConsumableArray(filterPath), ["filter[programmingLanguage_id]=".concat(programmingLanguages.join(','))]);
-            return _context2.abrupt("break", 20);
-
-          case 17:
-            filterPath = [].concat(_toConsumableArray(filterPath), ["filter[title]=".concat(selectedFilters[selectedFiltersKey])]);
-            return _context2.abrupt("break", 20);
-
-          case 19:
-            return _context2.abrupt("break", 20);
-
-          case 20:
-            _context2.next = 2;
-            break;
-
-          case 22:
-            _context2.next = 24;
-            return fetchData("".concat(_urls_urls__WEBPACK_IMPORTED_MODULE_1__.PUBLIC_COURSES_LIST_URL, "?").concat(filterPath.join('&')));
-
-          case 24:
-            return _context2.abrupt("return", _context2.sent);
-
-          case 25:
-          case "end":
-            return _context2.stop();
+        try {
+          for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+            var language = _step2.value;
+            languages = [].concat(_toConsumableArray(languages), [language.title]);
+          }
+        } catch (err) {
+          _iterator2.e(err);
+        } finally {
+          _iterator2.f();
         }
-      }
-    }, _callee2);
-  }));
-  return _setFilterPath.apply(this, arguments);
+
+        filterPath = [].concat(_toConsumableArray(filterPath), ["filter[language]=".concat(languages.join(','))]);
+        break;
+
+      case 'Языки программирования':
+        var _iterator3 = _createForOfIteratorHelper(selectedFilters[selectedFiltersKey]),
+            _step3;
+
+        try {
+          for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+            var programmingLanguage = _step3.value;
+            programmingLanguages = [].concat(_toConsumableArray(programmingLanguages), [programmingLanguage.id]);
+          }
+        } catch (err) {
+          _iterator3.e(err);
+        } finally {
+          _iterator3.f();
+        }
+
+        filterPath = [].concat(_toConsumableArray(filterPath), ["filter[programmingLanguage_id]=".concat(programmingLanguages.join(','))]);
+        break;
+
+      case 'Заголовок':
+        filterPath = [].concat(_toConsumableArray(filterPath), ["filter[title]=".concat(selectedFilters[selectedFiltersKey])]);
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  return filterPath.join('&');
 }
 
 /***/ }),
@@ -37569,13 +37543,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ADMIN_COURSE_LIST_URL": () => (/* binding */ ADMIN_COURSE_LIST_URL),
 /* harmony export */   "LOGIN_URL": () => (/* binding */ LOGIN_URL),
 /* harmony export */   "REGISTER_URL": () => (/* binding */ REGISTER_URL),
-/* harmony export */   "LOGOUT_URL": () => (/* binding */ LOGOUT_URL)
+/* harmony export */   "LOGOUT_URL": () => (/* binding */ LOGOUT_URL),
+/* harmony export */   "URLS": () => (/* binding */ URLS)
 /* harmony export */ });
 var PUBLIC_COURSES_LIST_URL = 'api/courses';
 var ADMIN_COURSE_LIST_URL = 'api/admin/courses';
 var LOGIN_URL = 'api/login';
 var REGISTER_URL = 'api/register';
 var LOGOUT_URL = 'api/logout';
+var URLS = {
+  PUBLIC_COURSELIST: 'api/courses',
+  ADMIN_COURSELIST: 'api/admin/courses',
+  NEW_COURSES: 'api/newcourses',
+  LOGIN: 'api/login',
+  REGISTER: 'api/register',
+  LOGOUT: 'api/logout',
+  PROGRAMMING_LANGUAGES: 'api/programmingLanguages'
+};
 
 /***/ }),
 
@@ -37887,9 +37871,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "._3pFKSUl5vPg-mPNhOC3OqB {\n  min-width: 400px;\n}\n._3pFKSUl5vPg-mPNhOC3OqB:hover .tZ5wJfq9FeloPdMRIGIrL {\n  transform: scale(1.1);\n}\n\n.tZ5wJfq9FeloPdMRIGIrL {\n  min-height: 230px;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  transition: transform 300ms;\n  width: 100%;\n}\n._2-3-m7h2lVd03LWhbYrCNC {\n  overflow: hidden;\n  max-height: 230px;\n  height: 100%;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".WzlDNMXE5AluxPUhcE3NY {\n  max-width: 460px;\n}\n\n._3XdpegYSCe79Avar3zcMpd {\n  text-decoration: none;\n}\n\n._3pFKSUl5vPg-mPNhOC3OqB {\n  min-width: 400px;\n}\n._3pFKSUl5vPg-mPNhOC3OqB:hover .tZ5wJfq9FeloPdMRIGIrL {\n  transform: scale(1.1);\n}\n\n.tZ5wJfq9FeloPdMRIGIrL {\n  min-height: 230px;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  transition: transform 300ms;\n  width: 100%;\n}\n._2-3-m7h2lVd03LWhbYrCNC {\n  overflow: hidden;\n  max-height: 230px;\n  height: 100%;\n}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
+	"grid": "WzlDNMXE5AluxPUhcE3NY",
+	"link": "_3XdpegYSCe79Avar3zcMpd",
 	"course": "_3pFKSUl5vPg-mPNhOC3OqB",
 	"image": "tZ5wJfq9FeloPdMRIGIrL",
 	"image_wrap": "_2-3-m7h2lVd03LWhbYrCNC"

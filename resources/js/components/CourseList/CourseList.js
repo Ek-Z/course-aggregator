@@ -1,6 +1,4 @@
 import PropTypes from 'prop-types';
-import { Box } from '@mui/system';
-import { Grid } from '@mui/material';
 import { Course } from '../Course/Course';
 import style from './CourseList.module.scss';
 

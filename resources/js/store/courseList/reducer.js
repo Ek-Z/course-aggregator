@@ -4,7 +4,7 @@ import {
     courseListLoaded,
     courseListOnload, filterClear,
     filterFailed, filterInit,
-    filterLoaded, filterStateChanged, setInputValue,
+    filterLoaded, filterSetPath, filterStateChanged, setInputValue,
 } from './action';
 import { STATUSES } from '../../utils/statuses/statuses';
 
@@ -34,7 +34,6 @@ export const courseListReducer = createReducer(initialState, builder => {
             state.courseList = payload;
             state.status = STATUSES.SUCCESS;
             state.error = null;
-            state.isFiltered = false;
         })
         .addCase(courseListFailed, (state, { payload }) => {
             state.status = STATUSES.FAILED;
@@ -61,9 +60,13 @@ export const courseListReducer = createReducer(initialState, builder => {
         .addCase(filterStateChanged, (state, { payload }) => {
             state.filters.data[payload.title][payload.index].state = !state.filters.data[payload.title][payload.index].state;
         })
+        .addCase(filterSetPath, (state, { payload }) => {
+            state.filterPath = payload;
+        })
         .addCase(filterClear, (state, { payload }) => {
             state.filters.data['Языки программирования'] = payload;
             state.isFiltered = false;
+            state.filterPath = '';
         })
         .addDefaultCase(() => {});
 });
