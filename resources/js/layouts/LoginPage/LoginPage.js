@@ -1,35 +1,28 @@
 // Страница авторизации
-import {AuthForm} from "../../components/AuthForm/AuthForm";
-import React, {useEffect, useState} from "react";
-import {useHistory} from "react-router";
-import {useDispatch, useSelector} from "react-redux"
-import {logInThunk} from "../../store/session/thunks";
-import {selectUserName} from "../../store/session/selectors";
+import React from "react";
+import { AuthForm } from "../../components/AuthForm/AuthForm";
+import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector} from "react-redux"
+import { logInThunk } from "../../store/session/thunks";
+import { selectUserName } from "../../store/session/selectors";
 
 export const LoginPage = () => {
     const username = useSelector(selectUserName)
     const dispatch = useDispatch();
+    let history = useHistory();
 
-    const [user, setUser] = useState({
+    const [user, setUser] = React.useState({
         email: "",
-        password:""
+        password: ""
     });
 
     //ошибка содержимого инпутов
-    const [error,setError] = useState({
-        name:"",
-        email:"",
-        password:"",
-        confirm_password:""
+    const [error,setError] = React.useState({
+        name: "",
+        email: "",
+        password: "",
+        confirm_password: ""
     })
-
-    useEffect(() => {
-        if (username){
-            history.push("/")
-        }
-    },[username])
-    let history = useHistory();
-
 
     const onInputChange = e => {
         setUser({ ...user, [e.target.name]: e.target.value });
@@ -47,6 +40,12 @@ export const LoginPage = () => {
             dispatch(logInThunk(user))
         }
     }
+
+    React.useEffect(() => {
+        if (username){
+            history.push("/")
+        }
+    },[username])
 
     return (
         <AuthForm
