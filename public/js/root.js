@@ -34335,13 +34335,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
-/* harmony import */ var _utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/HOF/HOF */ "./resources/js/utils/HOF/HOF.js");
-/* harmony import */ var _utils_urls_urls__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/urls/urls */ "./resources/js/utils/urls/urls.js");
-/* harmony import */ var _AddCourse_module_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./AddCourse.module.scss */ "./resources/js/components/AddCourse/AddCourse.module.scss");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/HOF/HOF */ "./resources/js/utils/HOF/HOF.js");
+/* harmony import */ var _utils_urls_urls__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/urls/urls */ "./resources/js/utils/urls/urls.js");
+/* harmony import */ var _store_admin_action__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../store/admin/action */ "./resources/js/store/admin/action.js");
 /* harmony import */ var _store_session_selectors__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../store/session/selectors */ "./resources/js/store/session/selectors.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _AddCourse_module_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./AddCourse.module.scss */ "./resources/js/components/AddCourse/AddCourse.module.scss");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -34370,6 +34371,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var AddCourse = function AddCourse() {
   var _React$useState = react__WEBPACK_IMPORTED_MODULE_1__.useState([]),
       _React$useState2 = _slicedToArray(_React$useState, 2),
@@ -34384,8 +34386,9 @@ var AddCourse = function AddCourse() {
   var sourceNameRef = react__WEBPACK_IMPORTED_MODULE_1__.useRef(null);
   var sourceUrlRef = react__WEBPACK_IMPORTED_MODULE_1__.useRef(null);
   var courseImageRef = react__WEBPACK_IMPORTED_MODULE_1__.useRef(null);
-  var isAdmin = (0,react_redux__WEBPACK_IMPORTED_MODULE_5__.useSelector)(_store_session_selectors__WEBPACK_IMPORTED_MODULE_6__.selectIsAdmin);
-  var history = (0,react_router__WEBPACK_IMPORTED_MODULE_8__.useHistory)();
+  var isAdmin = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(_store_session_selectors__WEBPACK_IMPORTED_MODULE_6__.selectIsAdmin);
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useDispatch)();
+  var history = (0,react_router__WEBPACK_IMPORTED_MODULE_9__.useHistory)();
 
   var getProgrammingLanguages = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
@@ -34394,7 +34397,7 @@ var AddCourse = function AddCourse() {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_2__.fetchData)('/api/programmingLanguages');
+              return (0,_utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_3__.fetchData)(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_4__.URLS.PROGRAMMING_LANGUAGES);
 
             case 2:
               return _context.abrupt("return", _context.sent);
@@ -34412,7 +34415,7 @@ var AddCourse = function AddCourse() {
     };
   }();
 
-  var addNewCourse = function addNewCourse(evt) {
+  var handleSubmit = function handleSubmit(evt) {
     var _courseTitleRef$curre, _sourceUrlRef$current, _courseTitleRef$curre2, _courseLanguageRef$cu, _courseShortDescripti, _courseDescriptionRef, _courseProgrammingLan, _sourceNameRef$curren, _sourceUrlRef$current2, _courseImageRef$curre;
 
     evt.preventDefault();
@@ -34436,19 +34439,9 @@ var AddCourse = function AddCourse() {
       image: (_courseImageRef$curre = courseImageRef.current) === null || _courseImageRef$curre === void 0 ? void 0 : _courseImageRef$curre.value
     };
     var userToken = JSON.parse(localStorage.getItem('userData')).data.token;
-    fetch(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_3__.ADMIN_COURSE_LIST_URL, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json; charset=utf-8',
-        'Authorization': "Bearer ".concat(userToken),
-        'x-csrf-token': document.querySelector("[name='csrf-token']").getAttribute('content')
-      },
-      body: JSON.stringify(newCourseData)
-    }).then(function () {
-      alert('Курс успешно добавлен');
-      history.push("/admin");
-    });
+    dispatch((0,_store_admin_action__WEBPACK_IMPORTED_MODULE_5__.addNewCourse)(newCourseData, userToken));
+    history.push('/admin');
+    alert('Курс успешно добавлен');
   };
 
   react__WEBPACK_IMPORTED_MODULE_1__.useEffect( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
@@ -34473,20 +34466,20 @@ var AddCourse = function AddCourse() {
   })), []);
 
   if (!isAdmin) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router__WEBPACK_IMPORTED_MODULE_8__.Redirect, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_router__WEBPACK_IMPORTED_MODULE_9__.Redirect, {
       to: "/"
     });
   }
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-    className: "container ".concat(_AddCourse_module_scss__WEBPACK_IMPORTED_MODULE_4__["default"].wrap),
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("form", {
-      onSubmit: addNewCourse,
-      className: _AddCourse_module_scss__WEBPACK_IMPORTED_MODULE_4__["default"].form,
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+    className: "container ".concat(_AddCourse_module_scss__WEBPACK_IMPORTED_MODULE_7__["default"].wrap),
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("form", {
+      onSubmit: handleSubmit,
+      className: _AddCourse_module_scss__WEBPACK_IMPORTED_MODULE_7__["default"].form,
       method: "POST",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("label", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("label", {
         htmlFor: "title",
-        children: ["\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043A\u0443\u0440\u0441\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+        children: ["\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043A\u0443\u0440\u0441\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
           id: "title",
           type: "text",
           name: "title",
@@ -34494,64 +34487,64 @@ var AddCourse = function AddCourse() {
           ref: courseTitleRef,
           required: true
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("label", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("label", {
         htmlFor: "language",
-        children: ["\u042F\u0437\u044B\u043A \u043A\u0443\u0440\u0441\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("select", {
+        children: ["\u042F\u0437\u044B\u043A \u043A\u0443\u0440\u0441\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("select", {
           name: "language",
           id: "language",
           ref: courseLanguageRef,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("option", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("option", {
             id: "1",
             value: "\u0420\u0443\u0441\u0441\u043A\u0438\u0439",
             children: "\u0420\u0443\u0441\u0441\u043A\u0438\u0439"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("option", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("option", {
             id: "2",
             value: "English",
             children: "English"
           })]
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("label", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("label", {
         htmlFor: "short_description",
-        children: ["\u041A\u0440\u0430\u0442\u043A\u043E\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043A\u0443\u0440\u0441\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("textarea", {
+        children: ["\u041A\u0440\u0430\u0442\u043A\u043E\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043A\u0443\u0440\u0441\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("textarea", {
           id: "short_description",
           name: "short_description",
           placeholder: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043A\u0440\u0430\u0442\u043A\u043E\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043A\u0443\u0440\u0441\u0430",
           ref: courseShortDescriptionRef
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("label", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("label", {
         htmlFor: "description",
-        children: ["\u041F\u043E\u043B\u043D\u043E\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043A\u0443\u0440\u0441\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("textarea", {
+        children: ["\u041F\u043E\u043B\u043D\u043E\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043A\u0443\u0440\u0441\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("textarea", {
           id: "description",
           name: "description",
           placeholder: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043F\u043E\u043B\u043D\u043E\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043A\u0443\u0440\u0441\u0430",
           ref: courseDescriptionRef
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("label", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("label", {
         htmlFor: "prog_language",
-        children: ["\u042F\u0437\u044B\u043A \u043A\u0443\u0440\u0441\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("select", {
+        children: ["\u042F\u0437\u044B\u043A \u043A\u0443\u0440\u0441\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("select", {
           name: "prog_language",
           id: "prog_language",
           ref: courseProgrammingLanguageRef,
           children: languages.map(function (language) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("option", {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("option", {
               value: language.title,
               id: language.id,
               children: language.title
             }, language.id);
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("label", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("label", {
         htmlFor: "source_name",
-        children: ["\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0438\u0441\u0442\u043E\u0447\u043D\u0438\u043A\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+        children: ["\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0438\u0441\u0442\u043E\u0447\u043D\u0438\u043A\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
           id: "source_name",
           type: "text",
           name: "source_name",
           placeholder: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0438\u0441\u0442\u043E\u0447\u043D\u0438\u043A\u0430",
           ref: sourceNameRef
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("label", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("label", {
         htmlFor: "source_url",
-        children: ["URL \u0438\u0441\u0442\u043E\u0447\u043D\u0438\u043A\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+        children: ["URL \u0438\u0441\u0442\u043E\u0447\u043D\u0438\u043A\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
           id: "source_url",
           type: "url",
           name: "source_url",
@@ -34559,9 +34552,9 @@ var AddCourse = function AddCourse() {
           ref: sourceUrlRef,
           required: true
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("label", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("label", {
         htmlFor: "image",
-        children: ["\u0424\u043E\u0442\u043E\u0433\u0440\u0430\u0446\u0438\u044F \u043A\u0443\u0440\u0441\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+        children: ["\u0424\u043E\u0442\u043E\u0433\u0440\u0430\u0446\u0438\u044F \u043A\u0443\u0440\u0441\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
           id: "image",
           type: "file",
           alt: "\u0444\u043E\u0442\u043E\u0433\u0440\u0430\u0444\u0438\u044F \u043A\u0443\u0440\u0441\u0430",
@@ -34569,11 +34562,11 @@ var AddCourse = function AddCourse() {
           name: "image",
           ref: courseImageRef
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
         type: "submit",
-        onClick: addNewCourse,
+        onClick: handleSubmit,
         children: "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u043A\u0443\u0440\u0441"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
         type: "reset",
         children: "\u0421\u0431\u0440\u043E\u0441\u0438\u0442\u044C"
       })]
@@ -36316,6 +36309,113 @@ __webpack_require__(/*! ./App */ "./resources/js/App.js");
 
 /***/ }),
 
+/***/ "./resources/js/store/admin/action.js":
+/*!********************************************!*\
+  !*** ./resources/js/store/admin/action.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "adminAddCourse": () => (/* binding */ adminAddCourse),
+/* harmony export */   "adminDeleteCourse": () => (/* binding */ adminDeleteCourse),
+/* harmony export */   "addNewCourse": () => (/* binding */ addNewCourse)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
+/* harmony import */ var _utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/urls/urls */ "./resources/js/utils/urls/urls.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
+var ADMIN_ADD_COURSE = 'ADMIN::ADD_COURSE';
+var ADMIN_DELETE_COURSE = 'ADMIN::DELETE_COURSE';
+var adminAddCourse = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.createAction)(ADMIN_ADD_COURSE);
+var adminDeleteCourse = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.createAction)(ADMIN_DELETE_COURSE);
+var addNewCourse = function addNewCourse(courseData, userToken) {
+  return /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(dispatch) {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              _context.next = 3;
+              return fetch(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.URLS.ADMIN_COURSELIST, {
+                method: 'POST',
+                headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json',
+                  'Authorization': "Bearer ".concat(userToken),
+                  'x-csrf-token': document.querySelector('[name=\'csrf-token\']').getAttribute('content')
+                },
+                body: JSON.stringify(courseData)
+              });
+
+            case 3:
+              response = _context.sent;
+
+              if (response.ok) {
+                _context.next = 6;
+                break;
+              }
+
+              throw new Error("Error: ".concat(response.statusText));
+
+            case 6:
+              dispatch(adminAddCourse());
+              _context.next = 12;
+              break;
+
+            case 9:
+              _context.prev = 9;
+              _context.t0 = _context["catch"](0);
+              console.log(_context.t0);
+
+            case 12:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[0, 9]]);
+    }));
+
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+
+/***/ }),
+
+/***/ "./resources/js/store/admin/reducer.js":
+/*!*********************************************!*\
+  !*** ./resources/js/store/admin/reducer.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "adminReducer": () => (/* binding */ adminReducer)
+/* harmony export */ });
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
+/* harmony import */ var _action__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./action */ "./resources/js/store/admin/action.js");
+
+
+var adminReducer = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createReducer)({}, function (builder) {
+  builder.addCase(_action__WEBPACK_IMPORTED_MODULE_0__.adminAddCourse, function () {}).addCase(_action__WEBPACK_IMPORTED_MODULE_0__.adminDeleteCourse, function () {}).addDefaultCase(function () {});
+});
+
+/***/ }),
+
 /***/ "./resources/js/store/courseList/action.js":
 /*!*************************************************!*\
   !*** ./resources/js/store/courseList/action.js ***!
@@ -36776,13 +36876,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "store": () => (/* binding */ store),
 /* harmony export */   "persistor": () => (/* binding */ persistor)
 /* harmony export */ });
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var redux_persist__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux-persist */ "./node_modules/redux-persist/es/index.js");
 /* harmony import */ var redux_persist_lib_storage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux-persist/lib/storage */ "./node_modules/redux-persist/lib/storage/index.js");
 /* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/es/index.js");
 /* harmony import */ var _courseList_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./courseList/reducer */ "./resources/js/store/courseList/reducer.js");
 /* harmony import */ var _session__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./session */ "./resources/js/store/session/index.js");
 /* harmony import */ var _pages_reducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/reducer */ "./resources/js/store/pages/reducer.js");
+/* harmony import */ var _admin_reducer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./admin/reducer */ "./resources/js/store/admin/reducer.js");
 
 
 
@@ -36790,19 +36891,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || redux__WEBPACK_IMPORTED_MODULE_6__.compose;
+
+var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || redux__WEBPACK_IMPORTED_MODULE_7__.compose;
 var persistConfig = {
   key: 'course-aggregator',
   blacklist: [],
   storage: redux_persist_lib_storage__WEBPACK_IMPORTED_MODULE_1__["default"]
 };
-var rootReducer = (0,redux__WEBPACK_IMPORTED_MODULE_6__.combineReducers)({
+var rootReducer = (0,redux__WEBPACK_IMPORTED_MODULE_7__.combineReducers)({
   courseList: _courseList_reducer__WEBPACK_IMPORTED_MODULE_3__.courseListReducer,
   profile: _session__WEBPACK_IMPORTED_MODULE_4__.profileReducer,
-  pages: _pages_reducer__WEBPACK_IMPORTED_MODULE_5__.pagesReducer
+  pages: _pages_reducer__WEBPACK_IMPORTED_MODULE_5__.pagesReducer,
+  admin: _admin_reducer__WEBPACK_IMPORTED_MODULE_6__.adminReducer
 });
 var persistedReducer = (0,redux_persist__WEBPACK_IMPORTED_MODULE_0__.persistReducer)(persistConfig, rootReducer);
-var store = (0,redux__WEBPACK_IMPORTED_MODULE_6__.createStore)(persistedReducer, composeEnhancers((0,redux__WEBPACK_IMPORTED_MODULE_6__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_2__["default"])));
+var store = (0,redux__WEBPACK_IMPORTED_MODULE_7__.createStore)(persistedReducer, composeEnhancers((0,redux__WEBPACK_IMPORTED_MODULE_7__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_2__["default"])));
 var persistor = (0,redux_persist__WEBPACK_IMPORTED_MODULE_0__.persistStore)(store);
 
 /***/ }),

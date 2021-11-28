@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchData } from '../../utils/HOF/HOF';
-import { ADMIN_COURSE_LIST_URL } from '../../utils/urls/urls';
-import style from './AddCourse.module.scss';
-import { useSelector } from 'react-redux';
+import { URLS } from '../../utils/urls/urls';
+import { addNewCourse } from '../../store/admin/action';
 import { selectIsAdmin } from '../../store/session/selectors';
-import {useHistory} from "react-router";
+import style from './AddCourse.module.scss';
 
 export const AddCourse = () => {
     const [languages, setLanguages] = React.useState([]);
@@ -18,13 +19,14 @@ export const AddCourse = () => {
     const sourceUrlRef = React.useRef(null);
     const courseImageRef = React.useRef(null);
     const isAdmin = useSelector(selectIsAdmin);
+    const dispatch = useDispatch();
     let history = useHistory();
 
     const getProgrammingLanguages = async () => {
-        return await fetchData('/api/programmingLanguages');
+        return await fetchData(URLS.PROGRAMMING_LANGUAGES);
     };
 
-    const addNewCourse = (evt) => {
+    const handleSubmit = (evt) => {
         evt.preventDefault();
 
         if (!courseTitleRef.current?.value.trim() && !sourceUrlRef.current?.value.trim()) {
@@ -53,19 +55,10 @@ export const AddCourse = () => {
             .data
             .token;
 
-        fetch(ADMIN_COURSE_LIST_URL, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json; charset=utf-8',
-                'Authorization': `Bearer ${userToken}`,
-                'x-csrf-token': document.querySelector("[name='csrf-token']").getAttribute('content')
-            },
-            body: JSON.stringify(newCourseData),
-        }).then(() => {
-            alert('Курс успешно добавлен');
-            history.push("/admin");
-        })
+        dispatch(addNewCourse(newCourseData, userToken));
+
+        history.push('/admin');
+        alert('Курс успешно добавлен');
     };
 
     React.useEffect(async () => {
@@ -79,7 +72,7 @@ export const AddCourse = () => {
 
     return (
         <div className={`container ${style.wrap}`}>
-            <form onSubmit={addNewCourse} className={style.form} method="POST">
+            <form onSubmit={handleSubmit} className={style.form} method="POST">
                 <label htmlFor="title">
                     Название курса
                     <input
@@ -162,7 +155,7 @@ export const AddCourse = () => {
                 </label>
                 <button
                     type="submit"
-                    onClick={addNewCourse}
+                    onClick={handleSubmit}
                 >
                     Добавить курс
                 </button>
