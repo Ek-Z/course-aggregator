@@ -4,6 +4,7 @@ import { Typography, CardMedia, CardContent, Card, Grid } from '@mui/material';
 import imagePlug from '../../../../public/images/image-plug.jpg';
 import style from './Course.module.scss';
 import {FavoriteCheckbox} from "../FavoriteCheckbox/FavoriteCheckbox";
+import React from "react";
 
 export const Course = ({ item }) => {
     return (
@@ -37,7 +38,7 @@ export const Course = ({ item }) => {
                             {item.short_description}
                         </Typography>
                         <div style={{ display: 'flex', justifyContent:'space-between', margin: 'auto 0 0 0'}}>
-                            <FavoriteCheckbox/>
+                            <FavoriteCheckbox id={item.id}/>
                             <Link to={`/course/${item.id}`} style={{ textDecoration: 'none' }}>
                                 <Typography
                                 sx={{

@@ -1,0 +1,64 @@
+import {
+    addInFavoritesError,
+    addInFavoritesStart,
+    addInFavoritesSuccess, delFromFavoritesError,
+    delFromFavoritesStart,
+    delFromFavoritesSuccess,
+} from "./actions";
+import {fetchData} from "../../utils/HOF/HOF";
+
+export const addInFavoritesThunk = ({id}) => dispatch => {
+    const userToken = JSON.parse(localStorage.getItem('userData')).data.token;
+    dispatch(addInFavoritesStart());
+    try {
+        fetch(`api/favorite/${id}`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json; charset=utf-8',
+                'Application-Authorization': `Bearer ${userToken}`,
+                'x-csrf-token': document.querySelector("[name='csrf-token']").getAttribute('content'),
+            },
+        }).then(async () => {
+            const favorites = await fetchData('api/my_favorites')
+            dispatch(addInFavoritesSuccess(favorites.data))
+            alert('Курс успешно добавлен');
+        })
+            .catch((e) => {
+                console.log(e)
+            })
+    }
+    catch (e) {
+        dispatch(addInFavoritesError(e));
+        console.log('ошибка', e)
+    }
+};
+
+export const delFromFavoritesThunk = ({id}) => dispatch => {
+    const userToken = JSON.parse(localStorage.getItem('userData')).data.token;
+    dispatch(delFromFavoritesStart());
+    try {
+        fetch(`api/unfavorite/${id}`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json; charset=utf-8',
+                'Application-Authorization': `Bearer ${userToken}`,
+                'x-csrf-token': document.querySelector("[name='csrf-token']").getAttribute('content'),
+            },
+        }).then(async() => {
+            const favorites = await fetchData('api/my_favorites')
+            console.log(favorites)
+            dispatch(delFromFavoritesSuccess(favorites.data))
+            alert('Курс успешно удален');
+        })
+            .catch((e) => {
+                dispatch(delFromFavoritesError(e));
+                console.log(e)
+            })
+    }
+    catch (e) {
+        dispatch(delFromFavoritesError(e));
+        console.log('ошибка', e)
+    }
+};
