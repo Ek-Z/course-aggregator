@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Redirect } from 'react-router-dom';
-import { useHistory } from 'react-router';
+import { Redirect, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchData } from '../../utils/HOF/HOF';
 import { URLS } from '../../utils/urls/urls';
@@ -26,7 +25,7 @@ export const AddCourse = () => {
         return await fetchData(URLS.PROGRAMMING_LANGUAGES);
     };
 
-    const handleSubmit = (evt) => {
+    const handleAddCourse = (evt) => {
         evt.preventDefault();
 
         if (!courseTitleRef.current?.value.trim() && !sourceUrlRef.current?.value.trim()) {
@@ -72,7 +71,7 @@ export const AddCourse = () => {
 
     return (
         <div className={`container ${style.wrap}`}>
-            <form onSubmit={handleSubmit} className={style.form} method="POST">
+            <form onSubmit={handleAddCourse} className={style.form} method="POST">
                 <label htmlFor="title">
                     Название курса
                     <input
@@ -155,7 +154,7 @@ export const AddCourse = () => {
                 </label>
                 <button
                     type="submit"
-                    onClick={handleSubmit}
+                    onClick={handleAddCourse}
                 >
                     Добавить курс
                 </button>
