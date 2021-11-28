@@ -59,7 +59,7 @@ class CoursesController extends Controller
     {
         Auth::user()->favorites()->attach($id);
 
-        return back();
+        return response(null, 200);
     }
 
     /**
@@ -72,6 +72,6 @@ class CoursesController extends Controller
     {
         Auth::user()->favorites()->detach($id);
 
-        return back();
+        return response(null, 200);
     }
 }
