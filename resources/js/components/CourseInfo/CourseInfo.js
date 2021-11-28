@@ -1,9 +1,10 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import Parser from 'html-react-parser';
 import { Button } from '@mui/material';
 import imagePlug from '../../../../public/images/image-plug.jpg';
 import style from './CourseInfo.module.scss';
-import Parser from 'html-react-parser';
+
 export const CourseInfo = ({ item }) => {
     return (
         <article className={style.course} data-course-id={item.id}>

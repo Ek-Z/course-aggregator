@@ -21,7 +21,7 @@ export const Home = () => {
         if (!courseListLength) {
             dispatch(getLastCourses());
         } else {
-            courseListLength > 6 && dispatch(getLastCourses());
+            courseListLength !== 6 && dispatch(getLastCourses());
         }
     }, [dispatch, courseListLength]);
 
