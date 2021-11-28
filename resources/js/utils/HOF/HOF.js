@@ -14,6 +14,9 @@ export function setDefaultFilterState (filters) {
     let statefulFilters = [];
 
     for (let filter of filters) {
+
+        if (filter.title === 'N/A') continue;
+
         filter = { ...filter, state: false };
         statefulFilters = [...statefulFilters, filter];
     }
@@ -34,7 +37,7 @@ export function checkFilterState (filters) {
 }
 
 export function setFilterPath (selectedFilters) {
-    if(!Object.values(selectedFilters).length) return '';
+    if (!Object.values(selectedFilters).length) return '';
 
     let filterPath = [];
 

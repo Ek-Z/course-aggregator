@@ -37425,6 +37425,7 @@ function setDefaultFilterState(filters) {
   try {
     for (_iterator.s(); !(_step = _iterator.n()).done;) {
       var filter = _step.value;
+      if (filter.title === 'N/A') continue;
       filter = _objectSpread(_objectSpread({}, filter), {}, {
         state: false
       });
