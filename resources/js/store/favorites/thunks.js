@@ -1,9 +1,13 @@
 import {
     addInFavoritesError,
     addInFavoritesStart,
-    addInFavoritesSuccess, delFromFavoritesError,
+    addInFavoritesSuccess,
+    delFromFavoritesError,
     delFromFavoritesStart,
     delFromFavoritesSuccess,
+    getFavoritesError,
+    getFavoritesStart,
+    getFavoritesSuccess,
 } from "./actions";
 import {fetchData} from "../../utils/HOF/HOF";
 
@@ -62,3 +66,19 @@ export const delFromFavoritesThunk = ({id}) => dispatch => {
         console.log('ошибка', e)
     }
 };
+
+export const getFavoritesThunk = () => async dispatch => {
+    dispatch(getFavoritesStart());
+    try {
+        const favorites = await fetchData('api/my_favorites')
+        if (favorites.data){
+            dispatch(getFavoritesSuccess(favorites.data))
+        } else {
+            dispatch(getFavoritesSuccess([]))
+        }
+    }
+    catch (e) {
+        dispatch(getFavoritesError(e));
+        console.log('ошибка', e)
+    }
+}
