@@ -100,8 +100,7 @@ export const Header = () => {
                                 variant="outlined"
                                 sx={{ border: 'none', width: '50px' }}
                             >
-                                {/*Указать ссылку на страницу "Избранное"*/}
-                                <Link className={style.headerLinks} to="#">
+                                <Link className={style.headerLinks} to="/favorites">
                                     <i className="far fa-heart" style={{ fontSize: '20px', color: '#000' }}>
                                         <div className={style.counterBlock}>0</div>
                                     </i>
