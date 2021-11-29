@@ -4,16 +4,13 @@ import { Typography, CardMedia, CardContent, Card, Grid } from '@mui/material';
 import imagePlug from '../../../../public/images/image-plug.jpg';
 import style from './Course.module.scss';
 import {FavoriteCheckbox} from "../FavoriteCheckbox/FavoriteCheckbox";
-import React, {useState} from "react";
+import React from "react";
 import {useSelector} from "react-redux";
-import {selectFavorites} from "../../store/favorites";
+import {selectUserName} from "../../store/session/selectors";
 
 
 export const Course = ({ item }) => {
-    const favorites = useSelector(selectFavorites)
-    const [fill] = useState(true)
-
-    let ids = favorites.map(item => item.id);//id курсов, иконки сердца которых надо закрасить
+    const userName = useSelector(selectUserName);
 
     return (
         <Grid item xs={5} style={{ maxWidth: '460px' }}>
@@ -46,7 +43,7 @@ export const Course = ({ item }) => {
                             {item.short_description}
                         </Typography>
                         <div style={{ display: 'flex', justifyContent:'space-between', margin: 'auto 0 0 0'}}>
-                            <FavoriteCheckbox id={item.id} fill={ids.includes(item.id) && fill}/>
+                            {userName ? <FavoriteCheckbox id={item.id}/> : <div></div>}
                             <Link to={`/course/${item.id}`} style={{ textDecoration: 'none' }}>
                                 <Typography
                                 sx={{

@@ -25,7 +25,7 @@ export const addInFavoritesThunk = ({id}) => dispatch => {
             },
         }).then(async () => {
             const favorites = await fetchData('api/my_favorites')
-            await alert('Курс успешно добавлен');
+            await alert('Курс успешно добавлен в Избранное');
             await dispatch(addInFavoritesSuccess(favorites.data))
         })
             .catch((e) => {
@@ -52,8 +52,7 @@ export const delFromFavoritesThunk = ({id}) => dispatch => {
             },
         }).then(async() => {
             const favorites = await fetchData('api/my_favorites')
-            console.log(favorites)
-            await alert('Курс успешно удален');
+            await alert('Курс успешно удалён из Избранного');
             await dispatch(delFromFavoritesSuccess(favorites.data))
         })
             .catch((e) => {
