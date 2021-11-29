@@ -11,12 +11,12 @@ export const Favorites = () => {
 
     useEffect(async () => {
         await dispatch(getFavoritesThunk())
-    },[dispatch])
+    },[dispatch, favorites])
 
 
     return(
         <div style={{minHeight:'80vh'}}>
-            <h1 style={{textAlign:'center'}}>Избранное</h1>
+            <h1 style={{textAlign:'center', marginBottom:'15px'}}>Избранное</h1>
             <CourseList list={favorites}/>
         </div>
     )

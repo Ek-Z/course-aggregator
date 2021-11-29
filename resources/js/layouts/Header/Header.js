@@ -22,6 +22,7 @@ import {selectSessionState, selectUserName, selectIsAdmin, selectSessionPending}
 import Tooltip from '@mui/material/Tooltip';
 import {logOutThunk} from "../../store/session/thunks";
 import CircularProgress from "@mui/material/CircularProgress";
+import {selectFavorites} from "../../store/favorites";
 
 export const Header = () => {
     const sessionState = useSelector(selectSessionState);//авторизован ли пользователь
@@ -29,6 +30,8 @@ export const Header = () => {
     const isAdmin = useSelector(selectIsAdmin);//достаем статус пользователя (админ/не админ)
     const pending = useSelector(selectSessionPending)
     const username = useSelector(selectUserName)
+    const favoritesCount = useSelector(selectFavorites).length
+    console.log(favoritesCount)
 
     const dispatch = useDispatch();
     //Функция для выхода
@@ -102,7 +105,7 @@ export const Header = () => {
                             >
                                 <Link className={style.headerLinks} to="/favorites">
                                     <i className="far fa-heart" style={{ fontSize: '20px', color: '#000' }}>
-                                        <div className={style.counterBlock}>0</div>
+                                        <div className={style.counterBlock}>{favoritesCount}</div>
                                     </i>
                                 </Link>
                             </IconButton>

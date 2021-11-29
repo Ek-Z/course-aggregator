@@ -45,7 +45,7 @@ export const favoritesReducer = (state = initialState, action) => {
             };
         case DEL_FROM_FAVORITES_SUCCESS:
             return {
-                favorites:action.payload || [],
+                favorites:action.payload,
                 favoritesPending: false,
                 favoritesError: null
             };

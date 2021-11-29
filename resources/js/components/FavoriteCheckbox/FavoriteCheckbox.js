@@ -1,14 +1,23 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Checkbox from "@mui/material/Checkbox";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
 import {addInFavoritesThunk, delFromFavoritesThunk} from "../../store/favorites/thunks";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {selectFavorites} from "../../store/favorites";
+import {selectCourseList} from "../../store/courseList/selectors";
 
-export const FavoriteCheckbox = ({id}) => {
+export const FavoriteCheckbox = ({id, fill}) => {
     const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
     const dispatch = useDispatch();
     const [checked, setChecked] = useState(false);
+
+    useEffect(() => {
+        console.log(fill)
+        if (fill){
+            setChecked(true)
+        }
+    },[])
 
     const handleClick = () => {
         if (checked === false){
