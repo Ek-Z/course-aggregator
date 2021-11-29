@@ -5,6 +5,7 @@ import {useHistory} from "react-router";
 import {useDispatch, useSelector} from "react-redux"
 import {logInThunk} from "../../store/session/thunks";
 import {selectUserName} from "../../store/session/selectors";
+import {getFavoritesThunk} from "../../store/favorites/thunks";
 
 export const LoginPage = () => {
     const username = useSelector(selectUserName)
@@ -35,7 +36,7 @@ export const LoginPage = () => {
         setUser({ ...user, [e.target.name]: e.target.value });
     };
 
-    const signIn = (e) => {
+    const signIn = async (e) => {
         e.preventDefault();
         if(user.email === '') {
             setError({email: 'Поле email не должно быть пустым'});
@@ -44,7 +45,8 @@ export const LoginPage = () => {
             setError({password: 'Поле пароля не должно быть пустым'});
         }
         else {
-            dispatch(logInThunk(user))
+            await dispatch(logInThunk(user))
+            await dispatch(getFavoritesThunk())
         }
     }
 

@@ -1,6 +1,7 @@
 import {LOGIN_URL, LOGOUT_URL, REGISTER_URL} from "../../utils/urls/urls";
 import {logInError, logInStart, logInSuccess, logOutError, logOutStart, logOutSuccess} from "./actions";
 import axios from "axios";
+import {getFavoritesSuccess} from "../favorites";
 
 export const logInThunk = (user) => async dispatch => {
     dispatch(logInStart());
@@ -43,7 +44,8 @@ export const logOutThunk = () => async dispatch => {
         });
         if (response.status === 200){
             localStorage.removeItem('userData');
-            dispatch(logOutSuccess());
+            await dispatch(getFavoritesSuccess([]))
+            await dispatch(logOutSuccess());
         }
     }
     catch (e) {

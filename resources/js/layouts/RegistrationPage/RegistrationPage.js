@@ -5,6 +5,7 @@ import {useHistory} from "react-router";
 import {useDispatch, useSelector} from "react-redux"
 import {registerThunk} from "../../store/session/thunks";
 import {selectUserName} from "../../store/session/selectors";
+import {getFavoritesThunk} from "../../store/favorites/thunks";
 
 //валидация пароля
 const validate = (password) => {
@@ -42,7 +43,7 @@ export const RegistrationPage = () => {
         setUser({...user,[e.target.name]:e.target.value })
     }
 
-    const signUp = (e) =>{
+    const signUp = async (e) =>{
         e.preventDefault();
         setError({...error,
             name:"",
@@ -69,7 +70,8 @@ export const RegistrationPage = () => {
             setError({...error, confirm_password: 'Пароли не совпадают'})
         }
         else {
-            dispatch(registerThunk(user))
+            await dispatch(registerThunk(user))
+            await dispatch(getFavoritesThunk())
         }
     }
     return (
