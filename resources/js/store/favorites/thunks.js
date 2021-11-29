@@ -30,13 +30,14 @@ export const addInFavoritesThunk = ({id}) => dispatch => {
             return res;
         })
             .then(async () => {
-            const favorites = await fetchData('api/my_favorites')
+            const favorites = await fetchData(GET_FAVORITES_URL);
+            if (favorites instanceof Error) throw favorites;
             await alert('Курс успешно добавлен в Избранное');
             await dispatch(addInFavoritesSuccess(favorites.data))
             })
             .catch((e) => {
                 dispatch(addInFavoritesError(e));
-                alert('Просим прощения, ошибка добавления курса в избранное на сервере')
+                alert('Добавить курс не получилось: ошибка на сервере')
                 console.log(e)
             })
 };
@@ -59,13 +60,14 @@ export const delFromFavoritesThunk = ({id}) => dispatch => {
             return res;
         })
             .then(async() => {
-            const favorites = await fetchData('api/my_favorites')
+            const favorites = await fetchData(GET_FAVORITES_URL);
+            if (favorites instanceof Error) throw favorites;
             await alert('Курс успешно удалён из Избранного');
             await dispatch(delFromFavoritesSuccess(favorites.data))
         })
             .catch((e) => {
                 dispatch(delFromFavoritesError(e));
-                alert('Просим прощения, ошибка удаления курса из избранного на сервере')
+                alert('Удалить курс не получилось: ошибка на сервере')
                 console.log(e)
             })
 };
@@ -74,6 +76,7 @@ export const getFavoritesThunk = () => async dispatch => {
     dispatch(getFavoritesStart());
     try {
         const favorites =  await fetchData(GET_FAVORITES_URL)
+        if (favorites instanceof Error) throw favorites;
         if (favorites.data){
              dispatch(getFavoritesSuccess(favorites.data))
         } else {
@@ -82,7 +85,7 @@ export const getFavoritesThunk = () => async dispatch => {
     }
     catch (e) {
         dispatch(getFavoritesError(e));
-        alert('Просим прощения, ошибка на сервере')
+        alert('Содержимое Избранного загрузить не получилось: ошибка на сервере')
         console.log('ошибка', e)
     }
 }

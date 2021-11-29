@@ -69,11 +69,10 @@ export const favoritesReducer = (state = initialState, action) => {
             };
         case GET_FAVORITES_ERROR:
             return {
-                favorites:action.payload,
+                ...state,
                 favoritesPending: false,
-                favoritesError: null
+                favoritesError: action.payload
             };
-
         default:
             return state;
     }
