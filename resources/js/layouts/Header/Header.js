@@ -33,7 +33,6 @@ export const Header = () => {
     const username = useSelector(selectUserName)
     const favoritesCount = useSelector(selectFavorites).length
     const favoritesPending = useSelector(selectFavoritesPending)
-
     const dispatch = useDispatch();
     let history = useHistory();
 
@@ -201,8 +200,8 @@ export const Header = () => {
                     </>}
                 </Toolbar>
             </Container>
-            {(pending && username) ? <CircularProgress color="secondary" style={{position:'absolute', left:'93%', top:'1%'}}/> : <div></div> }
-            {favoritesPending ? <CircularProgress color="secondary" style={{position:'fixed', left:'50%', top:'50%', zIndex:999}}/> : <div></div> }
+            {(pending && username) && <CircularProgress color="secondary" style={{position:'absolute', left:'93%', top:'1%'}}/>}
+            {favoritesPending && <CircularProgress color="secondary" style={{position:'fixed', left:'50%', top:'50%', zIndex:999}}/>}
         </AppBar>
     );
 };
