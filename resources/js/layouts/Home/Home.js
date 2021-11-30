@@ -7,9 +7,9 @@ import {
     selectStatus
 } from '../../store/courseList/selectors';
 import { getLastCourses } from '../../store/courseList/action';
-import style from './Home.module.scss';
 import { STATUSES } from '../../utils/statuses/statuses';
 import { ProgressLoader } from '../../components/ProgressLoader/ProgressLoader';
+import style from './Home.module.scss';
 
 export const Home = () => {
     const courseList = useSelector(selectCourseList);

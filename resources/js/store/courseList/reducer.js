@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import {
-    courseListFailed, courseListFiltered,
+    courseListFailed,
     courseListLoaded,
     courseListOnload, filterClear,
     filterFailed, filterInit,
@@ -13,7 +13,6 @@ const initialState = {
     status: STATUSES.IDLE,
     error: null,
     filterPath: '',
-    isFiltered: false,
     filters: {
         data: {
             'Языки программирования': null,
@@ -38,10 +37,6 @@ export const courseListReducer = createReducer(initialState, builder => {
         .addCase(courseListFailed, (state, { payload }) => {
             state.status = STATUSES.FAILED;
             state.error = payload;
-        })
-        .addCase(courseListFiltered, (state, { payload }) => {
-            state.courseList = payload;
-            state.isFiltered = true;
         })
         .addCase(filterInit, state => {
             state.filters.status = STATUSES.REQUEST;

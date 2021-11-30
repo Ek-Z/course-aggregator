@@ -1,13 +1,14 @@
 import * as React from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Redirect, useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchData } from '../../utils/HOF/HOF';
 import { URLS } from '../../utils/urls/urls';
-import { addNewCourse } from '../../store/admin/action';
+import { addNewCourse, editSelectedCourse } from '../../store/admin/action';
 import { selectIsAdmin } from '../../store/session/selectors';
-import style from './AddCourse.module.scss';
+import { selectExactCourse } from '../../store/courseList/selectors';
+import style from './AdminForm.module.scss';
 
-export const AddCourse = () => {
+export const AdminForm = () => {
     const [languages, setLanguages] = React.useState([]);
     const courseTitleRef = React.useRef(null);
     const courseLanguageRef = React.useRef(null);
@@ -17,7 +18,10 @@ export const AddCourse = () => {
     const sourceNameRef = React.useRef(null);
     const sourceUrlRef = React.useRef(null);
     const courseImageRef = React.useRef(null);
+    const { courseId } = useParams();
     const isAdmin = useSelector(selectIsAdmin);
+    const selectCourse = React.useMemo(() => selectExactCourse(courseId), [courseId]);
+    const course = useSelector(selectCourse);
     const dispatch = useDispatch();
     let history = useHistory();
 
@@ -25,7 +29,7 @@ export const AddCourse = () => {
         return await fetchData(URLS.PROGRAMMING_LANGUAGES);
     };
 
-    const handleAddCourse = (evt) => {
+    const handleCourseData = (evt) => {
         evt.preventDefault();
 
         if (!courseTitleRef.current?.value.trim() && !sourceUrlRef.current?.value.trim()) {
@@ -54,10 +58,15 @@ export const AddCourse = () => {
             .data
             .token;
 
-        dispatch(addNewCourse(newCourseData, userToken));
+        if (courseId) {
+            dispatch(editSelectedCourse(courseId, newCourseData, userToken));
+            alert('Курс успешно редактирован');
+        } else {
+            dispatch(addNewCourse(newCourseData, userToken));
+            alert('Курс успешно добавлен');
+        }
 
         history.push('/admin');
-        alert('Курс успешно добавлен');
     };
 
     React.useEffect(async () => {
@@ -71,13 +80,14 @@ export const AddCourse = () => {
 
     return (
         <div className={`container ${style.wrap}`}>
-            <form onSubmit={handleAddCourse} className={style.form} method="POST">
+            <form onSubmit={handleCourseData} className={style.form} method="POST">
                 <label htmlFor="title">
                     Название курса
                     <input
                         id="title"
                         type="text"
                         name="title"
+                        defaultValue={courseId ? course.title : ''}
                         placeholder="Введите название курса"
                         ref={courseTitleRef}
                         required={true}
@@ -85,9 +95,14 @@ export const AddCourse = () => {
                 </label>
                 <label htmlFor="language">
                     Язык курса
-                    <select name="language" id="language" ref={courseLanguageRef}>
-                        <option id="1" value="Русский">Русский</option>
-                        <option id="2" value="English">English</option>
+                    <select name="language" id="language" ref={courseLanguageRef}
+                            defaultValue={courseId ? course.language : 'Русский'}>
+                        <option id="1" value="Русский">
+                            Русский
+                        </option>
+                        <option id="2" value="English">
+                            English
+                        </option>
                     </select>
                 </label>
                 <label htmlFor="short_description">
@@ -95,6 +110,7 @@ export const AddCourse = () => {
                     <textarea
                         id="short_description"
                         name="short_description"
+                        defaultValue={courseId ? course.short_description : ''}
                         placeholder="Введите краткое описание курса"
                         ref={courseShortDescriptionRef}
                     />
@@ -104,17 +120,23 @@ export const AddCourse = () => {
                     <textarea
                         id="description"
                         name="description"
+                        defaultValue={courseId ? course.description : ''}
                         placeholder="Введите полное описание курса"
                         ref={courseDescriptionRef}
                     />
                 </label>
                 <label htmlFor="prog_language">
                     Язык курса
-                    <select name="prog_language" id="prog_language" ref={courseProgrammingLanguageRef}>
+                    <select
+                        name="prog_language"
+                        id="prog_language"
+                        ref={courseProgrammingLanguageRef}
+                    >
                         {languages.map(language => <option
                             key={language.id}
                             value={language.title}
                             id={language.id}
+                            selected={courseId ? language.id === course.programmingLanguage_id : false}
                         >
                             {language.title}
                         </option>)}
@@ -126,6 +148,7 @@ export const AddCourse = () => {
                         id="source_name"
                         type="text"
                         name="source_name"
+                        defaultValue={courseId ? course.source_name : ''}
                         placeholder="Введите название источника"
                         ref={sourceNameRef}
                     />
@@ -136,6 +159,7 @@ export const AddCourse = () => {
                         id="source_url"
                         type="url"
                         name="source_url"
+                        defaultValue={courseId ? course.source_url : ''}
                         placeholder="Введите URL источника"
                         ref={sourceUrlRef}
                         required={true}
@@ -154,9 +178,9 @@ export const AddCourse = () => {
                 </label>
                 <button
                     type="submit"
-                    onClick={handleAddCourse}
+                    onClick={handleCourseData}
                 >
-                    Добавить курс
+                    {courseId ? 'Редактировать' : 'Добавить'} курс
                 </button>
                 <button type="reset">Сбросить</button>
             </form>
