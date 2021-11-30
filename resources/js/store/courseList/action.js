@@ -107,7 +107,7 @@ export const getSelectedFilters = (filters, inputValue) => async dispatch => {
     const filteredCourseList = await fetchData(`${URLS.PUBLIC_COURSELIST + `?${filterPath}`}`);
 
     dispatch(pagesLoaded(filteredCourseList.meta));
-    dispatch(courseListFiltered(filteredCourseList.data));
+    dispatch(getPublicCourseList(1, filterPath));
 };
 
 export const setFilterClear = filters => dispatch => {
