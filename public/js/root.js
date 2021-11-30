@@ -35633,6 +35633,9 @@ var Router = function Router() {
             component: _AddCourse_AddCourse__WEBPACK_IMPORTED_MODULE_10__.AddCourse
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
             exact: true,
+            path: "/admin/editCourse"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
+            exact: true,
             path: "/signIn",
             component: _layouts_LoginPage_LoginPage__WEBPACK_IMPORTED_MODULE_4__.LoginPage
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
@@ -35686,6 +35689,10 @@ var TableRow = function TableRow(_ref) {
   var currentPage = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(_store_pages_selectors__WEBPACK_IMPORTED_MODULE_4__.selectCurrentPage);
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useDispatch)();
 
+  var handleCourseEdit = function handleCourseEdit() {
+    var userToken = JSON.parse(localStorage.getItem('userData')).data.token;
+  };
+
   var handleCourseDelete = function handleCourseDelete() {
     var userToken = JSON.parse(localStorage.getItem('userData')).data.token;
     dispatch((0,_store_admin_action__WEBPACK_IMPORTED_MODULE_2__.deleteSelectedCourse)(item.id, userToken));
@@ -35699,6 +35706,11 @@ var TableRow = function TableRow(_ref) {
         className: _TableRow_module_scss__WEBPACK_IMPORTED_MODULE_5__["default"].row__cell,
         children: _typeof(value) === 'object' ? value === null || value === void 0 ? void 0 : value.id : value
       }, index);
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
+        onClick: handleCourseEdit,
+        children: "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C"
+      })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
         onClick: handleCourseDelete,
@@ -36773,8 +36785,10 @@ __webpack_require__(/*! ./App */ "./resources/js/App.js");
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "adminAddCourse": () => (/* binding */ adminAddCourse),
+/* harmony export */   "adminEditCourse": () => (/* binding */ adminEditCourse),
 /* harmony export */   "adminDeleteCourse": () => (/* binding */ adminDeleteCourse),
 /* harmony export */   "addNewCourse": () => (/* binding */ addNewCourse),
+/* harmony export */   "editSelectedCourse": () => (/* binding */ editSelectedCourse),
 /* harmony export */   "deleteSelectedCourse": () => (/* binding */ deleteSelectedCourse)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
@@ -36790,8 +36804,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 var ADMIN_ADD_COURSE = 'ADMIN::ADD_COURSE';
+var ADMIN_EDIT_COURSE = 'ADMIN::EDIT_COURSE';
 var ADMIN_DELETE_COURSE = 'ADMIN::DELETE_COURSE';
 var adminAddCourse = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.createAction)(ADMIN_ADD_COURSE);
+var adminEditCourse = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.createAction)(ADMIN_EDIT_COURSE);
 var adminDeleteCourse = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.createAction)(ADMIN_DELETE_COURSE);
 var addNewCourse = function addNewCourse(courseData, userToken) {
   return /*#__PURE__*/function () {
@@ -36847,7 +36863,7 @@ var addNewCourse = function addNewCourse(courseData, userToken) {
     };
   }();
 };
-var deleteSelectedCourse = function deleteSelectedCourse(courseId, userToken) {
+var editSelectedCourse = function editSelectedCourse(courseData, userToken) {
   return /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(dispatch) {
       var response;
@@ -36857,13 +36873,14 @@ var deleteSelectedCourse = function deleteSelectedCourse(courseId, userToken) {
             case 0:
               _context2.prev = 0;
               _context2.next = 3;
-              return fetch("".concat(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.URLS.ADMIN_COURSELIST, "/").concat(courseId), {
-                method: 'DELETE',
+              return fetch("".concat(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.URLS.ADMIN_COURSELIST, "/").concat(courseData.id), {
+                method: 'PUT',
                 headers: {
                   'Content-Type': 'application/json; charset=utf-8',
                   'Authorization': "".concat(userToken),
                   'x-csrf-token': document.querySelector('[name=\'csrf-token\']').getAttribute('content')
-                }
+                },
+                body: JSON.stringify(courseData)
               });
 
             case 3:
@@ -36877,25 +36894,78 @@ var deleteSelectedCourse = function deleteSelectedCourse(courseId, userToken) {
               throw new Error("Error: ".concat(response.statusText));
 
             case 6:
-              dispatch(adminDeleteCourse());
-              _context2.next = 12;
+              console.dir(response);
+              dispatch(adminEditCourse());
+              _context2.next = 13;
               break;
 
-            case 9:
-              _context2.prev = 9;
+            case 10:
+              _context2.prev = 10;
               _context2.t0 = _context2["catch"](0);
               console.log(_context2.t0);
 
-            case 12:
+            case 13:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[0, 9]]);
+      }, _callee2, null, [[0, 10]]);
     }));
 
     return function (_x2) {
       return _ref2.apply(this, arguments);
+    };
+  }();
+};
+var deleteSelectedCourse = function deleteSelectedCourse(courseId, userToken) {
+  return /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(dispatch) {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.prev = 0;
+              _context3.next = 3;
+              return fetch("".concat(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.URLS.ADMIN_COURSELIST, "/").concat(courseId), {
+                method: 'DELETE',
+                headers: {
+                  'Content-Type': 'application/json; charset=utf-8',
+                  'Authorization': "".concat(userToken),
+                  'x-csrf-token': document.querySelector('[name=\'csrf-token\']').getAttribute('content')
+                }
+              });
+
+            case 3:
+              response = _context3.sent;
+
+              if (response.ok) {
+                _context3.next = 6;
+                break;
+              }
+
+              throw new Error("Error: ".concat(response.statusText));
+
+            case 6:
+              dispatch(adminDeleteCourse());
+              _context3.next = 12;
+              break;
+
+            case 9:
+              _context3.prev = 9;
+              _context3.t0 = _context3["catch"](0);
+              console.log(_context3.t0);
+
+            case 12:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[0, 9]]);
+    }));
+
+    return function (_x3) {
+      return _ref3.apply(this, arguments);
     };
   }();
 };
@@ -36918,7 +36988,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var adminReducer = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createReducer)({}, function (builder) {
-  builder.addCase(_action__WEBPACK_IMPORTED_MODULE_0__.adminAddCourse, function () {}).addCase(_action__WEBPACK_IMPORTED_MODULE_0__.adminDeleteCourse, function () {}).addDefaultCase(function () {});
+  builder.addCase(_action__WEBPACK_IMPORTED_MODULE_0__.adminAddCourse, function () {}).addCase(_action__WEBPACK_IMPORTED_MODULE_0__.adminEditCourse, function () {}).addCase(_action__WEBPACK_IMPORTED_MODULE_0__.adminDeleteCourse, function () {}).addDefaultCase(function () {});
 });
 
 /***/ }),

@@ -9,6 +9,15 @@ export const TableRow = ({ item }) => {
     const currentPage = useSelector(selectCurrentPage);
     const dispatch = useDispatch();
 
+    const handleCourseEdit = () => {
+        const userToken = JSON
+            .parse(localStorage.getItem('userData'))
+            .data
+            .token;
+
+
+    }
+
     const handleCourseDelete = () => {
         const userToken = JSON
             .parse(localStorage.getItem('userData'))
@@ -31,6 +40,9 @@ export const TableRow = ({ item }) => {
                 {typeof value === 'object' ? value?.id : value}
             </td>)
             }
+            <td>
+                <button onClick={handleCourseEdit}>Редактировать</button>
+            </td>
             <td>
                 <button onClick={handleCourseDelete}>Удалить</button>
             </td>

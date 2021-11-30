@@ -24,6 +24,7 @@ export const Router = () => {
                         <Route exact={true} path="/course/:courseId?" component={CourseCard}/>
                         <Route exact={true} path="/admin" component={AdminPanel}/>
                         <Route exact={true} path="/admin/addCourse" component={AddCourse}/>
+                        <Route exact={true} path="/admin/editCourse"/>
                         <Route exact={true} path="/signIn" component={LoginPage}/>
                         <Route exact={true} path="/signUp" component={RegistrationPage}/>
                         <Route exact={true} path="/favorites" component={Favorites}/>
