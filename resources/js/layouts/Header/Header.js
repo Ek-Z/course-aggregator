@@ -22,6 +22,8 @@ import {selectSessionState, selectUserName, selectIsAdmin, selectSessionPending}
 import Tooltip from '@mui/material/Tooltip';
 import {logOutThunk} from "../../store/session/thunks";
 import CircularProgress from "@mui/material/CircularProgress";
+import {selectFavorites, selectFavoritesPending} from "../../store/favorites";
+import {useHistory} from "react-router";
 
 export const Header = () => {
     const sessionState = useSelector(selectSessionState);//авторизован ли пользователь
@@ -29,11 +31,15 @@ export const Header = () => {
     const isAdmin = useSelector(selectIsAdmin);//достаем статус пользователя (админ/не админ)
     const pending = useSelector(selectSessionPending)
     const username = useSelector(selectUserName)
-
+    const favoritesCount = useSelector(selectFavorites).length
+    const favoritesPending = useSelector(selectFavoritesPending)
     const dispatch = useDispatch();
+    let history = useHistory();
+
     //Функция для выхода
-    const signOut = () => {
-        dispatch(logOutThunk())
+    const signOut = async() => {
+        await dispatch(logOutThunk());
+        await history.push("/")
     };
 
     //настройки для выпадающего меню
@@ -94,16 +100,15 @@ export const Header = () => {
                             </Button>
                         </Link>
                         {sessionState &&
-                        <Tooltip title="Мои закладки">
+                        <Tooltip title="Избранное">
                             <IconButton
                                 color="default"
                                 variant="outlined"
                                 sx={{ border: 'none', width: '50px' }}
                             >
-                                {/*Указать ссылку на страницу "Избранное"*/}
-                                <Link className={style.headerLinks} to="#">
+                                <Link className={style.headerLinks} to="/favorites">
                                     <i className="far fa-heart" style={{ fontSize: '20px', color: '#000' }}>
-                                        <div className={style.counterBlock}>0</div>
+                                        <div className={style.counterBlock}>{favoritesCount}</div>
                                     </i>
                                 </Link>
                             </IconButton>
@@ -195,7 +200,8 @@ export const Header = () => {
                     </>}
                 </Toolbar>
             </Container>
-            {(pending && username) ? <CircularProgress color="secondary" style={{position:'absolute', left:'93%', top:'1%'}}/> : <div></div> }
+            {(pending && username) && <CircularProgress color="secondary" style={{position:'absolute', left:'93%', top:'1%'}}/>}
+            {favoritesPending && <CircularProgress color="secondary" style={{position:'fixed', left:'50%', top:'50%', zIndex:999}}/>}
         </AppBar>
     );
 };
