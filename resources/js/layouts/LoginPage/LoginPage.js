@@ -10,27 +10,20 @@ import {getFavoritesThunk} from "../../store/favorites/thunks";
 export const LoginPage = () => {
     const username = useSelector(selectUserName)
     const dispatch = useDispatch();
+    let history = useHistory();
 
-    const [user, setUser] = useState({
+    const [user, setUser] = React.useState({
         email: "",
-        password:""
+        password: ""
     });
 
     //ошибка содержимого инпутов
-    const [error,setError] = useState({
-        name:"",
-        email:"",
-        password:"",
-        confirm_password:""
+    const [error,setError] = React.useState({
+        name: "",
+        email: "",
+        password: "",
+        confirm_password: ""
     })
-
-    useEffect(() => {
-        if (username){
-            history.push("/")
-        }
-    },[username])
-    let history = useHistory();
-
 
     const onInputChange = e => {
         setUser({ ...user, [e.target.name]: e.target.value });
@@ -49,6 +42,12 @@ export const LoginPage = () => {
             await dispatch(getFavoritesThunk())
         }
     }
+
+    React.useEffect(() => {
+        if (username){
+            history.push("/")
+        }
+    },[username])
 
     return (
         <AuthForm

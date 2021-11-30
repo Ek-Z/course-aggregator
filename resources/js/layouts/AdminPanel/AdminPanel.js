@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Pagination } from '@mui/material';
 import { AdminTable } from '../../components/AdminTable/AdminTable';
@@ -10,12 +11,11 @@ import {
 import { getAdminCourseList } from '../../store/courseList/action';
 import { selectCurrentPage, selectLastPage } from '../../store/pages/selectors';
 import { changePage, getPagesOfCourseList } from '../../store/pages/action';
-import { ADMIN_COURSE_LIST_URL } from '../../utils/urls/urls';
+import { URLS } from '../../utils/urls/urls';
 import { STATUSES } from '../../utils/statuses/statuses';
 import { ProgressLoader } from '../../components/ProgressLoader/ProgressLoader';
-import style from './AdminPanel.module.scss';
 import { selectIsAdmin } from '../../store/session/selectors';
-import { Redirect } from 'react-router-dom';
+import style from './AdminPanel.module.scss';
 
 export const AdminPanel = () => {
     const titles = useSelector(selectCourseTitles);
@@ -27,7 +27,7 @@ export const AdminPanel = () => {
     const dispatch = useDispatch();
 
     React.useEffect(() => {
-        dispatch(getPagesOfCourseList(ADMIN_COURSE_LIST_URL));
+        dispatch(getPagesOfCourseList(URLS.ADMIN_COURSELIST));
     }, [dispatch]);
 
     React.useEffect(() => {
@@ -40,7 +40,7 @@ export const AdminPanel = () => {
 
     return (
         <div className={style.wrap}>
-            <h3>Это admin Page</h3>
+            <h3 className={style.title}>Это admin Page</h3>
             {status === STATUSES.REQUEST ?
                 <ProgressLoader/> :
                 <AdminTable titles={titles} table={courses}/>

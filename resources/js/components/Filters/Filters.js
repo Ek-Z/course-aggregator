@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import {
     Accordion,
     AccordionSummary,
@@ -41,4 +42,9 @@ export const Filters = ({ filterTitles, filterValues }) => {
             </AccordionDetails>
         </Accordion>
     );
+};
+
+Filters.propTypes = {
+    filterTitles: PropTypes.string,
+    filterValues: PropTypes.array,
 };

@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchData } from '../../utils/HOF/HOF';
-import { ADMIN_COURSE_LIST_URL } from '../../utils/urls/urls';
-import style from './AddCourse.module.scss';
-import { useSelector } from 'react-redux';
+import { URLS } from '../../utils/urls/urls';
+import { addNewCourse } from '../../store/admin/action';
 import { selectIsAdmin } from '../../store/session/selectors';
-import {useHistory} from "react-router";
+import style from './AddCourse.module.scss';
 
 export const AddCourse = () => {
     const [languages, setLanguages] = React.useState([]);
@@ -18,13 +18,14 @@ export const AddCourse = () => {
     const sourceUrlRef = React.useRef(null);
     const courseImageRef = React.useRef(null);
     const isAdmin = useSelector(selectIsAdmin);
+    const dispatch = useDispatch();
     let history = useHistory();
 
     const getProgrammingLanguages = async () => {
-        return await fetchData('/api/programmingLanguages');
+        return await fetchData(URLS.PROGRAMMING_LANGUAGES);
     };
 
-    const addNewCourse = (evt) => {
+    const handleAddCourse = (evt) => {
         evt.preventDefault();
 
         if (!courseTitleRef.current?.value.trim() && !sourceUrlRef.current?.value.trim()) {
@@ -38,14 +39,14 @@ export const AddCourse = () => {
         }
 
         const newCourseData = {
-            title: courseTitleRef.current?.value.trim(), // передаёт название курса (тип: строка)
-            language: courseLanguageRef.current?.selectedOptions[0].value, // передаёт язык курса (тип: строка)
-            short_description: courseShortDescriptionRef.current?.value.trim(), // передаёт краткое описание курса (тип: строка)
-            description: courseDescriptionRef.current?.value.trim(), // передаёт полное описание курса (тип: строка)
-            programmingLanguage_id: +courseProgrammingLanguageRef.current?.selectedOptions[0].id, // передаёт id языка программирования (тип: число)
-            source_name: sourceNameRef.current?.value.trim(), //передаёт название источника курса (тип: строка)
-            source_url: sourceUrlRef.current?.value.trim(), // передаёт ссылку источника курс (тип: строка)
-            image: courseImageRef.current?.value // передаёт путь к картинке (тип: строка)
+            title: courseTitleRef.current?.value.trim(),
+            language: courseLanguageRef.current?.selectedOptions[0].value,
+            short_description: courseShortDescriptionRef.current?.value.trim(),
+            description: courseDescriptionRef.current?.value.trim(),
+            programmingLanguage_id: +courseProgrammingLanguageRef.current?.selectedOptions[0].id,
+            source_name: sourceNameRef.current?.value.trim(),
+            source_url: sourceUrlRef.current?.value.trim(),
+            image: courseImageRef.current?.value
         };
 
         const userToken = JSON
@@ -53,20 +54,10 @@ export const AddCourse = () => {
             .data
             .token;
 
-        fetch(ADMIN_COURSE_LIST_URL, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json; charset=utf-8',
-                'Authorization': `Bearer ${userToken}`,
-                'x-csrf-token': document.querySelector("[name='csrf-token']").getAttribute('content')
-            },
-            body: JSON.stringify(newCourseData),
-        }).then(() => {
-            alert('Курс успешно добавлен');
-            history.push("/admin");
-            // return <Redirect to="/admin"/>
-        })
+        dispatch(addNewCourse(newCourseData, userToken));
+
+        history.push('/admin');
+        alert('Курс успешно добавлен');
     };
 
     React.useEffect(async () => {
@@ -80,7 +71,7 @@ export const AddCourse = () => {
 
     return (
         <div className={`container ${style.wrap}`}>
-            <form onSubmit={addNewCourse} className={style.form} method="POST">
+            <form onSubmit={handleAddCourse} className={style.form} method="POST">
                 <label htmlFor="title">
                     Название курса
                     <input
@@ -163,7 +154,7 @@ export const AddCourse = () => {
                 </label>
                 <button
                     type="submit"
-                    onClick={addNewCourse}
+                    onClick={handleAddCourse}
                 >
                     Добавить курс
                 </button>

@@ -6,6 +6,7 @@ import { courseListReducer } from './courseList/reducer';
 import { profileReducer } from "./session";
 import {pagesReducer} from "./pages/reducer";
 import {favoritesReducer} from "./favorites";
+import { adminReducer } from './admin/reducer';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
     profile: profileReducer,
     pages:pagesReducer,
     favorites:favoritesReducer
+    admin: adminReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -1,25 +1,25 @@
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import { deleteSelectedCourse } from '../../store/admin/action';
+import { getAdminCourseList } from '../../store/courseList/action';
+import { selectCurrentPage } from '../../store/pages/selectors';
 import style from './TableRow.module.scss';
-import { ADMIN_COURSE_LIST_URL } from '../../utils/urls/urls';
 
 export const TableRow = ({ item }) => {
-    const deleteCourse = () => {
+    const currentPage = useSelector(selectCurrentPage);
+    const dispatch = useDispatch();
+
+    const handleCourseDelete = () => {
         const userToken = JSON
             .parse(localStorage.getItem('userData'))
             .data
             .token;
-        console.log(item.id);
-        fetch(`${ADMIN_COURSE_LIST_URL}/${item.id}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8',
-                'Authorization': `${userToken}`,
-                'x-csrf-token': document.querySelector("[name='csrf-token']").getAttribute('content')
-            }
-        }).then(() => {
-            alert('Курс успешно удалён');
-        })
 
+        dispatch(deleteSelectedCourse(item.id, userToken));
+
+        alert('Курс успешно удалён');
+
+        dispatch(getAdminCourseList(currentPage));
     };
 
     return (
@@ -32,7 +32,7 @@ export const TableRow = ({ item }) => {
             </td>)
             }
             <td>
-                <button onClick={deleteCourse}>Удалить</button>
+                <button onClick={handleCourseDelete}>Удалить</button>
             </td>
         </tr>
     );
