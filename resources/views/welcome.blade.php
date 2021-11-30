@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <script src="{{ asset('js/root.js') }}" defer></script>
         <title>IT Courses</title>
         <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">

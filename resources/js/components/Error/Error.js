@@ -1,9 +1,15 @@
-import React from "react";
+import React from 'react';
+import PropTypes from 'prop-types';
+import style from './Error.module.scss';
 
-export const Error = ({textError}) => {
-    return(
+export const Error = ({ textError }) => {
+    return (
         <>
-            <div style={{ color:'red' }}>{textError}</div>
+            <div className={style.Error}>{textError}</div>
         </>
-    )
-}
+    );
+};
+
+Error.propTypes = {
+    textError: PropTypes.string,
+};

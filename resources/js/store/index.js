@@ -5,6 +5,8 @@ import thunk from 'redux-thunk';
 import { courseListReducer } from './courseList/reducer';
 import { profileReducer } from "./session";
 import {pagesReducer} from "./pages/reducer";
+import {favoritesReducer} from "./favorites";
+import { adminReducer } from './admin/reducer';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -17,7 +19,9 @@ const persistConfig = {
 const rootReducer = combineReducers({
     courseList: courseListReducer,
     profile: profileReducer,
-    pages:pagesReducer
+    pages:pagesReducer,
+    favorites:favoritesReducer,
+    admin: adminReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

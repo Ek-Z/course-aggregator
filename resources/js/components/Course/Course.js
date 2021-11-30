@@ -1,19 +1,26 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Typography, CardMedia, CardContent, Card, Grid } from '@mui/material';
+import { Typography, CardContent, Card, Grid } from '@mui/material';
 import imagePlug from '../../../../public/images/image-plug.jpg';
 import style from './Course.module.scss';
+import {FavoriteCheckbox} from "../FavoriteCheckbox/FavoriteCheckbox";
+import React from "react";
+import {useSelector} from "react-redux";
+import {selectUserName} from "../../store/session/selectors";
+
 
 export const Course = ({ item }) => {
+    const userName = useSelector(selectUserName);
+
     return (
-        <Grid item xs={5} style={{ maxWidth: '460px' }}>
-            <Link to={`/course/${item.id}`} style={{ textDecoration: 'none' }}>
+        <Grid item xs={5} className={style.grid}>
                 <Card className={style.course}
                       sx={{ maxWidth: 500, height: '100%', display: 'flex', flexDirection: 'column' }}>
-                    {/*<CardMedia className={style.MuiCardMediaImg} component="img" height={200} image={item.image || imagePlug} alt="green iguana"/>*/}
-                    <div className={style.image_wrap}>
-                        <img className={style.image} src={item.image || imagePlug} alt="green iguana"/>
-                    </div>
+                    <Link to={`/course/${item.id}`} className={style.link}>
+                        <div className={style.image_wrap}>
+                            <img className={style.image} src={item.image || imagePlug} alt="green iguana"/>
+                        </div>
+                    </Link>
                     <CardContent sx={{
                         display: 'flex',
                         flexDirection: 'column',
@@ -34,20 +41,24 @@ export const Course = ({ item }) => {
                         >
                             {item.short_description}
                         </Typography>
-                        <Typography
-                            sx={{
-                                alignSelf: 'flex-end',
-                                margin: 'auto 0 0 0',
-                                textTransform: 'uppercase',
-                                fontWeight: 600,
-                            }}
-                            color="secondary"
-                            variant="body2">
-                            Подробнее
-                        </Typography>
+                        <div style={{ display: 'flex', justifyContent:'space-between', margin: 'auto 0 0 0'}}>
+                            {userName ? <FavoriteCheckbox id={item.id}/> : <div></div>}
+                            <Link to={`/course/${item.id}`} className={style.link}>
+                                <Typography
+                                sx={{
+                                    alignSelf: 'flex-end',
+                                    margin: 'auto 0 0 0',
+                                    textTransform: 'uppercase',
+                                    fontWeight: 600,
+                                }}
+                                color="secondary"
+                                variant="body2">
+                                Подробнее
+                                </Typography>
+                            </Link>
+                        </div>
                     </CardContent>
                 </Card>
-            </Link>
         </Grid>
     );
 };

@@ -1,5 +1,3 @@
-import { PUBLIC_COURSES_LIST_URL } from '../urls/urls';
-
 export async function fetchData (url) {
     const response = await fetch(url);
 
@@ -16,6 +14,9 @@ export function setDefaultFilterState (filters) {
     let statefulFilters = [];
 
     for (let filter of filters) {
+
+        if (filter.title === 'N/A') continue;
+
         filter = { ...filter, state: false };
         statefulFilters = [...statefulFilters, filter];
     }
@@ -35,7 +36,9 @@ export function checkFilterState (filters) {
     return selectedFilters;
 }
 
-export async function setFilterPath (selectedFilters) {
+export function setFilterPath (selectedFilters) {
+    if (!Object.values(selectedFilters).length) return '';
+
     let filterPath = [];
 
     for (const selectedFiltersKey in selectedFilters) {
@@ -66,5 +69,5 @@ export async function setFilterPath (selectedFilters) {
         }
     }
 
-    return await fetchData(`${PUBLIC_COURSES_LIST_URL}?${filterPath.join('&')}`);
+    return filterPath.join('&');
 }

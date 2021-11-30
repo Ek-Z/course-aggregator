@@ -1,10 +1,11 @@
-// Страница авторизации
+// Страница регистрации
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux"
 import {AuthForm} from "../../components/AuthForm/AuthForm";
-import React, {useState} from "react";
-import axios from "axios";
-import {useHistory} from "react-router";
-import {useDispatch} from "react-redux"
-import {logIn} from "../../store/session";
+import {registerThunk} from "../../store/session/thunks";
+import {selectUserName} from "../../store/session/selectors";
+import {getFavoritesThunk} from "../../store/favorites/thunks";
 
 //валидация пароля
 const validate = (password) => {
@@ -13,6 +14,8 @@ const validate = (password) => {
 }
 
 export const RegistrationPage = () => {
+    const username = useSelector(selectUserName)
+
     const [user, setUser] = useState({
         name:"",
         email:"",
@@ -30,6 +33,11 @@ export const RegistrationPage = () => {
     })
 
     let history = useHistory();
+    useEffect(() => {
+        if (username){
+            history.push("/")
+        }
+    },[username])
 
     const handleInput = (e) => {
         setUser({...user,[e.target.name]:e.target.value })
@@ -62,21 +70,8 @@ export const RegistrationPage = () => {
             setError({...error, confirm_password: 'Пароли не совпадают'})
         }
         else {
-            try {
-                let response = await axios.post("api/register",user);
-                if(response.status === 200){
-                    localStorage.setItem("userData",JSON.stringify(response.data));
-                    console.log("userData:", JSON.parse(localStorage.getItem("userData")));
-                    dispatch(logIn(response.data.data))
-                    history.push("/");//редирект на главную страницу
-                } else {
-                    console.log("Ошибка! ", response)
-                }
-            }
-            catch (e) {
-                console.log(`Error! ${e}`);
-                alert('Вероятно пользователь с таким именем или паролем уже существует')
-            }
+            await dispatch(registerThunk(user))
+            await dispatch(getFavoritesThunk())
         }
     }
     return (

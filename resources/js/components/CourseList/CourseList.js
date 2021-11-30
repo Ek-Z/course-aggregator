@@ -1,18 +1,14 @@
 import PropTypes from 'prop-types';
-import { Box } from '@mui/system';
-import { Grid } from '@mui/material';
 import { Course } from '../Course/Course';
 import style from './CourseList.module.scss';
 
 export const CourseList = ({ list }) => {
     return (
         <section className={style.section}>
-            <div className={style.section__wrap}>
-                <Box className={style.box}>
-                    <Grid container justifyContent="center" spacing={{ xs: 3 }}>
-                        {list.map(item => <Course key={item.id} item={item}/>)}
-                    </Grid>
-                </Box>
+            <div className={style.wrap}>
+                <div className={style.grid}>
+                    {list.map(item => <Course key={item.id} item={item}/>)}
+                </div>
             </div>
         </section>
     );

@@ -21,6 +21,7 @@
         }
         &_btn{
             background-color: #3f50b5;
+            color: white !important;
             margin: 0 auto!important;
             display: block!important;
         }
@@ -30,6 +31,11 @@
         text-align: center;
         margin: 50px 0 0 0;
         color: blue;
+    }
+    &_status{
+        height:40px;
+        color:red;
+        text-align: center
     }
     &_error{
         color: red;

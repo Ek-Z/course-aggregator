@@ -1,12 +1,15 @@
 .section {
 
-    &__wrap {
-        display: flex;
-        flex-direction: column;
-    }
 }
 
-.box {
-    flex-grow: 1;
+.wrap {
     display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(200px, min-content));
+    grid-gap: 24px;
 }

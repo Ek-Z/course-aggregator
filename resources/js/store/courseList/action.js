@@ -1,6 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
-import { PUBLIC_COURSES_LIST_URL, ADMIN_COURSE_LIST_URL } from '../../utils/urls/urls';
+import { URLS } from '../../utils/urls/urls';
 import { fetchData, setFilterPath, checkFilterState, setDefaultFilterState } from '../../utils/HOF/HOF';
+import { pagesLoaded } from '../pages/action';
 
 export const COURSE_LIST_ONLOAD = 'COURSE_LIST::ONLOAD';
 export const COURSE_LIST_LOADED = 'COURSE_LIST::LOADED';
@@ -12,6 +13,7 @@ export const FILTER_FAILED = 'FILTER::FAILED';
 export const FILTER_STATE_CHANGED = 'FILTER::STATE_CHANGED';
 export const FILTER_SET_VALUE = 'FILTER::SET_VALUE';
 export const FILTER_SUBMIT = 'FILTER::SUBMIT';
+export const FILTER_SET_PATH = 'FILTER::SET_PATH';
 export const FILTER_CLEAR = 'FILTER::CLEAR';
 
 export const courseListOnload = createAction(COURSE_LIST_ONLOAD);
@@ -27,13 +29,14 @@ export const filterStateChanged = createAction(
 );
 export const setInputValue = createAction(FILTER_SET_VALUE);
 export const filterSubmit = createAction(FILTER_SUBMIT);
+export const filterSetPath = createAction(FILTER_SET_PATH);
 export const filterClear = createAction(FILTER_CLEAR);
 
 export const getLastCourses = () => async dispatch => {
     dispatch(courseListOnload());
 
     try {
-        const lastCourses = await fetchData('/api/newcourses');
+        const lastCourses = await fetchData(URLS.NEW_COURSES);
 
         dispatch(courseListLoaded(lastCourses.data));
     } catch (err) {
@@ -41,11 +44,15 @@ export const getLastCourses = () => async dispatch => {
     }
 };
 
-export const getPublicCourseList = (currentPage) => async dispatch => {
+export const getPublicCourseList = (currentPage, filterPath) => async dispatch => {
     dispatch(courseListOnload());
 
     try {
-        const courseList = await fetchData(`${PUBLIC_COURSES_LIST_URL}?page=${currentPage}`);
+        const courseList = await fetchData(
+            `${filterPath ?
+                URLS.PUBLIC_COURSELIST + `?${filterPath}` + `&page=${currentPage}` :
+                URLS.PUBLIC_COURSELIST + `?page=${currentPage}`}`
+        );
 
         dispatch(courseListLoaded(courseList.data));
     } catch (error) {
@@ -53,11 +60,15 @@ export const getPublicCourseList = (currentPage) => async dispatch => {
     }
 };
 
-export const getAdminCourseList = () => async dispatch => {
+export const getAdminCourseList = (currentPage, filterPath) => async dispatch => {
     dispatch(courseListOnload());
 
     try {
-        const courseList = await fetchData(ADMIN_COURSE_LIST_URL);
+        const courseList = await fetchData(
+            `${filterPath ?
+                URLS.ADMIN_COURSELIST + `?${filterPath}` + `&page=${currentPage}` :
+                URLS.ADMIN_COURSELIST + `?page=${currentPage}`}`
+        );
 
         dispatch(courseListLoaded(courseList.data));
     } catch (error) {
@@ -69,7 +80,7 @@ export const getFilters = () => async dispatch => {
     dispatch(filterInit());
 
     try {
-        const filters = await fetchData('/api/programmingLanguages');
+        const filters = await fetchData(URLS.PROGRAMMING_LANGUAGES);
         const statefulFilters = setDefaultFilterState(filters.data);
 
         dispatch(filterLoaded(statefulFilters));
@@ -89,9 +100,14 @@ export const getSelectedFilters = (filters, inputValue) => async dispatch => {
 
     if (inputValue) selectedFilters = { ...selectedFilters, 'Заголовок': inputValue };
 
-    const filteredCourseList = await setFilterPath(selectedFilters);
+    const filterPath = setFilterPath(selectedFilters);
 
-    dispatch(courseListFiltered(filteredCourseList.data));
+    dispatch(filterSetPath(filterPath));
+
+    const filteredCourseList = await fetchData(`${URLS.PUBLIC_COURSELIST + `?${filterPath}`}`);
+
+    dispatch(pagesLoaded(filteredCourseList.meta));
+    dispatch(getPublicCourseList(1, filterPath));
 };
 
 export const setFilterClear = filters => dispatch => {

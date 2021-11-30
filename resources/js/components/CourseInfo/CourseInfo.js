@@ -1,5 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import Parser from 'html-react-parser';
 import { Button } from '@mui/material';
 import imagePlug from '../../../../public/images/image-plug.jpg';
 import style from './CourseInfo.module.scss';
@@ -13,7 +14,7 @@ export const CourseInfo = ({ item }) => {
                 <div className={style.grid}>
                     <div className={style.description}>
                         {/*TODO: Сделать рендер описания по абзацам через параграфы*/}
-                        <p>{item.description}</p>
+                        <p>{Parser(item.description)}</p>
                     </div>
                     <img
                         src={item.image || imagePlug}

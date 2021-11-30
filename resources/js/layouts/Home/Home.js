@@ -7,9 +7,9 @@ import {
     selectStatus
 } from '../../store/courseList/selectors';
 import { getLastCourses } from '../../store/courseList/action';
-import style from './Home.module.scss';
 import { STATUSES } from '../../utils/statuses/statuses';
 import { ProgressLoader } from '../../components/ProgressLoader/ProgressLoader';
+import style from './Home.module.scss';
 
 export const Home = () => {
     const courseList = useSelector(selectCourseList);
@@ -21,7 +21,7 @@ export const Home = () => {
         if (!courseListLength) {
             dispatch(getLastCourses());
         } else {
-            courseListLength > 6 && dispatch(getLastCourses());
+            courseListLength !== 6 && dispatch(getLastCourses());
         }
     }, [dispatch, courseListLength]);
 
