@@ -12,11 +12,13 @@ use Illuminate\Support\Facades\Auth;
 class CoursesController extends Controller
 {
     /**
-     * Фильтрация курсов по языку программирования, языку курса, заголовку
-     * Сортировка по id от новых к старым
+     * Display a listing of filtered courses.
      *
-     * Пример запроса:
+     * @param  \Illuminate\Http\Request  $request
+     * example
      * /api/courses?filter[language]=Русский&filter[programmingLanguage_id]=35&filter[title]=PHP
+     * 
+     * @return \Illuminate\Http\Response
      */
     public function index(FilterRequest $request)
     {
@@ -27,25 +29,35 @@ class CoursesController extends Controller
             ->defaultSort('-id')
             ->paginate(8)
             ->appends(request()->query());
+
         return FitredCoursesResource::collection($coursesQuery);
     }
 
+    /**
+     * Display the specified course.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function show($id)
     {
         $course = new FitredCoursesResource(Course::findOrFail($id));
+
         return $course;
     }
 
     /**
-     * Вывод последних добавленных курсов
+     * Display a listing of new courses.
+     *
+     * @return \Illuminate\Http\Response
      */
-
     public function newcourses()
     {
         $courses = Course::where('status', 'PUBLISHED')
             ->orderBy('id', 'desc')
             ->take(6)
             ->get();
+
         return FitredCoursesResource::collection($courses);
     }
 

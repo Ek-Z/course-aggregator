@@ -29,7 +29,10 @@ class LoginController extends BaseController
         }
     }
 
-    // method for user logout and delete token
+    /**
+     * Method for user logout and delete token
+     * 
+     */
     public function logout()
     {
         auth()->user()->tokens()->delete();
