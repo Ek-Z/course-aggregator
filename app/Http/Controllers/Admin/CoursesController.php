@@ -49,18 +49,10 @@ class CoursesController extends Controller
         return $course;
     }
 
-
-    /**
-     * Update the specified course in storage.
-     *
-     * @param  \Illuminate\Http\CourseRequest  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(CourseRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $course = new CourseResource(Course::findOrFail($id));
-        $course->fill($request->validated());
+        $course->fill($request->all());
         $course->save();
 
         return response()->json($course, 200);

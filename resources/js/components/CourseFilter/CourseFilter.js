@@ -12,7 +12,7 @@ export const CourseFilter = () => {
     const filterStatus = useSelector(selectFiltersStatus);
     const dispatch = useDispatch();
 
-    const handleSubmit = evt => {
+    const handleFilterSubmit = evt => {
         evt.preventDefault();
 
         dispatch(getSelectedFilters(filters));
@@ -23,13 +23,13 @@ export const CourseFilter = () => {
     }, [dispatch]);
 
     return (
-        <form action="#" className={style.filter} onSubmit={handleSubmit}>
+        <form action="#" className={style.filter} onSubmit={handleFilterSubmit}>
             {filterStatus === STATUSES.SUCCESS && Object.entries(filters).map((filter, index) => filter ?
                 <Filters key={index} filterTitles={filter[0]} filterValues={filter[1]}/> :
                 <div>Ошибка</div>
             )}
             <Button
-                onClick={handleSubmit}
+                onClick={handleFilterSubmit}
                 color="secondary"
                 variant="contained"
                 sx={{

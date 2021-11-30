@@ -12,7 +12,7 @@ export const InputSearch = () => {
 
     const handleChange = evt => setValue(evt.target.value);
 
-    const handleSubmit = evt => {
+    const handleFilterSubmit = evt => {
         evt.preventDefault();
         value && dispatch(setInputValue(value.trim()));
         dispatch(getSelectedFilters(filters, value.trim()));
@@ -27,7 +27,7 @@ export const InputSearch = () => {
     }, []);
 
     return (
-        <form onSubmit={handleSubmit} className={style.form}>
+        <form onSubmit={handleFilterSubmit} className={style.form}>
             <TextField
                 autoFocus={true}
                 value={value}
@@ -41,7 +41,7 @@ export const InputSearch = () => {
                             <Button type="submit"
                                     color="secondary"
                                     variant="contained"
-                                    onClick={handleSubmit}
+                                    onClick={handleFilterSubmit}
                                     sx={{
                                         marginRight: '0',
                                         color: '#ffffff'

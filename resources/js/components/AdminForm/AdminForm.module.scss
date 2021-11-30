@@ -30,6 +30,10 @@
             width: 100%;
             min-height: 100px;
         }
+
+        &:last-of-type {
+            width: fit-content;
+        }
     }
 
     & > button {
