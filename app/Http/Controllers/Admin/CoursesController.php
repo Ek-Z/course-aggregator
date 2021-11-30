@@ -28,10 +28,10 @@ class CoursesController extends Controller
         return $course;
     }
 
-    public function update(CourseRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $course = new CourseResource(Course::findOrFail($id));
-        $course->fill($request->validated());
+        $course->fill($request->all());
         $course->save();
         return response()->json($course, 200);
     }

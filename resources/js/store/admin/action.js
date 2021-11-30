@@ -35,12 +35,12 @@ export const addNewCourse = (courseData, userToken) => async dispatch => {
     }
 };
 
-export const editSelectedCourse = (courseData, userToken) => async dispatch => {
+export const editSelectedCourse = (courseId, courseData, userToken) => async dispatch => {
 
     try {
 
         const response = await fetch(
-            `${URLS.ADMIN_COURSELIST}/${courseData.id}`,
+            `${URLS.ADMIN_COURSELIST}/${courseId}`,
             {
                 method: 'PUT',
                 headers: {
@@ -54,7 +54,6 @@ export const editSelectedCourse = (courseData, userToken) => async dispatch => {
 
         if (!response.ok) throw new Error(`Error: ${response.statusText}`);
 
-        console.dir(response);
         dispatch(adminEditCourse());
     } catch (err) {
 

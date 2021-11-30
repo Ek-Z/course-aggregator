@@ -34505,8 +34505,8 @@ var AdminForm = function AdminForm() {
     };
     var userToken = JSON.parse(localStorage.getItem('userData')).data.token;
 
-    if (!courseId) {
-      dispatch((0,_store_admin_action__WEBPACK_IMPORTED_MODULE_5__.editSelectedCourse)(newCourseData, userToken));
+    if (courseId) {
+      dispatch((0,_store_admin_action__WEBPACK_IMPORTED_MODULE_5__.editSelectedCourse)(courseId, newCourseData, userToken));
       alert('Курс успешно редактирован');
     } else {
       dispatch((0,_store_admin_action__WEBPACK_IMPORTED_MODULE_5__.addNewCourse)(newCourseData, userToken));
@@ -34566,7 +34566,7 @@ var AdminForm = function AdminForm() {
           name: "language",
           id: "language",
           ref: courseLanguageRef,
-          defaultValue: course.language,
+          defaultValue: courseId ? course.language : 'Русский',
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("option", {
             id: "1",
             value: "\u0420\u0443\u0441\u0441\u043A\u0438\u0439",
@@ -34605,7 +34605,7 @@ var AdminForm = function AdminForm() {
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("option", {
               value: language.title,
               id: language.id,
-              selected: language.id === course.programmingLanguage_id,
+              selected: courseId ? language.id === course.programmingLanguage_id : false,
               children: language.title
             }, language.id);
           })
@@ -34641,10 +34641,10 @@ var AdminForm = function AdminForm() {
           name: "image",
           ref: courseImageRef
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("button", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("button", {
         type: "submit",
         onClick: handleCourseData,
-        children: "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u043A\u0443\u0440\u0441"
+        children: [courseId ? 'Редактировать' : 'Добавить', " \u043A\u0443\u0440\u0441"]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("button", {
         type: "reset",
         children: "\u0421\u0431\u0440\u043E\u0441\u0438\u0442\u044C"
@@ -36888,7 +36888,7 @@ var addNewCourse = function addNewCourse(courseData, userToken) {
     };
   }();
 };
-var editSelectedCourse = function editSelectedCourse(courseData, userToken) {
+var editSelectedCourse = function editSelectedCourse(courseId, courseData, userToken) {
   return /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(dispatch) {
       var response;
@@ -36898,7 +36898,7 @@ var editSelectedCourse = function editSelectedCourse(courseData, userToken) {
             case 0:
               _context2.prev = 0;
               _context2.next = 3;
-              return fetch("".concat(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.URLS.ADMIN_COURSELIST, "/").concat(courseData.id), {
+              return fetch("".concat(_utils_urls_urls__WEBPACK_IMPORTED_MODULE_1__.URLS.ADMIN_COURSELIST, "/").concat(courseId), {
                 method: 'PUT',
                 headers: {
                   'Content-Type': 'application/json; charset=utf-8',
@@ -36919,22 +36919,21 @@ var editSelectedCourse = function editSelectedCourse(courseData, userToken) {
               throw new Error("Error: ".concat(response.statusText));
 
             case 6:
-              console.dir(response);
               dispatch(adminEditCourse());
-              _context2.next = 13;
+              _context2.next = 12;
               break;
 
-            case 10:
-              _context2.prev = 10;
+            case 9:
+              _context2.prev = 9;
               _context2.t0 = _context2["catch"](0);
               console.log(_context2.t0);
 
-            case 13:
+            case 12:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[0, 10]]);
+      }, _callee2, null, [[0, 9]]);
     }));
 
     return function (_x2) {

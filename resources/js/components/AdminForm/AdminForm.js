@@ -5,8 +5,8 @@ import { fetchData } from '../../utils/HOF/HOF';
 import { URLS } from '../../utils/urls/urls';
 import { addNewCourse, editSelectedCourse } from '../../store/admin/action';
 import { selectIsAdmin } from '../../store/session/selectors';
-import style from './AdminForm.module.scss';
 import { selectExactCourse } from '../../store/courseList/selectors';
+import style from './AdminForm.module.scss';
 
 export const AdminForm = () => {
     const [languages, setLanguages] = React.useState([]);
@@ -58,8 +58,8 @@ export const AdminForm = () => {
             .data
             .token;
 
-        if (!courseId) {
-            dispatch(editSelectedCourse(newCourseData, userToken));
+        if (courseId) {
+            dispatch(editSelectedCourse(courseId, newCourseData, userToken));
             alert('Курс успешно редактирован');
         } else {
             dispatch(addNewCourse(newCourseData, userToken));
@@ -95,7 +95,8 @@ export const AdminForm = () => {
                 </label>
                 <label htmlFor="language">
                     Язык курса
-                    <select name="language" id="language" ref={courseLanguageRef} defaultValue={course.language}>
+                    <select name="language" id="language" ref={courseLanguageRef}
+                            defaultValue={courseId ? course.language : 'Русский'}>
                         <option id="1" value="Русский">
                             Русский
                         </option>
@@ -135,7 +136,7 @@ export const AdminForm = () => {
                             key={language.id}
                             value={language.title}
                             id={language.id}
-                            selected={language.id === course.programmingLanguage_id}
+                            selected={courseId ? language.id === course.programmingLanguage_id : false}
                         >
                             {language.title}
                         </option>)}
@@ -179,7 +180,7 @@ export const AdminForm = () => {
                     type="submit"
                     onClick={handleCourseData}
                 >
-                    Добавить курс
+                    {courseId ? 'Редактировать' : 'Добавить'} курс
                 </button>
                 <button type="reset">Сбросить</button>
             </form>
