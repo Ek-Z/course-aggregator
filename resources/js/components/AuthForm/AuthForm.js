@@ -75,8 +75,8 @@ export function AuthForm({title, button, onChange, onSubmit, user, error}) {
                 {(title==="Регистрация") &&
                 <Link className={styles.loginForm_link} to="/signIn">У вас уже есть аккаунт? Войдите</Link>
                 }
-                {pending ? <ProgressLoader/> : <div className={styles.loginForm_status}>#</div> }
-                {sessionError!==null ? <p className={styles.loginForm_status}>Ошибка! Возможно введено что-то не так или проблема на сервере...</p> : <p className={styles.loginForm_status}>#</p>}
+                {pending ? <ProgressLoader/> : <div className={styles.loginForm_status}></div> }
+                {sessionError!==null ? <p className={styles.loginForm_status}>Ошибка! Возможно введено что-то не так или проблема на сервере...</p> : <p className={styles.loginForm_status}></p>}
                     </div>
         </form>
     )

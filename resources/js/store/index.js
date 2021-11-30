@@ -20,7 +20,7 @@ const rootReducer = combineReducers({
     courseList: courseListReducer,
     profile: profileReducer,
     pages:pagesReducer,
-    favorites:favoritesReducer
+    favorites:favoritesReducer,
     admin: adminReducer
 });
 

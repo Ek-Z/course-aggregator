@@ -43,7 +43,7 @@ export const Course = ({ item }) => {
                         </Typography>
                         <div style={{ display: 'flex', justifyContent:'space-between', margin: 'auto 0 0 0'}}>
                             {userName ? <FavoriteCheckbox id={item.id}/> : <div></div>}
-                            <Link to={`/course/${item.id}`} style={{ textDecoration: 'none' }}>
+                            <Link to={`/course/${item.id}`} className={style.link}>
                                 <Typography
                                 sx={{
                                     alignSelf: 'flex-end',

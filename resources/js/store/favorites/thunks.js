@@ -10,12 +10,12 @@ import {
     getFavoritesSuccess,
 } from "./actions";
 import {fetchData} from "../../utils/HOF/HOF";
-import {ADD_IN_FAVORITES_URL, DEL_FROM_FAVORITES_URL, GET_FAVORITES_URL} from "../../utils/urls/urls";
+import {URLS} from "../../utils/urls/urls";
 
 export const addInFavoritesThunk = ({id}) => dispatch => {
     const userToken = JSON.parse(localStorage.getItem('userData')).data.token;
     dispatch(addInFavoritesStart());
-        fetch(`${ADD_IN_FAVORITES_URL}/${id}`, {
+        fetch(`${URLS.ADD_IN_FAVORITES}/${id}`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -30,7 +30,7 @@ export const addInFavoritesThunk = ({id}) => dispatch => {
             return res;
         })
             .then(async () => {
-            const favorites = await fetchData(GET_FAVORITES_URL);
+            const favorites = await fetchData(URLS.GET_FAVORITES);
             if (favorites instanceof Error) throw favorites;
             await alert('Курс успешно добавлен в Избранное');
             await dispatch(addInFavoritesSuccess(favorites.data))
@@ -45,7 +45,7 @@ export const addInFavoritesThunk = ({id}) => dispatch => {
 export const delFromFavoritesThunk = ({id}) => dispatch => {
     const userToken = JSON.parse(localStorage.getItem('userData')).data.token;
     dispatch(delFromFavoritesStart());
-        fetch(`${DEL_FROM_FAVORITES_URL}/${id}`, {
+        fetch(`${URLS.DEL_FROM_FAVORITES}/${id}`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -60,7 +60,7 @@ export const delFromFavoritesThunk = ({id}) => dispatch => {
             return res;
         })
             .then(async() => {
-            const favorites = await fetchData(GET_FAVORITES_URL);
+            const favorites = await fetchData(URLS.GET_FAVORITES);
             if (favorites instanceof Error) throw favorites;
             await alert('Курс успешно удалён из Избранного');
             await dispatch(delFromFavoritesSuccess(favorites.data))
@@ -75,7 +75,7 @@ export const delFromFavoritesThunk = ({id}) => dispatch => {
 export const getFavoritesThunk = () => async dispatch => {
     dispatch(getFavoritesStart());
     try {
-        const favorites =  await fetchData(GET_FAVORITES_URL)
+        const favorites =  await fetchData(URLS.GET_FAVORITES)
         if (favorites instanceof Error) throw favorites;
         if (favorites.data){
              dispatch(getFavoritesSuccess(favorites.data))
