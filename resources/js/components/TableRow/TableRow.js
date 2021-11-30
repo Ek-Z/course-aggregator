@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { deleteSelectedCourse } from '../../store/admin/action';
@@ -8,15 +9,6 @@ import style from './TableRow.module.scss';
 export const TableRow = ({ item }) => {
     const currentPage = useSelector(selectCurrentPage);
     const dispatch = useDispatch();
-
-    const handleCourseEdit = () => {
-        const userToken = JSON
-            .parse(localStorage.getItem('userData'))
-            .data
-            .token;
-
-
-    }
 
     const handleCourseDelete = () => {
         const userToken = JSON
@@ -41,7 +33,9 @@ export const TableRow = ({ item }) => {
             </td>)
             }
             <td>
-                <button onClick={handleCourseEdit}>Редактировать</button>
+                <Link to={`/admin/edit_course/${item.id}`}>
+                    <button>Редактировать</button>
+                </Link>
             </td>
             <td>
                 <button onClick={handleCourseDelete}>Удалить</button>

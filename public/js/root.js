@@ -34377,28 +34377,29 @@ if (document.getElementById('app')) {
 
 /***/ }),
 
-/***/ "./resources/js/components/AddCourse/AddCourse.js":
+/***/ "./resources/js/components/AdminForm/AdminForm.js":
 /*!********************************************************!*\
-  !*** ./resources/js/components/AddCourse/AddCourse.js ***!
+  !*** ./resources/js/components/AdminForm/AdminForm.js ***!
   \********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "AddCourse": () => (/* binding */ AddCourse)
+/* harmony export */   "AdminForm": () => (/* binding */ AdminForm)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _utils_HOF_HOF__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/HOF/HOF */ "./resources/js/utils/HOF/HOF.js");
 /* harmony import */ var _utils_urls_urls__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/urls/urls */ "./resources/js/utils/urls/urls.js");
 /* harmony import */ var _store_admin_action__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../store/admin/action */ "./resources/js/store/admin/action.js");
 /* harmony import */ var _store_session_selectors__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../store/session/selectors */ "./resources/js/store/session/selectors.js");
-/* harmony import */ var _AddCourse_module_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./AddCourse.module.scss */ "./resources/js/components/AddCourse/AddCourse.module.scss");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _AdminForm_module_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./AdminForm.module.scss */ "./resources/js/components/AdminForm/AdminForm.module.scss");
+/* harmony import */ var _store_courseList_selectors__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../store/courseList/selectors */ "./resources/js/store/courseList/selectors.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -34427,7 +34428,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var AddCourse = function AddCourse() {
+
+var AdminForm = function AdminForm() {
   var _React$useState = react__WEBPACK_IMPORTED_MODULE_1__.useState([]),
       _React$useState2 = _slicedToArray(_React$useState, 2),
       languages = _React$useState2[0],
@@ -34441,9 +34443,17 @@ var AddCourse = function AddCourse() {
   var sourceNameRef = react__WEBPACK_IMPORTED_MODULE_1__.useRef(null);
   var sourceUrlRef = react__WEBPACK_IMPORTED_MODULE_1__.useRef(null);
   var courseImageRef = react__WEBPACK_IMPORTED_MODULE_1__.useRef(null);
+
+  var _useParams = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_10__.useParams)(),
+      courseId = _useParams.courseId;
+
   var isAdmin = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(_store_session_selectors__WEBPACK_IMPORTED_MODULE_6__.selectIsAdmin);
+  var selectCourse = react__WEBPACK_IMPORTED_MODULE_1__.useMemo(function () {
+    return (0,_store_courseList_selectors__WEBPACK_IMPORTED_MODULE_8__.selectExactCourse)(courseId);
+  }, [courseId]);
+  var course = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(selectCourse);
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useDispatch)();
-  var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_9__.useHistory)();
+  var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_10__.useHistory)();
 
   var getProgrammingLanguages = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
@@ -34470,7 +34480,7 @@ var AddCourse = function AddCourse() {
     };
   }();
 
-  var handleAddCourse = function handleAddCourse(evt) {
+  var handleCourseData = function handleCourseData(evt) {
     var _courseTitleRef$curre, _sourceUrlRef$current, _courseTitleRef$curre2, _courseLanguageRef$cu, _courseShortDescripti, _courseDescriptionRef, _courseProgrammingLan, _sourceNameRef$curren, _sourceUrlRef$current2, _courseImageRef$curre;
 
     evt.preventDefault();
@@ -34494,9 +34504,16 @@ var AddCourse = function AddCourse() {
       image: (_courseImageRef$curre = courseImageRef.current) === null || _courseImageRef$curre === void 0 ? void 0 : _courseImageRef$curre.value
     };
     var userToken = JSON.parse(localStorage.getItem('userData')).data.token;
-    dispatch((0,_store_admin_action__WEBPACK_IMPORTED_MODULE_5__.addNewCourse)(newCourseData, userToken));
+
+    if (!courseId) {
+      dispatch((0,_store_admin_action__WEBPACK_IMPORTED_MODULE_5__.editSelectedCourse)(newCourseData, userToken));
+      alert('Курс успешно редактирован');
+    } else {
+      dispatch((0,_store_admin_action__WEBPACK_IMPORTED_MODULE_5__.addNewCourse)(newCourseData, userToken));
+      alert('Курс успешно добавлен');
+    }
+
     history.push('/admin');
-    alert('Курс успешно добавлен');
   };
 
   react__WEBPACK_IMPORTED_MODULE_1__.useEffect( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
@@ -34521,95 +34538,102 @@ var AddCourse = function AddCourse() {
   })), []);
 
   if (!isAdmin) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Redirect, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Redirect, {
       to: "/"
     });
   }
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-    className: "container ".concat(_AddCourse_module_scss__WEBPACK_IMPORTED_MODULE_7__["default"].wrap),
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("form", {
-      onSubmit: handleAddCourse,
-      className: _AddCourse_module_scss__WEBPACK_IMPORTED_MODULE_7__["default"].form,
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+    className: "container ".concat(_AdminForm_module_scss__WEBPACK_IMPORTED_MODULE_7__["default"].wrap),
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("form", {
+      onSubmit: handleCourseData,
+      className: _AdminForm_module_scss__WEBPACK_IMPORTED_MODULE_7__["default"].form,
       method: "POST",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("label", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("label", {
         htmlFor: "title",
-        children: ["\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043A\u0443\u0440\u0441\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
+        children: ["\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043A\u0443\u0440\u0441\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("input", {
           id: "title",
           type: "text",
           name: "title",
+          defaultValue: courseId ? course.title : '',
           placeholder: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043A\u0443\u0440\u0441\u0430",
           ref: courseTitleRef,
           required: true
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("label", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("label", {
         htmlFor: "language",
-        children: ["\u042F\u0437\u044B\u043A \u043A\u0443\u0440\u0441\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("select", {
+        children: ["\u042F\u0437\u044B\u043A \u043A\u0443\u0440\u0441\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("select", {
           name: "language",
           id: "language",
           ref: courseLanguageRef,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("option", {
+          defaultValue: course.language,
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("option", {
             id: "1",
             value: "\u0420\u0443\u0441\u0441\u043A\u0438\u0439",
             children: "\u0420\u0443\u0441\u0441\u043A\u0438\u0439"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("option", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("option", {
             id: "2",
             value: "English",
             children: "English"
           })]
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("label", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("label", {
         htmlFor: "short_description",
-        children: ["\u041A\u0440\u0430\u0442\u043A\u043E\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043A\u0443\u0440\u0441\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("textarea", {
+        children: ["\u041A\u0440\u0430\u0442\u043A\u043E\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043A\u0443\u0440\u0441\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("textarea", {
           id: "short_description",
           name: "short_description",
+          defaultValue: courseId ? course.short_description : '',
           placeholder: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043A\u0440\u0430\u0442\u043A\u043E\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043A\u0443\u0440\u0441\u0430",
           ref: courseShortDescriptionRef
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("label", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("label", {
         htmlFor: "description",
-        children: ["\u041F\u043E\u043B\u043D\u043E\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043A\u0443\u0440\u0441\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("textarea", {
+        children: ["\u041F\u043E\u043B\u043D\u043E\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043A\u0443\u0440\u0441\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("textarea", {
           id: "description",
           name: "description",
+          defaultValue: courseId ? course.description : '',
           placeholder: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043F\u043E\u043B\u043D\u043E\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043A\u0443\u0440\u0441\u0430",
           ref: courseDescriptionRef
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("label", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("label", {
         htmlFor: "prog_language",
-        children: ["\u042F\u0437\u044B\u043A \u043A\u0443\u0440\u0441\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("select", {
+        children: ["\u042F\u0437\u044B\u043A \u043A\u0443\u0440\u0441\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("select", {
           name: "prog_language",
           id: "prog_language",
           ref: courseProgrammingLanguageRef,
           children: languages.map(function (language) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("option", {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("option", {
               value: language.title,
               id: language.id,
+              selected: language.id === course.programmingLanguage_id,
               children: language.title
             }, language.id);
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("label", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("label", {
         htmlFor: "source_name",
-        children: ["\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0438\u0441\u0442\u043E\u0447\u043D\u0438\u043A\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
+        children: ["\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0438\u0441\u0442\u043E\u0447\u043D\u0438\u043A\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("input", {
           id: "source_name",
           type: "text",
           name: "source_name",
+          defaultValue: courseId ? course.source_name : '',
           placeholder: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0438\u0441\u0442\u043E\u0447\u043D\u0438\u043A\u0430",
           ref: sourceNameRef
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("label", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("label", {
         htmlFor: "source_url",
-        children: ["URL \u0438\u0441\u0442\u043E\u0447\u043D\u0438\u043A\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
+        children: ["URL \u0438\u0441\u0442\u043E\u0447\u043D\u0438\u043A\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("input", {
           id: "source_url",
           type: "url",
           name: "source_url",
+          defaultValue: courseId ? course.source_url : '',
           placeholder: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 URL \u0438\u0441\u0442\u043E\u0447\u043D\u0438\u043A\u0430",
           ref: sourceUrlRef,
           required: true
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("label", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("label", {
         htmlFor: "image",
-        children: ["\u0424\u043E\u0442\u043E\u0433\u0440\u0430\u0446\u0438\u044F \u043A\u0443\u0440\u0441\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
+        children: ["\u0424\u043E\u0442\u043E\u0433\u0440\u0430\u0446\u0438\u044F \u043A\u0443\u0440\u0441\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("input", {
           id: "image",
           type: "file",
           alt: "\u0444\u043E\u0442\u043E\u0433\u0440\u0430\u0444\u0438\u044F \u043A\u0443\u0440\u0441\u0430",
@@ -34617,11 +34641,11 @@ var AddCourse = function AddCourse() {
           name: "image",
           ref: courseImageRef
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("button", {
         type: "submit",
-        onClick: handleAddCourse,
+        onClick: handleCourseData,
         children: "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u043A\u0443\u0440\u0441"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("button", {
         type: "reset",
         children: "\u0421\u0431\u0440\u043E\u0441\u0438\u0442\u044C"
       })]
@@ -34660,7 +34684,7 @@ var AdminTable = function AdminTable(_ref) {
       table = _ref.table;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
-      to: "/admin/addCourse",
+      to: "/admin/add_course",
       className: _AdminTable_module_scss__WEBPACK_IMPORTED_MODULE_2__["default"].btn_link,
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
         className: _AdminTable_module_scss__WEBPACK_IMPORTED_MODULE_2__["default"].btn,
@@ -35585,9 +35609,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CourseCard_CourseCard__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../CourseCard/CourseCard */ "./resources/js/components/CourseCard/CourseCard.js");
 /* harmony import */ var _layouts_Home_Home__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../layouts/Home/Home */ "./resources/js/layouts/Home/Home.js");
 /* harmony import */ var _layouts_Footer_Footer__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../layouts/Footer/Footer */ "./resources/js/layouts/Footer/Footer.js");
-/* harmony import */ var _Router_module_scss__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Router.module.scss */ "./resources/js/components/Router/Router.module.scss");
-/* harmony import */ var _AddCourse_AddCourse__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../AddCourse/AddCourse */ "./resources/js/components/AddCourse/AddCourse.js");
-/* harmony import */ var _layouts_Favorites_Favorites__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../layouts/Favorites/Favorites */ "./resources/js/layouts/Favorites/Favorites.js");
+/* harmony import */ var _AdminForm_AdminForm__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../AdminForm/AdminForm */ "./resources/js/components/AdminForm/AdminForm.js");
+/* harmony import */ var _layouts_Favorites_Favorites__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../layouts/Favorites/Favorites */ "./resources/js/layouts/Favorites/Favorites.js");
+/* harmony import */ var _Router_module_scss__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Router.module.scss */ "./resources/js/components/Router/Router.module.scss");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
@@ -35607,9 +35631,9 @@ __webpack_require__.r(__webpack_exports__);
 var Router = function Router() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.HashRouter, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
-      className: _Router_module_scss__WEBPACK_IMPORTED_MODULE_9__["default"].bg,
+      className: _Router_module_scss__WEBPACK_IMPORTED_MODULE_11__["default"].bg,
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
-        className: _Router_module_scss__WEBPACK_IMPORTED_MODULE_9__["default"].application,
+        className: _Router_module_scss__WEBPACK_IMPORTED_MODULE_11__["default"].application,
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_layouts_Header_Header__WEBPACK_IMPORTED_MODULE_1__.Header, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Switch, {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
             exact: true,
@@ -35629,11 +35653,12 @@ var Router = function Router() {
             component: _layouts_AdminPanel_AdminPanel__WEBPACK_IMPORTED_MODULE_3__.AdminPanel
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
             exact: true,
-            path: "/admin/addCourse",
-            component: _AddCourse_AddCourse__WEBPACK_IMPORTED_MODULE_10__.AddCourse
+            path: "/admin/add_course",
+            component: _AdminForm_AdminForm__WEBPACK_IMPORTED_MODULE_9__.AdminForm
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
             exact: true,
-            path: "/admin/editCourse"
+            path: "/admin/edit_course/:courseId",
+            component: _AdminForm_AdminForm__WEBPACK_IMPORTED_MODULE_9__.AdminForm
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
             exact: true,
             path: "/signIn",
@@ -35645,7 +35670,7 @@ var Router = function Router() {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
             exact: true,
             path: "/favorites",
-            component: _layouts_Favorites_Favorites__WEBPACK_IMPORTED_MODULE_11__.Favorites
+            component: _layouts_Favorites_Favorites__WEBPACK_IMPORTED_MODULE_10__.Favorites
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_layouts_Footer_Footer__WEBPACK_IMPORTED_MODULE_8__.Footer, {})]
       })
@@ -35666,6 +35691,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "TableRow": () => (/* binding */ TableRow)
 /* harmony export */ });
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
@@ -35684,14 +35710,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 
 
+
 var TableRow = function TableRow(_ref) {
   var item = _ref.item;
   var currentPage = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(_store_pages_selectors__WEBPACK_IMPORTED_MODULE_4__.selectCurrentPage);
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useDispatch)();
-
-  var handleCourseEdit = function handleCourseEdit() {
-    var userToken = JSON.parse(localStorage.getItem('userData')).data.token;
-  };
 
   var handleCourseDelete = function handleCourseDelete() {
     var userToken = JSON.parse(localStorage.getItem('userData')).data.token;
@@ -35707,9 +35730,11 @@ var TableRow = function TableRow(_ref) {
         children: _typeof(value) === 'object' ? value === null || value === void 0 ? void 0 : value.id : value
       }, index);
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
-        onClick: handleCourseEdit,
-        children: "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C"
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
+        to: "/admin/edit_course/".concat(item.id),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
+          children: "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C"
+        })
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
@@ -38825,9 +38850,9 @@ ___CSS_LOADER_EXPORT___.push([module.id, "* {\r\n    box-sizing: border-box;\r\n
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[3]!./resources/js/components/AddCourse/AddCourse.module.scss":
+/***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[3]!./resources/js/components/AdminForm/AdminForm.module.scss":
 /*!*******************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[3]!./resources/js/components/AddCourse/AddCourse.module.scss ***!
+  !*** ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[3]!./resources/js/components/AdminForm/AdminForm.module.scss ***!
   \*******************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -38842,11 +38867,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "._1eeJME_H_ywgfg1ROshnzQ {\n  padding: 50px 0;\n  display: flex;\n  justify-content: center;\n}\n\n._3ZtcfjQs3IEjqFMhW3MApf {\n  display: flex;\n  flex-direction: column;\n  max-width: 600px;\n  width: 100%;\n}\n._3ZtcfjQs3IEjqFMhW3MApf > label {\n  display: flex;\n  flex-direction: column;\n}\n._3ZtcfjQs3IEjqFMhW3MApf > label + label {\n  margin-top: 10px;\n}\n._3ZtcfjQs3IEjqFMhW3MApf > label > input:required {\n  border-color: red;\n}\n._3ZtcfjQs3IEjqFMhW3MApf > label > textarea {\n  resize: vertical;\n  width: 100%;\n  min-height: 100px;\n}\n._3ZtcfjQs3IEjqFMhW3MApf > button:first-of-type {\n  margin-top: 20px;\n}\n._3ZtcfjQs3IEjqFMhW3MApf > button + button {\n  margin-top: 10px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "._1Sr7z9Ejt0RRCEp5wMI0kS {\n  padding: 50px 0;\n  display: flex;\n  justify-content: center;\n}\n\n._3EGDfUB5f7tl7kPrkOkmDO {\n  display: flex;\n  flex-direction: column;\n  max-width: 600px;\n  width: 100%;\n}\n._3EGDfUB5f7tl7kPrkOkmDO > label {\n  display: flex;\n  flex-direction: column;\n}\n._3EGDfUB5f7tl7kPrkOkmDO > label + label {\n  margin-top: 10px;\n}\n._3EGDfUB5f7tl7kPrkOkmDO > label > input:required {\n  border-color: red;\n}\n._3EGDfUB5f7tl7kPrkOkmDO > label > textarea {\n  resize: vertical;\n  width: 100%;\n  min-height: 100px;\n}\n._3EGDfUB5f7tl7kPrkOkmDO > label:last-of-type {\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n}\n._3EGDfUB5f7tl7kPrkOkmDO > button:first-of-type {\n  margin-top: 20px;\n}\n._3EGDfUB5f7tl7kPrkOkmDO > button + button {\n  margin-top: 10px;\n}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
-	"wrap": "_1eeJME_H_ywgfg1ROshnzQ",
-	"form": "_3ZtcfjQs3IEjqFMhW3MApf"
+	"wrap": "_1Sr7z9Ejt0RRCEp5wMI0kS",
+	"form": "_3EGDfUB5f7tl7kPrkOkmDO"
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38870,7 +38895,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "._2KDJ1Ohmtg6kR8DXXaPl-F {\n  width: 100%;\n  padding: 10px;\n  background-color: #f84646;\n  border: none;\n  border-radius: 4px;\n  color: #ffffff;\n  transition: background-color 300ms;\n  cursor: pointer;\n  font-family: inherit;\n  text-transform: uppercase;\n}\n._2KDJ1Ohmtg6kR8DXXaPl-F:hover {\n  background-color: #be001e;\n}\n._2DFehjJvRS_A7lK6PaDQIf {\n  text-decoration: none;\n  width: 150px;\n}\n\n._1e1Y2knasqIyZ5H3bYl7Aa {\n  border-collapse: collapse;\n  background-color: #ffffff;\n  margin-top: 20px;\n}\n\n._1ujf78fMDmGjc87inYAaHN {\n  border: 1px solid black;\n  text-align: center;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "._2KDJ1Ohmtg6kR8DXXaPl-F {\n  width: 100%;\n  padding: 10px;\n  background-color: #f84646;\n  border: none;\n  border-radius: 4px;\n  color: #ffffff;\n  transition: background-color 300ms;\n  cursor: pointer;\n  font-family: inherit;\n  text-transform: uppercase;\n}\n._2KDJ1Ohmtg6kR8DXXaPl-F:hover {\n  background-color: #be001e;\n}\n._2DFehjJvRS_A7lK6PaDQIf {\n  text-decoration: none;\n  width: 150px;\n}\n\n._1e1Y2knasqIyZ5H3bYl7Aa {\n  border-collapse: collapse;\n  background-color: rgba(255, 255, 255, 0.95);\n  margin-top: 20px;\n}\n\n._1ujf78fMDmGjc87inYAaHN {\n  border: 1px solid black;\n  text-align: center;\n}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"btn": "_2KDJ1Ohmtg6kR8DXXaPl-F",
@@ -82852,9 +82877,9 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
-/***/ "./resources/js/components/AddCourse/AddCourse.module.scss":
+/***/ "./resources/js/components/AdminForm/AdminForm.module.scss":
 /*!*****************************************************************!*\
-  !*** ./resources/js/components/AddCourse/AddCourse.module.scss ***!
+  !*** ./resources/js/components/AdminForm/AdminForm.module.scss ***!
   \*****************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -82865,7 +82890,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_AddCourse_module_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!../../../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!../../../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[3]!./AddCourse.module.scss */ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[3]!./resources/js/components/AddCourse/AddCourse.module.scss");
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_AdminForm_module_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!../../../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!../../../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[3]!./AdminForm.module.scss */ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[3]!./resources/js/components/AdminForm/AdminForm.module.scss");
 
             
 
@@ -82874,11 +82899,11 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_AddCourse_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_AdminForm_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"], options);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_AddCourse_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_AdminForm_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 

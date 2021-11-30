@@ -6,7 +6,7 @@ import style from './AdminTable.module.scss';
 export const AdminTable = ({ titles, table }) => {
     return (
         <>
-            <Link to="/admin/addCourse" className={style.btn_link}>
+            <Link to="/admin/add_course" className={style.btn_link}>
                 <button className={style.btn}>Добавить курс</button>
             </Link>
             <table className={style.table}>
