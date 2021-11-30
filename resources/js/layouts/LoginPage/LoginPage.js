@@ -1,8 +1,8 @@
 // Страница авторизации
-import {AuthForm} from "../../components/AuthForm/AuthForm";
-import React, {useEffect, useState} from "react";
-import {useHistory} from "react-router";
+import * as React from "react";
+import { useHistory } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux"
+import {AuthForm} from "../../components/AuthForm/AuthForm";
 import {logInThunk} from "../../store/session/thunks";
 import {selectUserName} from "../../store/session/selectors";
 import {getFavoritesThunk} from "../../store/favorites/thunks";

@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import {
     AppBar,
     Avatar,
@@ -13,17 +14,15 @@ import {
     Popper,
     MenuItem,
     MenuList,
-    Stack
+    Stack,
+    CircularProgress,
+    Tooltip
 } from '@mui/material';
 import { Box } from '@mui/system';
-import style from './Header.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
 import {selectSessionState, selectUserName, selectIsAdmin, selectSessionPending} from '../../store/session/selectors';
-import Tooltip from '@mui/material/Tooltip';
 import {logOutThunk} from "../../store/session/thunks";
-import CircularProgress from "@mui/material/CircularProgress";
 import {selectFavorites, selectFavoritesPending} from "../../store/favorites";
-import {useHistory} from "react-router";
+import style from './Header.module.scss';
 
 export const Header = () => {
     const sessionState = useSelector(selectSessionState);//авторизован ли пользователь
