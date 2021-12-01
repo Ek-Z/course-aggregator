@@ -5,6 +5,7 @@
         "printWidth": 120
     },
     "scripts": {
+        "postinstall": "npm run prod",
         "dev": "npm run development",
         "development": "mix",
         "watch": "mix watch",
