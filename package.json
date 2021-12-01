@@ -4,6 +4,10 @@
         "singleQuote": true,
         "printWidth": 120
     },
+    "engines": {
+        "node": "14.17",
+        "npm": "6.14"
+    },
     "scripts": {
         "dev": "npm run development",
         "development": "mix",
@@ -41,7 +45,6 @@
         "@emotion/styled": "^11.3.0",
         "@mui/icons-material": "^5.0.4",
         "@mui/material": "^5.0.4",
-        "html-react-parser": "^1.4.0",
-        "npm": "^8.1.4"
+        "html-react-parser": "^1.4.0"
     }
 }
