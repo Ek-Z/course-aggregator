@@ -18,33 +18,33 @@
         "production": "mix --production"
     },
     "devDependencies": {
-        "@babel/preset-react": "^7.13.13",
+        "@babel/preset-react": "^7.16.0",
         "@reduxjs/toolkit": "^1.6.2",
         "axios": "^0.21",
-        "bootstrap": "^4.6.0",
+        "bootstrap": "^4.6.1",
         "composer": "^4.1.0",
         "jquery": "^3.6",
-        "laravel-mix": "^6.0.6",
+        "laravel-mix": "^6.0.39",
         "lodash": "^4.17.19",
         "popper.js": "^1.16.1",
-        "postcss": "^8.1.14",
+        "postcss": "^8.4.4",
         "prop-types": "^15.7.2",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
-        "react-redux": "^7.2.5",
+        "react-redux": "^7.2.6",
         "react-router-dom": "^5.3.0",
-        "redux": "^4.1.1",
+        "redux": "^4.1.2",
         "redux-persist": "^6.0.0",
-        "redux-thunk": "^2.3.0",
+        "redux-thunk": "^2.4.1",
         "resolve-url-loader": "^4.0.0",
-        "sass": "^1.32.11",
+        "sass": "^1.44.0",
         "sass-loader": "^11.0.1"
     },
     "dependencies": {
-        "@emotion/react": "^11.4.1",
-        "@emotion/styled": "^11.3.0",
-        "@mui/icons-material": "^5.0.4",
-        "@mui/material": "^5.0.4",
-        "html-react-parser": "^1.4.0"
+        "@emotion/react": "^11.7.0",
+        "@emotion/styled": "^11.6.0",
+        "@mui/icons-material": "^5.2.0",
+        "@mui/material": "^5.2.2",
+        "html-react-parser": "^1.4.1"
     }
 }
