@@ -79,9 +79,9 @@ export const Header = () => {
     return (
         <AppBar position="static" color="transparent">
             <Container>
-                <Toolbar>
+                <Toolbar className={style.block}>
                     <Tooltip title="Главная страница">
-                        <Box sx={{ height: 40 }}>
+                        <Box sx={{ height: 40, width:120, marginBottom: '10px', marginRight:'20px' }}>
                             <Link className={style.headerLinks} to="/">
                                 <svg className={style.logo}>
                                     <use xlinkHref="/assets/logo.svg#header-logo"/>
@@ -89,7 +89,7 @@ export const Header = () => {
                             </Link>
                         </Box>
                     </Tooltip>
-                    <Box mr={3} ml={'auto'} sx={{ display: 'flex', alignItems: 'center' }}>
+                    <Box mr={3} ml={'auto'} sx={{ display: 'flex', alignItems: 'center' }} className={style.block}>
                         <Link className={style.headerLinks} to="/courses">
                             <Button color="secondary"
                                     variant="contained"

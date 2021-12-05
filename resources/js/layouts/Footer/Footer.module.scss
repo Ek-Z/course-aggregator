@@ -2,6 +2,7 @@
     background-color: #f84646;
     margin-top: 24px;
     box-shadow: 0 -2px 10px 0 #000;
+    height: 120px;
 }
 
 .wrap {
@@ -15,6 +16,7 @@
 
         &:first-child {
             margin-right: auto;
+            margin-left: 10px;
         }
     }
 }
