@@ -34,11 +34,11 @@ export const TableRow = ({ item }) => {
             }
             <td>
                 <Link to={`/admin/edit_course/${item.id}`}>
-                    <button>Редактировать</button>
+                    <button className={style.row__btn}>Редактировать</button>
                 </Link>
             </td>
             <td>
-                <button onClick={handleCourseDelete}>Удалить</button>
+                <button onClick={handleCourseDelete} className={style.row__btn}>Удалить</button>
             </td>
         </tr>
     );

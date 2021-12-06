@@ -40,7 +40,7 @@ export const AdminPanel = () => {
 
     return (
         <div className={style.wrap}>
-            <h3 className={style.title}>Это admin Page</h3>
+            <h3 className={style.title}>Администрирование курсов</h3>
             {status === STATUSES.REQUEST ?
                 <ProgressLoader/> :
                 <AdminTable titles={titles} table={courses}/>
