@@ -21,7 +21,6 @@
         "@babel/preset-react": "^7.16.0",
         "@reduxjs/toolkit": "^1.6.2",
         "axios": "^0.21",
-        "bootstrap": "^4.6.1",
         "composer": "^4.1.0",
         "jquery": "^3.6",
         "laravel-mix": "^6.0.39",
