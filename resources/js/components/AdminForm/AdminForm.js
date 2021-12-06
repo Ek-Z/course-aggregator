@@ -88,7 +88,7 @@ export const AdminForm = () => {
                         type="text"
                         name="title"
                         defaultValue={courseId ? course.title : ''}
-                        placeholder="Введите название курса"
+                        placeholder="Введите название курса (не менее 5 символов)"
                         ref={courseTitleRef}
                         required={true}
                     />
@@ -179,10 +179,12 @@ export const AdminForm = () => {
                 <button
                     type="submit"
                     onClick={handleCourseData}
+                    className={style.btnForm}
                 >
                     {courseId ? 'Редактировать' : 'Добавить'} курс
                 </button>
-                <button type="reset">Сбросить</button>
+                <button type="reset" className={style.btnForm}
+                >Сбросить</button>
             </form>
         </div>
     );

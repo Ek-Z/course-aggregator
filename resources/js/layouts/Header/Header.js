@@ -79,9 +79,9 @@ export const Header = () => {
     return (
         <AppBar position="static" color="transparent">
             <Container>
-                <Toolbar>
+                <Toolbar className={style.block}>
                     <Tooltip title="Главная страница">
-                        <Box sx={{ height: 40 }}>
+                        <Box sx={{ height: 40, width:120, marginBottom: '10px', marginRight:'20px' }} className={style.logoWrp}>
                             <Link className={style.headerLinks} to="/">
                                 <svg className={style.logo}>
                                     <use xlinkHref="/assets/logo.svg#header-logo"/>
@@ -89,11 +89,12 @@ export const Header = () => {
                             </Link>
                         </Box>
                     </Tooltip>
-                    <Box mr={3} ml={'auto'} sx={{ display: 'flex', alignItems: 'center' }}>
+                    <Box mr={3} ml={'auto'} sx={{ display: 'flex', alignItems: 'center' }} className={style.block}>
                         <Link className={style.headerLinks} to="/courses">
                             <Button color="secondary"
                                     variant="contained"
                                     sx={{ marginRight: '1.5rem', color: '#ffffff' }}
+                                    className={style.logoWrp}
                             >
                                 Бесплатно
                             </Button>
@@ -106,7 +107,7 @@ export const Header = () => {
                                 sx={{ border: 'none', width: '50px' }}
                             >
                                 <Link className={style.headerLinks} to="/favorites">
-                                    <i className="far fa-heart" style={{ fontSize: '20px', color: '#000' }}>
+                                    <i className="far fa-heart"  style={{ fontSize: '20px', color: '#000' }}>
                                         <div className={style.counterBlock}>{favoritesCount}</div>
                                     </i>
                                 </Link>
@@ -115,7 +116,7 @@ export const Header = () => {
                         }
                         {isAdmin &&
                         <Tooltip title="Открыть панель администратора">
-                            <Button color="inherit" variant="outlined" sx={{ marginRight: '1.5rem', border:0 }}>
+                            <Button color="inherit" variant="outlined" sx={{ marginRight: '1.5rem', border:0 }} className={style.logoWrp}>
                                 <Link className={style.headerLinks} to="/admin">
                                     Админ-панель
                                 </Link>
@@ -189,10 +190,10 @@ export const Header = () => {
                     </Box>
                     }
                     {sessionState && <>
-                        <Button color="inherit" variant="outlined" sx={{ marginRight: '1.5rem', border: 0 }}>
+                        <Button color="inherit" variant="outlined" sx={{ marginRight: '1.5rem', border: 0 }} className={style.logoWrp}>
                             {userName}
                         </Button>
-                        <Button onClick={() => signOut()} color="inherit" variant="outlined"
+                        <Button onClick={() => signOut()} color="inherit" variant="outlined" className={style.logoWrp}
                                 sx={{ marginRight: '1.5rem', border: 0 }}>
                             Выйти
                         </Button>

@@ -13,3 +13,9 @@
     grid-template-columns: repeat(2, minmax(200px, min-content));
     grid-gap: 24px;
 }
+
+@media (max-width: 855px) {
+    .grid{
+        grid-template-columns: repeat(1, minmax(200px, min-content));
+    }
+}
