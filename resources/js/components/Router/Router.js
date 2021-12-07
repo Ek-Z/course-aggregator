@@ -11,12 +11,16 @@ import { Footer } from '../../layouts/Footer/Footer';
 import { AdminForm } from '../AdminForm/AdminForm';
 import { Favorites } from '../../layouts/Favorites/Favorites';
 import style from './Router.module.scss';
+import {useSelector} from "react-redux";
+import {selectStatus} from "../../store/courseList/selectors";
+import {STATUSES} from "../../utils/statuses/statuses";
 
 export const Router = () => {
+    const status = useSelector(selectStatus);
     return (
         <HashRouter>
             <div className={style.bg}>
-                <div className={style.application}>
+                <div className={(status == STATUSES.SUCCESS) ? style.application : style.applicationNoCourses}>
                     <Header/>
                     <Switch>
                         <Route exact={true} path="/" component={Home}/>
