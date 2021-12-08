@@ -7,6 +7,13 @@ import { addNewCourse, editSelectedCourse } from '../../store/admin/action';
 import { selectIsAdmin } from '../../store/session/selectors';
 import { selectExactCourse } from '../../store/courseList/selectors';
 import style from './AdminForm.module.scss';
+import {useState} from "react";
+import {Error} from "../Error/Error";
+
+const validate = (url) => {
+    let regexp = /^[0-9a-zA-Z!@#$%^&*]+\.[a-z]{2}$/g;
+    return regexp.test(url)
+}
 
 export const AdminForm = () => {
     const [languages, setLanguages] = React.useState([]);
@@ -24,6 +31,11 @@ export const AdminForm = () => {
     const course = useSelector(selectCourse);
     const dispatch = useDispatch();
     let history = useHistory();
+    const [error,setError] = useState({
+        title:"",
+        source:"",
+        url:""
+    })
 
     const getProgrammingLanguages = async () => {
         return await fetchData(URLS.PROGRAMMING_LANGUAGES);
@@ -31,16 +43,7 @@ export const AdminForm = () => {
 
     const handleCourseData = (evt) => {
         evt.preventDefault();
-
-        if (!courseTitleRef.current?.value.trim() && !sourceUrlRef.current?.value.trim()) {
-            courseTitleRef.current.value = '';
-            sourceUrlRef.current.value = '';
-
-            courseTitleRef.current.placeholder = 'Поле обязательно для заполнения';
-            sourceUrlRef.current.placeholder = 'Поле обязательно для заполнения';
-
-            return;
-        }
+        setError({...error, title: "", source: ""});
 
         const newCourseData = {
             title: courseTitleRef.current?.value.trim(),
@@ -58,15 +61,24 @@ export const AdminForm = () => {
             .data
             .token;
 
-        if (courseId) {
+        if (!courseTitleRef.current?.value){
+            setError({title: "Поле обязательно для заполнения"})
+        } else if (!sourceUrlRef.current?.value){
+            setError({source: "Поле обязательно для заполнения"})
+        }
+        else if(!validate(sourceUrlRef.current?.value)){
+            setError({url: "Данное поле должно обязательно иметь домен, например '.ru'"});
+        }
+        else if (courseId) {
             dispatch(editSelectedCourse(courseId, newCourseData, userToken));
             alert('Курс успешно редактирован');
+            history.push('/admin');
         } else {
             dispatch(addNewCourse(newCourseData, userToken));
             alert('Курс успешно добавлен');
+            history.push('/admin');
         }
 
-        history.push('/admin');
     };
 
     React.useEffect(async () => {
@@ -82,7 +94,7 @@ export const AdminForm = () => {
         <div className={`container ${style.wrap}`}>
             <form onSubmit={handleCourseData} className={style.form} method="POST">
                 <label htmlFor="title">
-                    Название курса
+                    Название курса* {error.title && <Error textError={error.title}/>}
                     <input
                         id="title"
                         type="text"
@@ -90,7 +102,6 @@ export const AdminForm = () => {
                         defaultValue={courseId ? course.title : ''}
                         placeholder="Введите название курса (не менее 5 символов)"
                         ref={courseTitleRef}
-                        required={true}
                     />
                 </label>
                 <label htmlFor="language">
@@ -136,7 +147,7 @@ export const AdminForm = () => {
                             key={language.id}
                             value={language.title}
                             id={language.id}
-                            selected={courseId ? language.id === course.programmingLanguage_id : false}
+                            defaultValue={courseId ? language.id === course.programmingLanguage_id : false}
                         >
                             {language.title}
                         </option>)}
@@ -154,7 +165,9 @@ export const AdminForm = () => {
                     />
                 </label>
                 <label htmlFor="source_url">
-                    URL источника
+                    URL источника*
+                    {error.source && <Error textError={error.source}/>}
+                    {error.url && <Error textError={error.url}/>}
                     <input
                         id="source_url"
                         type="url"
@@ -162,7 +175,6 @@ export const AdminForm = () => {
                         defaultValue={courseId ? course.source_url : ''}
                         placeholder="Введите URL источника"
                         ref={sourceUrlRef}
-                        required={true}
                     />
                 </label>
                 <label htmlFor="image">

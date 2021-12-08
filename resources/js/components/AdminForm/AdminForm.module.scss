@@ -21,9 +21,6 @@
 
         & > input {
             border-radius: 5px;
-            &:required {
-                border-color: red;
-            }
         }
         & > select {
             border-radius: 5px;
@@ -72,6 +69,16 @@
     }
 }
 
-textarea placeholder{
-
+input, select{
+    height: 30px;
+    margin: 5px 0;
+    border:none;
+    padding: 5px 0 0 5px;
+    box-sizing: border-box;
+}
+textarea{
+    margin: 5px 0;
+    border: none;
+    padding: 5px 0 0 5px;
+    box-sizing: border-box;
 }
