@@ -39,7 +39,9 @@ export const LoginPage = () => {
         }
         else {
             await dispatch(logInThunk(user))
-            await dispatch(getFavoritesThunk())
+            if (username){
+                await dispatch(getFavoritesThunk())
+            }
         }
     }
 
