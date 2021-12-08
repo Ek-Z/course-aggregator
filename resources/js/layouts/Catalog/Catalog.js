@@ -46,20 +46,20 @@ export const Catalog = () => {
     return (
         <section className={style.catalog}>
             <div className={`container ${style.wrap}`}>
-                <h2 className={style.title}>Список бесплатных курсов</h2>
-                <InputSearch/>
+                <h2 className={style.title}>Бесплатные курсы</h2>
+                <InputSearch />
                 <div className={style.list}>
-                    <CourseFilter/>
+                    <CourseFilter />
                     {status === STATUSES.REQUEST ?
-                        <ProgressLoader/> :
-                        <CourseList list={courseList}/>
+                        <ProgressLoader /> :
+                        <CourseList list={courseList} />
                     }
                 </div>
                 <Pagination className={style.pagination}
-                            key={`button-${currentPage}`}
-                            count={lastPage}
-                            defaultPage={currentPage}
-                            onChange={handlePageChange}
+                    key={`button-${currentPage}`}
+                    count={lastPage}
+                    defaultPage={currentPage}
+                    onChange={handlePageChange}
                 />
             </div>
         </section>

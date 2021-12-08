@@ -28,12 +28,12 @@ export const Home = () => {
     return (
         <div className="container">
             <h1 className={style.title}>
-                Агрегатор бесплатных курсов
+                Начни учиться с нами сейчас!
                 <span>Мы собрали все бесплатные курсы по программированию</span>
             </h1>
             {status === STATUSES.REQUEST ?
-                <ProgressLoader/> :
-                <CourseList list={courseList}/>
+                <ProgressLoader /> :
+                <CourseList list={courseList} />
             }
         </div>
     );

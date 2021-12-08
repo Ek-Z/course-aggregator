@@ -34,11 +34,15 @@ export const TableRow = ({ item }) => {
             }
             <td>
                 <Link to={`/admin/edit_course/${item.id}`}>
-                    <button className={style.row__btn}>Редактировать</button>
+                    <button className={style.row__btn}>
+                        <img src="https://img.icons8.com/android/13/FFFFFF/pencil.png" />
+                    </button>
                 </Link>
             </td>
             <td>
-                <button onClick={handleCourseDelete} className={style.row__btn}>Удалить</button>
+                <button onClick={handleCourseDelete} className={style.row__btn}>
+                    <img src="https://img.icons8.com/ios-glyphs/13/FFFFFF/delete-sign.png" />
+                </button>
             </td>
         </tr>
     );
