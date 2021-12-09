@@ -34537,7 +34537,7 @@ var AdminForm = function AdminForm() {
       method: "POST",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("label", {
         htmlFor: "title",
-        children: ["\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043A\u0443\u0440\u0441\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("input", {
+        children: ["\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043A\u0443\u0440\u0441\u0430*", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("input", {
           id: "title",
           type: "text",
           name: "title",
@@ -34608,7 +34608,7 @@ var AdminForm = function AdminForm() {
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("label", {
         htmlFor: "source_url",
-        children: ["URL \u0438\u0441\u0442\u043E\u0447\u043D\u0438\u043A\u0430", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("input", {
+        children: ["URL \u0438\u0441\u0442\u043E\u0447\u043D\u0438\u043A\u0430*", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("input", {
           id: "source_url",
           type: "url",
           name: "source_url",
@@ -38923,7 +38923,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "._1Sr7z9Ejt0RRCEp5wMI0kS {\n  padding: 50px 0;\n  display: flex;\n  justify-content: center;\n  min-height: 80vh;\n}\n\n._3EGDfUB5f7tl7kPrkOkmDO {\n  display: flex;\n  flex-direction: column;\n  max-width: 600px;\n  width: 100%;\n}\n._3EGDfUB5f7tl7kPrkOkmDO > label {\n  display: flex;\n  flex-direction: column;\n}\n._3EGDfUB5f7tl7kPrkOkmDO > label + label {\n  margin-top: 10px;\n}\n._3EGDfUB5f7tl7kPrkOkmDO > label > input {\n  border-radius: 5px;\n}\n._3EGDfUB5f7tl7kPrkOkmDO > label > input:required {\n  border-color: red;\n}\n._3EGDfUB5f7tl7kPrkOkmDO > label > select {\n  border-radius: 5px;\n}\n._3EGDfUB5f7tl7kPrkOkmDO > label > textarea {\n  resize: vertical;\n  width: 100%;\n  min-height: 100px;\n  font-family: Roboto, sans-serif;\n  border-radius: 5px;\n}\n._3EGDfUB5f7tl7kPrkOkmDO > label:last-of-type {\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n}\n._3EGDfUB5f7tl7kPrkOkmDO > button:first-of-type {\n  margin-top: 20px;\n}\n._3EGDfUB5f7tl7kPrkOkmDO > button + button {\n  margin-top: 10px;\n}\n\n._2DlViIa4inGcoWYxOG1Z8F {\n  width: 100%;\n  padding: 10px;\n  background-color: #f84646;\n  border: none;\n  border-radius: 4px;\n  color: #ffffff;\n  transition: background-color 300ms;\n  cursor: pointer;\n  font-family: inherit;\n  text-transform: uppercase;\n  font-size: 10px;\n}\n._2DlViIa4inGcoWYxOG1Z8F:hover {\n  background-color: #be001e;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "._1Sr7z9Ejt0RRCEp5wMI0kS {\n  padding: 50px 0;\n  display: flex;\n  justify-content: center;\n  min-height: 80vh;\n}\n\n._3EGDfUB5f7tl7kPrkOkmDO {\n  display: flex;\n  flex-direction: column;\n  max-width: 600px;\n  width: 100%;\n}\n._3EGDfUB5f7tl7kPrkOkmDO > label {\n  display: flex;\n  flex-direction: column;\n}\n._3EGDfUB5f7tl7kPrkOkmDO > label + label {\n  margin-top: 10px;\n}\n._3EGDfUB5f7tl7kPrkOkmDO > label > input {\n  border-radius: 5px;\n}\n._3EGDfUB5f7tl7kPrkOkmDO > label > select {\n  border-radius: 5px;\n}\n._3EGDfUB5f7tl7kPrkOkmDO > label > textarea {\n  resize: vertical;\n  width: 100%;\n  min-height: 100px;\n  font-family: Roboto, sans-serif;\n  border-radius: 5px;\n}\n._3EGDfUB5f7tl7kPrkOkmDO > label:last-of-type {\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n}\n._3EGDfUB5f7tl7kPrkOkmDO > button:first-of-type {\n  margin-top: 20px;\n}\n._3EGDfUB5f7tl7kPrkOkmDO > button + button {\n  margin-top: 10px;\n}\n\n._2DlViIa4inGcoWYxOG1Z8F {\n  width: 100%;\n  padding: 10px;\n  background-color: #f17439;\n  border: none;\n  border-radius: 4px;\n  color: #ffffff;\n  transition: background-color 300ms;\n  cursor: pointer;\n  font-family: inherit;\n  text-transform: uppercase;\n  font-size: 10px;\n}\n._2DlViIa4inGcoWYxOG1Z8F:hover {\n  background-color: #b84508;\n}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"wrap": "_1Sr7z9Ejt0RRCEp5wMI0kS",
@@ -38952,7 +38952,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "._1e1Y2knasqIyZ5H3bYl7Aa {\n  border-collapse: collapse;\n  background-color: rgba(255, 255, 255, 0.95);\n  margin-top: 20px;\n}\n\n._1ujf78fMDmGjc87inYAaHN {\n  border: 1px solid black;\n  text-align: center;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "._1e1Y2knasqIyZ5H3bYl7Aa {\n  border-collapse: collapse;\n  background-color: rgba(255, 255, 255, 0.95);\n  margin: 0 30px 0 30px;\n  margin-top: 20px;\n}\n\n._1ujf78fMDmGjc87inYAaHN {\n  border: 1px solid black;\n  text-align: center;\n}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"table": "_1e1Y2knasqIyZ5H3bYl7Aa",
@@ -39281,7 +39281,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "._3wy1kklZBTFwiMvwxjNMDH {\n  border: 1px solid black;\n  text-align: center;\n}\n._2sGupasluINT8DRuIyju7- {\n  width: 100%;\n  padding: 10px;\n  background-color: #f84646;\n  border: none;\n  border-radius: 4px;\n  color: #ffffff;\n  transition: background-color 300ms;\n  cursor: pointer;\n  font-family: inherit;\n  text-transform: uppercase;\n  font-size: 10px;\n}\n._2sGupasluINT8DRuIyju7-:hover {\n  background-color: #be001e;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "._3wy1kklZBTFwiMvwxjNMDH {\n  border: 1px solid black;\n  text-align: center;\n}\n._2sGupasluINT8DRuIyju7- {\n  width: 100%;\n  padding: 10px;\n  background-color: #f17439;\n  border: none;\n  border-radius: 4px;\n  color: #ffffff;\n  transition: background-color 300ms;\n  cursor: pointer;\n  font-family: inherit;\n  text-transform: uppercase;\n  font-size: 10px;\n}\n._2sGupasluINT8DRuIyju7-:hover {\n  background-color: #b84508;\n}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"row__cell": "_3wy1kklZBTFwiMvwxjNMDH",
