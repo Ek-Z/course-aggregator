@@ -1,0 +1,40 @@
+.billboard{
+    width: 100%;
+    min-height: 100%;
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.title {
+    font-style: normal;
+    font-weight: 900;
+    font-size: 62px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    
+    & > span {
+        font-weight: 300;
+        font-size: 24px;
+        line-height: 28px;
+        padding-top: 30px;
+        line-height: 40px;
+    }
+}
+
+.image{
+    height: 730px;
+    width: 50%;
+    background-image: url('~/images/student.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.buttonToCatalog{
+    min-width: 120px;
+    margin-top: 50px;
+    padding: 10px 0 10px;
+}

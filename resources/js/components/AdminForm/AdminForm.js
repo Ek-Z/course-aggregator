@@ -87,14 +87,16 @@ export const AdminForm = () => {
     }, []);
 
     if (!isAdmin) {
-        return <Redirect to="/"/>;
+        return <Redirect to="/" />;
     }
 
     return (
         <div className={`container ${style.wrap}`}>
             <form onSubmit={handleCourseData} className={style.form} method="POST">
                 <label htmlFor="title">
+
                     Название курса* {error.title && <Error textError={error.title}/>}
+
                     <input
                         id="title"
                         type="text"
@@ -107,7 +109,7 @@ export const AdminForm = () => {
                 <label htmlFor="language">
                     Язык курса
                     <select name="language" id="language" ref={courseLanguageRef}
-                            defaultValue={courseId ? course.language : 'Русский'}>
+                        defaultValue={courseId ? course.language : 'Русский'}>
                         <option id="1" value="Русский">
                             Русский
                         </option>
@@ -166,8 +168,10 @@ export const AdminForm = () => {
                 </label>
                 <label htmlFor="source_url">
                     URL источника*
+
                     {error.source && <Error textError={error.source}/>}
                     {error.url && <Error textError={error.url}/>}
+
                     <input
                         id="source_url"
                         type="url"

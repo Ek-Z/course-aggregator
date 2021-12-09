@@ -39,13 +39,13 @@ export const InputSearch = () => {
                     endAdornment: (
                         <InputAdornment position="end" sx={{ height: '100%', margin: '0' }}>
                             <Button type="submit"
-                                    color="secondary"
-                                    variant="contained"
-                                    onClick={handleFilterSubmit}
-                                    sx={{
-                                        marginRight: '0',
-                                        color: '#ffffff'
-                                    }}
+                                color="primary"
+                                variant="contained"
+                                onClick={handleFilterSubmit}
+                                sx={{
+                                    marginRight: '0',
+                                    color: '#ffffff'
+                                }}
                             >
                                 Найти курсы
                             </Button>

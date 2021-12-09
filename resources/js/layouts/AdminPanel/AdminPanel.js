@@ -35,21 +35,21 @@ export const AdminPanel = () => {
     }, [dispatch, currentPage]);
 
     if (!isAdmin) {
-        return <Redirect to="/"/>;
+        return <Redirect to="/" />;
     }
 
     return (
         <div className={style.wrap}>
-            <h3 className={style.title}>Администрирование курсов</h3>
+            <h3 className={style.title}>Список всех курсов</h3>
             {status === STATUSES.REQUEST ?
-                <ProgressLoader/> :
-                <AdminTable titles={titles} table={courses}/>
+                <ProgressLoader /> :
+                <AdminTable titles={titles} table={courses} />
             }
             <Pagination className={style.pagination}
-                        key={`button-${currentPage}`}
-                        count={lastPage}
-                        defaultPage={currentPage}
-                        onChange={(event, newPage) => dispatch(changePage(newPage))}
+                key={`button-${currentPage}`}
+                count={lastPage}
+                defaultPage={currentPage}
+                onChange={(event, newPage) => dispatch(changePage(newPage))}
             />
         </div>
     );

@@ -53,12 +53,12 @@ export const FavoriteCheckbox = ({ id }) => {
     return (
         <Tooltip title={checked ? 'Удалить из избранного' : 'Добавить в избранное'}>
             <Checkbox {...label}
-                      icon={<FavoriteBorder style={{ fill: '#f84646' }}/>}
-                      checkedIcon={<Favorite/>}
-                      color="secondary"
-                      style={{ padding: 0 }}
-                      checked={checked}
-                      onClick={handleClick}
+                icon={<FavoriteBorder style={{ fill: '#F17439' }} />}
+                checkedIcon={<Favorite />}
+                color="primary"
+                style={{ padding: 0 }}
+                checked={checked}
+                onClick={handleClick}
             />
         </Tooltip>
     );
