@@ -71,7 +71,9 @@ export const RegistrationPage = () => {
         }
         else {
             await dispatch(registerThunk(user))
-            await dispatch(getFavoritesThunk())
+            if (username){
+                await dispatch(getFavoritesThunk())
+            }
         }
     }
     return (

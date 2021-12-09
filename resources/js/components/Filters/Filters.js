@@ -23,7 +23,7 @@ export const Filters = ({ filterTitles, filterValues }) => {
 
     return (
         <Accordion defaultExpanded={true} disableGutters={true}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon/>}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 <Typography>{filterTitles}</Typography>
             </AccordionSummary>
             <AccordionDetails>
@@ -31,10 +31,10 @@ export const Filters = ({ filterTitles, filterValues }) => {
                     <FormControlLabel
                         key={statefulValue.id}
                         control={<Checkbox id={statefulValue.id.toString()}
-                                           title={statefulValue.title}
-                                           color="secondary"
-                                           checked={statefulValue.state}
-                                           onChange={changeFilterState}/>}
+                            title={statefulValue.title}
+                            color="primary"
+                            checked={statefulValue.state}
+                            onChange={changeFilterState} />}
                         label={statefulValue.title}
                     /> :
                     null

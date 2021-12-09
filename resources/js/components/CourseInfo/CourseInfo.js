@@ -31,7 +31,7 @@ export const CourseInfo = ({ item }) => {
                         target="_blank"
                     >
                         <Button
-                            color="secondary"
+                            color="primary"
                             variant="contained"
                             sx={{
                                 padding: 2,

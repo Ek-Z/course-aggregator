@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Billboard } from '../../components/Billboard/Billboard';
 import { CourseList } from '../../components/CourseList/CourseList';
 import {
     selectCourseList,
@@ -27,13 +28,11 @@ export const Home = () => {
 
     return (
         <div className="container">
-            <h1 className={style.title}>
-                Агрегатор бесплатных курсов
-                <span>Мы собрали все бесплатные курсы по программированию</span>
-            </h1>
+            <Billboard />
+            <h3 className={style.title}>Новые курсы</h3>
             {status === STATUSES.REQUEST ?
-                <ProgressLoader/> :
-                <CourseList list={courseList}/>
+                <ProgressLoader /> :
+                <CourseList list={courseList} />
             }
         </div>
     );
