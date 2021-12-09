@@ -30,7 +30,7 @@ export const Billboard = () => {
                 </Link>
             </div>
 
-            <div className={style.image}>
+            <div hidden className={style.image}>
 
             </div>
         </div>

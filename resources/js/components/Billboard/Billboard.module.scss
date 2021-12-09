@@ -24,6 +24,16 @@
     }
 }
 
+div[hidden] {
+    display: none;
+}
+
+@media (min-width: 700px) {
+    div[hidden] {
+    display: block;
+    }
+}
+
 .image{
     height: 730px;
     width: 50%;
