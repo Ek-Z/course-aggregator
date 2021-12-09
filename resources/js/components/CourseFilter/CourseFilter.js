@@ -25,12 +25,12 @@ export const CourseFilter = () => {
     return (
         <form action="#" className={style.filter} onSubmit={handleFilterSubmit}>
             {filterStatus === STATUSES.SUCCESS && Object.entries(filters).map((filter, index) => filter ?
-                <Filters key={index} filterTitles={filter[0]} filterValues={filter[1]}/> :
+                <Filters key={index} filterTitles={filter[0]} filterValues={filter[1]} /> :
                 <div>Ошибка</div>
             )}
             <Button
                 onClick={handleFilterSubmit}
-                color="secondary"
+                color="primary"
                 variant="contained"
                 sx={{
                     color: '#fff',

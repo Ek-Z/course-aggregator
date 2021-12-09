@@ -4,7 +4,7 @@ import style from './ProgressLoader.module.scss';
 export const ProgressLoader = () => {
     return (
         <div className={style.loader_wrap}>
-            <CircularProgress color="secondary" className={style.loader}/>
+            <CircularProgress color="primary" className={style.loader} />
         </div>
     );
 };

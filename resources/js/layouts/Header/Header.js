@@ -91,7 +91,7 @@ export const Header = () => {
                     </Tooltip>
                     <Box mr={3} ml={'auto'} sx={{ display: 'flex', alignItems: 'center' }} className={style.block}>
                         <Link className={style.headerLinks} to="/courses">
-                            <Button color="secondary"
+                            <Button color="primary"
                                 variant="contained"
                                 sx={{ marginRight: '1.5rem', color: '#ffffff' }}
                                 className={style.logoWrp}
@@ -200,8 +200,8 @@ export const Header = () => {
                     </>}
                 </Toolbar>
             </Container>
-            {(pending && username) && <CircularProgress color="secondary" style={{ position: 'absolute', left: '93%', top: '1%' }} />}
-            {favoritesPending && <CircularProgress color="secondary" style={{ position: 'fixed', left: '50%', top: '50%', zIndex: 999 }} />}
+            {(pending && username) && <CircularProgress color="primary" style={{ position: 'absolute', left: '93%', top: '1%' }} />}
+            {favoritesPending && <CircularProgress color="primary" style={{ position: 'fixed', left: '50%', top: '50%', zIndex: 999 }} />}
         </AppBar>
     );
 };
