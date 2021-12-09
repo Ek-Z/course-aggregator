@@ -5,6 +5,8 @@ import { deleteSelectedCourse } from '../../store/admin/action';
 import { getAdminCourseList } from '../../store/courseList/action';
 import { selectCurrentPage } from '../../store/pages/selectors';
 import style from './TableRow.module.scss';
+import {Tooltip} from "@mui/material";
+import * as React from "react";
 
 export const TableRow = ({ item }) => {
     const currentPage = useSelector(selectCurrentPage);
@@ -34,15 +36,19 @@ export const TableRow = ({ item }) => {
             }
             <td>
                 <Link to={`/admin/edit_course/${item.id}`}>
-                    <button className={style.row__btn}>
-                        <img src="https://img.icons8.com/android/13/FFFFFF/pencil.png" />
-                    </button>
+                    <Tooltip title="Редактировать">
+                        <button className={style.row__btn}>
+                            <img src="https://img.icons8.com/android/13/FFFFFF/pencil.png" />
+                        </button>
+                    </Tooltip>
                 </Link>
             </td>
             <td>
-                <button onClick={handleCourseDelete} className={style.row__btn}>
-                    <img src="https://img.icons8.com/ios-glyphs/13/FFFFFF/delete-sign.png" />
-                </button>
+                <Tooltip title="Удалить">
+                    <button onClick={handleCourseDelete} className={style.row__btn}>
+                        <img src="https://img.icons8.com/ios-glyphs/13/FFFFFF/delete-sign.png" />
+                    </button>
+                </Tooltip>
             </td>
         </tr>
     );
