@@ -6,6 +6,7 @@ import {AuthForm} from "../../components/AuthForm/AuthForm";
 import {logInThunk} from "../../store/session/thunks";
 import {selectUserName} from "../../store/session/selectors";
 import {getFavoritesThunk} from "../../store/favorites/thunks";
+import {useEffect} from "react";
 
 export const LoginPage = () => {
     const username = useSelector(selectUserName)
@@ -29,6 +30,12 @@ export const LoginPage = () => {
         setUser({ ...user, [e.target.name]: e.target.value });
     };
 
+    useEffect(() => {
+        if (username){
+            dispatch(getFavoritesThunk())
+        }
+    },[username])
+
     const signIn = async (e) => {
         e.preventDefault();
         if(user.email === '') {
@@ -39,9 +46,6 @@ export const LoginPage = () => {
         }
         else {
             await dispatch(logInThunk(user))
-            if (username){
-                await dispatch(getFavoritesThunk())
-            }
         }
     }
 
