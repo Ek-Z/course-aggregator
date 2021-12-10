@@ -43,6 +43,12 @@ export const RegistrationPage = () => {
         setUser({...user,[e.target.name]:e.target.value })
     }
 
+    useEffect(() => {
+        if (username){
+            dispatch(getFavoritesThunk())
+        }
+    },[username])
+
     const signUp = async (e) =>{
         e.preventDefault();
         setError({...error,
@@ -71,9 +77,6 @@ export const RegistrationPage = () => {
         }
         else {
             await dispatch(registerThunk(user))
-            if (username){
-                await dispatch(getFavoritesThunk())
-            }
         }
     }
     return (

@@ -182,11 +182,11 @@ export const AdminForm = () => {
                     />
                 </label>
                 <label htmlFor="image">
-                    Фотограция курса
+                    Изображение курса
                     <input
                         id="image"
                         type="file"
-                        alt="фотография курса"
+                        alt="Изображение курса"
                         accept="image/*"
                         name="image"
                         ref={courseImageRef}
