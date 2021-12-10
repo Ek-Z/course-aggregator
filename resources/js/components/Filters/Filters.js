@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useDispatch } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 import {
     Accordion,
@@ -11,15 +11,22 @@ import {
     Checkbox
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { filterStateChanged } from '../../store/courseList/action';
+import { filterStateChanged, setFilterClear} from '../../store/courseList/action';
+import {useEffect} from "react";
+import {selectProgrammingLanguages} from "../../store/courseList/selectors";
 
 export const Filters = ({ filterTitles, filterValues }) => {
     const dispatch = useDispatch();
+    const programmingLanguages = useSelector(selectProgrammingLanguages);
 
     const changeFilterState = evt => {
         const filterIndex = filterValues.findIndex(filterValue => filterValue.id === +evt.target.id);
         dispatch(filterStateChanged(filterIndex, filterTitles));
     };
+
+    useEffect(() => {
+        dispatch(setFilterClear(programmingLanguages));
+    },[])
 
     return (
         <Accordion defaultExpanded={true} disableGutters={true}>
